@@ -1,4 +1,5 @@
 import { Fragment } from "react";
+import { Link } from "react-router-dom";
 
 import classes from "./Header.module.css";
 
@@ -7,10 +8,16 @@ const Header = (props) => {
     <Fragment>
       <header className={classes.header}>
         <div className={classes.list}>
-          <h1 className={classes.title}>거래플랫폼</h1>
+          <Link to="/" className={classes.link}>
+            <h1 className={classes.title}>PANDA.</h1>
+          </Link>
           <ul className={classes.list2}>
-            <li>구매하기</li>
-            <li>판매하기</li>
+            <Link to="/Purchase/" className={classes.link}>
+              <li>구매하기</li>
+            </Link>
+            <Link to="/Sale/" className={classes.link}>
+              <li>판매하기</li>
+            </Link>
           </ul>
           <div className={classes.search}>검색</div>
         </div>
