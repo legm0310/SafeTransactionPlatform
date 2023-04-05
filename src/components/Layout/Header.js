@@ -1,5 +1,6 @@
 import { Fragment } from "react";
 import { Link } from "react-router-dom";
+import { FiSearch } from "react-icons/fi";
 
 import classes from "./Header.module.css";
 
@@ -19,7 +20,12 @@ const Header = (props) => {
               <li>판매하기</li>
             </Link>
           </ul>
-          <div className={classes.search}>검색</div>
+          <div className={classes.searchBox}>
+            <input type="text" className={classes.search} />
+            <button>
+              <FiSearch />
+            </button>
+          </div>
         </div>
         <ul className={classes.list3}>
           <li>로그인</li>
