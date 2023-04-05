@@ -3,12 +3,21 @@
   display: flex;
   justify-content: space-between;
   padding: 0 12%;
-  height: 90px;
+  height: 70px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+}
+
+.link {
+  text-decoration: none;
+  color: black;
 }
 
 .title {
   margin: 0;
-  font-size: 38px;
+  font-size: 30px;
 }
 
 .list {
@@ -21,7 +30,7 @@
   display: flex;
   margin: 0 50px;
   padding: 0;
-  font-size: 22px;
+  font-size: 17px;
 }
 
 .list2 li {
@@ -47,5 +56,5 @@
   list-style: none;
   margin: 0;
   padding: 0;
-  font-size: 18px;
+  font-size: 15px;
 }
