@@ -10,22 +10,24 @@
   right: 0;
 }
 
-.link {
-  text-decoration: none;
-  color: black;
-}
-
-.title {
-  margin: 0;
-  font-size: 30px;
-}
-
 .list {
   display: flex;
   align-items: center;
   width: 80%;
 }
 
+/* logo*/
+.link {
+  text-decoration: none;
+  color: black;
+}
+
+.logo {
+  margin: 0;
+  font-size: 30px;
+}
+
+/*구매하기, 판매하기*/
 .list2 {
   display: flex;
   margin: 0 50px;
@@ -33,17 +35,33 @@
   font-size: 17px;
 }
 
-.list2 li {
+.list2 .list2Item {
   list-style: none;
   margin: 0 30px;
 }
 
-.list2 li:hover {
+.list2 .list2Item:hover {
   transform: scale(1.05);
   transition: 0.1s;
   color: #75d700;
 }
 
+/* dropdown */
+.drobdown {
+  position: relative;
+  display: inline-block;
+  display: flex;
+}
+
+.dropdownContent {
+  display: none;
+}
+
+.dropdown:hover .dropdownContent {
+  display: flex;
+}
+
+/* searchBox */
 .searchBox {
   display: flex;
   border: 3px solid #75d700;
@@ -72,6 +90,7 @@
   cursor: pointer;
 }
 
+/*login*/
 .list3 {
   display: flex;
   align-items: center;
