@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { FiSearch } from "react-icons/fi";
 
 import classes from "./Header.module.css";
+import DropdownMenu from "./DropdownMenu";
 
 const Header = (props) => {
   return (
@@ -10,14 +11,19 @@ const Header = (props) => {
       <header className={classes.header}>
         <div className={classes.list}>
           <Link to="/" className={classes.link}>
-            <h1 className={classes.title}>PANDA.</h1>
+            <h1 className={classes.logo}>PANDA.</h1>
           </Link>
           <ul className={classes.list2}>
             <Link to="/Purchase/" className={classes.link}>
-              <li>구매하기</li>
+              <div className={classes.dropdown}>
+                <li className={classes.list2Item}>구매하기</li>
+                <div className={classes.dropdownContent}>
+                  <DropdownMenu />
+                </div>
+              </div>
             </Link>
-            <Link to="/Sale/" className={classes.link}>
-              <li>판매하기</li>
+            <Link to="/AddProduct/" className={classes.link}>
+              <li className={classes.list2Item}>판매하기</li>
             </Link>
           </ul>
           <div className={classes.searchBox}>
