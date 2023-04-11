@@ -7,9 +7,8 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background: ivory;
+  background: rgb(247, 247, 247);
   font-family: "Noto Sans KR", sans-serif;
-  height: 200vh;
 }
 
 code {
