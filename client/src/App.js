@@ -5,11 +5,13 @@ import Header from "./components/Layout/Header";
 import Home from "./components/Home/Home";
 import Purchase from "./components/Purchase/Purchase";
 import AddProduct from "./components/AddProduct/AddProduct";
+import Login from "./components/Layout/Login";
 
 function App() {
   return (
     <Fragment>
       <BrowserRouter>
+        <Login />
         <Header />
         <Routes>
           <Route path="/" element={<Home />}></Route>
