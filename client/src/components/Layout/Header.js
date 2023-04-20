@@ -1,11 +1,18 @@
 import { Fragment } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { FiSearch } from "react-icons/fi";
 
 import classes from "./Header.module.css";
 import DropdownMenu from "./DropdownMenu";
+import UserAuth from "./UserAuth";
 
 const Header = (props) => {
+  const location = useLocation();
+
+  // 현재 경로가 로그인 페이지인 경우 Header를 렌더링하지 않음
+  if (location.pathname === "/Login") {
+    return null;
+  }
   return (
     <Fragment>
       <header className={classes.header}>
@@ -33,10 +40,11 @@ const Header = (props) => {
             </button>
           </div>
         </div>
-        <ul className={classes.list3}>
-          <li>로그인</li>
-          <li>회원가입</li>
-        </ul>
+        <div className={classes.AuthList}>
+          <Link to="/Login" className={classes.link}>
+            <UserAuth />
+          </Link>
+        </div>
       </header>
     </Fragment>
   );
