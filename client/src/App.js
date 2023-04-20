@@ -5,18 +5,18 @@ import Header from "./components/Layout/Header";
 import Home from "./components/Home/Home";
 import Purchase from "./components/Purchase/Purchase";
 import AddProduct from "./components/AddProduct/AddProduct";
-import Login from "./components/Layout/Login";
+import Login from "./components/Auth/Login";
 
 function App() {
   return (
     <Fragment>
       <BrowserRouter>
-        <Login />
         <Header />
         <Routes>
           <Route path="/" element={<Home />}></Route>
           <Route path="/Purchase/" element={<Purchase />}></Route>
           <Route path="/AddProduct/" element={<AddProduct />}></Route>
+          <Route path="/Login" element={<Login />}></Route>
         </Routes>
       </BrowserRouter>
     </Fragment>
