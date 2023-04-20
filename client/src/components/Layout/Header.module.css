@@ -91,7 +91,7 @@
 }
 
 /*login*/
-.list3 {
+.AuthList {
   display: flex;
   align-items: center;
   justify-content: space-between;
