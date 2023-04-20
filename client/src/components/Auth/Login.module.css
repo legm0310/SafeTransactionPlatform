@@ -1,0 +1,93 @@
+.wrap {
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+.container {
+  padding-top: 10px;
+}
+
+.header {
+  position: relative;
+  height: 56px;
+  line-height: 0;
+  border-bottom: 1px solid gray;
+}
+
+.backButton {
+  position: absolute;
+  top: 0;
+  left: 20px;
+}
+
+.loginTitle {
+  margin-top: 20px;
+}
+
+.sectionHeader {
+  padding: 14px 24px 18px;
+}
+
+.subTitle {
+  color: rgb(122, 127, 134);
+  font-size: 15px;
+}
+
+.loginInputWrap {
+  padding: 6px 24px;
+}
+
+form {
+  display: block;
+}
+
+.idField {
+  margin-bottom: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.idInputGroup {
+  width: 100%;
+}
+
+.idInput {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 11px 16px;
+  border: 1px solid rgb(228, 230, 233);
+  height: 48px;
+  color: rgb(228, 230, 233);
+}
+
+.loginButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 24px;
+  width: 100%;
+  height: 55px;
+  border: none;
+  background-color: #75d700;
+  color: white;
+  font-size: 20px;
+  font-weight: 700;
+  padding: 0px 16px;
+}
+
+::-webkit-input-placeholder {
+  /* Chrome, Opera, Safari, Edge */
+  color: rgb(228, 230, 233);
+  font-weight: 700;
+  font-size: 16px;
+}
+
+/* input의 입력 값 색상 */
+input[type="email"]:focus {
+  color: black;
+}
+
+input[type="password"]:focus {
+  color: black;
+}
