@@ -1,0 +1,151 @@
+.wrap {
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+.container {
+  padding-top: 10px;
+}
+
+/* 뒤로가기 버튼*/
+.header {
+  position: relative;
+  height: 56px;
+  line-height: 0;
+  border-bottom: 1px solid rgb(207, 210, 215);
+}
+
+.backButton {
+  position: absolute;
+  top: 20%;
+
+  font-size: 25px;
+  color: black;
+}
+
+.registerTitle {
+  margin-top: 20px;
+}
+
+.sectionHeader {
+  padding: 14px 24px 18px;
+}
+
+.subTitle {
+  color: rgb(122, 127, 134);
+  font-size: 15px;
+}
+
+/*회원가입 폼*/
+.registerInputWrap {
+  padding: 6px 24px;
+}
+
+form {
+  display: block;
+}
+
+.nameField {
+  margin-bottom: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.nameInputGroup {
+  width: 100%;
+}
+
+.nameInput {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 11px 16px;
+  border: 1px solid rgb(228, 230, 233);
+  height: 48px;
+  color: black;
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.idField {
+  margin-bottom: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.idInputGroup {
+  width: 100%;
+}
+
+.idInput {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 11px 16px;
+  border: 1px solid rgb(228, 230, 233);
+  height: 48px;
+  color: black;
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.pwField {
+  margin-bottom: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.pwInputGroup {
+  width: 100%;
+}
+
+.pwInput {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 11px 16px;
+  border: 1px solid rgb(228, 230, 233);
+  height: 48px;
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.registerButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 24px;
+  width: 100%;
+  height: 55px;
+  border: none;
+  background-color: #75d700;
+  color: white;
+  font-size: 20px;
+  font-weight: 700;
+  padding: 0px 16px;
+  cursor: pointer;
+}
+
+::-webkit-input-placeholder {
+  /* Chrome, Opera, Safari, Edge */
+  color: rgb(228, 230, 233);
+  font-weight: 700;
+  font-size: 16px;
+}
+
+/* input의 입력 값 색상 */
+input[type="text"]:focus {
+  color: black;
+}
+
+input[type="email"]:focus {
+  color: black;
+}
+
+input[type="password"]:focus {
+  color: black;
+}
+
+input:focus {
+  outline: none;
+}
