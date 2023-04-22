@@ -10,9 +10,10 @@ const Header = (props) => {
   const location = useLocation();
 
   // 현재 경로가 로그인 페이지인 경우 Header를 렌더링하지 않음
-  if (location.pathname === "/Login") {
+  if (location.pathname === "/Login" || location.pathname === "/Register") {
     return null;
   }
+
   return (
     <Fragment>
       <header className={classes.header}>
