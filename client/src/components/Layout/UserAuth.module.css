@@ -1,0 +1,12 @@
+.Authwrap {
+  display: flex;
+  list-style: none;
+}
+
+.login {
+  cursor: pointer;
+}
+
+.register {
+  cursor: pointer;
+}
