@@ -1,10 +1,67 @@
-import { Fragment } from "react";
+import { Fragment, useState } from "react";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
+import { registerUser } from "../../_actions/user_action";
 
 import classes from "./Register.module.css";
 import { FaArrowLeft } from "react-icons/fa";
 
 const Register = (props) => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const [Email, setEmail] = useState("");
+  const [Name, setName] = useState("");
+  const [PhoneNumber, setPhoneNumber] = useState("");
+  const [Password, setPassword] = useState("");
+  const [ConfirmPassword, setConfirmPassword] = useState("");
+
+  const onEmailHandler = (event) => {
+    setEmail(event.currentTarget.value);
+  };
+
+  const onNameHandler = (event) => {
+    setName(event.currentTarget.value);
+  };
+
+  const onPhoneNumberHandler = (event) => {
+    setPhoneNumber(event.currentTarget.value);
+  };
+
+  const onPasswordHandler = (event) => {
+    setPassword(event.currentTarget.value);
+  };
+
+  const onConfirmPasswordHandler = (event) => {
+    setConfirmPassword(event.currentTarget.value);
+  };
+
+  const onSubmitHandler = (event) => {
+    event.preventDefault();
+
+    if (Password !== ConfirmPassword) {
+      return alert("비밀번호가 같지 않습니다.");
+    }
+
+    let body = {
+      email: Email,
+      name: Name,
+      phoneNumber: PhoneNumber,
+      password: Password,
+      confirmPassword: ConfirmPassword,
+    };
+
+    dispatch(registerUser(body)).then((response) => {
+      if (response.payload.success === true) {
+        alert("회원 정보 입력 완료");
+        navigate("/login");
+      } else {
+        alert("회원 가입에 실패했습니다.");
+      }
+    });
+  };
+
   return (
     <Fragment>
       <div className={classes.wrap}>
@@ -25,12 +82,14 @@ const Register = (props) => {
           </div>
 
           <div className={classes.registerInputWrap}>
-            <form>
+            <form onSubmit={onSubmitHandler}>
               <div className={classes.nameField}>
                 <div className={classes.nameInputGroup}>
                   <input
                     type="text"
                     placeholder="이름"
+                    value={Name}
+                    onChange={onNameHandler}
                     className={classes.nameInput}
                   />
                 </div>
@@ -41,7 +100,21 @@ const Register = (props) => {
                   <input
                     type="email"
                     placeholder="이메일"
+                    value={Email}
+                    onChange={onEmailHandler}
                     className={classes.idInput}
+                  />
+                </div>
+              </div>
+
+              <div className={classes.pnField}>
+                <div className={classes.pnInputGroup}>
+                  <input
+                    type="text"
+                    placeholder="핸드폰번호"
+                    value={PhoneNumber}
+                    onChange={onPhoneNumberHandler}
+                    className={classes.pnInput}
                   />
                 </div>
               </div>
@@ -51,6 +124,8 @@ const Register = (props) => {
                   <input
                     type="password"
                     placeholder="비밀번호"
+                    value={Password}
+                    onChange={onPasswordHandler}
                     className={classes.pwInput}
                   />
                 </div>
@@ -61,11 +136,15 @@ const Register = (props) => {
                   <input
                     type="password"
                     placeholder="비밀번호 확인"
+                    value={ConfirmPassword}
+                    onChange={onConfirmPasswordHandler}
                     className={classes.pwInput}
                   />
                 </div>
               </div>
-              <button className={classes.registerButton}>회원가입</button>
+              <button type="submit" className={classes.registerButton}>
+                회원가입
+              </button>
             </form>
           </div>
         </div>
