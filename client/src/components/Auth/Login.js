@@ -1,5 +1,8 @@
-import { Fragment } from "react";
+import { Fragment, useState } from "react";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
+import { loginUser } from "../../_actions/user_action";
 
 import classes from "./Login.module.css";
 import { FaArrowLeft } from "react-icons/fa";
@@ -7,6 +10,36 @@ import googleIcon from "../../assets/google.svg";
 import kakaoIcon from "../../assets/kakao.svg";
 
 const Login = (props) => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const [Email, setEmail] = useState("");
+  const [Password, setPassword] = useState("");
+
+  const onEmailHandler = (event) => {
+    setEmail(event.currentTarget.value);
+  };
+
+  const onPasswordHandler = (event) => {
+    setPassword(event.currentTarget.value);
+  };
+
+  const onSubmitHandler = (event) => {
+    // 버튼을 누르면 리프레시 되는것을 막아주는 기능
+    event.preventDefault();
+
+    console.log("Email", Email);
+    console.log("Password", Password);
+
+    // 적은 내용이 이메일이 서버로 보내지고, 이메일을 찾고 비밀번호를 비교한 후 토큰을 생성해서 쿠키에 저장하여 클라이언트에게 전해줌
+    let body = {
+      email: Email,
+      password: Password,
+    };
+
+    dispatch(loginUser(body));
+  };
+
   return (
     <Fragment>
       <div className={classes.wrap}>
@@ -27,12 +60,14 @@ const Login = (props) => {
           </div>
 
           <div className={classes.loginInputWrap}>
-            <form>
+            <form onSubmit={onSubmitHandler}>
               <div className={classes.idField}>
                 <div className={classes.idInputGroup}>
                   <input
                     type="email"
                     placeholder="이메일 입력"
+                    value={Email}
+                    onChange={onEmailHandler}
                     className={classes.idInput}
                   />
                 </div>
@@ -43,6 +78,8 @@ const Login = (props) => {
                   <input
                     type="password"
                     placeholder="비밀번호 입력"
+                    value={Password}
+                    onChange={onPasswordHandler}
                     className={classes.pwInput}
                   />
                 </div>
@@ -52,7 +89,7 @@ const Login = (props) => {
           </div>
 
           <div className={classes.registerWrap}>
-            <button className={classes.registerButton}>
+            <button type="submit" className={classes.registerButton}>
               <Link to="/Register" className={classes.textButton}>
                 회원가입
               </Link>
