@@ -26,11 +26,13 @@ const AddProduct = () => {
         <div className={classes.title}>상품 등록하기</div>
         <li className={classes.label}>
           <div className={classes.labelTitle}>사진 등록</div>
+
           <div>
             <form className={classes.imgSubmit}>
               <label htmlFor="imgUpload">이미지 등록 +</label>
               <input id={classes.imgUpload} type="file" accept="image/*" />
             </form>
+
             <ul className={classes.imgExplain}>
               * 상품 이미지는 640x640에 최적화 되어 있습니다.
               <li>
@@ -52,6 +54,7 @@ const AddProduct = () => {
             </ul>
           </div>
         </li>
+
         <li className={classes.label2}>
           <div className={classes.labelTitle}>제목</div>
           <input
@@ -62,6 +65,7 @@ const AddProduct = () => {
           />
           <div>{nameLength}/40</div>
         </li>
+
         <li className={classes.label2}>
           <label htmlFor="price" className={classes.labelTitle}>
             가격
@@ -76,6 +80,7 @@ const AddProduct = () => {
           />
           <div>BB</div>
         </li>
+
         <li className={classes.label}>
           <div className={classes.labelTitle}>설명</div>
           <textarea className={classes.inputTextarea} />
