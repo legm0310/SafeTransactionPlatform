@@ -1,28 +1,33 @@
 const express = require("express");
-const sequelize = require("./config/database");
 const path = require("path");
 const dotenv = require("dotenv");
+dotenv.config();
 const cors = require("cors");
 
 const userRouter = require("./routes/user");
 
 const app = express();
-dotenv.config();
-app.set("port", process.env.PORT || 5000);
-sequelize
+
+const db = require("./models");
+db.sequelize
   .sync({ force: true })
   .then(() => {
-    console.log("데이터베이스 연결됨.");
+    console.log("Database successfully synchronized");
   })
   .catch((err) => {
     console.error(err);
   });
+
+app.set("port", process.env.PORT || 5000);
 app.use(cors());
 app.use(express.json({}));
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, "public")));
-
 app.use("/user", userRouter);
+
+app.get("/test/hello", (req, res) => {
+  res.send("hellw");
+});
 
 app.listen(app.get("port"), () => {
   console.log("listening on port:", app.get("port"));
