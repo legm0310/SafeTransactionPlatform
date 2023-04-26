@@ -1,86 +1,101 @@
+const Sequelize = require("sequelize");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+require("dotenv").config("../");
 
 //모델 인스턴스 --> 클래스로 마이그레이션 해야함
-const User = (Sequelize, DataTypes) => {
-  const model = Sequelize.define(
-    "user",
-    {
-      id: {
-        type: DataTypes.INTEGER,
-        primaryKey: true,
-        autoIncrement: true,
-      },
-      wallet_address: {
-        type: DataTypes.STRING(255),
-        allowNull: true,
-      },
-      role: {
-        type: DataTypes.TINYINT,
-        allowNull: false,
-      },
-      user_name: {
-        type: DataTypes.STRING(255),
-        allowNull: false,
-      },
-      email: {
-        type: DataTypes.STRING(255),
-        allowNull: false,
-        unique: true,
-      },
-      password: {
-        type: DataTypes.STRING(255),
-        allowNull: false,
-      },
-      phone_number: {
-        type: DataTypes.STRING(255),
-        allowNull: false,
-        unique: true,
-      },
-      created_at: {
-        type: DataTypes.DATE,
-        defaultValue: DataTypes.NOW,
-        allowNull: false,
-      },
-      updated_at: {
-        type: DataTypes.DATE,
-        defaultValue: DataTypes.NOW,
-        allowNull: false,
-      },
-    },
-    {
-      tableName: "user", // This is the name of the table in the database
-      timestamps: false,
-      hooks: {
-        // beforeCreate: async (user, options) => {
-        //   console.log(user);
-        //   const salt = await bcrypt.genSalt(10);
-        //   user.password = await bcrypt.hash(user.password, salt);
-        // },
-        beforeUpdate: () => {},
-      }, // This will add createdAt and updatedAt fields
-    }
-  );
 
-  model.beforeCreate(async (user, options) => {
-    const salt = await bcrypt.genSalt(10);
-    user.password = await bcrypt.hash(user.password, salt);
-  });
+class User extends Sequelize.Model {
+  async validPassword(plainPassword) {
+    return await bcrypt.compare(plainPassword, this.password);
+  }
 
-  model.prototype.validPassword = async (plainPassword, password) => {
-    console.log(this);
-    return await bcrypt.compare(plainPassword, password);
-  };
+  async genToken() {
+    const payload = {
+      id: this.id,
+      iat: Math.floor(Date.now() / 1000),
+      exp: Math.floor(Date.now() / 1000) + 60 * 60,
+    };
+    const token = jwt.sign(payload, process.env.JWT_SECRET_KEY);
+    return await this.update({ access_token: token }).catch((err) => {
+      return err;
+    });
+  }
 
-  model.getUserByPhoneNumber = async (phoneNumber) => {
-    return await model.findOne({
+  //정적 메서드를 인스턴스 없이(클래스를 실행하지 않고 )사용하면 this가 없다.
+  //아래 메서드는 인스턴스에서 사용하면 인스턴스가 this가 된다.
+  static getUserByPhoneNumber = async (phoneNumber) => {
+    return await User.findOne({
       where: {
         phone_number: phoneNumber,
       },
     });
   };
-
-  return model;
-};
+  static init(sequelize) {
+    return super.init(
+      {
+        id: {
+          type: Sequelize.INTEGER,
+          primaryKey: true,
+          autoIncrement: true,
+        },
+        wallet_address: {
+          type: Sequelize.STRING(255),
+          allowNull: true,
+        },
+        role: {
+          type: Sequelize.TINYINT,
+          allowNull: false,
+        },
+        user_name: {
+          type: Sequelize.STRING(255),
+          allowNull: false,
+        },
+        email: {
+          type: Sequelize.STRING(255),
+          allowNull: false,
+          unique: true,
+        },
+        password: {
+          type: Sequelize.STRING(255),
+          allowNull: false,
+        },
+        phone_number: {
+          type: Sequelize.STRING(255),
+          allowNull: false,
+          unique: true,
+        },
+        access_token: {
+          type: Sequelize.STRING(255),
+          allowNull: true,
+        },
+        // created_at: {
+        //   type: Sequelize.DATE,
+        //   defaultValue: Sequelize.NOW,
+        //   allowNull: false,
+        // },
+        // updated_at: {
+        //   type: Sequelize.DATE,
+        //   defaultValue: Sequelize.NOW,
+        //   allowNull: false,
+        // },
+      },
+      {
+        hooks: {
+          beforeCreate: async (user, options) => {
+            const salt = await bcrypt.genSalt(10);
+            user.password = await bcrypt.hash(user.password, salt);
+          },
+          beforeUpdate: () => {},
+        },
+        modelName: "user", // This is the name of the table in the database
+        freezeTableName: true,
+        timestamps: true,
+        underscored: true,
+        sequelize,
+      }
+    );
+  }
+}
 
 module.exports = User;
