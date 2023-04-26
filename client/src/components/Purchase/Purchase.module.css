@@ -1,3 +1,86 @@
-.container {
+.mainBox {
   margin-top: 70px;
+  padding: 0 12%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.categoryBox {
+  margin-top: 30px;
+  height: 120px;
+  background-color: rgba(0, 0, 0, 0.075);
+  padding: 0.5rem 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.categoryBox div {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.493);
+  padding-bottom: 10px;
+}
+
+.categoryBox ul {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.categoryBox ul li {
+  width: 120px;
+}
+
+.latestProduct { 
+  margin-top: 30px;
+  width: 1200px;
+  height: 400px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.latestProduct h1 {
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+.latestProdList {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.latestProdCard {
+  width: 240px;
+  height: 300px;
+  background-color: rgba(173, 173, 173, 0.13);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 0.7rem;
+}
+
+.latestProdCard * {
+  margin: 0;
+  padding: 0;
+}
+
+.latestProdCard div {
+  width: 100%;
+  background-color: black;
+  height: 240px;
+}
+
+.product {
+  margin-top: 30px;
+  width: 800px;
+  height: 1000px;
+  border: 1px solid blue;
+  padding: 0.5rem;
 }
