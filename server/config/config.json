@@ -4,7 +4,8 @@
     "password": "896063da!!",
     "database": "platform",
     "host": "127.0.0.1",
-    "dialect": "mysql"
+    "dialect": "mysql",
+    "timezone": "Asia/seoul"
   },
   "production": {},
   "test": {}
