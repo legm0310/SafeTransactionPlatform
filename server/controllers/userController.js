@@ -1,6 +1,6 @@
-const db = require("../models");
+const { User } = require("../models/index");
 module.exports = {
-  signup: async (req, res) => {
+  signup: async (req, res, next) => {
     let newUser = {
       role: 1,
       user_name: req.body.user_name,
@@ -9,16 +9,15 @@ module.exports = {
       phone_number: req.body.phone_number,
     };
     try {
-      const findUser = await db.User.getUserByPhoneNumber(newUser.phone_number);
+      const findUser = await User.getUserByPhoneNumber(newUser.phone_number);
 
       if (findUser != null) res.status(409).json({ result: "exist user" });
-      await db.User.create(newUser);
-    } catch (err) {
-      throw err;
-    } finally {
+      await User.create(newUser);
       res.status(200).json({
         result: "signupSuccess.",
       });
+    } catch (err) {
+      next(err);
     }
   },
 
@@ -28,15 +27,18 @@ module.exports = {
       password: req.body.password,
     };
 
-    const findUser = await db.User.findOne({ where: { email: user.email } });
+    const findUser = await User.findOne({ where: { email: user.email } });
     if (!findUser) res.status(403).json({ result: "user not found" });
-    else if (!(await findUser.validPassword(user.password, findUser.password)))
+    if (!(await findUser.validPassword(user.password)))
       res.status(403).json({
         result: "Invalid password",
       });
-    else
+    else {
+      const updatedUser = await findUser.genToken();
       res.status(200).json({
         result: "loginSuccess",
+        accessToken: updatedUser.access_token,
       });
+    }
   },
 };
