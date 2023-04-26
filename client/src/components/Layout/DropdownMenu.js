@@ -39,24 +39,6 @@ const DropdownMenu = () => {
               <li>
                 <a href="#home">Link1</a>
               </li>
-              <li>
-                <a href="#home">Link1</a>
-              </li>
-              <li>
-                <a href="#home">Link1</a>
-              </li>
-              <li>
-                <a href="#home">Link1</a>
-              </li>
-              <li>
-                <a href="#home">Link1</a>
-              </li>
-              <li>
-                <a href="#home">Link1</a>
-              </li>
-              <li>
-                <a href="#home">Link1</a>
-              </li>
             </ul>
           </div>
         </div>
