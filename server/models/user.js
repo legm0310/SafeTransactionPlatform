@@ -1,9 +1,7 @@
 const Sequelize = require("sequelize");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-require("dotenv").config("../");
-
-//모델 인스턴스 --> 클래스로 마이그레이션 해야함
+const config = require("../config");
 
 class User extends Sequelize.Model {
   async validPassword(plainPassword) {
@@ -16,7 +14,7 @@ class User extends Sequelize.Model {
       iat: Math.floor(Date.now() / 1000),
       exp: Math.floor(Date.now() / 1000) + 60 * 60,
     };
-    const token = jwt.sign(payload, process.env.JWT_SECRET_KEY);
+    const token = jwt.sign(payload, config.jwtSecret);
     return await this.update({ access_token: token }).catch((err) => {
       return err;
     });
@@ -31,6 +29,7 @@ class User extends Sequelize.Model {
       },
     });
   };
+
   static init(sequelize) {
     return super.init(
       {
