@@ -4,12 +4,13 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
 }
 
 .categoryBox {
   margin-top: 30px;
   height: 120px;
-  background-color: rgba(0, 0, 0, 0.075);
+
   padding: 0.5rem 20px;
   display: flex;
   flex-direction: column;
@@ -35,17 +36,19 @@
   width: 120px;
 }
 
-.latestProduct { 
+.latestProduct {
   margin-top: 30px;
   width: 1200px;
   height: 400px;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
+  border-top: 1px solid rgb(207, 210, 215);
 }
 
 .latestProduct h1 {
   margin: 0;
+  color: rgb(102, 102, 102);
   font-size: 1.5rem;
 }
 
@@ -77,10 +80,7 @@
   height: 240px;
 }
 
-.product {
-  margin-top: 30px;
-  width: 800px;
+.productWrap {
+  width: 1050px;
   height: 1000px;
-  border: 1px solid blue;
-  padding: 0.5rem;
 }
