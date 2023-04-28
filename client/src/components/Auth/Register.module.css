@@ -1,10 +1,13 @@
 .wrap {
-  max-width: 640px;
-  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  margin: 100px auto;
 }
 
 .container {
-  padding-top: 10px;
+  width: 640px;
+  padding: 20px 10px;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 6px 50px 0px;
 }
 
 /* 뒤로가기 버튼*/
