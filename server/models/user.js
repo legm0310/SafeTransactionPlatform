@@ -1,31 +1,25 @@
 const Sequelize = require("sequelize");
 const bcrypt = require("bcrypt");
-const jwt = require("jsonwebtoken");
-const config = require("../config");
 
 class User extends Sequelize.Model {
   async validPassword(plainPassword) {
     return await bcrypt.compare(plainPassword, this.password);
   }
 
-  async genToken() {
-    const payload = {
-      id: this.id,
-      iat: Math.floor(Date.now() / 1000),
-      exp: Math.floor(Date.now() / 1000) + 60 * 60,
-    };
-    const token = jwt.sign(payload, config.jwtSecret);
-    return await this.update({ access_token: token }).catch((err) => {
-      return err;
-    });
-  }
-
-  //정적 메서드를 인스턴스 없이(클래스를 실행하지 않고 )사용하면 this가 없다.
+  //정적 메서드를 인스턴스 없이(클래스를 실행하지 않고)사용하면 this가 없다.
   //아래 메서드는 인스턴스에서 사용하면 인스턴스가 this가 된다.
   static getUserByPhoneNumber = async (phoneNumber) => {
     return await User.findOne({
       where: {
         phone_number: phoneNumber,
+      },
+    });
+  };
+
+  static getUserByToken = async (refresh_token) => {
+    return await User.findOne({
+      where: {
+        refresh_token: refresh_token,
       },
     });
   };
@@ -68,16 +62,10 @@ class User extends Sequelize.Model {
           type: Sequelize.STRING(255),
           allowNull: true,
         },
-        // created_at: {
-        //   type: Sequelize.DATE,
-        //   defaultValue: Sequelize.NOW,
-        //   allowNull: false,
-        // },
-        // updated_at: {
-        //   type: Sequelize.DATE,
-        //   defaultValue: Sequelize.NOW,
-        //   allowNull: false,
-        // },
+        refresh_token: {
+          type: Sequelize.STRING(255),
+          allowNull: true,
+        },
       },
       {
         hooks: {
@@ -96,5 +84,4 @@ class User extends Sequelize.Model {
     );
   }
 }
-
 module.exports = User;

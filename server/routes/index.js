@@ -1,8 +1,11 @@
-const user = require("./user");
+const auth = require("./auth");
+const product = require("./product");
 
-module.exports = () => {
+const routerLoader = () => {
   const app = require("express").Router();
+  auth(app);
   // product(app);
-  user(app);
   return app;
 };
+
+module.exports = routerLoader;

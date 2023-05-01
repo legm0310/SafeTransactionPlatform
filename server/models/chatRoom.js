@@ -1,6 +1,6 @@
 const Sequelize = require("sequelize");
 
-class Product extends Sequelize.Model {
+class ChatRoom extends Sequelize.Model {
   static init() {
     super.init({
       //...
@@ -8,4 +8,4 @@ class Product extends Sequelize.Model {
   }
 }
 
-module.exports = Product;
+module.exports = ChatRoom;
