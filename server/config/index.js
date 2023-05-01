@@ -1,19 +1,22 @@
-const envFound = require("dotenv").config();
+const path = require("path");
+const envFound = require("dotenv").config({
+  path: path.join(__dirname, "../.env"),
+});
 
 if (envFound.error) {
   throw new Error("⚠️  Couldn't find .env file  ⚠️");
 }
 module.exports = {
   port: parseInt(process.env.PORT, 10),
-  // parseInt(process.env.PORT, 10)
-  jwtSecret: process.env.JWT_SECRET_KEY,
+  jwtAccessSecret: process.env.JWT_SECRET_ACCESS,
+  jwtRefreshSecret: process.env.JWT_SECRET_REFRESH,
   jwtAlgorithm: null,
 
   development: {
-    username: "root",
-    password: process.env.DATABASE_PASSWORD,
-    database: "platform",
-    host: "127.0.0.1",
+    username: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DATABASE,
+    host: process.env.DB_HOST,
     dialect: "mysql",
     timezone: "+09:00", // DB에 저장할 때 시간 설정
     dialectOptions: {
