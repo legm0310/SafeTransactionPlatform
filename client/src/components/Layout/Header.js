@@ -22,14 +22,16 @@ const Header = (props) => {
             <h1 className={classes.logo}>PANDA.</h1>
           </Link>
           <ul className={classes.list2}>
-            <Link to="/Purchase/" className={classes.link}>
-              <div className={classes.dropdown}>
-                <li className={classes.list2Item}>구매하기</li>
-                <div className={classes.dropdownContent}>
-                  <DropdownMenu />
-                </div>
+            <div className={classes.dropdown}>
+              <li className={classes.list2Item}>
+                <Link to="/Purchase/" className={classes.link}>
+                  구매하기
+                </Link>
+              </li>
+              <div className={classes.dropdownContent}>
+                <DropdownMenu />
               </div>
-            </Link>
+            </div>
             <Link to="/AddProduct/" className={classes.link}>
               <li className={classes.list2Item}>판매하기</li>
             </Link>
