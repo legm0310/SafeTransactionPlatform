@@ -23,31 +23,7 @@ const Purchase = (props) => {
             <li>기타</li>
           </ul>
         </div>
-        <div className={classes.latestProduct}>
-          <h1>최근 등록 상품</h1>
-          <div className={classes.latestProdList}>
-            <div className={classes.latestProdCard}>
-              <div>이미지</div>
-              <h4>제목</h4>
-              <h4>가격</h4>
-            </div>
-            <div className={classes.latestProdCard}>
-              <div>이미지</div>
-              <h4>제목</h4>
-              <h4>가격</h4>
-            </div>
-            <div className={classes.latestProdCard}>
-              <div>이미지</div>
-              <h4>제목</h4>
-              <h4>가격</h4>
-            </div>
-            <div className={classes.latestProdCard}>
-              <div>이미지</div>
-              <h4>제목</h4>
-              <h4>가격</h4>
-            </div>
-          </div>
-        </div>
+
         <div className={classes.productWrap}>
           <PurchaseList products={props.purchaseList} />
         </div>

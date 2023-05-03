@@ -31,8 +31,6 @@
 .dropdownContent ul {
   display: flex;
   margin-top: 16px;
-  flex-wrap: wrap;
-  justify-content: space-between;
   align-items: flex-start;
   padding: 0;
 }
@@ -40,8 +38,7 @@
 .dropdownContent ul li {
   display: flex;
   align-items: flex-start;
-  min-width: 25%;
-  max-width: 25%;
+  margin-right: 250px;
   padding: 12px 0px 12px 0px;
 }
 

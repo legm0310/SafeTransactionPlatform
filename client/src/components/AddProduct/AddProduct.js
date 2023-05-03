@@ -23,7 +23,7 @@ const AddProduct = (props) => {
       return;
     }
     console.log(name, price, explanation);
-    props.onAddProduct(name, price, imgFile);
+    props.onAddProduct(name, price, imgFile, explanation);
     setName("");
     setPrice("");
     setExplanation("");

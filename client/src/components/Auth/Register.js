@@ -49,13 +49,12 @@ const Register = (props) => {
       name: Name,
       phoneNumber: PhoneNumber,
       password: Password,
-      confirmPassword: ConfirmPassword,
     };
 
     dispatch(registerUser(body)).then((response) => {
       if (response.payload.success === true) {
         alert("회원 정보 입력 완료");
-        navigate("/login");
+        navigate("/Login");
       } else {
         alert("회원 가입에 실패했습니다.");
       }

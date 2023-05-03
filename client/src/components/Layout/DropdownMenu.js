@@ -8,37 +8,43 @@ const DropdownMenu = () => {
         <div className={classes.dropdownContent}>
           <div className={classes.dropdowPosition}>
             <p>카테고리</p>
+
             <ul>
-              <li>
-                <a href="#home">Link1</a>
-              </li>
-              <li>
-                <a href="#home">Link1</a>
-              </li>
-              <li>
-                <a href="#home">Link1</a>
-              </li>
-              <li>
-                <a href="#home">Link1</a>
-              </li>
-              <li>
-                <a href="#home">Link1</a>
-              </li>
-              <li>
-                <a href="#home">Link1</a>
-              </li>
-              <li>
-                <a href="#home">Link1</a>
-              </li>
-              <li>
-                <a href="#home">Link1</a>
-              </li>
-              <li>
-                <a href="#home">Link1</a>
-              </li>
-              <li>
-                <a href="#home">Link1</a>
-              </li>
+              <div>
+                <li>
+                  <a href="#home">Link1</a>
+                </li>
+                <li>
+                  <a href="#home">Link1</a>
+                </li>
+                <li>
+                  <a href="#home">Link1</a>
+                </li>
+                <li>
+                  <a href="#home">Link1</a>
+                </li>
+                <li>
+                  <a href="#home">Link1</a>
+                </li>
+              </div>
+
+              <div>
+                <li>
+                  <a href="#home">Link1</a>
+                </li>
+                <li>
+                  <a href="#home">Link1</a>
+                </li>
+                <li>
+                  <a href="#home">Link1</a>
+                </li>
+                <li>
+                  <a href="#home">Link1</a>
+                </li>
+                <li>
+                  <a href="#home">Link1</a>
+                </li>
+              </div>
             </ul>
           </div>
         </div>
