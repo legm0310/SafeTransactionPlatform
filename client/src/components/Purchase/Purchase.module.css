@@ -64,6 +64,7 @@
   flex-direction: column;
   justify-content: space-between;
   padding: 0.7rem;
+  border-radius: 5%;
 }
 
 .latestProdCard * {
@@ -75,6 +76,7 @@
   width: 100%;
   background-color: black;
   height: 240px;
+  border-radius: 5%;
 }
 
 .product {

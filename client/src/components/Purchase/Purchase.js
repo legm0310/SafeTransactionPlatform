@@ -1,5 +1,6 @@
 import React, { Fragment } from "react";
 import classes from "./Purchase.module.css";
+import OrderButton from "./OrderButton";
 
 const Purchase = (props) => {
     return (
@@ -28,29 +29,29 @@ const Purchase = (props) => {
                     <h1>최근 등록 상품</h1>
                     <div className={classes.latestProdList}>
                         <div className={classes.latestProdCard}>
-                            <div>이미지</div>
+                            <div>.</div>
                             <h4>제목</h4>
                             <h4>가격</h4>
                         </div>
                         <div className={classes.latestProdCard}>
-                            <div>이미지</div>
+                            <div>.</div>
                             <h4>제목</h4>
                             <h4>가격</h4>
                         </div>
                         <div className={classes.latestProdCard}>
-                            <div>이미지</div>
+                            <div>.</div>
                             <h4>제목</h4>
                             <h4>가격</h4>
                         </div>
                         <div className={classes.latestProdCard}>
-                            <div>이미지</div>
+                            <div>.</div>
                             <h4>제목</h4>
                             <h4>가격</h4>
                         </div>
                     </div>
                 </div>
                 <div className={classes.product}>
-                    여긴 상품
+                    <OrderButton />
                 </div>
             </div>
         </Fragment>

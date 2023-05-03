@@ -7,39 +7,38 @@ const AddProduct = () => {
     const [nameLength, setNameLength] = useState(0);
 
     
-
-    const handleNameChange = (event) => {
+    // 제목 길이 제한
+    const onNameChange = (event) => {
         const value = event.target.value;
         setName(value);
         setNameLength(value.length);
     };
 
-    const handlePriceChange = (event) => {
+    // 가격 숫자만 입력
+    const onPriceChange = (event) => {
         const newPrice = event.target.value;
         const regex = /^[0-9\b]+$/; // regex to match only numbers
         if (newPrice === "" || regex.test(newPrice)) {
             setPrice(newPrice);
         }
     };
+
+    // 내용 필수 입력 및 상품 등록
     const handleSubmit = (event) => {
         event.preventDefault(); // prevent form submission
-        if (name.trim() === "") {
-            alert("상품 이름을 입력해주세요.");
+        if (name.trim() === "" || price === "") {
+            alert("모든 내용을 작성해 주세요.");
             return;
+        } else {
         }
-        if (price === "") {
-            alert("상품 가격을 입력해주세요.");
-            return;
-        }
-        // code to submit the form
     }
-
 
 
     return (
         <Fragment>
-            <form className={classes.form}>
+            <form className={classes.form} onSubmit={handleSubmit}>
                 <div className={classes.title}>상품 등록하기</div>
+
                 <div className={classes.label}>
                     <div className={classes.labelTitle}>
                         사진 등록
@@ -61,13 +60,14 @@ const AddProduct = () => {
                         </ul>
                     </div>
                 </div>
+
                 <div className={classes.label2}>
                     <div className={classes.labelTitle}>
                         제목
                     </div>
                     <input 
                         className={classes.inputTitle} 
-                        onChange={handleNameChange}
+                        onChange={onNameChange}
                         onInput={(e) => setNameLength(e.target.value.length)}
                         maxLength={40} 
                     />
@@ -75,6 +75,7 @@ const AddProduct = () => {
                             {nameLength}/40
                     </div>
                 </div>
+
                 <div className={classes.label2}>
                     <label htmlFor="price" className={classes.labelTitle}>
                         가격
@@ -84,11 +85,12 @@ const AddProduct = () => {
                         id="price"
                         value={price}
                         className={classes.inputPrice} 
-                        onChange={handlePriceChange}
+                        onChange={onPriceChange}
                         required
                     />
                     <div>BB</div>
                 </div>
+
                 <div className={classes.label2}>
                     <div className={classes.labelTitle}>
                         카테고리
@@ -96,34 +98,29 @@ const AddProduct = () => {
                     <div className={classes.category}>
                         <div>
                             <label><input type="checkbox" />남성의류</label>
-                            <label><input type="checkbox" />가전제품</label>
-                        </div>
-                        <div>
                             <label><input type="checkbox" />여성의류</label>
-                            <label><input type="checkbox" />컴퓨터/주변기기</label>
-                        </div>
-                        <div>
                             <label><input type="checkbox" />패션잡화</label>
-                            <label><input type="checkbox" />전자제품</label>
-                        </div>
-                        <div>
-                            <label><input type="checkbox" />신발</label>
-                            <label><input type="checkbox" />가구</label>
-                        </div>
-                        <div>
                             <label><input type="checkbox" />스포츠용품</label>
+                            <label><input type="checkbox" />신발</label>
+                        </div>
+                        <div>
+                            <label><input type="checkbox" />가전제품</label>
+                            <label><input type="checkbox" />컴퓨터/주변기기</label>
+                            <label><input type="checkbox" />전자제품</label>
+                            <label><input type="checkbox" />가구</label>
                             <label><input type="checkbox" />기타</label>
                         </div>
                     </div>
                 </div>
+
                 <div className={classes.label}>
                     <div className={classes.labelTitle}>
                         설명
                     </div>
                     <textarea className={classes.inputTextarea} />
                 </div>
-                <div className={classes.addButton}>
-                    <button type="submit" className={classes.button} onSubmit={handleSubmit}>등록하기</button>
+                <div className={classes.buttonWrap}>
+                    <button type="submit" className={classes.addButton} >등록하기</button>
                 </div>
                 
             </form>

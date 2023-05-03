@@ -49,7 +49,6 @@
   background-color: rgb(216, 215, 215);
   color: #666666;
   border: none;
-  border-radius: 0.25rem;
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -88,7 +87,6 @@
   padding: 0.5rem;
   font-size: 1rem;
   border: 1px solid #ccc;
-  border-radius: 0.25rem;
   width: 60%;
   margin-right: 10px;
 }
@@ -98,7 +96,6 @@
   padding: 0.5rem;
   font-size: 1rem;
   border: 1px solid #ccc;
-  border-radius: 0.25rem;
   width: 12.5%;
   margin-right: 10px;
 }
@@ -109,12 +106,11 @@
   padding: 0.5rem;
   font-size: 1rem;
   border: 1px solid #ccc;
-  border-radius: 0.25rem;
   width: 83%;
 }
 
 /*등록 버튼이 들어있는 리스트*/
-.addButton {
+.buttonWrap {
   list-style: none;
   margin-top: 20px;
   width: 100%;
@@ -124,7 +120,7 @@
 }
 
 /*등록버튼*/
-.button {
+.addButton {
   width: 160px;
   height: 56px;
   font-size: 20px;
@@ -138,20 +134,20 @@
 
 /* 카테고리 박스 */
 .category {
-    width: 60%;
     margin: 0;
     display: flex;
-    flex-direction: row;
-    border-radius: 0.25rem;
+    flex-direction: column;
     justify-content: space-between;
 }
 
 .category div {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: start;
+  justify-content: space-between;
 }
 
 .category div label {
   padding: 0.4rem;
+  width: 130px;
 }
