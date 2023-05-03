@@ -40,31 +40,35 @@
   align-items: top;
 }
 
-/*이미지 등록 칸*/
-.imgSubmit {
-  height: 200px;
+/*이미지등록박스*/
+.imgBox {
   width: 200px;
-  padding: 0.5rem;
-  font-size: 1rem;
-  background-color: rgb(216, 215, 215);
-  color: #666666;
-  border: none;
-  cursor: pointer;
+  height: 200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: gray;
+  margin: 0px;
+  padding: 0px;
+}
+
+.imgWrap {
+  width: 202px;
+  height: 202px;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-/*input타입 파일과 라벨 연동*/
-#imgUpload[type="file"] {
+/*이미지 인풋*/
+.imgUpload[type="file"] {
   position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  border: 0;
+  width: 200px;
+  height: 200px;
+  border: 1px solid rgb(195, 194, 204);
+  cursor: pointer;
+  font-size: 0px;
+  opacity: 0;
 }
 
 /*이미지 등록 부가 설명*/
@@ -100,6 +104,27 @@
   margin-right: 10px;
 }
 
+/* 카테고리 박스 */
+.category {
+  width: 60%;
+  margin: 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.category div {
+  display: flex;
+  flex-direction: row;
+  align-items: start;
+  justify-content: space-between;
+}
+
+.category div label {
+  padding: 0.4rem;
+  width: 130px;
+}
+
 /*설명 input*/
 .inputTextarea {
   height: 150px;
@@ -129,25 +154,5 @@
   background-color: #72ce01;
   color: white;
   border-radius: 5px;
-}
-
-
-/* 카테고리 박스 */
-.category {
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-}
-
-.category div {
-  display: flex;
-  flex-direction: row;
-  align-items: start;
-  justify-content: space-between;
-}
-
-.category div label {
-  padding: 0.4rem;
-  width: 130px;
+  cursor: pointer;
 }
