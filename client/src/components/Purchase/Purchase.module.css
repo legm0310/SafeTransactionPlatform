@@ -1,3 +1,42 @@
-.container {
+.mainBox {
   margin-top: 70px;
+  padding: 0 12%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.categoryBox {
+  margin-top: 30px;
+  height: 120px;
+
+  padding: 0.5rem 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.categoryBox div {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.493);
+  padding-bottom: 10px;
+}
+
+.categoryBox ul {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.categoryBox ul li {
+  width: 120px;
+}
+
+.productWrap {
+  width: 1050px;
+  height: 1000px;
 }

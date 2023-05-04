@@ -40,7 +40,23 @@
   margin: 0 30px;
 }
 
-.list2 .list2Item:hover {
+.purchaseLink {
+  text-decoration: none;
+  color: black;
+}
+
+.purchaseLink:hover {
+  transform: scale(1.05);
+  transition: 0.1s;
+  color: #75d700;
+}
+
+.AddProductLink {
+  text-decoration: none;
+  color: black;
+}
+
+.AddProductLink:hover {
   transform: scale(1.05);
   transition: 0.1s;
   color: #75d700;
@@ -91,8 +107,9 @@
 }
 
 /*login*/
-.list3 {
+.AuthList {
   display: flex;
+  flex-direction: row;
   align-items: center;
   justify-content: space-between;
   width: 150px;

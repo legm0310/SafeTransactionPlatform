@@ -25,6 +25,34 @@ const Home = (props) => {
           />
         </div>
       </section>
+
+      <section className={classes.latesProductWrap}>
+        <div className={classes.latestProduct}>
+          <h1>최근 등록 상품</h1>
+          <div className={classes.latestProdList}>
+            <div className={classes.latestProdCard}>
+              <div>이미지</div>
+              <h4>제목</h4>
+              <h4>가격</h4>
+            </div>
+            <div className={classes.latestProdCard}>
+              <div>이미지</div>
+              <h4>제목</h4>
+              <h4>가격</h4>
+            </div>
+            <div className={classes.latestProdCard}>
+              <div>이미지</div>
+              <h4>제목</h4>
+              <h4>가격</h4>
+            </div>
+            <div className={classes.latestProdCard}>
+              <div>이미지</div>
+              <h4>제목</h4>
+              <h4>가격</h4>
+            </div>
+          </div>
+        </div>
+      </section>
     </Fragment>
   );
 };
