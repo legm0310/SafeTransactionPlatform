@@ -1,10 +1,15 @@
 const Sequelize = require("sequelize");
 
 class ChatRoom extends Sequelize.Model {
-  static init() {
-    super.init({
-      //...
-    });
+  static init(sequelize) {
+    super.init(
+      {
+        //...
+      },
+      {
+        sequelize,
+      }
+    );
   }
 }
 
