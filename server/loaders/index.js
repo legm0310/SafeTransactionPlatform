@@ -1,8 +1,10 @@
 const sequelizeLoader = require("./sequelize");
 const expressLoader = require("./express");
 const dependencyInjectorLoader = require("./dependencyInjector");
-const models = require("../models/index");
-const services = require("../services/index");
+const {
+  modelDependencyArr,
+  serviceDependencyArr,
+} = require("./containerObject");
 
 const init = async ({ expressApp }) => {
   try {
@@ -14,19 +16,9 @@ const init = async ({ expressApp }) => {
     throw err;
   }
 
-  const userModel = {
-    name: "userModel",
-    model: models.User,
-  };
-
-  const AuthService = {
-    name: "AuthService",
-    service: services.AuthService,
-  };
-
   await dependencyInjectorLoader({
-    models: [userModel],
-    services: [AuthService],
+    models: modelDependencyArr,
+    services: serviceDependencyArr,
   });
   console.log("👌 Dependency Injector loaded");
 
