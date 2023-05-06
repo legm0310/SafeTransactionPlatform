@@ -5,12 +5,23 @@ module.exports = {
     console.log(req.body);
 
     try {
-      const authServiceInstance = await Container.get("AuthService");
-      const { user, token } = await authServiceInstance.signup(req.body);
+      const authServiceInstance = await Container.get("authService");
+      const { user, accessToken, refreshToken } =
+        await authServiceInstance.signup(req.body);
+      res.setHeader("Authorization", `Bearer ${accessToken}`);
+      res.cookie("refreshToken", refreshToken, {
+        domain: "localhost",
+        path: "/",
+        maxAge: 24 * 6 * 60 * 10000,
+        sameSite: "none",
+        httpOnly: true,
+        secure: true,
+      });
       res.status(201).json({
-        result: "signupSuccess",
+        signupSuccess: true,
         user: user,
-        token: token,
+        accessToken: accessToken,
+        refreshToken: refreshToken,
       });
     } catch (err) {
       console.log("🔥", err);
@@ -20,19 +31,20 @@ module.exports = {
 
   login: async (req, res, next) => {
     try {
-      const authServiceInstance = await Container.get("AuthService");
+      const authServiceInstance = await Container.get("authService");
       const { user, accessToken, refreshToken } =
         await authServiceInstance.login(req.body);
-      // res.cookie('refreshToken', refreshToken, {
-      //   domain: 'localhost',
-      //   path: '/',
-      //   maxAge: 24 * 6 * 60 * 10000,
-      //   sameSite: 'none',
-      //   httpOnly: true,
-      //   secure: true,
-      // })
+      res.setHeader("Authorization", `Bearer ${accessToken}`);
+      res.cookie("refreshToken", refreshToken, {
+        domain: "localhost",
+        path: "/",
+        maxAge: 24 * 6 * 60 * 10000,
+        sameSite: "none",
+        httpOnly: true,
+        secure: true,
+      });
       res.status(200).json({
-        result: "loginSuccess",
+        loginSuccess: true,
         user: user,
         accessToken: accessToken,
         refreshToken: refreshToken,
