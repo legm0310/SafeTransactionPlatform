@@ -1,4 +1,5 @@
-import React, { Fragment, useState, useRef } from "react";
+import React, { Fragment, useState } from "react";
+
 import classes from "./AddProduct.module.css";
 
 const AddProduct = (props) => {
@@ -47,11 +48,14 @@ const AddProduct = (props) => {
   };
 
   const onPriceHandler = (event) => {
-    const newPrice = event.target.value;
-    const regex = /^[0-9\b]+$/; // regex to match only numbers
-    if (newPrice === "" || regex.test(newPrice)) {
-      setPrice(newPrice);
-    }
+    // const newPrice = event.target.value;
+    // const regex = /^[0-9\b]+$/; // regex to match only numbers
+    // if (newPrice === "" || regex.test(newPrice)) {
+    //   setPrice(newPrice);
+    // }
+    const inputNumber = Number(event.target.value.replace(/,/g, "")); // 입력된 값에서 ',' 제거 후 숫자로 변환
+    const formattedValue = new Intl.NumberFormat("en-US").format(inputNumber); // 변환된 숫자를 포맷팅하여 문자열로 변환
+    setPrice(formattedValue);
   };
 
   const onExplanationHandler = (event) => {
@@ -124,6 +128,10 @@ const AddProduct = (props) => {
             type="text"
             id="price"
             className={classes.inputPrice}
+            thousandSeparator={true}
+            onValueChange={(values) => {
+              setPrice(values.price);
+            }}
             onChange={onPriceHandler}
             value={price}
             required
