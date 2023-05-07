@@ -9,13 +9,14 @@ import { LOGIN_USER, REGISTER_USER, AUTH_USER } from "./type";
 
 export function loginUser(dataToSubmit) {
   const request = axios
-    .post("/api/auth/login", dataToSubmit, {})
+    .post("/api/auth/login", dataToSubmit)
     .then((response) => {
       console.log(response.headers);
       let accessToken = response.headers.get("Authorization");
       localStorage.setItem("accessToken", accessToken);
       let refreshToken = response.headers.get("Set-Cookie");
       document.cookie = refreshToken;
+      return response.data;
     });
   // 서버에 데이터를 보낸 후, 서버에서 온 데이터 저장
   // ({loginSuccess: true, userId: user._id})
