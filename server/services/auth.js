@@ -69,6 +69,7 @@ class AuthService {
   async check(userId) {
     try {
       const userData = await this.userService.getUserById(userId);
+      Reflect.deleteProperty(user, "password");
       return userData.dataValues;
     } catch (err) {
       throw err;
