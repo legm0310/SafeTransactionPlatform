@@ -68,6 +68,17 @@ class TokenService {
     return tokenDoc;
   }
 
+  async removeToken(refreshToken) {
+    const token = await this.tokenModel.getToken(refreshToken);
+    if (!token) throw new Error("Unlogged Users");
+    return await this.tokenModel.destroy({
+      where: {
+        refresh_token: refreshToken,
+      },
+      force: true,
+    });
+  }
+
   /** passport 도입으로 사용되지 않음
    * @description type==0 --> access,  type==1 --> refresh
    */

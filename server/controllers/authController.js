@@ -1,6 +1,14 @@
 const { Container } = require("typedi");
+const config = require("../config");
 
 module.exports = {
+  /** 회원가입 함수
+   * @description 회원가입에 대한 에러처리, 리턴
+   * @returns {signupSuccess} dsdad
+   * @returns {user}
+   * @returns {accessToken}
+   * @returns {refreshToken}
+   */
   signup: async (req, res, next) => {
     console.log(req.body);
 
@@ -9,14 +17,7 @@ module.exports = {
       const { user, accessToken, refreshToken } =
         await authServiceInstance.signup(req.body);
       res.setHeader("Authorization", `Bearer ${accessToken}`);
-      res.cookie("refreshToken", refreshToken, {
-        domain: "localhost",
-        path: "/",
-        maxAge: 24 * 6 * 60 * 10000,
-        sameSite: "none",
-        httpOnly: true,
-        secure: true,
-      });
+      res.cookie("refreshToken", refreshToken, config.cookieSet);
       res.status(201).json({
         signupSuccess: true,
         user: user,
@@ -35,19 +36,25 @@ module.exports = {
       const { user, accessToken, refreshToken } =
         await authServiceInstance.login(req.body);
       res.setHeader("Authorization", `Bearer ${accessToken}`);
-      res.cookie("refreshToken", refreshToken, {
-        domain: "localhost",
-        path: "/",
-        maxAge: 24 * 6 * 60 * 10000,
-        sameSite: "none",
-        httpOnly: true,
-        secure: true,
-      });
+      res.cookie("refreshToken", refreshToken, config.cookieSet);
       res.status(200).json({
         loginSuccess: true,
         user: user,
         accessToken: accessToken,
         refreshToken: refreshToken,
+      });
+    } catch (err) {
+      console.log("🔥", err);
+      return next(err);
+    }
+  },
+
+  logout: async (req, res, next) => {
+    try {
+      const authServiceInstance = await Container.get("authService");
+      await authServiceInstance.logout(req.cookies.refreshToken);
+      res.status(200).json({
+        logoutSuccess: true,
       });
     } catch (err) {
       console.log("🔥", err);
