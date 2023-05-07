@@ -23,16 +23,12 @@ class User extends Sequelize.Model {
           primaryKey: true,
           autoIncrement: true,
         },
-        wallet_address: {
-          type: Sequelize.STRING(255),
-          allowNull: true,
-        },
         role: {
           type: Sequelize.TINYINT,
           allowNull: false,
         },
         user_name: {
-          type: Sequelize.STRING(255),
+          type: Sequelize.STRING(45),
           allowNull: false,
         },
         email: {
@@ -45,9 +41,13 @@ class User extends Sequelize.Model {
           allowNull: false,
         },
         phone_number: {
-          type: Sequelize.STRING(255),
+          type: Sequelize.STRING(45),
           allowNull: false,
           unique: true,
+        },
+        wallet_address: {
+          type: Sequelize.STRING(170),
+          allowNull: true,
         },
       },
       {
@@ -68,6 +68,12 @@ class User extends Sequelize.Model {
 
   static associate(db) {
     db.User.hasMany(db.Token, {
+      foreignKey: "user_id",
+      sourceKey: "id",
+      onDelete: "cascade",
+      onUpdate: "cascade",
+    });
+    db.User.hasMany(db.Product, {
       foreignKey: "user_id",
       sourceKey: "id",
       onDelete: "cascade",

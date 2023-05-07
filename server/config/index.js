@@ -12,6 +12,16 @@ module.exports = {
   jwtRefreshSecret: process.env.JWT_SECRET_REFRESH,
   jwtAlgorithm: null,
 
+  cookieSet: {
+    domain:
+      process.env.NODE_ENV === "production" ? process.env.DOMAIN : "localhost",
+    path: "/",
+    maxAge: 24 * 6 * 60 * 10000,
+    sameSite: "none",
+    httpOnly: true,
+    secure: true,
+  },
+
   development: {
     username: process.env.DB_USER,
     password: process.env.DB_PASSWORD,

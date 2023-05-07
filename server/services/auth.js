@@ -58,6 +58,14 @@ class AuthService {
       throw err;
     }
   }
+
+  async logout(refreshToken) {
+    try {
+      return await this.jwt.removeToken(refreshToken);
+    } catch (err) {
+      throw err;
+    }
+  }
 }
 
 module.exports = AuthService;

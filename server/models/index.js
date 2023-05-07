@@ -18,7 +18,7 @@ const db = {};
 
 db.User = user;
 db.Token = token;
-// db.Product = product;
+db.Product = product;
 // db.ChatRoom = chatRoom;
 // db.ChatContent = chatContent;
 
