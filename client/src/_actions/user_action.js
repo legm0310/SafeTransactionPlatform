@@ -40,8 +40,8 @@ export function registerUser(dataToSubmit) {
 export function auth() {
   const accessToken = localStorage.getItem("accessToken");
   const request = axios
-    .get("/user/auth", {
-      headers: { Authorization: "Bearer ${accessToken}" },
+    .get("/api/auth/check", {
+      headers: { Authorization: accessToken },
     })
     .then((response) => response.data);
   return {
