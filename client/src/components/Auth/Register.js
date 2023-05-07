@@ -45,14 +45,15 @@ const Register = (props) => {
     }
 
     let body = {
+      role: 1,
       email: Email,
-      name: Name,
-      phoneNumber: PhoneNumber,
+      user_name: Name,
+      phone_number: PhoneNumber,
       password: Password,
     };
 
     dispatch(registerUser(body)).then((response) => {
-      if (response.payload.success === true) {
+      if (response.payload.signupSuccess === true) {
         alert("회원 정보 입력 완료");
         navigate("/Login");
       } else {
