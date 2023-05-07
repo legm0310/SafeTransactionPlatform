@@ -20,10 +20,10 @@ const init = async ({ expressApp }) => {
       process.env.NODE_ENV.trim().toLowerCase() == "production"
         ? "production"
         : "development";
-
-    console.log(`___________________________________________`);
     const sequelizeDbConnection = await sequelizeLoader();
-    console.log("👌 Mysql DB loaded and connected");
+    console.log(`___________________________________________\n`);
+    console.log(`✨ NODE_ENV: ${process.env.NODE_ENV} ✨\n`);
+    console.log("👌 Mysql DB loaded and connected\n");
   } catch (err) {
     console.log(`🔥 Error on Sequelize Loader: `);
     throw err;
@@ -33,10 +33,10 @@ const init = async ({ expressApp }) => {
     models: modelDependencyArr,
     services: serviceDependencyArr,
   });
-  console.log("👌 Dependency Injector loaded");
+  console.log("👌 Dependency Injector loaded\n");
 
   await expressLoader({ app: expressApp });
-  console.log("👌 Express loaded");
+  console.log("👌 Express loaded\n");
 };
 
 module.exports = init;

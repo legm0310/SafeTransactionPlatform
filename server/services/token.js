@@ -5,7 +5,7 @@ const config = require("../config");
 
 class TokenService {
   constructor() {
-    this.tokenModel = Container.get("tokenModel");
+    this.Token = Container.get("tokenModel");
   }
   isToken(token) {
     return /Bearer\s[A-Za-z0-9-_=]+\.[A-Za-z0-9-_=]+\.?[A-Za-z0-9-_.+/=]*$/.test(
@@ -64,14 +64,14 @@ class TokenService {
       user_id: userId,
     };
     const condition = { where: { user_id: userId } };
-    const tokenDoc = await this.tokenModel.upsert(tokenForm, condition);
+    const tokenDoc = await this.Token.upsert(tokenForm, condition);
     return tokenDoc;
   }
 
   async removeToken(refreshToken) {
-    const token = await this.tokenModel.getToken(refreshToken);
+    const token = await this.Token.getToken(refreshToken);
     if (!token) throw new Error("Unlogged Users");
-    return await this.tokenModel.destroy({
+    return await this.Token.destroy({
       where: {
         refresh_token: refreshToken,
       },
@@ -92,7 +92,7 @@ class TokenService {
   }
 
   async getToken(token) {
-    return await this.tokenModel.findOne({
+    return await this.Token.findOne({
       where: {
         refresh_token: token,
       },
@@ -100,7 +100,7 @@ class TokenService {
   }
 
   async getTokenByUserId(userId) {
-    return await this.tokenModel.findOne({
+    return await this.Token.findOne({
       where: {
         user_id: userId,
       },
@@ -108,7 +108,7 @@ class TokenService {
   }
 
   async updateReissueTimeout(reissueTimeout, userId) {
-    return await this.tokenModel.update(
+    return await this.Token.update(
       {
         reissue_timeout: reissueTimeout,
       },
