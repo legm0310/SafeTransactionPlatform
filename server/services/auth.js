@@ -66,6 +66,14 @@ class AuthService {
       throw err;
     }
   }
+  async check(userId) {
+    try {
+      const userData = await this.userService.getUserById(userId);
+      return userData.dataValues;
+    } catch (err) {
+      throw err;
+    }
+  }
 }
 
 module.exports = AuthService;
