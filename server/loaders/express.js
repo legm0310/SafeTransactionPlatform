@@ -61,7 +61,10 @@ module.exports = ({ app }) => {
   */
   app.use((err, req, res, next) => {
     if (err.name === "Unauthorized") {
-      return res.status(401).send({ message: err.message }).end();
+      return res
+        .status(401)
+        .send({ Unauthorized: true, message: err.message })
+        .end();
     }
     return next(err);
   });
