@@ -6,8 +6,7 @@
   action의 type을 switch case문으로 조건을 걸어 동작
 */
 
-import { LOGIN_USER, REGISTER_USER } from "../_actions/type";
-// 나중에 AUTH_USER 넣어야됨
+import { LOGIN_USER, REGISTER_USER, AUTH_USER } from "../_actions/type";
 
 // Action의 type에 따라 변화된 state 반환
 // eslint-disable-next-line import/no-anonymous-default-export
