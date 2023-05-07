@@ -67,7 +67,7 @@ module.exports = {
       const authServiceInstance = await Container.get("authService");
       const userData = await authServiceInstance.check(req.userId);
       res.status(200).json({
-        authcheck: true,
+        authCheckSuccess: true,
         user: userData,
       });
     } catch (err) {
