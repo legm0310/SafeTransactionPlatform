@@ -15,6 +15,12 @@ const {
  */
 const init = async ({ expressApp }) => {
   try {
+    process.env.NODE_ENV =
+      process.env.NODE_ENV &&
+      process.env.NODE_ENV.trim().toLowerCase() == "production"
+        ? "production"
+        : "development";
+
     console.log(`___________________________________________`);
     const sequelizeDbConnection = await sequelizeLoader();
     console.log("👌 Mysql DB loaded and connected");
