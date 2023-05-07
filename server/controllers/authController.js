@@ -61,4 +61,18 @@ module.exports = {
       return next(err);
     }
   },
+
+  check: async (req, res, next) => {
+    try {
+      const authServiceInstance = await Container.get("authService");
+      const userData = await authServiceInstance.check(req.userId);
+      res.status(200).json({
+        authcheck: true,
+        user: userData,
+      });
+    } catch (err) {
+      console.log("🔥", err);
+      return next(err);
+    }
+  },
 };
