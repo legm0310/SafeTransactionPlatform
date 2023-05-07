@@ -14,7 +14,8 @@ const PurchaseCard = (props) => {
               </div>
 
               <div className={classes.prodInfo}>
-                <br /> {product.name} <br /> {product.price}
+                <div className={classes.prodName}>{product.name}</div>
+                <div className={classes.prodPrice}> {product.price}</div>
               </div>
             </div>
           ))}
