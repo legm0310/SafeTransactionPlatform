@@ -21,10 +21,10 @@ export default function (state = {}, action) {
     case REGISTER_USER:
       return { ...state, registerSuccess: action.payload };
       break;
-    // case AUTH_USER:
-    //   // 모든 유저데이터가 userData에 들어오게 됨
-    //   return { ...state, userData: action.payload };
-    //   break;
+    case AUTH_USER:
+      // 모든 유저데이터가 userData에 들어오게 됨
+      return { ...state, userData: action.payload };
+      break;
     default: // state가 들어오지 않았을 경우 전의 state를 넣어줌
       return state;
   }
