@@ -1,7 +1,7 @@
 import { Fragment } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { auth } from "../../../_actions/user_action";
+import { auth } from "../../_actions/user_action";
 
 import classes from "./Header.module.css";
 import { FiSearch } from "react-icons/fi";
