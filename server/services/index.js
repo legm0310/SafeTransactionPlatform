@@ -7,4 +7,5 @@ module.exports = {
   userService: UserService,
   tokenService: TokenService,
   authService: AuthService,
+  productService: ProductService,
 };
