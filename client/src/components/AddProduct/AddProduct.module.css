@@ -47,7 +47,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background: gray;
+  background: #fff;
+  border: 1px solid rgb(207, 210, 215);
   margin: 0px;
   padding: 0px;
 }
@@ -153,4 +154,15 @@
   color: white;
   border-radius: 5px;
   cursor: pointer;
+}
+
+/* 인풋 및 텍스트박스 클릭시 테두리 색상*/
+input:focus {
+  border-color: #72ce01;
+  outline: none;
+}
+
+textarea:focus {
+  border-color: #72ce01;
+  outline: none;
 }
