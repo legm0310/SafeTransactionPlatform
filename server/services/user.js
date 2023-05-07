@@ -20,6 +20,7 @@ class UserService {
       where: {
         email: email,
       },
+      force: true,
     });
   }
   async updateUserById(userId, updateBody) {
