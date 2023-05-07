@@ -1,5 +1,6 @@
 const Sequelize = require("sequelize");
 
+//db tokenTable model
 class Token extends Sequelize.Model {
   static init(sequelize) {
     super.init(

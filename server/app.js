@@ -8,6 +8,9 @@ const init = require("./loaders");
 
 const app = express();
 
+/** 앱 실행 함수
+ * loader의 파일들을 실행 (init)
+ */
 async function startApplication() {
   //   console.log(`
   // ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀

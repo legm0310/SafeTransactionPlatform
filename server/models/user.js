@@ -1,6 +1,7 @@
 const Sequelize = require("sequelize");
 const bcrypt = require("bcrypt");
 
+//db userTable model
 class User extends Sequelize.Model {
   async validPassword(plainPassword) {
     return await bcrypt.compare(plainPassword, this.password);
