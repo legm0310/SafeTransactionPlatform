@@ -68,7 +68,9 @@ class TokenService {
     return tokenDoc;
   }
 
-  //type==0 --> access,  type==1 --> refresh
+  /** passport 도입으로 사용되지 않음
+   * @description type==0 --> access,  type==1 --> refresh
+   */
   async verifyToken(type, token) {
     const tokenData = jwt.verify(
       token,

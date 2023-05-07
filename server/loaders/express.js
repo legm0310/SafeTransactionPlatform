@@ -7,6 +7,10 @@ const morgan = require("morgan");
 const routerLoader = require("../routes");
 const { accessStrategy, refreshStrategy } = require("../config/passport");
 
+/** express 앱의 미들웨어들을 로드하는 함수
+ * @param {object} options 미들웨어를 실행시킬 express app
+ * @param {Function} options.app 미들웨어를 실행시킬 express app
+ */
 module.exports = ({ app }) => {
   //Http 요청, 응답 로깅
   app.use(morgan("dev"));
@@ -28,6 +32,7 @@ module.exports = ({ app }) => {
   passport.use("refresh", refreshStrategy);
 
   //api routes
+  //route -> controller -> service -> model -> db 엑세스 순으로 요청이 처리됨
   app.use("/api", routerLoader());
 
   //test routes

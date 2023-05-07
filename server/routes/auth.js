@@ -4,9 +4,9 @@ const middleware = require("../middlewares");
 const { validationResult } = require("express-validator");
 const authController = require("../controllers/authController");
 
-/**
- * @TODO
- * 유효성 검증 추가
+/** auth 관련 라우팅 함수
+ * @param {Function} app 라우터 설정을 위한 express.Router()
+ * @todo 유효성 검증 추가
  *
  */
 module.exports = (app) => {
