@@ -8,7 +8,7 @@ const loginAgain = new ApiError(
   "Authentication has expired. Please login again "
 );
 
-//isAuth 실행시 handleAccessToken -> if문 분기에 따라 handleRefreshToken 실행
+//isAuth -> handleAccessToken -> if문 분기에 따라 handleRefreshToken 실행
 const handleAccessToken = async (req, res, next) => {
   passport.authenticate(
     "access",
@@ -64,7 +64,7 @@ const handleRefreshToken = async (req, res, next) => {
       );
 
       await res.setHeader("Authorization", `Bearer ${accessToken}`);
-
+      req.userId = user.tokenData.user_id;
       return next();
     }
   )(req, res, next);

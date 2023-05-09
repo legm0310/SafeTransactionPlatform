@@ -43,7 +43,7 @@ class AuthService {
   async login(info) {
     try {
       const searchUser = await this.userService.getUserByEmail(info.email);
-      if (!searchUser) throw new Error("User not registered");
+      if (!searchUser) throw new Error("User not found");
 
       if (!(await searchUser.validPassword(info.password)))
         throw new Error("Invalid Password");
@@ -69,8 +69,9 @@ class AuthService {
   async check(userId) {
     try {
       const userData = await this.userService.getUserById(userId);
+      const user = userData.dataValues;
       Reflect.deleteProperty(user, "password");
-      return userData.dataValues;
+      return user;
     } catch (err) {
       throw err;
     }
