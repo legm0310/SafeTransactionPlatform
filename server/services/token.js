@@ -32,6 +32,9 @@ class TokenService {
     return token;
   }
 
+  /**
+   * @description test: accesstoken - 20초/ 만료 토큰 재생성 가능 시간 - 20초
+   */
   async genAuthToken(user) {
     //moment: 날짜에 월, 일, 시간, 분 단위로 쉽게 더하고 뺄 수 있는 lib
     //db에 날짜 저장

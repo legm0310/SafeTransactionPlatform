@@ -20,7 +20,6 @@ class UserService {
       where: {
         email: email,
       },
-      force: true,
     });
   }
   async updateUserById(userId, updateBody) {
@@ -39,6 +38,7 @@ class UserService {
       where: {
         id: userId,
       },
+      force: true,
     });
   }
 }
