@@ -39,9 +39,11 @@ export function registerUser(dataToSubmit) {
 }
 
 export function auth() {
+  axios.defaults.withCredentials = true;
   const accessToken = localStorage.getItem("accessToken");
   const request = axios
     .get("/api/auth/check", {
+      withCredentials: true,
       headers: { Authorization: accessToken },
     })
     .then((response) => response.data);

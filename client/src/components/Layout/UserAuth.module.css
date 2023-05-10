@@ -1,6 +1,11 @@
 .Authwrap {
-  display: flex;
   list-style: none;
+}
+
+.loginRegister {
+  display: flex;
+  text-decoration: none;
+  color: black;
 }
 
 .login {

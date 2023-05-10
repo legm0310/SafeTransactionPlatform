@@ -1,6 +1,6 @@
 import React, { Fragment } from "react";
 
-import classes from "./PurchaseList.module.css";
+import classes from "./PurchaseCard.module.css";
 
 const PurchaseCard = (props) => {
   return (
