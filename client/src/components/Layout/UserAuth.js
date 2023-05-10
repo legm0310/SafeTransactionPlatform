@@ -6,7 +6,6 @@ import classes from "./UserAuth.module.css";
 
 const UserAuth = (props) => {
   const navigate = useNavigate();
-  const isLoggedIn = true;
 
   const onLogoutHandler = () => {
     axios.defaults.withCredentials = true;
@@ -20,25 +19,25 @@ const UserAuth = (props) => {
           // localStorage 지우기
           localStorage.clear();
 
-          // 쿠키 지우기
-          document.cookie =
-            "쿠키이름=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
           alert("로그아웃 되었습니다.");
+          props.setIsLoggedIn(false);
           navigate("/");
+          // 로그아웃에 성공했으므로 isLoggedIn 상태를 false로 변경
         } else {
           alert("로그아웃에 실패 했습니다.");
         }
       });
   };
+
   return (
     <Fragment>
       <ul className={classes.Authwrap}>
-        {isLoggedIn ? (
+        {props.isLoggedIn ? (
           <li className={classes.logout} onClick={onLogoutHandler}>
             로그아웃
           </li>
         ) : (
-          <Link to="/Login" className={classes.link}>
+          <Link to="/Login" className={classes.loginRegister}>
             <li className={classes.login}>로그인/</li>
             <li className={classes.register}>회원가입</li>
           </Link>
