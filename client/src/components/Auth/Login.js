@@ -37,7 +37,14 @@ const Login = (props) => {
       password: Password,
     };
 
-    dispatch(loginUser(body));
+    dispatch(loginUser(body)).then((response) => {
+      if (response.payload.loginSuccess) {
+        alert("로그인 성공");
+        navigate("/");
+      } else {
+        alert("로그인 실패");
+      }
+    });
   };
 
   return (

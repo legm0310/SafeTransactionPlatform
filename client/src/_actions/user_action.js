@@ -5,17 +5,19 @@
 */
 
 import axios from "axios";
-import { LOGIN_USER, REGISTER_USER } from "./type";
-// 나중에 AUTH_USER 넣어야됨
+import { LOGIN_USER, REGISTER_USER, AUTH_USER } from "./type";
 
 export function loginUser(dataToSubmit) {
   const request = axios
-    .post("/api/user/login", dataToSubmit, {
-      headers: {
-        Authorization: "Bearer ${accessToken}",
-      },
-    })
-    .then((response) => response.data);
+    .post("/api/auth/login", dataToSubmit)
+    .then((response) => {
+      console.log(response.headers);
+      let accessToken = response.headers.get("Authorization");
+      localStorage.setItem("accessToken", accessToken);
+      let refreshToken = response.headers.get("Set-Cookie");
+      document.cookie = refreshToken;
+      return response.data;
+    });
   // 서버에 데이터를 보낸 후, 서버에서 온 데이터 저장
   // ({loginSuccess: true, userId: user._id})
 
@@ -28,7 +30,7 @@ export function loginUser(dataToSubmit) {
 
 export function registerUser(dataToSubmit) {
   const request = axios
-    .post("/api/user/signup", dataToSubmit)
+    .post("/api/auth/signup", dataToSubmit)
     .then((response) => response.data);
   return {
     type: REGISTER_USER,
@@ -36,12 +38,15 @@ export function registerUser(dataToSubmit) {
   };
 }
 
-// export function auth() {
-//     const request = axios
-//       .get("/user/auth")
-//       .then((response) => response.data);
-//     return {
-//       type: AUTH_USER,
-//       payload: request,
-//     };
-//   }
+export function auth() {
+  const accessToken = localStorage.getItem("accessToken");
+  const request = axios
+    .get("/api/auth/check", {
+      headers: { Authorization: accessToken },
+    })
+    .then((response) => response.data);
+  return {
+    type: AUTH_USER,
+    payload: request,
+  };
+}
