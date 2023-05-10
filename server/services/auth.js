@@ -17,20 +17,16 @@ class AuthService {
    * @returns {{user: object, accessToken: string, refreshToken: string}} 생성한 user, token
    */
   async signup(newUser) {
-    try {
-      const userRecord = await this.userService.createUser(newUser);
+    const userRecord = await this.userService.createUser(newUser);
 
-      if (!userRecord) throw new Error("User cannot be created");
+    if (!userRecord) throw new Error("User cannot be created");
 
-      const { access, refresh } = await this.jwt.genAuthToken(userRecord.id);
+    const { access, refresh } = await this.jwt.genAuthToken(userRecord.id);
 
-      const user = userRecord.dataValues;
-      Reflect.deleteProperty(user, "password");
+    const user = userRecord.dataValues;
+    Reflect.deleteProperty(user, "password");
 
-      return { user, accessToken: access.token, refreshToken: refresh.token };
-    } catch (err) {
-      throw err;
-    }
+    return { user, accessToken: access.token, refreshToken: refresh.token };
   }
 
   /** 로그인 메소드
@@ -41,40 +37,29 @@ class AuthService {
    * @returns {{user: object, accessToken: string, refreshToken: string}}
    */
   async login(info) {
-    try {
-      const searchUser = await this.userService.getUserByEmail(info.email);
-      if (!searchUser) throw new Error("User not found");
+    const searchUser = await this.userService.getUserByEmail(info.email);
+    if (!searchUser) throw new Error("User not found");
 
-      if (!(await searchUser.validPassword(info.password)))
-        throw new Error("Invalid Password");
+    if (!(await searchUser.validPassword(info.password)))
+      throw new Error("Invalid Password");
 
-      const { access, refresh } = await this.jwt.genAuthToken(searchUser);
+    const { access, refresh } = await this.jwt.genAuthToken(searchUser);
 
-      const user = searchUser.dataValues;
-      Reflect.deleteProperty(user, "password");
+    const user = searchUser.dataValues;
+    Reflect.deleteProperty(user, "password");
 
-      return { user, accessToken: access.token, refreshToken: refresh.token };
-    } catch (err) {
-      throw err;
-    }
+    return { user, accessToken: access.token, refreshToken: refresh.token };
   }
 
   async logout(refreshToken) {
-    try {
-      return await this.jwt.removeToken(refreshToken);
-    } catch (err) {
-      throw err;
-    }
+    return await this.jwt.removeToken(refreshToken);
   }
+
   async check(userId) {
-    try {
-      const userData = await this.userService.getUserById(userId);
-      const user = userData.dataValues;
-      Reflect.deleteProperty(user, "password");
-      return user;
-    } catch (err) {
-      throw err;
-    }
+    const userData = await this.userService.getUserById(userId);
+    const user = userData.dataValues;
+    Reflect.deleteProperty(user, "password");
+    return user;
   }
 }
 

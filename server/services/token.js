@@ -12,6 +12,7 @@ class TokenService {
       token
     );
   }
+
   async genAccessToken(userId) {
     const payload = {
       sub: userId,
@@ -72,7 +73,7 @@ class TokenService {
   }
 
   async removeToken(refreshToken) {
-    const token = await this.Token.getToken(refreshToken);
+    const token = await this.getToken(refreshToken);
     if (!token) throw new Error("Unlogged Users");
     return await this.Token.destroy({
       where: {

@@ -3,7 +3,10 @@ const catchAsync = (asyncFn) => {
     try {
       await asyncFn(req, res, next);
     } catch (err) {
+      console.log("🔥", err);
       next(err);
     }
   };
 };
+
+module.exports = catchAsync;
