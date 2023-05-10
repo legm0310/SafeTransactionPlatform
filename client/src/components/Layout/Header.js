@@ -61,7 +61,10 @@ const Header = (props) => {
         </div>
 
         <div className={classes.AuthList}>
-          <UserAuth />
+          <UserAuth
+            setIsLoggedIn={props.setIsLoggedIn}
+            isLoggedIn={props.isLoggedIn}
+          />
         </div>
       </header>
     </Fragment>
