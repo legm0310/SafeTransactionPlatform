@@ -7,6 +7,7 @@ if (envFound.error) {
   throw new Error("⚠️  Couldn't find .env file  ⚠️");
 }
 module.exports = {
+  env: process.env.NODE_ENV || "development",
   port: parseInt(process.env.PORT, 10),
   jwtAccessSecret: process.env.JWT_SECRET_ACCESS,
   jwtRefreshSecret: process.env.JWT_SECRET_REFRESH,
