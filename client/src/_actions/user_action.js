@@ -39,12 +39,11 @@ export function registerUser(dataToSubmit) {
 }
 
 export function auth() {
-  axios.defaults.withCredentials = true;
   const accessToken = localStorage.getItem("accessToken");
+  const headers = { Authorization: accessToken };
   const request = axios
     .get("/api/auth/check", {
-      withCredentials: true,
-      headers: { Authorization: accessToken },
+      headers,
     })
     .then((response) => response.data);
   return {
