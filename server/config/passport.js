@@ -1,7 +1,7 @@
 const { Strategy: JwtStrategy, ExtractJwt } = require("passport-jwt");
 const { Container } = require("typedi");
 const config = require("../config");
-const ApiError = require("../utils/ApiError");
+const { UnauthorizedError } = require("../utils/generalError");
 
 const cookieExtractor = function (req) {
   var token = null;
@@ -41,7 +41,7 @@ const refreshVerify = async (payload, done) => {
     console.log("현재 타임스탬프", Math.floor(Date.now() / 1000));
 
     if (!reissueTimeout || reissueTimeout < Date.now()) {
-      throw new ApiError(401, "Unauthorized", "Please authenticate");
+      throw new UnauthorizedError("Please authenticate");
     } else {
       payload["tokenData"] = tokenValues;
       return done(null, payload);

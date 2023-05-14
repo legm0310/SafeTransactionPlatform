@@ -1,10 +1,8 @@
 const { Container } = require("typedi");
 const passport = require("passport");
-const ApiError = require("../utils/ApiError");
-const Unauthorized = new ApiError(401, "Unauthorized", "Please authenticate");
-const loginAgain = new ApiError(
-  401,
-  "Unauthorized",
+const { UnauthorizedError } = require("../utils/generalError");
+const Unauthorized = new UnauthorizedError("Please authenticate");
+const loginAgain = new UnauthorizedError(
   "Authentication has expired. Please login again "
 );
 
