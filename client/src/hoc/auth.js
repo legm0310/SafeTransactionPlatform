@@ -31,16 +31,20 @@ export default function (SpecificComponent, option, adminRoute = null) {
       // 로그인한 회원만 진입 가능한 페이지
       // 로그인한 회원은 진입 못하는 페이지
       // 관리자만 진입 가능한 페이지
-
+      if (option === null) {
+        return;
+      }
       dispatch(auth()).then((response) => {
-        console.log(response);
-        console.log(response.payload.authCheckSuccess);
+        // console.log(response);
+        // console.log(response.payload.authCheckSuccess);
         // 로그인 하지 않은 상태
         if (!response.payload.authCheckSuccess) {
           // 로그인 하지 않은 상태에서 로그인한 유저만 출입 가능한 페이지로 들어가려고 할 때
           if (option) {
-            localStorage.removeItem("accessToken");
-            navigate("/");
+            if (localStorage.getItem("accessToken")) {
+              localStorage.removeItem("accessToken");
+            }
+            navigate("/Login");
           }
         } else {
           // 로그인 한 상태
