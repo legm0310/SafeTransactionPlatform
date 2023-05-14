@@ -18,13 +18,6 @@ const Header = (props) => {
     return null;
   }
 
-  // 인증이되면 홈으로 가짐
-  dispatch(auth()).then((res) => {
-    if (res.payload.isAuth) {
-      navigate("/");
-    }
-  });
-
   return (
     <Fragment>
       <header className={classes.header}>
