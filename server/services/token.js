@@ -2,6 +2,7 @@ const { Container } = require("typedi");
 const moment = require("moment");
 const jwt = require("jsonwebtoken");
 const config = require("../config");
+const { UnauthorizedError } = require("../utils/generalError");
 
 class TokenService {
   constructor() {
@@ -17,7 +18,7 @@ class TokenService {
     const payload = {
       sub: userId,
       iat: Math.floor(Date.now() / 1000),
-      exp: Math.floor(Date.now() / 1000) + 25,
+      exp: Math.floor(Date.now() / 1000) + 60 * 60,
     };
     const token = jwt.sign(payload, config.jwtAccessSecret);
     return { accessToken: token, exp: payload.exp };
@@ -35,6 +36,7 @@ class TokenService {
 
   /**
    * @description test: accesstoken - 20초/ 만료 토큰 재생성 가능 시간 - 20초
+   * @description production : accesstoken - 60분 / 만료 토큰 재생성 가능 시간 - 만료 이후 60분
    */
   async genAuthToken(user) {
     //moment: 날짜에 월, 일, 시간, 분 단위로 쉽게 더하고 뺄 수 있는 lib
@@ -42,7 +44,7 @@ class TokenService {
     const { accessToken, exp } = await this.genAccessToken(user.id);
     const accessTokenExpires = moment().add(60, "minutes");
 
-    const reissueTimeout = moment(exp * 1000).add(20, "s");
+    const reissueTimeout = moment(exp * 1000).add(60, "m");
 
     const refreshToken = await this.genRefreshToken(user.id);
     const refreshTokenExpires = moment().add(3, "days");
@@ -74,7 +76,6 @@ class TokenService {
 
   async removeToken(refreshToken) {
     const token = await this.getToken(refreshToken);
-    if (!token) throw new Error("Unlogged Users");
     return await this.Token.destroy({
       where: {
         refresh_token: refreshToken,
@@ -96,19 +97,23 @@ class TokenService {
   }
 
   async getToken(token) {
-    return await this.Token.findOne({
+    const tokenRecord = await this.Token.findOne({
       where: {
         refresh_token: token,
       },
     });
+    if (!tokenRecord) throw new UnauthorizedError("Authentication not found");
+    return tokenRecord;
   }
 
   async getTokenByUserId(userId) {
-    return await this.Token.findOne({
+    const tokenRecord = await this.Token.findOne({
       where: {
         user_id: userId,
       },
     });
+    if (!tokenRecord) throw new UnauthorizedError("Authentication not found");
+    return tokenRecord;
   }
 
   async updateReissueTimeout(reissueTimeout, userId) {

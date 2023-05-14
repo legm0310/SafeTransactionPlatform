@@ -6,6 +6,8 @@ const passport = require("passport");
 const morgan = require("morgan");
 const routerLoader = require("../routes");
 const { accessStrategy, refreshStrategy } = require("../config/passport");
+const { errorConvert, globalErrorHandler } = require("../middlewares/error");
+const { NotFoundError } = require("../utils/generalError");
 
 /** express 앱의 미들웨어들을 로드하는 함수
  * @param {object} options 미들웨어를 실행시킬 express app
@@ -50,39 +52,9 @@ module.exports = ({ app }) => {
 
   //요청 자원(Url)이 없을 때
   app.use((req, res, next) => {
-    const err = new Error("Not Found");
-    err["status"] = 404;
-    next(err);
+    next(new NotFoundError("Not Found"));
   });
-
-  /**  
-   * error handlers
-  @TODO refactoring
-  */
-  app.use((err, req, res, next) => {
-    if (err.name === "Unauthorized") {
-      return res
-        .status(401)
-        .send({ Unauthorized: true, message: err.message })
-        .end();
-    }
-    return next(err);
-  });
-
-  app.use((err, req, res, next) => {
-    if (err.name === "Forbidden") {
-      return res.status(403).send({ message: err.message }).end();
-    }
-    return next(err);
-  });
-
-  app.use((err, req, res, next) => {
-    res.status(err.status || 500);
-    res.json({
-      errors: {
-        name: err.name,
-        message: err.message,
-      },
-    });
-  });
+  //error handler
+  app.use(errorConvert);
+  app.use(globalErrorHandler);
 };

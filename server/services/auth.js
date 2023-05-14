@@ -1,4 +1,5 @@
 const { Container } = require("typedi");
+const { UnauthorizedError } = require("../utils/generalError");
 
 class AuthService {
   constructor() {
@@ -38,10 +39,9 @@ class AuthService {
    */
   async login(info) {
     const searchUser = await this.userService.getUserByEmail(info.email);
-    if (!searchUser) throw new Error("User not found");
 
     if (!(await searchUser.validPassword(info.password)))
-      throw new Error("Invalid Password");
+      throw new UnauthorizedError("Invalid Password");
 
     const { access, refresh } = await this.jwt.genAuthToken(searchUser);
 
@@ -52,11 +52,14 @@ class AuthService {
   }
 
   async logout(refreshToken) {
+    const refreshTokenRecord = await this.jwt.getToken(refreshToken);
+    if (!refreshTokenRecord) throw new UnauthorizedError("Not logged in");
     return await this.jwt.removeToken(refreshToken);
   }
 
   async check(userId) {
     const userData = await this.userService.getUserById(userId);
+    if (!userData) throw new UnauthorizedError("Please authenticate");
     const user = userData.dataValues;
     Reflect.deleteProperty(user, "password");
     return user;

@@ -1,4 +1,5 @@
 const { Container } = require("typedi");
+const { BadRequestError, NotFoundError } = require("../utils/generalError");
 
 class UserService {
   constructor() {
@@ -7,33 +8,33 @@ class UserService {
 
   async createUser(newUserBody) {
     if (await this.User.getUserByPhoneNumber(newUserBody.phone_number)) {
-      throw new Error("User already exist");
+      throw new BadRequestError("User already exist");
     }
     return await this.User.create(newUserBody);
   }
 
   async getUserById(id) {
-    return await this.User.findByPk(id);
+    const user = await this.User.findByPk(id);
+    if (!user) throw new NotFoundError("User not found");
+    return user;
   }
+
   async getUserByEmail(email) {
-    return await this.User.findOne({
+    const user = await this.User.findOne({
       where: {
         email: email,
       },
     });
+    if (!user) throw new NotFoundError("User not found");
+    return user;
   }
+
   async updateUserById(userId, updateBody) {
     const user = await this.getUserById(userId);
-    if (!user) {
-      throw new Error("User not found");
-    }
   }
 
   async deleteUserById(userId) {
     const user = await this.getUserById(userId);
-    if (!user) {
-      throw new Error("User not found");
-    }
     return await this.User.destroy({
       where: {
         id: userId,
