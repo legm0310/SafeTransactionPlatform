@@ -6,8 +6,8 @@ const passport = require("passport");
 const morgan = require("morgan");
 const routerLoader = require("../routes");
 const { accessStrategy, refreshStrategy } = require("../config/passport");
-const { errorConvert, globalErrorHandler } = require("../middlewares/error");
 const { NotFoundError } = require("../utils/generalError");
+const { errorConvert, globalErrorHandler } = require("../middlewares");
 
 /** express 앱의 미들웨어들을 로드하는 함수
  * @param {object} options 미들웨어를 실행시킬 express app

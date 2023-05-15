@@ -21,10 +21,6 @@ class Product extends Sequelize.Model {
           type: Sequelize.STRING(255),
           allowNull: false,
         },
-        seller_id: {
-          type: Sequelize.INTEGER,
-          allowNull: false,
-        },
         price: {
           type: Sequelize.INTEGER,
           allowNull: false,
@@ -42,8 +38,9 @@ class Product extends Sequelize.Model {
   static associate(db) {
     db.Product.belongsTo(db.User, {
       foreignKey: {
-        name: "user_id",
+        name: "seller_id",
         unique: true,
+        allowNull: false,
       },
       sourceKey: "id",
       onDelete: "cascade",

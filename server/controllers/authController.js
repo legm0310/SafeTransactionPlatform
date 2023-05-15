@@ -44,7 +44,7 @@ module.exports = {
 
   check: catchAsync(async (req, res) => {
     const authServiceInstance = await Container.get("authService");
-    const userData = await authServiceInstance.check(req.userId);
+    const userData = await authServiceInstance.check(res.locals.userId);
     res.status(200).json({
       authCheckSuccess: true,
       user: userData,

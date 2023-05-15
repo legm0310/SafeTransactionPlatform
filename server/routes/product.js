@@ -10,8 +10,9 @@ const productController = require("../controllers").productController;
  */
 module.exports = (app) => {
   app.use("/product", router);
-  router.post("/product", productController.postProduct);
-  router.get("/product", productController.getProduct);
-  router.put("/product", productController.updateProduct);
-  router.delete("/product", productController.deleteProduct);
+  router.post("/", productController.addProduct);
+  router.get("/", productController.getProduct);
+  router.get("/:productId", productController.getProduct);
+  router.put("/:productId", productController.updateProduct);
+  router.delete("/:productId", productController.deleteProduct);
 };

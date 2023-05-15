@@ -1,3 +1,4 @@
 const isAuth = require("./isAuth");
+const { errorConvert, globalErrorHandler } = require("./error");
 
-module.exports = { isAuth };
+module.exports = { isAuth, errorConvert, globalErrorHandler };
