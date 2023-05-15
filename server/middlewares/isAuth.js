@@ -23,8 +23,7 @@ const handleAccessToken = async (req, res, next) => {
           next(Unauthorized)
         );
       }
-
-      req.userId = user.sub;
+      res.locals.userId = user.sub;
       return next();
     }
   )(req, res, next);
@@ -62,7 +61,7 @@ const handleRefreshToken = async (req, res, next) => {
       );
 
       await res.setHeader("Authorization", `Bearer ${accessToken}`);
-      req.userId = user.tokenData.user_id;
+      res.locals.userId = user.tokenData.user_id;
       return next();
     }
   )(req, res, next);
