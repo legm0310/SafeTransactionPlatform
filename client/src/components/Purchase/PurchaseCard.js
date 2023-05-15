@@ -10,7 +10,7 @@ const PurchaseCard = (props) => {
           {props.products.map((product) => (
             <div className={classes.prodCard}>
               <div className={classes.imgBox}>
-                <img src={product.imgFile} className={classes.prodImg} />
+                <img src={product.imgFile} className={classes.prodImg} alt="" />
               </div>
 
               <div className={classes.prodInfo}>

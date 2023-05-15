@@ -45,7 +45,15 @@ export function auth() {
     .get("/api/auth/check", {
       headers,
     })
-    .then((response) => response.data);
+    .then((response) => {
+      if (response.headers.authorization) {
+        localStorage.removeItem("accessToken");
+        let accessToken = response.headers.get("Authorization");
+        localStorage.setItem("accessToken", accessToken);
+      }
+      return response.data;
+    })
+    .catch((err) => err.response.data);
   return {
     type: AUTH_USER,
     payload: request,

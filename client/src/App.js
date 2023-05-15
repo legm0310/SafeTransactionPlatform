@@ -8,8 +8,12 @@ import AddProduct from "./components/AddProduct/AddProduct";
 import Login from "./components/Auth/Login";
 import Register from "./components/Auth/Register";
 import DetailPurchase from "./components/Purchase/DetailPurchase";
+import Auth from "./hoc/auth";
 
 function App() {
+  const AuthHome = Auth(Home, null);
+  const AuthAddProduct = Auth(AddProduct, true);
+
   const [purchaseCard, setPurchaseCard] = useState([]);
 
   const token = Boolean(localStorage.getItem("accessToken"));
@@ -35,14 +39,14 @@ function App() {
       <BrowserRouter>
         <Header setIsLoggedIn={setIsLoggedIn} isLoggedIn={isLoggedIn} />
         <Routes>
-          <Route path="/" element={<Home />}></Route>
+          <Route path="/" element={<AuthHome />}></Route>
           <Route
             path="/Purchase/"
             element={<Purchase purchaseCard={purchaseCard} />}
           ></Route>
           <Route
             path="/AddProduct/"
-            element={<AddProduct onAddProduct={addProductHandler} />}
+            element={<AuthAddProduct onAddProduct={addProductHandler} />}
           ></Route>
           <Route
             path="/Login"
