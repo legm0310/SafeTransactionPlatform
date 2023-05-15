@@ -1,5 +1,12 @@
 const { Container } = require("typedi");
-const Authentication = require("../utils/authentication");
+
+/** typedi Container에 의존성들을 주입하는 함수
+ * @description Container.get으로 불러오기 전에 실행되어야 함
+ * @param {Object} container - 컨테이너 객체
+ * @param {Array.<Class>} container.models - 사용할 모델 클래스들의 배열.
+ * @param {Array.<Class>} container.services - 사용할 서비스 클래스들의 배열.
+ * @return {void} 의존성 주입
+ */
 module.exports = ({ models, services }) => {
   try {
     models.forEach((m) => {
@@ -7,9 +14,6 @@ module.exports = ({ models, services }) => {
       Container.set({ id: m.name, factory: () => m.model });
       console.log(`👌 ${m.name} injected into container`);
     });
-
-    Container.set({ id: "jwtAuth", factory: () => Authentication });
-    console.log(`👌 jwtAuth injected into container`);
 
     services.forEach((s) => {
       console.log(s);

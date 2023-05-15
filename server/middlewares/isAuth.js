@@ -1,66 +1,80 @@
 const { Container } = require("typedi");
-const jwt = require("jsonwebtoken");
-const config = require("../config");
-const Unauthorized = new Error("Unauthorized. Please login");
-Unauthorized.name = "Unauthorized";
+const passport = require("passport");
+const { UnauthorizedError } = require("../utils/generalError");
+const Unauthorized = new UnauthorizedError("Please authenticate");
+const loginAgain = new UnauthorizedError(
+  "Authentication has expired. Please login again "
+);
 
-const isAuth = async (req, res, next) => {
-  const User = Container.get("userModel");
-  const jwtUtil = Container.get("jwtAuth");
-  const authHeader = req.headers.authorization;
+//isAuth -> handleAccessToken -> if문 분기에 따라 handleRefreshToken 실행
+const handleAccessToken = async (req, res, next) => {
+  passport.authenticate(
+    "access",
+    { session: false },
+    async (err, user, info) => {
+      if (info && info.message == "jwt expired") {
+        //... passport.authenticate("refresh")
+        return await handleRefreshToken(req, res, next);
+      }
 
-  if (!authHeader || !authHeader.split(" ")[1])
-    return console.log("🔥", Unauthorized), next(Unauthorized);
-
-  let accessToken = authHeader.split(" ")[1];
-
-  //access token 검증
-  try {
-    const { payload, verifyResult } = await jwtUtil.verifyToken(0, accessToken);
-    console.log(verifyResult);
-    if (!verifyResult) {
-      return console.log("🔥", Unauthorized), next(Unauthorized);
+      if (err || info || !user) {
+        return (
+          console.log("🔥", err ? `err: ${err}` : `info: ${info}`),
+          next(Unauthorized)
+        );
+      }
+      res.locals.userId = user.sub;
+      return next();
     }
-
-    req.userId = payload.id;
-    return next();
-  } catch (err) {
-    if (err.name !== "TokenExpiredError") {
-      return console.log("🔥", Unauthorized), next(Unauthorized);
-    }
-  }
-  //access token 기간 만료시 refresh token 검증
-  let { refreshToken } = req.cookies;
-
-  if (!refreshToken || refreshToken == "invalidtoken") {
-    return console.log("🔥", Unauthorized), next(Unauthorized);
-  }
-
-  try {
-    const payload = await jwtUtil.verifyToken(1, refreshToken);
-    const searchUser = await User.getUserByToken(refreshToken);
-
-    if (refreshToken !== searchUser.dataValues.refresh_token) {
-      console.log("🔥", Unauthorized), next(Unauthorized);
-    }
-
-    const newAccessToken = await jwtUtil.genAccessToken(payload.id);
-    res.setHeader("Authorization", `Bearer ${newAccessToken}`);
-
-    return next();
-  } catch (err) {
-    if (err.name === "TokenExpiredError") {
-      const expired = new Error(
-        "authentication has expired. Please login again"
-      );
-      expired.name = "Unauthorized";
-      return console.log("🔥", expired), next(expired);
-    }
-    return console.log("🔥", Unauthorized), next(Unauthorized);
-  }
+  )(req, res, next);
 };
 
-//access token 검사 -> 유효 -> 인증 통과
-//access token 검사 -> 만료 -> refresh token 검사 -> 유효 -> accesstoken 재발금
-//access token 검사 -> 만료 -> refresh token 검사 -> 만료 -> 재로그인
+const handleRefreshToken = async (req, res, next) => {
+  const tokenService = Container.get("tokenService");
+  passport.authenticate(
+    "refresh",
+    { session: false },
+    async (err, user, info) => {
+      if (info && info.message == "jwt expired") {
+        return console.log("🔥", loginAgain), next(loginAgain);
+      }
+
+      if (err || info || !user) {
+        return (
+          console.log("🔥", err ? `err: ${err}` : `info: ${info}`),
+          next(Unauthorized)
+        );
+      }
+
+      const { refreshToken } = await req.cookies;
+      if (refreshToken !== user.tokenData.refresh_token) {
+        return console.log("🔥", Unauthorized), next(Unauthorized);
+      }
+
+      const { accessToken, exp } = await tokenService.genAccessToken(
+        user.tokenData.user_id
+      );
+
+      await tokenService.updateReissueTimeout(
+        new Date(exp * 1000 + 20),
+        user.tokenData.user_id
+      );
+
+      await res.setHeader("Authorization", `Bearer ${accessToken}`);
+      res.locals.userId = user.tokenData.user_id;
+      return next();
+    }
+  )(req, res, next);
+};
+
+const isAuth = async (req, res, next) => {
+  await handleAccessToken(req, res, next);
+};
+
 module.exports = isAuth;
+
+//access tokenService 검사 -> 유효 -> 인증 통과
+
+//access -> 만료   30
+//access tokenService 검사 -> 만료 -> refresh tokenService 검사 -> 유효 -> accesstoken 재발금
+//access tokenService 검사 -> 만료 -> refresh tokenService 검사 -> 만료 -> 재로그인

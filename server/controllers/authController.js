@@ -1,45 +1,53 @@
 const { Container } = require("typedi");
+const config = require("../config");
+const catchAsync = require("../utils/catchAsync");
 
 module.exports = {
-  signup: async (req, res, next) => {
+  signup: catchAsync(async (req, res) => {
     console.log(req.body);
+    const authServiceInstance = await Container.get("authService");
+    const { user, accessToken, refreshToken } =
+      await authServiceInstance.signup(req.body);
+    res.setHeader("Authorization", `Bearer ${accessToken}`);
+    res.cookie("refreshToken", refreshToken, config.cookieSet);
+    res.status(201).json({
+      signupSuccess: true,
+      user: user,
+      accessToken: accessToken,
+      refreshToken: refreshToken,
+    });
+  }),
 
-    try {
-      const authServiceInstance = await Container.get("AuthService");
-      const { user, token } = await authServiceInstance.signup(req.body);
-      res.status(201).json({
-        result: "signupSuccess",
-        user: user,
-        token: token,
-      });
-    } catch (err) {
-      console.log("🔥", err);
-      return next(err);
-    }
-  },
+  login: catchAsync(async (req, res) => {
+    const authServiceInstance = await Container.get("authService");
+    const { user, accessToken, refreshToken } = await authServiceInstance.login(
+      req.body
+    );
+    res.setHeader("Authorization", `Bearer ${accessToken}`);
+    res.cookie("refreshToken", refreshToken, config.cookieSet);
+    res.status(200).json({
+      loginSuccess: true,
+      user: user,
+      accessToken: accessToken,
+      refreshToken: refreshToken,
+    });
+  }),
 
-  login: async (req, res, next) => {
-    try {
-      const authServiceInstance = await Container.get("AuthService");
-      const { user, accessToken, refreshToken } =
-        await authServiceInstance.login(req.body);
-      // res.cookie('refreshToken', refreshToken, {
-      //   domain: 'localhost',
-      //   path: '/',
-      //   maxAge: 24 * 6 * 60 * 10000,
-      //   sameSite: 'none',
-      //   httpOnly: true,
-      //   secure: true,
-      // })
-      res.status(200).json({
-        result: "loginSuccess",
-        user: user,
-        accessToken: accessToken,
-        refreshToken: refreshToken,
-      });
-    } catch (err) {
-      console.log("🔥", err);
-      return next(err);
-    }
-  },
+  logout: catchAsync(async (req, res) => {
+    const authServiceInstance = await Container.get("authService");
+    await authServiceInstance.logout(req.cookies.refreshToken);
+    res.clearCookie("refreshToken", { path: "/" });
+    res.status(200).json({
+      logoutSuccess: true,
+    });
+  }),
+
+  check: catchAsync(async (req, res) => {
+    const authServiceInstance = await Container.get("authService");
+    const userData = await authServiceInstance.check(res.locals.userId);
+    res.status(200).json({
+      authCheckSuccess: true,
+      user: userData,
+    });
+  }),
 };
