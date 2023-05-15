@@ -68,13 +68,20 @@ class User extends Sequelize.Model {
 
   static associate(db) {
     db.User.hasMany(db.Token, {
-      foreignKey: "user_id",
+      foreignKey: {
+        name: "user_id",
+        unique: true,
+      },
       sourceKey: "id",
       onDelete: "cascade",
       onUpdate: "cascade",
     });
     db.User.hasMany(db.Product, {
-      foreignKey: "user_id",
+      foreignKey: {
+        name: "seller_id",
+        unique: true,
+        allowNull: false,
+      },
       sourceKey: "id",
       onDelete: "cascade",
       onUpdate: "cascade",
