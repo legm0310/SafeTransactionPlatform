@@ -1,6 +1,6 @@
 import React, { Fragment } from "react";
 
-import classes from "./PurchaseList.module.css";
+import classes from "./PurchaseCard.module.css";
 
 const PurchaseCard = (props) => {
   return (
@@ -10,11 +10,12 @@ const PurchaseCard = (props) => {
           {props.products.map((product) => (
             <div className={classes.prodCard}>
               <div className={classes.imgBox}>
-                <img src={product.imgFile} className={classes.prodImg} />
+                <img src={product.imgFile} className={classes.prodImg} alt="" />
               </div>
 
               <div className={classes.prodInfo}>
-                <br /> {product.name} <br /> {product.price}
+                <div className={classes.prodName}>{product.name}</div>
+                <div className={classes.prodPrice}> {product.price}</div>
               </div>
             </div>
           ))}

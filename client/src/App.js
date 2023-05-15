@@ -8,14 +8,21 @@ import AddProduct from "./components/AddProduct/AddProduct";
 import Login from "./components/Auth/Login";
 import Register from "./components/Auth/Register";
 import DetailPurchase from "./components/Purchase/DetailPurchase";
+import Auth from "./hoc/auth";
 
 function App() {
-  const [purchaseList, setPurchaseList] = useState([]);
+  const AuthHome = Auth(Home, null);
+  const AuthAddProduct = Auth(AddProduct, true);
+
+  const [purchaseCard, setPurchaseCard] = useState([]);
+
+  const token = Boolean(localStorage.getItem("accessToken"));
+  const [isLoggedIn, setIsLoggedIn] = useState(token);
 
   const addProductHandler = (pName, pPrice, pImg, pExplanation) => {
-    setPurchaseList((prevPurchaseList) => {
+    setPurchaseCard((prevPurchaseCard) => {
       return [
-        ...prevPurchaseList,
+        ...prevPurchaseCard,
         {
           name: pName,
           price: pPrice,
@@ -30,22 +37,27 @@ function App() {
   return (
     <Fragment>
       <BrowserRouter>
-        <Header />
+        <Header setIsLoggedIn={setIsLoggedIn} isLoggedIn={isLoggedIn} />
         <Routes>
-          <Route path="/" element={<Home />}></Route>
+          <Route path="/" element={<AuthHome />}></Route>
           <Route
             path="/Purchase/"
-            element={<Purchase purchaseList={purchaseList} />}
+            element={<Purchase purchaseCard={purchaseCard} />}
           ></Route>
           <Route
             path="/AddProduct/"
-            element={<AddProduct onAddProduct={addProductHandler} />}
+            element={<AuthAddProduct onAddProduct={addProductHandler} />}
           ></Route>
-          <Route path="/Login" element={<Login />}></Route>
+          <Route
+            path="/Login"
+            element={
+              <Login setIsLoggedIn={setIsLoggedIn} isLoggedIn={isLoggedIn} />
+            }
+          ></Route>
           <Route path="/Register" element={<Register />}></Route>
           <Route
             path="/DetailPurchase/:id"
-            element={<DetailPurchase purchaseList={purchaseList} />}
+            element={<DetailPurchase purchaseCard={purchaseCard} />}
           ></Route>
         </Routes>
       </BrowserRouter>

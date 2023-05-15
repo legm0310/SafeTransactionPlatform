@@ -1,6 +1,6 @@
 import React, { Fragment, useState } from "react";
 import classes from "./Purchase.module.css";
-import PurchaseList from "./PurchaseList";
+import PurchaseCard from "./PurchaseCard";
 
 const Purchase = (props) => {
   return (
@@ -25,7 +25,7 @@ const Purchase = (props) => {
         </div>
 
         <div className={classes.productWrap}>
-          <PurchaseList products={props.purchaseList} />
+          <PurchaseCard products={props.purchaseCard} />
         </div>
       </div>
     </Fragment>

@@ -1,6 +1,11 @@
 .Authwrap {
-  display: flex;
   list-style: none;
+}
+
+.loginRegister {
+  display: flex;
+  text-decoration: none;
+  color: black;
 }
 
 .login {
@@ -8,5 +13,9 @@
 }
 
 .register {
+  cursor: pointer;
+}
+
+.logout {
   cursor: pointer;
 }

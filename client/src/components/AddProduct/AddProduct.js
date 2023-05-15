@@ -1,4 +1,5 @@
-import React, { Fragment, useState, useRef } from "react";
+import React, { Fragment, useState } from "react";
+
 import classes from "./AddProduct.module.css";
 
 const AddProduct = (props) => {
@@ -22,7 +23,7 @@ const AddProduct = (props) => {
       alert("상품 가격을 입력해주세요.");
       return;
     }
-    console.log(name, price, explanation);
+    // console.log(name, price, explanation);
     props.onAddProduct(name, price, imgFile, explanation);
     setName("");
     setPrice("");
@@ -47,10 +48,16 @@ const AddProduct = (props) => {
   };
 
   const onPriceHandler = (event) => {
-    const newPrice = event.target.value;
-    const regex = /^[0-9\b]+$/; // regex to match only numbers
-    if (newPrice === "" || regex.test(newPrice)) {
-      setPrice(newPrice);
+    // const newPrice = event.target.value;
+    // const regex = /^[0-9\b]+$/; // regex to match only numbers
+    // if (newPrice === "" || regex.test(newPrice)) {
+    //   setPrice(newPrice);
+    // }
+    const inputNumber = Number(event.target.value.replace(/,/g, "")); // 입력된 값에서 ',' 제거 후 숫자로 변환
+    if (!isNaN(inputNumber)) {
+      // 입력된 값이 숫자인지 확인
+      const formattedValue = new Intl.NumberFormat("en-US").format(inputNumber);
+      setPrice(formattedValue);
     }
   };
 
@@ -124,6 +131,7 @@ const AddProduct = (props) => {
             type="text"
             id="price"
             className={classes.inputPrice}
+            thousandseparator="true"
             onChange={onPriceHandler}
             value={price}
             required

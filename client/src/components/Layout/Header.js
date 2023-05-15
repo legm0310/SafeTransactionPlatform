@@ -1,13 +1,17 @@
 import { Fragment } from "react";
-import { Link, useLocation } from "react-router-dom";
-import { FiSearch } from "react-icons/fi";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { auth } from "../../_actions/user_action";
 
 import classes from "./Header.module.css";
+import { FiSearch } from "react-icons/fi";
 import DropdownMenu from "./DropdownMenu";
 import UserAuth from "./UserAuth";
 
 const Header = (props) => {
   const location = useLocation();
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   // 현재 경로가 로그인 페이지인 경우 Header를 렌더링하지 않음
   if (location.pathname === "/Login" || location.pathname === "/Register") {
@@ -50,9 +54,10 @@ const Header = (props) => {
         </div>
 
         <div className={classes.AuthList}>
-          <Link to="/Login" className={classes.link}>
-            <UserAuth />
-          </Link>
+          <UserAuth
+            setIsLoggedIn={props.setIsLoggedIn}
+            isLoggedIn={props.isLoggedIn}
+          />
         </div>
       </header>
     </Fragment>
