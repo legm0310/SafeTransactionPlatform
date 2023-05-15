@@ -29,11 +29,11 @@ const globalErrorHandler = (e, req, res, next) => {
     ...(config.env == "development" && { stack: e.stack }),
   };
 
+  console.log(response);
   if (response.stack) {
     Reflect.deleteProperty(response, "stack");
   }
 
-  console.log(response);
   res.status(statusCode).json(response);
 };
 
