@@ -22,7 +22,7 @@ class AuthService {
 
     if (!userRecord) throw new Error("User cannot be created");
 
-    const { access, refresh } = await this.jwt.genAuthToken(userRecord.id);
+    const { access, refresh } = await this.jwt.genAuthToken(userRecord);
 
     const user = userRecord.dataValues;
     Reflect.deleteProperty(user, "password");
