@@ -9,13 +9,20 @@ import Login from "./components/Auth/Login";
 import Register from "./components/Auth/Register";
 
 function App() {
-  const [purchaseList, setPurchaseList] = useState([]);
+  const [purchaseCard, setPurchaseCard] = useState([]);
 
-  const addProductHandler = (pName, pPrice, pImg) => {
-    setPurchaseList((prevPurchaseList) => {
+  const addProductHandler = (pName, pPrice, pImg, pEx, pCategory, pTime, pId) => {
+    setPurchaseCard((prevPurchaseCard) => {
       return [
-        ...prevPurchaseList,
-        { name: pName, price: pPrice, imgFile: pImg },
+        ...prevPurchaseCard,
+        { name: pName, 
+          price: pPrice, 
+          imgFile: pImg, 
+          explanation: pEx, 
+          productCategory: pCategory, 
+          registrationTime: pTime,
+          productId: pId 
+        },
       ];
     });
   };
@@ -28,7 +35,7 @@ function App() {
           <Route path="/" element={<Home />}></Route>
           <Route
             path="/Purchase/"
-            element={<Purchase purchaseList={purchaseList} />}
+            element={<Purchase purchaseCard={purchaseCard} />}
           ></Route>
           <Route
             path="/AddProduct/"

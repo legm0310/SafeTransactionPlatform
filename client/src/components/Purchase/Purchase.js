@@ -1,8 +1,21 @@
 import React, { Fragment, useState } from "react";
 import classes from "./Purchase.module.css";
-import PurchaseList from "./PurchaseList";
+import PurchaseCard from "./PurchaseCard";
+import { useNavigate } from "react-router-dom";
 
 const Purchase = (props) => {
+
+  const navigate = useNavigate();
+
+  const handleProductClick = (productId) => {
+
+    console.log(productId);
+    if (productId) {
+      // 상품 페이지로 이동하는 로직을 구현합니다.
+      navigate(`/products/${productId}`);
+    }
+  };
+
   return (
     <Fragment>
       <div className={classes.mainBox}>
@@ -49,7 +62,7 @@ const Purchase = (props) => {
           </div>
         </div>
         <div className={classes.productWrap}>
-          <PurchaseList products={props.purchaseList} />
+          <PurchaseCard products={props.purchaseCard} onProductClick={handleProductClick} />
         </div>
       </div>
     </Fragment>

@@ -106,23 +106,22 @@
 
 /* 카테고리 박스 */
 .category {
-  width: 60%;
+  width: 70%;
   margin: 0;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: space-between;
+  border: 1px solid black;
 }
 
-.category div {
+.checkList1, .checkList2 {
   display: flex;
-  flex-direction: row;
-  align-items: start;
   justify-content: space-between;
 }
 
-.category div label {
-  padding: 0.4rem;
-  width: 130px;
+.checkList1 div, .checkList2 div {
+  width: 150px;
+  padding: 0.3rem;
 }
 
 /*설명 input*/
