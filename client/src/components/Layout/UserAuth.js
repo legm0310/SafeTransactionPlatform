@@ -15,17 +15,13 @@ const UserAuth = (props) => {
         withCredentials: true,
       })
       .then((response) => {
-        if (response.data.logoutSuccess) {
-          // localStorage 지우기
-          localStorage.removeItem("accessToken");
+        // localStorage 지우기
+        localStorage.removeItem("accessToken");
 
-          alert("로그아웃 되었습니다.");
-          props.setIsLoggedIn(false);
-          navigate("/");
-          // 로그아웃에 성공했으므로 isLoggedIn 상태를 false로 변경
-        } else {
-          alert("로그아웃에 실패 했습니다.");
-        }
+        alert("로그아웃 되었습니다.");
+        props.setIsLoggedIn(false);
+        navigate("/");
+        // 로그아웃에 성공했으므로 isLoggedIn 상태를 false로 변경
       });
   };
 
