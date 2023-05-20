@@ -28,18 +28,26 @@ const Login = (props) => {
     // 버튼을 누르면 리프레시 되는것을 막아주는 기능
     event.preventDefault();
 
+    if (Password.trim() === "") {
+      alert("비밀번호를 입력해주세요.");
+      return;
+    }
     // 적은 내용이 이메일이 서버로 보내지고, 이메일을 찾고 비밀번호를 비교한 후 토큰을 생성해서 쿠키에 저장하여 클라이언트에게 전해줌
     let body = {
       email: Email,
       password: Password,
     };
 
-    props.setIsLoggedIn(true);
-
     dispatch(loginUser(body)).then((response) => {
       if (response.payload.loginSuccess) {
+        props.setIsLoggedIn(true);
         alert("로그인 성공");
         navigate("/");
+      } else if (
+        response.payload.status == 404 ||
+        response.payload.status == 401
+      ) {
+        alert("이메일 또는 비밀번호를 잘못 입력했습니다.");
       } else {
         alert("로그인 실패");
       }
