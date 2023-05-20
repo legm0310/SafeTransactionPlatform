@@ -1,28 +1,24 @@
 import { Fragment } from "react";
+import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
+import { logout } from "../../_actions/user_action";
 import axios from "axios";
 
 import classes from "./UserAuth.module.css";
 
 const UserAuth = (props) => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const onLogoutHandler = () => {
-    axios.defaults.withCredentials = true;
-    axios
-      .get("/api/auth/logout", {
-        // 'withCredentials'속성을 'true'로 설정하여 요청을 보낼 때 쿠키에 토큰을 추가
-        withCredentials: true,
-      })
-      .then((response) => {
-        // localStorage 지우기
-        localStorage.removeItem("accessToken");
-
-        alert("로그아웃 되었습니다.");
-        props.setIsLoggedIn(false);
-        navigate("/");
-        // 로그아웃에 성공했으므로 isLoggedIn 상태를 false로 변경
-      });
+    dispatch(logout()).then((response) => {
+      // localStorage 지우기
+      localStorage.removeItem("accessToken");
+      alert("로그아웃 되었습니다.");
+      props.setIsLoggedIn(false);
+      navigate("/");
+      // 로그아웃에 성공했으므로 isLoggedIn 상태를 false로 변경
+    });
   };
 
   return (
