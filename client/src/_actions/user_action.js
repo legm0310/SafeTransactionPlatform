@@ -43,7 +43,7 @@ export function login(dataToSubmit) {
 
 export function logout() {
   const request = axios
-    .get(process.env.REACT_APP_API_BASE_URL + "/api/auth/login", {
+    .get(process.env.REACT_APP_API_BASE_URL + "/api/auth/logout", {
       // 'withCredentials'속성을 'true'로 설정하여 요청을 보낼 때 쿠키에 토큰을 추가
       withCredentials: true,
     })
