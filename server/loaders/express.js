@@ -26,7 +26,13 @@ module.exports = ({ app }) => {
   app.use(cookieParser());
 
   //cors
-  app.use(cors());
+  // app.use(cors());
+  app.use(
+    cors({
+      origin: "https://panda-liart.vercel.app",
+      credentials: true,
+    })
+  );
 
   //jwt authentication
   app.use(passport.initialize());
@@ -36,6 +42,12 @@ module.exports = ({ app }) => {
   //api routes
   //route -> controller -> service -> model -> db 엑세스 순으로 요청이 처리됨
   app.use("/api", routerLoader());
+
+  //ALB health check
+  app.get("/", async (req, res) => {
+    console.log("** health checking executed");
+    res.sendStatus(200);
+  });
 
   //test routes
   app.get("/reqCheck", (req, res) => {
