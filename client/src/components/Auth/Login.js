@@ -2,7 +2,7 @@ import { Fragment, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
-import { loginUser } from "../../_actions/user_action";
+import { login } from "../../_actions/user_action";
 
 import classes from "./Login.module.css";
 import { FaArrowLeft } from "react-icons/fa";
@@ -38,14 +38,14 @@ const Login = (props) => {
       password: Password,
     };
 
-    dispatch(loginUser(body)).then((response) => {
+    dispatch(login(body)).then((response) => {
       if (response.payload.loginSuccess) {
         props.setIsLoggedIn(true);
         alert("로그인 성공");
         navigate("/");
       } else if (
-        response.payload.status == 404 ||
-        response.payload.status == 401
+        response.payload.status === 404 ||
+        response.payload.status === 401
       ) {
         alert("이메일 또는 비밀번호를 잘못 입력했습니다.");
       } else {
