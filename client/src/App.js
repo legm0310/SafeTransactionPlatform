@@ -14,9 +14,12 @@ function App() {
   const AuthHome = Auth(Home, null);
   const AuthAddProduct = Auth(AddProduct, true);
 
-  const [purchaseCard, setPurchaseCard] = useState([]);
+  const token =
+    localStorage.getItem("accessToken") === "undefined" || "null" || ""
+      ? false
+      : Boolean(token);
 
-  const token = Boolean(localStorage.getItem("accessToken"));
+  const [purchaseCard, setPurchaseCard] = useState([]);
   const [isLoggedIn, setIsLoggedIn] = useState(token);
 
   const addProductHandler = (pName, pPrice, pImg, pExplanation) => {
