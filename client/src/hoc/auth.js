@@ -60,7 +60,7 @@ export default function (SpecificComponent, option, adminRoute = null) {
 
       // Redux를 사용하지 않을 때 -> axios.get('/api/users/auth')
     }, []);
-    return <SpecificComponent />;
+    return <SpecificComponent {...props} />;
   }
 
   return AuthenticationCheck;

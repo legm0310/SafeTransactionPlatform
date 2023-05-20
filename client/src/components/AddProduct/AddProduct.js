@@ -3,14 +3,17 @@ import React, { Fragment, useState } from "react";
 import classes from "./AddProduct.module.css";
 
 const AddProduct = (props) => {
-  const [imgFile, setimgFile] = useState(null);
+  const [imgFile, setimgFile] = useState([]);
   const [name, setName] = useState("");
   const [price, setPrice] = useState("");
-  const [nameLength, setNameLength] = useState(0);
   const [explanation, setExplanation] = useState("");
+  const [nameLength, setNameLength] = useState(0);
+
+  const navigate = useNavigate();
 
   const onSubmitHandler = (event) => {
     event.preventDefault(); // prevent form submission
+
     if (name.trim() === "") {
       alert("상품 이름을 입력해주세요.");
       return;
@@ -20,25 +23,39 @@ const AddProduct = (props) => {
       return;
     }
     if (explanation.trim() === "") {
-      alert("상품 가격을 입력해주세요.");
+      alert("상품 설명을 입력해주세요.");
       return;
     }
-    // console.log(name, price, explanation);
+
     props.onAddProduct(name, price, imgFile, explanation);
     setName("");
     setPrice("");
     setExplanation("");
     // code to submit the form
+    navigate("/Purchase");
   };
 
   const onImgFileHandler = (event) => {
-    const selectedImgFile = event.target.files[0];
-    const reader = new FileReader();
+    const imgLists = event.target.files;
+    const imgUrlLists = [...imgFile];
 
-    reader.readAsDataURL(selectedImgFile);
-    reader.onloadend = () => {
-      setimgFile(reader.result);
-    };
+    for (let i = 0; i < imgLists.length; i++) {
+      // 미리보기 가능하게 변수화
+      const currentImgUrl = URL.createObjectURL(imgLists[i]);
+      // 복사한 imgFile에 추가
+      imgUrlLists.push(currentImgUrl);
+    }
+
+    if (imgUrlLists.length > 10) {
+      imgUrlLists = imgUrlLists.slice(0, 10);
+    }
+
+    setimgFile(imgUrlLists);
+  };
+
+  // 이미지 삭제
+  const deleteImgHandler = (id) => {
+    setimgFile(imgFile.filter((_, index) => index !== id));
   };
 
   const onNameHandler = (event) => {
@@ -48,13 +65,15 @@ const AddProduct = (props) => {
   };
 
   const onPriceHandler = (event) => {
-    // const newPrice = event.target.value;
-    // const regex = /^[0-9\b]+$/; // regex to match only numbers
-    // if (newPrice === "" || regex.test(newPrice)) {
-    //   setPrice(newPrice);
-    // }
+    const value = event.target.value;
+
+    setPrice(value);
+
     const inputNumber = Number(event.target.value.replace(/,/g, "")); // 입력된 값에서 ',' 제거 후 숫자로 변환
-    if (!isNaN(inputNumber)) {
+
+    if (value === "") {
+      setPrice(""); // 입력된 값이 빈 문자열인 경우
+    } else if (!isNaN(inputNumber)) {
       // 입력된 값이 숫자인지 확인
       const formattedValue = new Intl.NumberFormat("en-US").format(inputNumber);
       setPrice(formattedValue);
@@ -62,7 +81,9 @@ const AddProduct = (props) => {
   };
 
   const onExplanationHandler = (event) => {
-    setExplanation(event.currentTarget.value);
+    const value = event.target.value;
+
+    setExplanation(value);
   };
 
   return (
@@ -74,16 +95,24 @@ const AddProduct = (props) => {
           <div className={classes.labelTitle}>사진 등록</div>
 
           <div>
-            <ul className={classes.imgBox}>
-              <li className={classes.imgWrap}>
+            <ul className={classes.imgWrap}>
+              <li className={classes.imgBox}>
                 이미지등록
                 <input
                   className={classes.imgUpload}
                   type="file"
                   accept="image/*"
                   onChange={onImgFileHandler}
+                  multiple
                 />
               </li>
+
+              {imgFile.map((image, id) => (
+                <li className={classes.imgContainer} key={id}>
+                  <img src={image} alt={`${image}-${id}`} />
+                  {/* <Delete onClick={() => deleteImgHandler(id)} /> */}
+                </li>
+              ))}
             </ul>
 
             <ul className={classes.imgExplain}>
@@ -134,7 +163,6 @@ const AddProduct = (props) => {
             thousandseparator="true"
             onChange={onPriceHandler}
             value={price}
-            required
           />
           <div>BB</div>
         </div>

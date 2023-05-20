@@ -41,24 +41,37 @@
 }
 
 /*이미지등록박스*/
-.imgBox {
-  width: 200px;
-  height: 200px;
+.imgWrap {
   display: flex;
-  justify-content: center;
-  align-items: center;
-  background: #fff;
-  border: 1px solid rgb(207, 210, 215);
-  margin: 0px;
-  padding: 0px;
+  flex-wrap: wrap;
 }
 
-.imgWrap {
+.imgBox {
   width: 202px;
   height: 202px;
+  background: #fff;
+  border: 1px solid rgb(207, 210, 215);
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-direction: column;
+  margin-right: 15px;
+}
+
+.imgContainer {
+  list-style: none;
+  height: 202px;
+  border: 1px solid rgb(207, 210, 215);
+  margin-right: 15px;
+}
+
+.imgContainer img {
+  width: 202px;
+  height: 202px;
+}
+
+.imgContainer:nth-child(5) {
+  margin-top: 15px;
 }
 
 /*이미지 인풋*/
