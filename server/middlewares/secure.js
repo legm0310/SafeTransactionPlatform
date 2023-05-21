@@ -11,4 +11,4 @@ const secure = (req, res, next) => {
   next();
 };
 
-module.exports = { secure };
+module.exports = secure;
