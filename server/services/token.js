@@ -101,7 +101,6 @@ class TokenService {
         refresh_token: token,
       },
     });
-    if (!tokenRecord) throw new UnauthorizedError("Authentication not found");
     return tokenRecord;
   }
 
@@ -111,7 +110,6 @@ class TokenService {
         user_id: userId,
       },
     });
-    if (!tokenRecord) throw new UnauthorizedError("Authentication not found");
     return tokenRecord;
   }
 
