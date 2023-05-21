@@ -4,16 +4,12 @@ const catchAsync = require("../utils/catchAsync");
 
 module.exports = {
   signup: catchAsync(async (req, res) => {
+    console.log(req.body);
     const authServiceInstance = await Container.get("authService");
-    const { user, accessToken, refreshToken } =
-      await authServiceInstance.signup(req.body);
-    res.setHeader("Authorization", `Bearer ${accessToken}`);
-    res.cookie("refreshToken", refreshToken, config.cookieSet);
+    const user = await authServiceInstance.signup(req.body);
     res.status(201).json({
       signupSuccess: true,
       user: user,
-      accessToken: accessToken,
-      refreshToken: refreshToken,
     });
   }),
 
@@ -35,10 +31,7 @@ module.exports = {
   logout: catchAsync(async (req, res) => {
     const authServiceInstance = await Container.get("authService");
     await authServiceInstance.logout(req.cookies.refreshToken);
-    res.clearCookie("refreshToken", {
-      path: config.cookieSet.path,
-      domain: config.cookieSet.domain,
-    });
+    res.clearCookie("refreshToken", { path: "/", domain: config.clientDomain });
     res.status(200).json({
       logoutSuccess: true,
     });

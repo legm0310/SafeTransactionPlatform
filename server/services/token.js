@@ -75,7 +75,6 @@ class TokenService {
   }
 
   async removeToken(refreshToken) {
-    const token = await this.getToken(refreshToken);
     return await this.Token.destroy({
       where: {
         refresh_token: refreshToken,
