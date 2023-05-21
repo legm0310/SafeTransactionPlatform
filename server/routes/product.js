@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const middleware = require("../middlewares");
+const { isAuth } = require("../middlewares");
 const productController = require("../controllers").productController;
 
 /** product 관련 라우팅 함수
