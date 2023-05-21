@@ -15,7 +15,8 @@ module.exports = {
   jwtAlgorithm: null,
 
   cookieSet: {
-    domain: process.env.NODE_ENV === "production" ? clientDomain : "localhost",
+    // domain: process.env.NODE_ENV === "production" ? clientDomain : "localhost",
+    domain: process.env.DOMAIN,
     path: "/",
     maxAge: 24 * 6 * 60 * 10000,
     sameSite: "none",
