@@ -1,5 +1,5 @@
 const { Container } = require("typedi");
-const { UnauthorizedError } = require("../utils/generalError");
+const { UnauthorizedError, NotFoundError } = require("../utils/generalError");
 
 class AuthService {
   constructor() {
@@ -15,19 +15,15 @@ class AuthService {
    * @param {string} newUser.email - 사용자 이메일
    * @param {string} newUser.password - 사용자 패스워드
    * @param {string} newUser.phone_number - 사용자 전화번호
-   * @returns {{user: object, accessToken: string, refreshToken: string}} 생성한 user, token
+   * @returns {{user: object}} 생성한 user
    */
   async signup(newUser) {
     const userRecord = await this.userService.createUser(newUser);
-
     if (!userRecord) throw new Error("User cannot be created");
-
-    const { access, refresh } = await this.jwt.genAuthToken(userRecord);
-
     const user = userRecord.dataValues;
     Reflect.deleteProperty(user, "password");
 
-    return { user, accessToken: access.token, refreshToken: refresh.token };
+    return user;
   }
 
   /** 로그인 메소드
@@ -39,7 +35,7 @@ class AuthService {
    */
   async login(info) {
     const searchUser = await this.userService.getUserByEmail(info.email);
-
+    if (!searchUser) throw new NotFoundError("User not found");
     if (!(await searchUser.validPassword(info.password)))
       throw new UnauthorizedError("Invalid Password");
 
