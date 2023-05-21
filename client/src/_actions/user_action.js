@@ -7,10 +7,18 @@
 import axios from "axios";
 import { SIGNUP_USER, LOGIN_USER, LOGOUT_USER, AUTH_USER } from "./type";
 
+// 'withCredentials'속성을 'true'로 설정 --> 다른 도메인(client, server)에서 발급한 쿠키 제어 가능
+// client, server 모두 설정해줘야함(cors)
+axios.defaults.withCredentials = true;
+
 export function signup(dataToSubmit) {
   const request = axios
     .post(process.env.REACT_APP_API_BASE_URL + "/api/auth/signup", dataToSubmit)
-    .then((response) => response.data);
+    .then((response) => response.data)
+    .catch((err) => {
+      console.log(err.response);
+      return err.response.data;
+    });
   return {
     type: SIGNUP_USER,
     payload: request,
@@ -28,8 +36,9 @@ export function login(dataToSubmit) {
 
       return response.data;
     })
-    .catch((error) => {
-      return error.response;
+    .catch((err) => {
+      console.log(err.response);
+      return err.response.data;
     });
   // 서버에 데이터를 보낸 후, 서버에서 온 데이터 저장
   // ({loginSuccess: true, userId: user._id})
@@ -43,12 +52,13 @@ export function login(dataToSubmit) {
 
 export function logout() {
   const request = axios
-    .get(process.env.REACT_APP_API_BASE_URL + "/api/auth/logout", {
-      // 'withCredentials'속성을 'true'로 설정하여 요청을 보낼 때 쿠키에 토큰을 추가
-      withCredentials: true,
-    })
+    .get(process.env.REACT_APP_API_BASE_URL + "/api/auth/logout")
     .then((response) => {
       return response.data;
+    })
+    .catch((err) => {
+      console.log(err.response);
+      return err.response.data;
     });
   return {
     type: LOGOUT_USER,
@@ -71,7 +81,10 @@ export function auth() {
       }
       return response.data;
     })
-    .catch((err) => err.response.data);
+    .catch((err) => {
+      console.log(err.response);
+      return err.response.data;
+    });
   return {
     type: AUTH_USER,
     payload: request,
