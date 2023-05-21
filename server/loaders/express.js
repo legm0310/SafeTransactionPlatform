@@ -7,7 +7,7 @@ const morgan = require("morgan");
 const routerLoader = require("../routes");
 const { accessStrategy, refreshStrategy } = require("../config/passport");
 const { NotFoundError } = require("../utils/generalError");
-const { errorConvert, globalErrorHandler } = require("../middlewares");
+const { secure, errorConvert, globalErrorHandler } = require("../middlewares");
 
 /** express 앱의 미들웨어들을 로드하는 함수
  * @param {object} options 미들웨어를 실행시킬 express app
@@ -29,10 +29,18 @@ module.exports = ({ app }) => {
   // app.use(cors());
   app.use(
     cors({
-      origin: "https://panda-liart.vercel.app",
+      origin: [
+        "https://www.pandago.me",
+        "https://pandago.me",
+        "https://panda-liart.vercel.app",
+      ],
       credentials: true,
+      exposedHeaders: ["Authorization"],
     })
   );
+
+  //unknown request deny
+  app.use(secure);
 
   //jwt authentication
   app.use(passport.initialize());

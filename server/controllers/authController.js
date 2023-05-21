@@ -4,7 +4,6 @@ const catchAsync = require("../utils/catchAsync");
 
 module.exports = {
   signup: catchAsync(async (req, res) => {
-    console.log(req.body);
     const authServiceInstance = await Container.get("authService");
     const { user, accessToken, refreshToken } =
       await authServiceInstance.signup(req.body);
@@ -36,7 +35,10 @@ module.exports = {
   logout: catchAsync(async (req, res) => {
     const authServiceInstance = await Container.get("authService");
     await authServiceInstance.logout(req.cookies.refreshToken);
-    res.clearCookie("refreshToken", { path: "/" });
+    res.clearCookie("refreshToken", {
+      path: config.cookieSet.path,
+      domain: config.cookieSet.domain,
+    });
     res.status(200).json({
       logoutSuccess: true,
     });
