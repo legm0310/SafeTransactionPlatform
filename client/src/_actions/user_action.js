@@ -47,7 +47,10 @@ export function login(dataToSubmit) {
 export function logout() {
   const request = axios
     .get("/api/auth/logout")
-    .then((response) => response.data)
+    .then((response) => {
+      localStorage.removeItem("accessToken");
+      return response.data;
+    })
     .catch((err) => {
       console.log(err.response);
       return err.response.data;
