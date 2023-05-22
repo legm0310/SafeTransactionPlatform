@@ -23,7 +23,7 @@ const refreshOptions = {
 
 const accessVerify = async (payload, done) => {
   try {
-    console.log(payload);
+    console.log(payload, `now: ${Math.floor(Date.now() / 1000)}`);
     return done(null, payload);
   } catch (err) {
     return done(err, false);
