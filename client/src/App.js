@@ -14,13 +14,14 @@ function App() {
   const AuthHome = Auth(Home, null);
   const AuthAddProduct = Auth(AddProduct, true);
 
-  const token =
-    localStorage.getItem("accessToken") === "undefined" || "null" || ""
-      ? false
-      : Boolean(token);
+  const token = localStorage.getItem("accessToken");
+  const tokenCheck =
+    token !== "undefined" || token !== "null" || token !== ""
+      ? Boolean(token)
+      : false;
 
   const [purchaseCard, setPurchaseCard] = useState([]);
-  const [isLoggedIn, setIsLoggedIn] = useState(token);
+  const [isLoggedIn, setIsLoggedIn] = useState(tokenCheck);
 
   const addProductHandler = (pName, pPrice, pImg, pExplanation) => {
     setPurchaseCard((prevPurchaseCard) => {
