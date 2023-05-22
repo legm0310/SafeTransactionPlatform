@@ -55,7 +55,7 @@ const Register = (props) => {
     dispatch(signup(body)).then((response) => {
       if (response.payload.signupSuccess) {
         alert("회원 정보 입력 완료");
-        navigate("/Login");
+        navigate("/login");
       } else {
         alert("회원 가입에 실패했습니다.");
       }

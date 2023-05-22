@@ -2,7 +2,6 @@ import { Fragment } from "react";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { logout } from "../../_actions/user_action";
-import axios from "axios";
 
 import classes from "./UserAuth.module.css";
 
@@ -12,8 +11,6 @@ const UserAuth = (props) => {
 
   const onLogoutHandler = () => {
     dispatch(logout()).then((response) => {
-      // localStorage 지우기
-      localStorage.removeItem("accessToken");
       alert("로그아웃 되었습니다.");
       props.setIsLoggedIn(false);
       navigate("/");
@@ -29,7 +26,7 @@ const UserAuth = (props) => {
             로그아웃
           </li>
         ) : (
-          <Link to="/Login" className={classes.loginRegister}>
+          <Link to="/login" className={classes.loginRegister}>
             <li className={classes.login}>로그인/</li>
             <li className={classes.register}>회원가입</li>
           </Link>

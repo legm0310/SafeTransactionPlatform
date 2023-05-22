@@ -104,7 +104,7 @@ const Login = (props) => {
 
           <div className={classes.registerWrap}>
             <button type="submit" className={classes.registerButton}>
-              <Link to="/Register" className={classes.textButton}>
+              <Link to="/register" className={classes.textButton}>
                 회원가입
               </Link>
             </button>
