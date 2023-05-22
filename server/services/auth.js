@@ -49,8 +49,8 @@ class AuthService {
 
   async logout(refreshToken) {
     const refreshTokenRecord = await this.jwt.getToken(refreshToken);
-    if (!refreshTokenRecord) throw new UnauthorizedError("Not logged in");
-    return await this.jwt.removeToken(refreshToken);
+    if (refreshTokenRecord) return await this.jwt.removeToken(refreshToken);
+    return;
   }
 
   async check(userId) {

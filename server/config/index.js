@@ -14,6 +14,8 @@ module.exports = {
   jwtRefreshSecret: process.env.JWT_SECRET_REFRESH,
   jwtAlgorithm: null,
 
+  reissueTimeoutInterval: process.env.REISSUE_TIMEOUT_INTERVAL,
+
   cookieSet: {
     // domain: process.env.NODE_ENV === "production" ? clientDomain : "localhost",
     domain: process.env.DOMAIN,

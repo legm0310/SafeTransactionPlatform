@@ -1,4 +1,5 @@
 const { Container } = require("typedi");
+const config = require("../config");
 const passport = require("passport");
 const { UnauthorizedError } = require("../utils/generalError");
 const Unauthorized = new UnauthorizedError("Please authenticate");
@@ -8,6 +9,7 @@ const loginAgain = new UnauthorizedError(
 
 //isAuth -> handleAccessToken -> if문 분기에 따라 handleRefreshToken 실행
 const handleAccessToken = async (req, res, next) => {
+  const tokenService = Container.get("tokenService");
   passport.authenticate(
     "access",
     { session: false },
@@ -16,13 +18,14 @@ const handleAccessToken = async (req, res, next) => {
         //... passport.authenticate("refresh")
         return await handleRefreshToken(req, res, next);
       }
-
       if (err || info || !user) {
+        await tokenService.removeToken(req.cookies.refreshToken);
         return (
           console.log("🔥", err ? `err: ${err}` : `info: ${info}`),
           next(Unauthorized)
         );
       }
+
       res.locals.userId = user.sub;
       return next();
     }
@@ -36,10 +39,12 @@ const handleRefreshToken = async (req, res, next) => {
     { session: false },
     async (err, user, info) => {
       if (info && info.message == "jwt expired") {
+        await tokenService.removeToken(req.cookies.refreshToken);
         return console.log("🔥", loginAgain), next(loginAgain);
       }
 
       if (err || info || !user) {
+        await tokenService.removeToken(req.cookies.refreshToken);
         return (
           console.log("🔥", err ? `err: ${err}` : `info: ${info}`),
           next(Unauthorized)
@@ -47,7 +52,9 @@ const handleRefreshToken = async (req, res, next) => {
       }
 
       const { refreshToken } = await req.cookies;
+
       if (refreshToken !== user.tokenData.refresh_token) {
+        await tokenService.removeToken(refreshToken);
         return console.log("🔥", Unauthorized), next(Unauthorized);
       }
 
@@ -56,7 +63,7 @@ const handleRefreshToken = async (req, res, next) => {
       );
 
       await tokenService.updateReissueTimeout(
-        new Date(exp * 1000 + 20),
+        new Date((exp + parseInt(config.reissueTimeoutInterval)) * 1000),
         user.tokenData.user_id
       );
 
@@ -74,7 +81,6 @@ const isAuth = async (req, res, next) => {
 module.exports = isAuth;
 
 //access tokenService 검사 -> 유효 -> 인증 통과
-
 //access -> 만료   30
 //access tokenService 검사 -> 만료 -> refresh tokenService 검사 -> 유효 -> accesstoken 재발금
 //access tokenService 검사 -> 만료 -> refresh tokenService 검사 -> 만료 -> 재로그인
