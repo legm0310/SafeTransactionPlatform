@@ -41,9 +41,6 @@ export default function (SpecificComponent, option, adminRoute = null) {
         if (!response.payload.authCheckSuccess) {
           // 로그인 하지 않은 상태에서 로그인한 유저만 출입 가능한 페이지로 들어가려고 할 때
           if (option) {
-            if (localStorage.getItem("accessToken")) {
-              localStorage.removeItem("accessToken");
-            }
             navigate("/login");
           }
         } else {

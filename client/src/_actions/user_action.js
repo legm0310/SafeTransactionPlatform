@@ -30,7 +30,7 @@ export function login(dataToSubmit) {
   const request = axios
     .post("/api/auth/login", dataToSubmit)
     .then((response) => {
-      let accessToken = response.headers.get("Authorization");
+      let accessToken = response.headers.authorization;
       localStorage.setItem("accessToken", accessToken);
       return response.data;
     })
@@ -66,7 +66,7 @@ export function auth() {
       headers,
     })
     .then((response) => {
-      let newAccessToken = response.headers.get("Authorization");
+      let newAccessToken = response.headers.authorization;
       if (newAccessToken) {
         localStorage.setItem("accessToken", newAccessToken);
       }
