@@ -44,22 +44,22 @@ function App() {
         <Routes>
           <Route path="/" element={<AuthHome />}></Route>
           <Route
-            path="/Purchase/"
+            path="/purchase/"
             element={<Purchase purchaseCard={purchaseCard} />}
           ></Route>
           <Route
-            path="/AddProduct/"
+            path="/addProduct/"
             element={<AuthAddProduct onAddProduct={addProductHandler} />}
           ></Route>
           <Route
-            path="/Login"
+            path="/login"
             element={
               <Login setIsLoggedIn={setIsLoggedIn} isLoggedIn={isLoggedIn} />
             }
           ></Route>
-          <Route path="/Register" element={<Register />}></Route>
+          <Route path="/register" element={<Register />}></Route>
           <Route
-            path="/DetailPurchase/:id"
+            path="/detailPurchase/:id"
             element={<DetailPurchase purchaseCard={purchaseCard} />}
           ></Route>
         </Routes>
