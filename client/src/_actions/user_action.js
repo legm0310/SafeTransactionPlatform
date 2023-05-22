@@ -32,19 +32,12 @@ export function login(dataToSubmit) {
     .then((response) => {
       let accessToken = response.headers.get("Authorization");
       localStorage.setItem("accessToken", accessToken);
-      let refreshToken = response.headers.get("Set-Cookie");
-      document.cookie = refreshToken;
-
       return response.data;
     })
     .catch((err) => {
       console.log(err.response);
       return err.response.data;
     });
-  // 서버에 데이터를 보낸 후, 서버에서 온 데이터 저장
-  // ({loginSuccess: true, userId: user._id})
-
-  // redux의 action -> 이를 dispatch를 통해 reducer로 보냄
   return {
     type: LOGIN_USER,
     payload: request,
@@ -54,9 +47,7 @@ export function login(dataToSubmit) {
 export function logout() {
   const request = axios
     .get("/api/auth/logout")
-    .then((response) => {
-      return response.data;
-    })
+    .then((response) => response.data)
     .catch((err) => {
       console.log(err.response);
       return err.response.data;
@@ -75,10 +66,9 @@ export function auth() {
       headers,
     })
     .then((response) => {
-      if (response.headers.authorization) {
-        localStorage.removeItem("accessToken");
-        let accessToken = response.headers.get("Authorization");
-        localStorage.setItem("accessToken", accessToken);
+      let newAccessToken = response.headers.get("Authorization");
+      if (newAccessToken) {
+        localStorage.setItem("accessToken", newAccessToken);
       }
       return response.data;
     })
