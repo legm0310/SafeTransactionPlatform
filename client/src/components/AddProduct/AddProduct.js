@@ -33,7 +33,7 @@ const AddProduct = (props) => {
     setPrice("");
     setExplanation("");
     // code to submit the form
-    navigate("/Purchase");
+    navigate("/purchase");
   };
 
   const onImgFileHandler = (event) => {

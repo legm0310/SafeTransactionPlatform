@@ -29,7 +29,7 @@ const UserAuth = (props) => {
             로그아웃
           </li>
         ) : (
-          <Link to="/Login" className={classes.loginRegister}>
+          <Link to="/login" className={classes.loginRegister}>
             <li className={classes.login}>로그인/</li>
             <li className={classes.register}>회원가입</li>
           </Link>

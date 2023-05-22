@@ -14,7 +14,7 @@ const Header = (props) => {
   const dispatch = useDispatch();
 
   // 현재 경로가 로그인 페이지인 경우 Header를 렌더링하지 않음
-  if (location.pathname === "/Login" || location.pathname === "/Register") {
+  if (location.pathname === "/login" || location.pathname === "/register") {
     return null;
   }
 
@@ -29,7 +29,7 @@ const Header = (props) => {
           <ul className={classes.list2}>
             <div className={classes.dropdown}>
               <li className={classes.list2Item}>
-                <Link to="/Purchase/" className={classes.purchaseLink}>
+                <Link to="/purchase/" className={classes.purchaseLink}>
                   구매하기
                 </Link>
               </li>
@@ -39,7 +39,7 @@ const Header = (props) => {
               </div>
             </div>
 
-            <Link to="/AddProduct/" className={classes.AddProductLink}>
+            <Link to="/addProduct/" className={classes.AddProductLink}>
               <li className={classes.list2Item}>판매하기</li>
             </Link>
           </ul>

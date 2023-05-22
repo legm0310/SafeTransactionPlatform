@@ -44,7 +44,7 @@ export default function (SpecificComponent, option, adminRoute = null) {
             if (localStorage.getItem("accessToken")) {
               localStorage.removeItem("accessToken");
             }
-            navigate("/Login");
+            navigate("/login");
           }
         } else {
           // 로그인 한 상태
