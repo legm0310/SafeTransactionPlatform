@@ -44,7 +44,10 @@ class TokenService {
     const { accessToken, exp } = await this.genAccessToken(user.id);
     const accessTokenExpires = moment().add(60, "minutes");
 
-    const reissueTimeout = moment(exp * 1000).add(60, "m");
+    const reissueTimeout = moment(exp * 1000).add(
+      parseInt(config.reissueTimeoutInterval),
+      "seconds"
+    );
 
     const refreshToken = await this.genRefreshToken(user.id);
     const refreshTokenExpires = moment().add(3, "days");
