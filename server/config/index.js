@@ -16,6 +16,11 @@ module.exports = {
 
   reissueTimeoutInterval: process.env.REISSUE_TIMEOUT_INTERVAL,
 
+  awsRegion: process.env.AWS_REGION,
+  awsS3BucketName: process.env.AWS_S3_BUCKET_NAME,
+  awsAccessKeyId: process.env.AWS_ACCESS_KEY_ID,
+  awsSecretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+
   cookieSet: {
     // domain: process.env.NODE_ENV === "production" ? clientDomain : "localhost",
     domain: process.env.DOMAIN,
