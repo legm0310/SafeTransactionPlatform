@@ -1,58 +1,65 @@
 import { Fragment } from "react";
 
+import Slide from "./Slide";
+import mainImg from "../../assets/mainImg.png";
 import classes from "./Home.module.css";
 
 const Home = (props) => {
   return (
     <Fragment>
-      <section className={classes.container}>
-        <div className={classes.content1}>
-          <div className={classes.title}>
-            <h1>
-              <span>안전</span>한
-              <br />
-              거래플랫폼
-            </h1>
-            <p>
-              <span>블록체인</span>을 활용해 보다 안전하게!
-            </p>
-          </div>
-        </div>
-        <div className={classes.content2}>
-          <img
-            src="https://news.samsungdisplay.com/wp-content/uploads/2018/08/8.jpg"
-            alt=""
-          />
-        </div>
-      </section>
+      <div className={classes.container}>
+        <section className={classes.mainWrap}>
+          <div className={classes.mainContent}>
+            <div className={classes.mainTitle}>
+              <div className={classes.typingTop}>
+                <span>안전한</span>
+              </div>
+              <div className={classes.typingMiddle}>
+                <span>거래플랫폼</span>
+              </div>
+              <div className={classes.typingBottom}>
+                <span>블록체인을 활용해 보다 안전하게!</span>
+              </div>
+            </div>
 
-      <section className={classes.latesProductWrap}>
-        <div className={classes.latestProduct}>
-          <h1>최근 등록 상품</h1>
-          <div className={classes.latestProdList}>
-            <div className={classes.latestProdCard}>
-              <div>이미지</div>
-              <h4>제목</h4>
-              <h4>가격</h4>
-            </div>
-            <div className={classes.latestProdCard}>
-              <div>이미지</div>
-              <h4>제목</h4>
-              <h4>가격</h4>
-            </div>
-            <div className={classes.latestProdCard}>
-              <div>이미지</div>
-              <h4>제목</h4>
-              <h4>가격</h4>
-            </div>
-            <div className={classes.latestProdCard}>
-              <div>이미지</div>
-              <h4>제목</h4>
-              <h4>가격</h4>
+            <div className={classes.mainImgWrap}>
+              <img src={mainImg} alt="" className={classes.mainImg} />
             </div>
           </div>
-        </div>
-      </section>
+        </section>
+
+        <section className={classes.ImgslideWrap}>
+          <Slide />
+        </section>
+
+        <section className={classes.latesProductWrap}>
+          <div className={classes.latestProduct}>
+            <h1>판다의 최근 상품</h1>
+            <div className={classes.latestProdList}>
+              <div className={classes.latestProdCard}>
+                <div>이미지</div>
+                <h4>제목</h4>
+                <h4>가격</h4>
+              </div>
+              <div className={classes.latestProdCard}>
+                <div>이미지</div>
+                <h4>제목</h4>
+                <h4>가격</h4>
+              </div>
+              <div className={classes.latestProdCard}>
+                <div>이미지</div>
+                <h4>제목</h4>
+                <h4>가격</h4>
+              </div>
+              <div className={classes.latestProdCard}>
+                <div>이미지</div>
+                <h4>제목</h4>
+                <h4>가격</h4>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
     </Fragment>
   );
 };
