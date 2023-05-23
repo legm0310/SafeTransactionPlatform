@@ -18,7 +18,7 @@ class TokenService {
     const payload = {
       sub: userId,
       iat: Math.floor(Date.now() / 1000),
-      exp: Math.floor(Date.now() / 1000) + 60 * 60,
+      exp: Math.floor(Date.now() / 1000) + 3600,
     };
     const token = jwt.sign(payload, config.jwtAccessSecret);
     return { accessToken: token, exp: payload.exp };
@@ -28,7 +28,7 @@ class TokenService {
     const payload = {
       sub: userId,
       iat: Math.floor(Date.now() / 1000),
-      exp: Math.floor(Date.now() / 1000) + 1000,
+      exp: Math.floor(Date.now() / 1000) + 3600 * 24,
     };
     const token = jwt.sign(payload, config.jwtRefreshSecret);
     return token;
