@@ -48,9 +48,10 @@ class AuthService {
   }
 
   async logout(refreshToken) {
+    if (!refreshToken) return;
     const refreshTokenRecord = await this.jwt.getToken(refreshToken);
-    if (refreshTokenRecord) return await this.jwt.removeToken(refreshToken);
-    return;
+    if (!refreshTokenRecord) return;
+    return await this.jwt.removeToken(refreshToken);
   }
 
   async check(userId) {

@@ -19,7 +19,8 @@ const handleAccessToken = async (req, res, next) => {
         return await handleRefreshToken(req, res, next);
       }
       if (err || info || !user) {
-        await tokenService.removeToken(req.cookies.refreshToken);
+        if (req.cookies.refreshToken)
+          await tokenService.removeToken(req.cookies.refreshToken);
         return (
           console.log("🔥", err ? `err: ${err}` : `info: ${info}`),
           next(Unauthorized)

@@ -14,7 +14,7 @@ if (process.env.NODE_ENV === "production") {
 if (envFound.error) {
   throw new Error("⚠️  Couldn't find .env file  ⚠️");
 }
-console.log(JSON.parse(process.env.CORS_ORIGIN));
+
 module.exports = {
   nodeEnv: process.env.NODE_ENV,
   port: parseInt(process.env.PORT, 10),
@@ -27,9 +27,10 @@ module.exports = {
   awsRegion: process.env.AWS_REGION,
   awsS3BucketName: process.env.AWS_S3_BUCKET_NAME,
   awsAccessKeyId: process.env.AWS_ACCESS_KEY_ID,
-  awsSecretAccessKey: process.env.AWS_SECRET_ACC,
+  awsSecretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+
   cors: {
-    origin: JSON.parse(process.env.CORS_ORIGIN),
+    corsOrigin: process.env.CORS_ORIGIN,
     credentials: true,
     exposedHeaders: ["Authorization"],
   },
