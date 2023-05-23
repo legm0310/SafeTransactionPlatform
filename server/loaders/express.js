@@ -4,6 +4,7 @@ const cors = require("cors");
 const cookieParser = require("cookie-parser");
 const passport = require("passport");
 const morgan = require("morgan");
+const config = require("../config");
 const routerLoader = require("../routes");
 const { accessStrategy, refreshStrategy } = require("../config/passport");
 const { NotFoundError } = require("../utils/generalError");
@@ -26,18 +27,9 @@ module.exports = ({ app }) => {
   app.use(cookieParser());
 
   //cors
-  // app.use(cors());
-  app.use(
-    cors({
-      origin: [
-        "https://www.pandago.me",
-        "https://pandago.me",
-        "https://panda-liart.vercel.app",
-      ],
-      credentials: true,
-      exposedHeaders: ["Authorization"],
-    })
-  );
+  if (config.nodeEnv === "production") {
+    app.use(cors(config.cors));
+  }
 
   //unknown request deny
   app.use(secure);
