@@ -30,7 +30,7 @@ module.exports = {
   awsSecretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
 
   cors: {
-    corsOrigin: process.env.CORS_ORIGIN,
+    origin: process.env.CORS_ORIGIN.split(","),
     credentials: true,
     exposedHeaders: ["Authorization"],
   },
