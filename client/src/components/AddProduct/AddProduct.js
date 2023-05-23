@@ -1,40 +1,19 @@
 import React, { Fragment, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { addProduct } from "../../_actions/product_action";
 
 import classes from "./AddProduct.module.css";
 
 const AddProduct = (props) => {
   const [imgFile, setimgFile] = useState([]);
-  const [name, setName] = useState("");
-  const [price, setPrice] = useState("");
-  const [explanation, setExplanation] = useState("");
-  const [nameLength, setNameLength] = useState(0);
+  const [Title, setTitle] = useState("");
+  const [Price, setPrice] = useState("");
+  const [Detail, setDetail] = useState("");
+  const [TitleLength, setTitleLength] = useState(0);
 
+  const dispatch = useDispatch();
   const navigate = useNavigate();
-
-  const onSubmitHandler = (event) => {
-    event.preventDefault(); // prevent form submission
-
-    if (name.trim() === "") {
-      alert("상품 이름을 입력해주세요.");
-      return;
-    }
-    if (price.trim() === "") {
-      alert("상품 가격을 입력해주세요.");
-      return;
-    }
-    if (explanation.trim() === "") {
-      alert("상품 설명을 입력해주세요.");
-      return;
-    }
-
-    props.onAddProduct(name, price, imgFile, explanation);
-    setName("");
-    setPrice("");
-    setExplanation("");
-    // code to submit the form
-    navigate("/purchase");
-  };
 
   const onImgFileHandler = (event) => {
     const imgLists = event.target.files;
@@ -59,10 +38,10 @@ const AddProduct = (props) => {
     setimgFile(imgFile.filter((_, index) => index !== id));
   };
 
-  const onNameHandler = (event) => {
+  const onTitleHandler = (event) => {
     const value = event.target.value;
-    setName(value);
-    setNameLength(value.length);
+    setTitle(value);
+    setTitleLength(value.length);
   };
 
   const onPriceHandler = (event) => {
@@ -81,10 +60,51 @@ const AddProduct = (props) => {
     }
   };
 
-  const onExplanationHandler = (event) => {
+  const onDetailHandler = (event) => {
     const value = event.target.value;
 
-    setExplanation(value);
+    setDetail(value);
+  };
+
+  const onSubmitHandler = (event) => {
+    event.preventDefault(); // prevent form submission
+
+    if (Title.trim() === "") {
+      alert("상품 이름을 입력해주세요.");
+      return;
+    }
+    if (Price.trim() === "") {
+      alert("상품 가격을 입력해주세요.");
+      return;
+    }
+    if (Detail.trim() === "") {
+      alert("상품 설명을 입력해주세요.");
+      return;
+    }
+
+    props.onAddProduct(Title, Price, imgFile, Detail);
+    setTitle("");
+    setPrice("");
+    setDetail("");
+    // code to submit the form
+    navigate("/purchase");
+
+    let body = {
+      status: "SALE",
+      title: Title,
+      price: Price,
+      // category: Category,
+      detail: Detail,
+    };
+
+    dispatch(addProduct(body)).then((response) => {
+      if (response.payload.addProductSuccess) {
+        alert("상품 등록 완료");
+        navigate("/purchase");
+      } else {
+        alert("상품 등록에 실패했습니다.");
+      }
+    });
   };
 
   return (
@@ -145,12 +165,12 @@ const AddProduct = (props) => {
           <div className={classes.labelTitle}>제목</div>
           <input
             className={classes.inputTitle}
-            onChange={onNameHandler}
-            value={name}
-            onInput={(e) => setNameLength(e.target.value.length)}
+            onChange={onTitleHandler}
+            value={Title}
+            onInput={(e) => setTitleLength(e.target.value.length)}
             maxLength={40}
           />
-          <div>{nameLength}/40</div>
+          <div>{TitleLength}/40</div>
         </div>
 
         <div className={classes.label2}>
@@ -163,7 +183,7 @@ const AddProduct = (props) => {
             className={classes.inputPrice}
             thousandseparator="true"
             onChange={onPriceHandler}
-            value={price}
+            value={Price}
           />
           <div>BB</div>
         </div>
@@ -234,8 +254,8 @@ const AddProduct = (props) => {
 
           <textarea
             className={classes.inputTextarea}
-            onChange={onExplanationHandler}
-            value={explanation}
+            onChange={onDetailHandler}
+            value={Detail}
           />
         </div>
 
