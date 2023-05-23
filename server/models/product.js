@@ -13,16 +13,16 @@ class Product extends Sequelize.Model {
           type: Sequelize.STRING(90),
           allowNull: false,
         },
+        price: {
+          type: Sequelize.INTEGER,
+          allowNull: false,
+        },
         category: {
           type: Sequelize.STRING(45),
           allowNull: true,
         },
         detail: {
           type: Sequelize.STRING(255),
-          allowNull: false,
-        },
-        price: {
-          type: Sequelize.INTEGER,
           allowNull: false,
         },
       },
