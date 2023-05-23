@@ -14,7 +14,7 @@ if (process.env.NODE_ENV === "production") {
 if (envFound.error) {
   throw new Error("⚠️  Couldn't find .env file  ⚠️");
 }
-console.log(JSON.parse(process.env.CORS_ORIGIN));
+
 module.exports = {
   nodeEnv: process.env.NODE_ENV,
   port: parseInt(process.env.PORT, 10),
