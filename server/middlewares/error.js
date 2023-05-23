@@ -26,7 +26,7 @@ const globalErrorHandler = (e, req, res, next) => {
     code: statusCode,
     error: name,
     message,
-    ...(config.env && { stack: e.stack }),
+    ...(config.nodeEnv && { stack: e.stack }),
   };
 
   console.log(response);
