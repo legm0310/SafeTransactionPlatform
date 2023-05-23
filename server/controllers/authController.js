@@ -31,7 +31,10 @@ module.exports = {
   logout: catchAsync(async (req, res) => {
     const authServiceInstance = await Container.get("authService");
     await authServiceInstance.logout(req.cookies.refreshToken);
-    res.clearCookie("refreshToken", { path: "/", domain: config.clientDomain });
+    res.clearCookie("refreshToken", {
+      path: "/",
+      domain: config.cookieSet.domain,
+    });
     res.status(200).json({
       logoutSuccess: true,
     });

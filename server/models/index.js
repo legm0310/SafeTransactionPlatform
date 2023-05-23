@@ -1,6 +1,6 @@
 const Sequelize = require("sequelize");
-const env = process.env.NODE_ENV || "development";
-const config = require("../config")[env];
+const config = require("../config");
+const dbConfig = config["db"];
 
 const user = require("./user");
 const token = require("./token");
@@ -9,10 +9,10 @@ const chatRoom = require("./chatRoom");
 const chatContent = require("./chatContent");
 
 const sequelize = new Sequelize(
-  config.database,
-  config.username,
-  config.password,
-  config
+  dbConfig.database,
+  dbConfig.username,
+  dbConfig.password,
+  dbConfig
 );
 const db = {};
 
