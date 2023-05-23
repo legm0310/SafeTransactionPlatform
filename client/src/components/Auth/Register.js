@@ -67,7 +67,7 @@ const Register = (props) => {
       <div className={classes.wrap}>
         <div className={classes.container}>
           <header className={classes.header}>
-            <Link to="/Login" className={classes.backButton}>
+            <Link to="/login" className={classes.backButton}>
               <FaArrowLeft />
             </Link>
           </header>
