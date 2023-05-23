@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const middleware = require("../middlewares");
+const { isAuth } = require("../middlewares");
 const { validationResult } = require("express-validator");
 const authController = require("../controllers/authController");
 
@@ -12,7 +12,7 @@ const authController = require("../controllers/authController");
 module.exports = (app) => {
   app.use("/auth", router);
 
-  router.get("/authCheckTest", middleware.isAuth, (req, res) => {
+  router.get("/authCheckTest", isAuth, (req, res) => {
     console.log(res.getHeaders().authorization);
     res.send("clear");
   });
@@ -20,5 +20,5 @@ module.exports = (app) => {
   router.post("/signup", authController.signup);
   router.post("/login", authController.login);
   router.get("/logout", authController.logout);
-  router.get("/check", middleware.isAuth, authController.check);
+  router.get("/check", isAuth, authController.check);
 };

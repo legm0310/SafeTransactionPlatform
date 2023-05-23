@@ -18,7 +18,7 @@ class TokenService {
     const payload = {
       sub: userId,
       iat: Math.floor(Date.now() / 1000),
-      exp: Math.floor(Date.now() / 1000) + 60 * 60,
+      exp: Math.floor(Date.now() / 1000) + 3600,
     };
     const token = jwt.sign(payload, config.jwtAccessSecret);
     return { accessToken: token, exp: payload.exp };
@@ -28,7 +28,7 @@ class TokenService {
     const payload = {
       sub: userId,
       iat: Math.floor(Date.now() / 1000),
-      exp: Math.floor(Date.now() / 1000) + 1000,
+      exp: Math.floor(Date.now() / 1000) + 3600 * 24,
     };
     const token = jwt.sign(payload, config.jwtRefreshSecret);
     return token;
@@ -44,7 +44,10 @@ class TokenService {
     const { accessToken, exp } = await this.genAccessToken(user.id);
     const accessTokenExpires = moment().add(60, "minutes");
 
-    const reissueTimeout = moment(exp * 1000).add(60, "m");
+    const reissueTimeout = moment(exp * 1000).add(
+      parseInt(config.reissueTimeoutInterval),
+      "seconds"
+    );
 
     const refreshToken = await this.genRefreshToken(user.id);
     const refreshTokenExpires = moment().add(3, "days");
@@ -75,7 +78,6 @@ class TokenService {
   }
 
   async removeToken(refreshToken) {
-    const token = await this.getToken(refreshToken);
     return await this.Token.destroy({
       where: {
         refresh_token: refreshToken,
@@ -102,7 +104,6 @@ class TokenService {
         refresh_token: token,
       },
     });
-    if (!tokenRecord) throw new UnauthorizedError("Authentication not found");
     return tokenRecord;
   }
 
@@ -112,7 +113,6 @@ class TokenService {
         user_id: userId,
       },
     });
-    if (!tokenRecord) throw new UnauthorizedError("Authentication not found");
     return tokenRecord;
   }
 

@@ -17,7 +17,7 @@ const init = async ({ expressApp }) => {
   try {
     const sequelizeDbConnection = await sequelizeLoader();
     console.log(`___________________________________________\n`);
-    console.log(`✨ NODE_ENV: ${config.env} ✨\n`);
+    console.log(`✨ NODE_ENV: ${config.nodeEnv} ✨\n`);
     if (!sequelizeDbConnection) {
       console.log("👌 Mysql DB loaded and connected\n");
     }
