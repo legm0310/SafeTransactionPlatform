@@ -1,146 +1,146 @@
-import React, { Fragment, useState } from "react"
-import { useNavigate } from "react-router-dom"
-import { useDispatch } from "react-redux"
-import { addProduct } from "../../_actions/product_action"
+import React, { Fragment, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { addProduct } from "../../_actions/product_action";
 import {
   FormControlLabel,
   Checkbox,
   Button,
   TextField,
   Alert,
-} from "@mui/material"
+} from "@mui/material";
 
-import classes from "./AddProduct.module.css"
+import classes from "./AddProduct.module.css";
 
 const AddProduct = (props) => {
-  const [imgFile, setimgFile] = useState([])
-  const [Title, setTitle] = useState("")
-  const [Price, setPrice] = useState("")
-  const [Detail, setDetail] = useState("")
-  const [TitleLength, setTitleLength] = useState(0)
-  const [Category, setCategory] = useState([])
+  const [imgFile, setimgFile] = useState([]);
+  const [title, setTitle] = useState("");
+  const [price, setPrice] = useState("");
+  const [detail, setDetail] = useState("");
+  const [titleLength, setTitleLength] = useState(0);
+  const [category, setCategory] = useState([]);
 
-  const dispatch = useDispatch()
-  const navigate = useNavigate()
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const onImgFileHandler = (event) => {
-    const imgLists = event.target.files
-    const imgUrlLists = [...imgFile]
+    const imgLists = event.target.files;
+    const imgUrlLists = [...imgFile];
 
     for (let i = 0; i < imgLists.length; i++) {
       // 미리보기 가능하게 변수화
-      const currentImgUrl = URL.createObjectURL(imgLists[i])
+      const currentImgUrl = URL.createObjectURL(imgLists[i]);
       // 복사한 imgFile에 추가
-      imgUrlLists.push(currentImgUrl)
+      imgUrlLists.push(currentImgUrl);
     }
 
     if (imgUrlLists.length > 10) {
-      imgUrlLists = imgUrlLists.slice(0, 10)
+      imgUrlLists = imgUrlLists.slice(0, 10);
     }
 
-    setimgFile(imgUrlLists)
-  }
+    setimgFile(imgUrlLists);
+  };
 
   // 이미지 삭제
   const deleteImgHandler = (id) => {
-    setimgFile(imgFile.filter((_, index) => index !== id))
-  }
+    setimgFile(imgFile.filter((_, index) => index !== id));
+  };
 
   // 제목
   const onTitleHandler = (event) => {
-    const value = event.target.value
-    setTitle(value)
-    setTitleLength(value.length)
-  }
+    const value = event.target.value;
+    setTitle(value);
+    setTitleLength(value.length);
+  };
 
   // 가격
   const onPriceHandler = (event) => {
-    const value = event.target.value
+    const value = event.target.value;
 
-    setPrice(value)
+    setPrice(value);
 
-    const inputNumber = Number(event.target.value.replace(/,/g, "")) // 입력된 값에서 ',' 제거 후 숫자로 변환
+    const inputNumber = Number(event.target.value.replace(/,/g, "")); // 입력된 값에서 ',' 제거 후 숫자로 변환
 
     if (value === "") {
-      setPrice("") // 입력된 값이 빈 문자열인 경우
+      setPrice(""); // 입력된 값이 빈 문자열인 경우
     } else if (!isNaN(inputNumber)) {
       // 입력된 값이 숫자인지 확인
-      const formattedValue = new Intl.NumberFormat("en-US").format(inputNumber)
-      setPrice(formattedValue)
+      const formattedValue = new Intl.NumberFormat("en-US").format(inputNumber);
+      setPrice(formattedValue);
     }
-  }
+  };
 
   // 설명
   const onDetailHandler = (event) => {
-    const value = event.target.value
+    const value = event.target.value;
 
-    setDetail(value)
-  }
+    setDetail(value);
+  };
 
   // 카테고리
   const onCategoryChange = (event) => {
-    const selectedCategory = event.target.value // 선택한 체크박스의 값
+    const selectedCategory = event.target.value; // 선택한 체크박스의 값
 
     // 선택 여부
-    const isSelected = Category.includes(selectedCategory)
+    const isSelected = category.includes(selectedCategory);
 
     if (isSelected) {
       // 이미 선택된 카테고리를 클릭한 경우, 선택 해제
       setCategory((prevCategories) =>
         prevCategories.filter((category) => category !== selectedCategory)
-      )
+      );
     } else {
       // 선택되지 않은 카테고리를 클릭한 경우, 선택 추가
-      setCategory((prevCategories) => [...prevCategories, selectedCategory])
+      setCategory((prevCategories) => [...prevCategories, selectedCategory]);
     }
-  }
+  };
 
   // 등록하기
   const onSubmitHandler = (event) => {
-    event.preventDefault() // prevent form submission
+    event.preventDefault(); // prevent form submission
 
-    if (Title.trim() === "") {
-      alert("상품 이름을 입력해주세요.")
-      return
+    if (title.trim() === "") {
+      alert("상품 이름을 입력해주세요.");
+      return;
     }
-    if (Price.trim() === "") {
-      alert("상품 가격을 입력해주세요.")
-      return
+    if (price.trim() === "") {
+      alert("상품 가격을 입력해주세요.");
+      return;
     }
-    if (Detail.trim() === "") {
-      alert("상품 설명을 입력해주세요.")
-      return
+    if (detail.trim() === "") {
+      alert("상품 설명을 입력해주세요.");
+      return;
     }
-    if (Category.length === 0) {
-      alert("상품 카테고리를 입력해주세요.")
-      return
+    if (category.length === 0) {
+      alert("상품 카테고리를 입력해주세요.");
+      return;
     }
 
-    props.onAddProduct(Title, Price, imgFile, Detail, Category)
-    setTitle("")
-    setPrice("")
-    setDetail("")
-    setCategory([])
+    props.onAddProduct(title, price, imgFile, detail, category);
+    setTitle("");
+    setPrice("");
+    setDetail("");
+    setCategory([]);
     // code to submit the form
-    navigate("/purchase")
+    navigate("/purchase");
 
     let body = {
       status: "SALE",
-      title: Title,
-      price: Price,
-      category: Category,
-      detail: Detail,
-    }
+      title: title,
+      price: price,
+      category: category,
+      detail: detail,
+    };
 
     dispatch(addProduct(body)).then((response) => {
       if (response.payload.addProductSuccess) {
-        alert("상품 등록 완료")
-        navigate("/purchase")
+        alert("상품 등록 완료");
+        navigate("/purchase");
       } else {
-        alert("상품 등록에 실패했습니다.")
+        alert("상품 등록에 실패했습니다.");
       }
-    })
-  }
+    });
+  };
 
   return (
     <Fragment>
@@ -156,8 +156,8 @@ const AddProduct = (props) => {
                 이미지등록
                 <input
                   className={classes.imgUpload}
-                  type='file'
-                  accept='image/*'
+                  type="file"
+                  accept="image/*"
                   onChange={onImgFileHandler}
                   multiple
                 />
@@ -200,31 +200,31 @@ const AddProduct = (props) => {
           <div className={classes.labelTitle}>제목</div>
           <TextField
             sx={{ width: "80ch", m: 1 }}
-            id='outlined-search'
+            id="outlined-search"
             onChange={onTitleHandler}
-            value={Title}
+            value={title}
             onInput={(e) => setTitleLength(e.target.value.length)}
             maxLength={40}
-            type='search'
-            size='small'
+            type="search"
+            size="small"
           />
-          <div>{TitleLength}/40</div>
+          <div>{titleLength}/40</div>
         </div>
 
         <div className={classes.label2}>
-          <label htmlFor='price' className={classes.labelTitle}>
+          <label htmlFor="price" className={classes.labelTitle}>
             가격
           </label>
           <TextField
             sx={{ width: "20ch", m: 1 }}
-            id='outlined-number'
+            id="outlined-number"
             onChange={onPriceHandler}
-            value={Price}
-            type='number'
+            value={price}
+            type="number"
             InputLabelProps={{
               shrink: true,
             }}
-            size='small'
+            size="small"
           />
           <div>BB</div>
         </div>
@@ -239,45 +239,45 @@ const AddProduct = (props) => {
                   sx={{ width: "15ch" }}
                   control={<Checkbox />}
                   onChange={onCategoryChange}
-                  checked={Category.includes("men")}
-                  value='men'
-                  label='남성의류'
+                  checked={category.includes("men")}
+                  value="men"
+                  label="남성의류"
                 />
 
                 <FormControlLabel
                   sx={{ width: "15ch" }}
                   control={<Checkbox />}
                   onChange={onCategoryChange}
-                  checked={Category.includes("women")}
-                  value='women'
-                  label='여성의류'
+                  checked={category.includes("women")}
+                  value="women"
+                  label="여성의류"
                 />
 
                 <FormControlLabel
                   sx={{ width: "15ch" }}
                   control={<Checkbox />}
                   onChange={onCategoryChange}
-                  checked={Category.includes("acc")}
-                  value='acc'
-                  label='패션잡화'
+                  checked={category.includes("acc")}
+                  value="acc"
+                  label="패션잡화"
                 />
 
                 <FormControlLabel
                   sx={{ width: "15ch" }}
                   control={<Checkbox />}
                   onChange={onCategoryChange}
-                  checked={Category.includes("sports")}
-                  value='sports'
-                  label='스포츠 용품'
+                  checked={category.includes("sports")}
+                  value="sports"
+                  label="스포츠 용품"
                 />
 
                 <FormControlLabel
                   sx={{ width: "15ch" }}
                   control={<Checkbox />}
                   onChange={onCategoryChange}
-                  checked={Category.includes("shoes")}
-                  value='shoes'
-                  label='신발'
+                  checked={category.includes("shoes")}
+                  value="shoes"
+                  label="신발"
                 />
               </div>
               <div className={classes.checkList2}>
@@ -285,45 +285,45 @@ const AddProduct = (props) => {
                   sx={{ width: "15ch" }}
                   control={<Checkbox />}
                   onChange={onCategoryChange}
-                  checked={Category.includes("homeappliances")}
-                  value='homeappliances'
-                  label='가전제품'
+                  checked={category.includes("homeappliances")}
+                  value="homeappliances"
+                  label="가전제품"
                 />
 
                 <FormControlLabel
                   sx={{ width: "15ch" }}
                   control={<Checkbox />}
                   onChange={onCategoryChange}
-                  checked={Category.includes("computerPeripherals")}
-                  value='computerPeripherals'
-                  label='컴퓨터/주변기기'
+                  checked={category.includes("computerPeripherals")}
+                  value="computerPeripherals"
+                  label="컴퓨터/주변기기"
                 />
 
                 <FormControlLabel
                   sx={{ width: "15ch" }}
                   control={<Checkbox />}
                   onChange={onCategoryChange}
-                  checked={Category.includes("electronic")}
-                  value='electronic'
-                  label='전자제품'
+                  checked={category.includes("electronic")}
+                  value="electronic"
+                  label="전자제품"
                 />
 
                 <FormControlLabel
                   sx={{ width: "15ch" }}
                   control={<Checkbox />}
                   onChange={onCategoryChange}
-                  checked={Category.includes("furniture")}
-                  value='furniture'
-                  label='가구'
+                  checked={category.includes("furniture")}
+                  value="furniture"
+                  label="가구"
                 />
 
                 <FormControlLabel
                   sx={{ width: "15ch" }}
                   control={<Checkbox />}
                   onChange={onCategoryChange}
-                  checked={Category.includes("etc")}
-                  value='etc'
-                  label='기타'
+                  checked={category.includes("etc")}
+                  value="etc"
+                  label="기타"
                 />
               </div>
             </div>
@@ -336,21 +336,21 @@ const AddProduct = (props) => {
           <TextField
             sx={{ width: "80ch", m: 1 }}
             onChange={onDetailHandler}
-            value={Detail}
-            id='outlined-multiline-static'
+            value={detail}
+            id="outlined-multiline-static"
             multiline
             rows={6}
           />
         </div>
 
         <div className={classes.buttonWrap}>
-          <Button type='submit' variant='contained'>
+          <Button type="submit" variant="contained">
             등록하기
           </Button>
         </div>
       </form>
     </Fragment>
-  )
-}
+  );
+};
 
-export default AddProduct
+export default AddProduct;
