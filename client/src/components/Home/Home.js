@@ -1,8 +1,8 @@
-import { Fragment } from "react";
+import { Fragment } from "react"
 
-import Slide from "./Slide";
-import mainImg from "../../assets/mainImg.png";
-import classes from "./Home.module.css";
+import Slide from "./Silde"
+import mainImg from "../../assets/mainImg.png"
+import classes from "./Home.module.css"
 
 const Home = (props) => {
   return (
@@ -23,7 +23,7 @@ const Home = (props) => {
             </div>
 
             <div className={classes.mainImgWrap}>
-              <img src={mainImg} alt="" className={classes.mainImg} />
+              <img src={mainImg} alt='' className={classes.mainImg} />
             </div>
           </div>
         </section>
@@ -61,7 +61,7 @@ const Home = (props) => {
         </section>
       </div>
     </Fragment>
-  );
-};
+  )
+}
 
-export default Home;
+export default Home
