@@ -10,6 +10,7 @@ const productController = require("../controllers").productController;
  */
 module.exports = (app) => {
   app.use("/product", router);
+
   router.post("/", productController.addProduct);
   router.get("/", productController.getProduct);
   router.get("/:productId", productController.getProduct);

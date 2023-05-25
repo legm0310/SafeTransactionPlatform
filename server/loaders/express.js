@@ -7,7 +7,7 @@ const morgan = require("morgan");
 const config = require("../config");
 const routerLoader = require("../routes");
 const { accessStrategy, refreshStrategy } = require("../config/passport");
-const { NotFoundError } = require("../utils/generalError");
+const { NotFoundError } = require("../utils");
 const { secure, errorConvert, globalErrorHandler } = require("../middlewares");
 
 /** express 앱의 미들웨어들을 로드하는 함수

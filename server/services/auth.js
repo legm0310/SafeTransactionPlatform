@@ -1,5 +1,5 @@
 const { Container } = require("typedi");
-const { UnauthorizedError, NotFoundError } = require("../utils/generalError");
+const { UnauthorizedError, NotFoundError } = require("../utils");
 
 class AuthService {
   constructor() {

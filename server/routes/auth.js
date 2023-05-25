@@ -12,11 +12,6 @@ const authController = require("../controllers/authController");
 module.exports = (app) => {
   app.use("/auth", router);
 
-  router.get("/authCheckTest", isAuth, (req, res) => {
-    console.log(res.getHeaders().authorization);
-    res.send("clear");
-  });
-
   router.post("/signup", authController.signup);
   router.post("/login", authController.login);
   router.get("/logout", authController.logout);

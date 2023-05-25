@@ -1,6 +1,6 @@
 const Sequelize = require("sequelize");
 const config = require("../config");
-const ApiError = require("../utils/ApiError");
+const { ApiError } = require("../utils");
 const httpStatus = require("http-status");
 
 const errorConvert = (e, req, res, next) => {
