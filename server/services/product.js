@@ -1,5 +1,5 @@
 const { Container } = require("typedi");
-const { BadRequestError, NotFoundError } = require("../utils/generalError");
+const { BadRequestError, NotFoundError } = require("../utils");
 
 class ProductService {
   constructor() {

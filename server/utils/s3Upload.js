@@ -10,11 +10,12 @@ const productS3Config = multerS3({
   s3: s3Instance,
   bucket: config.awsS3BucketName,
   acl: "public-read",
+  // contentType: multerS3.AUTO_CONTENT_TYPE,
   metadata: function (req, file, cb) {
     cb(null, { fieldName: file.fieldname });
   },
   key: function (req, file, cb) {
-    cb(null, `products/${file.originalname}`);
+    cb(null, `products/${Date.now()}_${file.originalname}`);
   },
 });
 

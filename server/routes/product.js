@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { isAuth } = require("../middlewares");
+const { isAuth, uploader } = require("../middlewares");
 const productController = require("../controllers").productController;
 
 /** product 관련 라우팅 함수
@@ -10,7 +10,8 @@ const productController = require("../controllers").productController;
  */
 module.exports = (app) => {
   app.use("/product", router);
-  router.post("/", productController.addProduct);
+
+  router.post("/", uploader, productController.addProduct);
   router.get("/", productController.getProduct);
   router.get("/:productId", productController.getProduct);
   router.put("/:productId", productController.updateProduct);

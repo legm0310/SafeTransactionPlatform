@@ -1,6 +1,6 @@
 const { Container } = require("typedi");
 const config = require("../config");
-const catchAsync = require("../utils/catchAsync");
+const { catchAsync } = require("../utils");
 
 module.exports = {
   addProduct: catchAsync(async (req, res) => {
