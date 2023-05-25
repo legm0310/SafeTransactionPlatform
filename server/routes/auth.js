@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const { isAuth } = require("../middlewares");
 const { validationResult } = require("express-validator");
-const authController = require("../controllers/authController");
+const authController = require("../controllers/").authController;
 
 /** auth 관련 라우팅 함수
  * @param {Function} app 라우터 설정을 위한 express.Router()
