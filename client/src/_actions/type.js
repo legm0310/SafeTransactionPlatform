@@ -6,6 +6,9 @@
 */
 
 // action의 type들만 관리 (action의 type를 정의)
+export const SIGNUP_USER = "signup_user";
 export const LOGIN_USER = "login_user";
-export const REGISTER_USER = "register_user";
+export const LOGOUT_USER = "logout_user";
 export const AUTH_USER = "auth_user";
+
+export const ADD_PRODUCT = "add_product";

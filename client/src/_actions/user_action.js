@@ -5,55 +5,84 @@
 */
 
 import axios from "axios";
-import { LOGIN_USER, REGISTER_USER, AUTH_USER } from "./type";
+import { SIGNUP_USER, LOGIN_USER, LOGOUT_USER, AUTH_USER } from "./type";
 
-export function loginUser(dataToSubmit) {
+// 'withCredentials'속성을 'true'로 설정 --> 다른 도메인(client, server)에서 발급한 쿠키 제어 가능
+// client, server 모두 설정해줘야함(cors)
+axios.defaults.baseURL = process.env.REACT_APP_API_BASE_URL;
+axios.defaults.withCredentials = true;
+
+export function signup(dataToSubmit) {
+  const request = axios
+    .post("/api/auth/signup", dataToSubmit)
+    .then((response) => response.data)
+    .catch((err) => {
+      console.log(err.response);
+      return err.response.data;
+    });
+  return {
+    type: SIGNUP_USER,
+    payload: request,
+  };
+}
+
+export function login(dataToSubmit) {
   const request = axios
     .post("/api/auth/login", dataToSubmit)
     .then((response) => {
-      console.log(response.headers);
-      let accessToken = response.headers.get("Authorization");
+      let accessToken = response.headers.authorization;
       localStorage.setItem("accessToken", accessToken);
-      let refreshToken = response.headers.get("Set-Cookie");
-      document.cookie = refreshToken;
       return response.data;
+    })
+    .catch((err) => {
+      console.log(err.response);
+      return err.response.data;
     });
-  // 서버에 데이터를 보낸 후, 서버에서 온 데이터 저장
-  // ({loginSuccess: true, userId: user._id})
-
-  // redux의 action -> 이를 dispatch를 통해 reducer로 보냄
   return {
     type: LOGIN_USER,
     payload: request,
   };
 }
 
-export function registerUser(dataToSubmit) {
+export function logout() {
   const request = axios
-    .post("/api/auth/signup", dataToSubmit)
-    .then((response) => response.data);
+    .get("/api/auth/logout")
+    .then((response) => {
+      localStorage.removeItem("accessToken");
+      return response.data;
+    })
+    .catch((err) => {
+      console.log(err.response);
+      return err.response.data;
+    });
   return {
-    type: REGISTER_USER,
+    type: LOGOUT_USER,
     payload: request,
   };
 }
 
 export function auth() {
   const accessToken = localStorage.getItem("accessToken");
-  const headers = { Authorization: accessToken };
+  const headers = {
+    Authorization: accessToken,
+    "Cache-control": "no-cache, no-store",
+  };
+
   const request = axios
     .get("/api/auth/check", {
       headers,
     })
     .then((response) => {
-      if (response.headers.authorization) {
-        localStorage.removeItem("accessToken");
-        let accessToken = response.headers.get("Authorization");
-        localStorage.setItem("accessToken", accessToken);
+      let newAccessToken = response.headers.authorization;
+      if (newAccessToken) {
+        localStorage.setItem("accessToken", newAccessToken);
       }
       return response.data;
     })
-    .catch((err) => err.response.data);
+    .catch((err) => {
+      console.log(err.response);
+      return err.response.data;
+    });
   return {
     type: AUTH_USER,
     payload: request,
