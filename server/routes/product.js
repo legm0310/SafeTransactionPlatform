@@ -11,7 +11,12 @@ const productController = require("../controllers").productController;
 module.exports = (app) => {
   app.use("/product", router);
 
-  router.post("/", uploader, productController.addProduct);
+  // router.post("/", uploader, productController.addProduct);
+  router.post("/", uploader, (req, res) => {
+    console.log(Array.from(req.files.values()));
+    console.log(req.file);
+    res.sendStatus(200).end();
+  });
   router.get("/", productController.getProduct);
   router.get("/:productId", productController.getProduct);
   router.put("/:productId", productController.updateProduct);

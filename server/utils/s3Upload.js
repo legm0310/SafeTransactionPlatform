@@ -1,21 +1,21 @@
-const aws = require("aws-sdk");
+const { S3Client } = require("@aws-sdk/client-s3");
 const multer = require("multer");
 const multerS3 = require("multer-s3");
 const config = require("../config");
 
-aws.config.update(config.awsS3Config);
-const s3Instance = new aws.S3();
+const s3Client = new S3Client(config.awsS3Config);
 
 const productS3Config = multerS3({
-  s3: s3Instance,
+  s3: s3Client,
   bucket: config.awsS3BucketName,
   acl: "public-read",
   // contentType: multerS3.AUTO_CONTENT_TYPE,
   metadata: function (req, file, cb) {
+    console.log(file);
     cb(null, { fieldName: file.fieldname });
   },
   key: function (req, file, cb) {
-    cb(null, `products/${Date.now()}_${file.originalname}`);
+    cb(null, `product/${Date.now()}_${file.originalname}`);
   },
 });
 
