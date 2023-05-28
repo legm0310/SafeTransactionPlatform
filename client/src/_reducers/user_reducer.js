@@ -6,23 +6,35 @@
   action의 type을 switch case문으로 조건을 걸어 동작
 */
 
-import { LOGIN_USER, REGISTER_USER, AUTH_USER } from "../_actions/type";
+import {
+  SIGNUP_USER,
+  LOGIN_USER,
+  LOGOUT_USER,
+  AUTH_USER,
+  ADD_PRODUCT,
+} from "../_actions/type";
 
 // Action의 type에 따라 변화된 state 반환
 // eslint-disable-next-line import/no-anonymous-default-export
 export default function (state = {}, action) {
   // 전의 state, 지금의 state
   switch (action.type) {
+    case SIGNUP_USER:
+      return { ...state, signupSuccess: action.payload };
+      break;
     case LOGIN_USER:
       // 원본, 서버에서 넘어온 정보를 여기에 넣어준 것
       return { ...state, loginSuccess: action.payload };
       break;
-    case REGISTER_USER:
-      return { ...state, registerSuccess: action.payload };
+    case LOGOUT_USER:
+      return { ...state, logoutSuccess: action.payload };
       break;
     case AUTH_USER:
       // 모든 유저데이터가 userData에 들어오게 됨
       return { ...state, userData: action.payload };
+      break;
+    case ADD_PRODUCT:
+      return { ...state, addProductSuccess: action.payload };
       break;
     default: // state가 들어오지 않았을 경우 전의 state를 넣어줌
       return state;

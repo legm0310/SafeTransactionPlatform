@@ -4,10 +4,11 @@ const cors = require("cors");
 const cookieParser = require("cookie-parser");
 const passport = require("passport");
 const morgan = require("morgan");
+const config = require("../config");
 const routerLoader = require("../routes");
 const { accessStrategy, refreshStrategy } = require("../config/passport");
 const { NotFoundError } = require("../utils/generalError");
-const { errorConvert, globalErrorHandler } = require("../middlewares");
+const { secure, errorConvert, globalErrorHandler } = require("../middlewares");
 
 /** express 앱의 미들웨어들을 로드하는 함수
  * @param {object} options 미들웨어를 실행시킬 express app
@@ -26,7 +27,12 @@ module.exports = ({ app }) => {
   app.use(cookieParser());
 
   //cors
-  app.use(cors());
+  if (config.nodeEnv === "production") {
+    app.use(cors(config.cors));
+  }
+
+  //unknown request deny
+  app.use(secure);
 
   //jwt authentication
   app.use(passport.initialize());
@@ -36,6 +42,12 @@ module.exports = ({ app }) => {
   //api routes
   //route -> controller -> service -> model -> db 엑세스 순으로 요청이 처리됨
   app.use("/api", routerLoader());
+
+  //ALB health check
+  app.get("/", async (req, res) => {
+    console.log("** health checking executed");
+    res.sendStatus(200);
+  });
 
   //test routes
   app.get("/reqCheck", (req, res) => {

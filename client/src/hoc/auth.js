@@ -41,10 +41,7 @@ export default function (SpecificComponent, option, adminRoute = null) {
         if (!response.payload.authCheckSuccess) {
           // 로그인 하지 않은 상태에서 로그인한 유저만 출입 가능한 페이지로 들어가려고 할 때
           if (option) {
-            if (localStorage.getItem("accessToken")) {
-              localStorage.removeItem("accessToken");
-            }
-            navigate("/Login");
+            navigate("/login");
           }
         } else {
           // 로그인 한 상태
@@ -60,7 +57,7 @@ export default function (SpecificComponent, option, adminRoute = null) {
 
       // Redux를 사용하지 않을 때 -> axios.get('/api/users/auth')
     }, []);
-    return <SpecificComponent />;
+    return <SpecificComponent {...props} />;
   }
 
   return AuthenticationCheck;
