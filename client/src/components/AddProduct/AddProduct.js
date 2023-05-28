@@ -14,6 +14,7 @@ import classes from "./AddProduct.module.css";
 
 const AddProduct = (props) => {
   const [imgFile, setimgFile] = useState([]);
+  const [imgData, setimgData] = useState([]);
   const [title, setTitle] = useState("");
   const [price, setPrice] = useState("");
   const [detail, setDetail] = useState("");
@@ -25,9 +26,11 @@ const AddProduct = (props) => {
 
   const onImgFileHandler = (event) => {
     const imgLists = event.target.files;
-    const imgUrlLists = [...imgFile];
-
+    let imgDataLists = [...imgData];
+    let imgUrlLists = [...imgFile];
     for (let i = 0; i < imgLists.length; i++) {
+      // 업로드를 위한 이미지 데이터 저장
+      imgDataLists.push(imgLists[i]);
       // 미리보기 가능하게 변수화
       const currentImgUrl = URL.createObjectURL(imgLists[i]);
       // 복사한 imgFile에 추가
@@ -37,7 +40,7 @@ const AddProduct = (props) => {
     if (imgUrlLists.length > 10) {
       imgUrlLists = imgUrlLists.slice(0, 10);
     }
-
+    setimgData(imgDataLists);
     setimgFile(imgUrlLists);
   };
 
@@ -116,6 +119,11 @@ const AddProduct = (props) => {
       return;
     }
 
+    const formData = new FormData();
+    imgData.forEach((file, index) => {
+      formData.append(`files`, file);
+    });
+
     props.onAddProduct(title, price, imgFile, detail, category);
     setTitle("");
     setPrice("");
@@ -132,7 +140,16 @@ const AddProduct = (props) => {
       detail: detail,
     };
 
-    dispatch(addProduct(body)).then((response) => {
+    // formData.append("data", body);
+    for (const key of formData.keys()) {
+      console.log(key);
+    }
+    // FormData의 value 확인
+    for (const value of formData.values()) {
+      console.log(value);
+    }
+
+    dispatch(addProduct(formData)).then((response) => {
       if (response.payload.addProductSuccess) {
         alert("상품 등록 완료");
         navigate("/purchase");
@@ -220,7 +237,7 @@ const AddProduct = (props) => {
             id="outlined-number"
             onChange={onPriceHandler}
             value={price}
-            type="number"
+            type="text"
             InputLabelProps={{
               shrink: true,
             }}

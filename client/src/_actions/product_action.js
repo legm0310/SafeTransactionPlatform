@@ -2,10 +2,19 @@ import axios from "axios";
 import { ADD_PRODUCT } from "./type";
 
 export function addProduct(dataToSubmit) {
+  const headers = {
+    "Content-Type": "multipart/form-data",
+  };
   const request = axios
-    .post("/api/product", dataToSubmit)
-    .then((response) => response.data)
+    .post("/api/product", dataToSubmit, {
+      headers,
+    })
+    .then((response) => {
+      console.log("res", response);
+      return response.data;
+    })
     .catch((err) => {
+      console.log(err.request);
       console.log(err.response);
       return err.response.data;
     });
