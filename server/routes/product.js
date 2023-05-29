@@ -13,8 +13,7 @@ module.exports = (app) => {
 
   // router.post("/", uploader, productController.addProduct);
   router.post("/", uploader, (req, res) => {
-    console.log(Array.from(req.files.values()));
-    console.log(req.file);
+    console.log(req.files);
     res.sendStatus(200).end();
   });
   router.get("/", productController.getProduct);

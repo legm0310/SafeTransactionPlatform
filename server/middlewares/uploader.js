@@ -1,13 +1,16 @@
 const { uploadProdImg } = require("../utils");
 
 const uploader = (req, res, next) => {
-  uploadProdImg.array("files", 10)(req, res, (error) => {
-    if (error) {
-      console.log(error);
+  uploadProdImg.fields([{ name: "product", maxCount: 10 }])(
+    req,
+    res,
+    (error) => {
+      if (error) {
+        next(error);
+      }
+      next();
     }
-  });
-
-  next();
+  );
 };
 
 module.exports = uploader;
