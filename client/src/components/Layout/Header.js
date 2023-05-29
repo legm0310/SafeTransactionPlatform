@@ -42,7 +42,7 @@ const Header = (props) => {
           <ul className={classes.list}>
             <div className={classes.dropdown}>
               <li className={classes.purchaseList}>
-                <Link to="/purchase/" className={classes.purchaseLink}>
+                <Link to="/product/all" className={classes.purchaseLink}>
                   구매하기
                 </Link>
               </li>
@@ -52,7 +52,7 @@ const Header = (props) => {
               </div>
             </div>
 
-            <Link to="/addProduct/" className={classes.AddProductLink}>
+            <Link to="/product/add" className={classes.AddProductLink}>
               <li className={classes.AddProductList}>판매하기</li>
             </Link>
           </ul>
