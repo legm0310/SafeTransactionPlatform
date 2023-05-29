@@ -9,7 +9,7 @@ const productS3Config = multerS3({
   s3: s3Client,
   bucket: config.awsS3BucketName,
   acl: "public-read",
-  // contentType: multerS3.AUTO_CONTENT_TYPE,
+  contentType: multerS3.AUTO_CONTENT_TYPE,
   metadata: function (req, file, cb) {
     console.log(file);
     cb(null, { fieldName: file.fieldname });
