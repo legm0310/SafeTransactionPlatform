@@ -130,7 +130,7 @@ const AddProduct = (props) => {
     setDetail("");
     setCategory([]);
     // code to submit the form
-    navigate("/purchase");
+    navigate("/product/all");
 
     let body = {
       status: "SALE",
@@ -152,7 +152,7 @@ const AddProduct = (props) => {
     dispatch(addProduct(formData)).then((response) => {
       if (response.payload.addProductSuccess) {
         alert("상품 등록 완료");
-        navigate("/purchase");
+        navigate("/product/all");
       } else {
         alert("상품 등록에 실패했습니다.");
       }
