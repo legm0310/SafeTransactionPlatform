@@ -14,8 +14,7 @@ export function addProduct(dataToSubmit) {
       return response.data;
     })
     .catch((err) => {
-      console.log(err.request);
-      console.log(err.response);
+      console.log(err);
       return err.response.data;
     });
   return {
