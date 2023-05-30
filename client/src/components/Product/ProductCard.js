@@ -1,8 +1,8 @@
 import React, { Fragment } from "react";
 
-import classes from "./PurchaseCard.module.css";
+import classes from "./ProductCard.module.css";
 
-const PurchaseCard = (props) => {
+const ProductCard = (props) => {
   return (
     <Fragment>
       <div className={classes.prodCardWrap}>
@@ -25,4 +25,4 @@ const PurchaseCard = (props) => {
   );
 };
 
-export default PurchaseCard;
+export default ProductCard;
