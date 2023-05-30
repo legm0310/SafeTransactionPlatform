@@ -1,8 +1,7 @@
 import React, { Fragment, useState, useEffect } from "react";
 import classes from "./Purchase.module.css";
 import PurchaseCard from "./PurchaseCard";
-import { useNavigate } from "react-router-dom";
-
+import { Link, useNavigate } from "react-router-dom";
 const Purchase = (props) => {
   const navigate = useNavigate();
 
