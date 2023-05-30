@@ -121,7 +121,7 @@ const AddProduct = (props) => {
 
     const formData = new FormData();
     imgData.forEach((file, index) => {
-      formData.append(`files`, file);
+      formData.append(`product`, file);
     });
 
     props.onAddProduct(title, price, imgFile, detail, category);
