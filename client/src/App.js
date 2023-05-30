@@ -14,14 +14,7 @@ function App() {
   const AuthHome = Auth(Home, null);
   const AuthAddProduct = Auth(AddProduct, true);
 
-  const token = localStorage.getItem("accessToken");
-  const tokenCheck =
-    token !== "undefined" || token !== "null" || token !== ""
-      ? Boolean(token)
-      : false;
-
   const [productCard, setProductCard] = useState([]);
-  const [isLoggedIn, setIsLoggedIn] = useState(tokenCheck);
 
   const addProductHandler = (pName, pPrice, pImg, pExplanation, pCategory) => {
     setProductCard((prevProductCard) => {
@@ -42,7 +35,7 @@ function App() {
   return (
     <Fragment>
       <BrowserRouter>
-        <Header setIsLoggedIn={setIsLoggedIn} isLoggedIn={isLoggedIn} />
+        <Header />
         <Routes>
           <Route path="/" element={<AuthHome />}></Route>
           <Route
@@ -53,12 +46,7 @@ function App() {
             path="/products/add"
             element={<AuthAddProduct onAddProduct={addProductHandler} />}
           ></Route>
-          <Route
-            path="/login"
-            element={
-              <Login setIsLoggedIn={setIsLoggedIn} isLoggedIn={isLoggedIn} />
-            }
-          ></Route>
+          <Route path="/login" element={<Login />}></Route>
           <Route path="/register" element={<Register />}></Route>
           <Route
             path="/detail"

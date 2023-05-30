@@ -31,10 +31,7 @@ const Header = (props) => {
           </div>
 
           <div className={classes.AuthList}>
-            <UserAuth
-              setIsLoggedIn={props.setIsLoggedIn}
-              isLoggedIn={props.isLoggedIn}
-            />
+            <UserAuth />
           </div>
         </div>
 

@@ -1,5 +1,5 @@
 import { Fragment } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { logout } from "../../_actions/userAction";
 
@@ -8,20 +8,18 @@ import classes from "./UserAuth.module.css";
 const UserAuth = (props) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
+  const isLoggedIn = useSelector((state) => state.user.isLoggedIn);
   const onLogoutHandler = () => {
     dispatch(logout()).then((response) => {
       alert("로그아웃 되었습니다.");
-      props.setIsLoggedIn(false);
       navigate("/");
-      // 로그아웃에 성공했으므로 isLoggedIn 상태를 false로 변경
     });
   };
 
   return (
     <Fragment>
       <ul className={classes.Authwrap}>
-        {props.isLoggedIn ? (
+        {isLoggedIn ? (
           <li className={classes.logout} onClick={onLogoutHandler}>
             로그아웃
           </li>
