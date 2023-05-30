@@ -60,7 +60,7 @@ const handleRefreshToken = async (req, res, next) => {
       );
 
       await tokenService.updateReissueTimeout(
-        new Date(exp * 1000 + 20),
+        new Date((exp + parseInt(config.reissueTimeoutInterval)) * 1000),
         user.tokenData.user_id
       );
 
