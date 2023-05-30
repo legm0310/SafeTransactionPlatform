@@ -1,8 +1,8 @@
 import React, { Fragment, useState, useEffect } from "react";
-import classes from "./Purchase.module.css";
-import PurchaseCard from "./PurchaseCard";
+import classes from "./Product.module.css";
+import ProductCard from "./ProductCard";
 import { Link, useNavigate } from "react-router-dom";
-const Purchase = (props) => {
+const Product = (props) => {
   const navigate = useNavigate();
 
   const [selectedCategory, setSelectedCategory] = useState("all");
@@ -18,8 +18,8 @@ const Purchase = (props) => {
     // 선택한 카테고리에 따라 제품을 필터링
     const filtered =
       selectedCategory === "all"
-        ? props.purchaseCard
-        : props.purchaseCard.filter(
+        ? props.ProductCard
+        : props.ProductCard.filter(
             (card) =>
               card.productCategory &&
               card.productCategory.includes(selectedCategory)
@@ -56,7 +56,7 @@ const Purchase = (props) => {
 
         <div className={classes.productWrap}>
           <Link to="/detail" className={classes.detail}>
-            <PurchaseCard products={filteredProducts} />
+            <ProductCard products={filteredProducts} />
           </Link>
         </div>
       </div>
@@ -64,4 +64,4 @@ const Purchase = (props) => {
   );
 };
 
-export default Purchase;
+export default Product;

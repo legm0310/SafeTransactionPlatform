@@ -3,11 +3,11 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import Header from "./components/Layout/Header";
 import Home from "./components/Home/Home";
-import Purchase from "./components/Purchase/Purchase";
+import Product from "./components/Product/Product";
 import AddProduct from "./components/AddProduct/AddProduct";
 import Login from "./components/Auth/Login";
 import Register from "./components/Auth/Register";
-import Detail from "./components/Purchase/Detail";
+import Detail from "./components/Product/Detail";
 import Auth from "./hoc/auth";
 
 function App() {
@@ -20,13 +20,13 @@ function App() {
       ? Boolean(token)
       : false;
 
-  const [purchaseCard, setPurchaseCard] = useState([]);
+  const [productCard, setProductCard] = useState([]);
   const [isLoggedIn, setIsLoggedIn] = useState(tokenCheck);
 
   const addProductHandler = (pName, pPrice, pImg, pExplanation, pCategory) => {
-    setPurchaseCard((prevPurchaseCard) => {
+    setProductCard((prevProductCard) => {
       return [
-        ...prevPurchaseCard,
+        ...prevProductCard,
         {
           name: pName,
           price: pPrice,
@@ -46,11 +46,11 @@ function App() {
         <Routes>
           <Route path="/" element={<AuthHome />}></Route>
           <Route
-            path="/product/all"
-            element={<Purchase purchaseCard={purchaseCard} />}
+            path="/products/all"
+            element={<Product ProductCard={productCard} />}
           ></Route>
           <Route
-            path="/product/add"
+            path="/products/add"
             element={<AuthAddProduct onAddProduct={addProductHandler} />}
           ></Route>
           <Route
@@ -62,7 +62,7 @@ function App() {
           <Route path="/register" element={<Register />}></Route>
           <Route
             path="/detail"
-            element={<Detail purchaseCard={purchaseCard} />}
+            element={<Detail ProductCard={productCard} />}
           ></Route>
         </Routes>
       </BrowserRouter>

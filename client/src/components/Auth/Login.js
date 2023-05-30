@@ -2,7 +2,7 @@ import { Fragment, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
-import { login } from "../../_actions/user_action";
+import { login } from "../../_actions/userAction";
 
 import classes from "./Login.module.css";
 import { FaArrowLeft } from "react-icons/fa";

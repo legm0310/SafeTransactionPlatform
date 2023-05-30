@@ -1,7 +1,7 @@
 import React, { Fragment, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { addProduct } from "../../_actions/product_action";
+import { addProduct } from "../../_actions/productAction";
 import {
   FormControlLabel,
   Checkbox,
@@ -130,7 +130,7 @@ const AddProduct = (props) => {
     setDetail("");
     setCategory([]);
     // code to submit the form
-    navigate("/product/all");
+    navigate("/products/all");
 
     let body = {
       status: "SALE",
