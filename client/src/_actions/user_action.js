@@ -53,7 +53,7 @@ export function logout() {
     })
     .catch((err) => {
       console.log(err.response);
-      return err.response.data;
+      return err.response;
     });
   return {
     type: LOGOUT_USER,
@@ -80,6 +80,7 @@ export function auth() {
       return response.data;
     })
     .catch((err) => {
+      localStorage.removeItem("accessToken");
       console.log(err.response);
       return err.response.data;
     });
