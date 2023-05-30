@@ -14,7 +14,6 @@ import classes from "./AddProduct.module.css";
 
 const AddProduct = (props) => {
   const [imgFile, setimgFile] = useState([]);
-  const [imgData, setimgData] = useState([]);
   const [title, setTitle] = useState("");
   const [price, setPrice] = useState("");
   const [detail, setDetail] = useState("");
@@ -26,21 +25,17 @@ const AddProduct = (props) => {
 
   const onImgFileHandler = (event) => {
     const imgLists = event.target.files;
-    let imgDataLists = [...imgData];
     let imgUrlLists = [...imgFile];
     for (let i = 0; i < imgLists.length; i++) {
-      // 업로드를 위한 이미지 데이터 저장
-      imgDataLists.push(imgLists[i]);
       // 미리보기 가능하게 변수화
-      const currentImgUrl = URL.createObjectURL(imgLists[i]);
+      imgUrlLists.push(imgLists[i]);
+      // const currentImgUrl = URL.createObjectURL(imgLists[i]);
       // 복사한 imgFile에 추가
-      imgUrlLists.push(currentImgUrl);
     }
 
     if (imgUrlLists.length > 10) {
       imgUrlLists = imgUrlLists.slice(0, 10);
     }
-    setimgData(imgDataLists);
     setimgFile(imgUrlLists);
   };
 
@@ -120,11 +115,17 @@ const AddProduct = (props) => {
     }
 
     const formData = new FormData();
-    imgData.forEach((file, index) => {
+    imgFile.forEach((file, index) => {
       formData.append(`product`, file);
     });
 
-    props.onAddProduct(title, price, imgFile, detail, category);
+    props.onAddProduct(
+      title,
+      price,
+      URL.createObjectURL(imgFile[0]),
+      detail,
+      category
+    );
     setTitle("");
     setPrice("");
     setDetail("");
@@ -180,12 +181,17 @@ const AddProduct = (props) => {
                 />
               </li>
 
-              {imgFile.map((image, id) => (
-                <li className={classes.imgContainer} key={id}>
-                  <img src={image} alt={`${image}-${id}`} />
-                  {/* <Delete onClick={() => deleteImgHandler(id)} /> */}
-                </li>
-              ))}
+              {imgFile.map(
+                (image, id) => (
+                  (image = URL.createObjectURL(image)),
+                  (
+                    <li className={classes.imgContainer} key={id}>
+                      <img src={image} alt={`${image}-${id}`} />
+                      {/* <Delete onClick={() => deleteImgHandler(id)} /> */}
+                    </li>
+                  )
+                )
+              )}
             </ul>
 
             <ul className={classes.imgExplain}>
