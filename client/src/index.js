@@ -4,10 +4,20 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { Provider } from "react-redux";
+import { configureStore } from "@reduxjs/toolkit";
 import { applyMiddleware, createStore } from "redux";
 import promiseMiddleware from "redux-promise";
 import ReduxThunk from "redux-thunk";
 import Reducer from "./_reducers";
+
+// const store1 = configureStore({
+//   reducer: Reducer,
+//   devTools: process.env.NODE_ENV !== "production",
+//   middleware: (getDefaultMiddleware) =>
+//     getDefaultMiddleware().concat(promiseMiddleware),
+// });
+
+// const store = createStore(Reducer);
 
 const createStoreWithMiddleware = applyMiddleware(
   promiseMiddleware,

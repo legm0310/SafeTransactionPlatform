@@ -40,7 +40,6 @@ const Login = (props) => {
 
     dispatch(login(body)).then((response) => {
       if (response.payload.loginSuccess) {
-        props.setIsLoggedIn(true);
         alert("로그인 성공");
         navigate("/");
       } else if (
