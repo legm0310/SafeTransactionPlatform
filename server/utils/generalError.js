@@ -29,10 +29,18 @@ class NotFoundError extends ApiError {
     this.message = message;
   }
 }
+class InternalServerError extends ApiError {
+  constructor(message) {
+    super(httpStatus.INTERNAL_SERVER_ERROR, "InternalServerError", message);
+    this.name = "InternalServerError";
+    this.message = message;
+  }
+}
 
 module.exports = {
   BadRequestError,
   UnauthorizedError,
   ForbiddenError,
   NotFoundError,
+  InternalServerError,
 };
