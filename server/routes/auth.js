@@ -1,8 +1,8 @@
 const express = require("express");
 const router = express.Router();
-const { isAuth } = require("../middlewares");
-const { validationResult } = require("express-validator");
+const { isAuth, validateRequest } = require("../middlewares");
 const authController = require("../controllers/").authController;
+const validSchema = require("../config/validSchema");
 
 /** auth 관련 라우팅 함수
  * @param {Function} app 라우터 설정을 위한 express.Router()
@@ -12,7 +12,7 @@ const authController = require("../controllers/").authController;
 module.exports = (app) => {
   app.use("/auth", router);
 
-  router.post("/signup", authController.signup);
+  router.post("/signup", validateRequest(validSchema), authController.signup);
   router.post("/login", authController.login);
   router.get("/logout", authController.logout);
   router.get("/check", isAuth, authController.check);
