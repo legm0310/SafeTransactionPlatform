@@ -1,4 +1,5 @@
 const { Container } = require("typedi");
+const config = require("../config");
 const passport = require("passport");
 const { UnauthorizedError } = require("../utils");
 const Unauthorized = new UnauthorizedError("Please authenticate");
