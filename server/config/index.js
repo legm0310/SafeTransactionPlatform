@@ -1,5 +1,7 @@
 const path = require("path");
+// path : 디렉토리 경로 작업을 위한 유틸리티 제공
 const dotenv = require("dotenv");
+
 let envFound;
 if (process.env.NODE_ENV === "production") {
   envFound = dotenv.config({
