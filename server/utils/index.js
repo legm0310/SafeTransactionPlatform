@@ -10,6 +10,8 @@ module.exports = {
   UnauthorizedError: generalError.UnauthorizedError,
   ForbiddenError: generalError.ForbiddenError,
   NotFoundError: generalError.NotFoundError,
+  InternelServerError: generalError.InternalServerError,
   uploadProdImg: s3Upload.uploadProductImg,
   deleteProdImg: s3Upload.deleteProductImg,
+  getImgUrlByKey: s3Upload.getImgUrlByKey,
 };
