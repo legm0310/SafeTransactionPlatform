@@ -1,8 +1,7 @@
 const { celebrate, Joi, errors, Segments } = require("celebrate");
 
 const joiSchema = Joi.object({
-  id: Joi.string().required(),
-  role: Joi.string().required(),
+  role: Joi.number().required(),
   user_name: Joi.string().required(),
   phone_number: Joi.string().required(),
   email: Joi.string().email().required(),
