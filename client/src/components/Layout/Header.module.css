@@ -102,7 +102,6 @@
 .purchaseLink:hover {
   transform: scale(1.05);
   transition: 0.1s;
-  color: #75d700;
 }
 
 .list .purchaseList {
