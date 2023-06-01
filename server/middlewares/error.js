@@ -9,7 +9,7 @@ const errorConvert = (e, req, res, next) => {
 
   if (!(error instanceof ApiError)) {
     const statusCode =
-      error.statusCode || error instanceof Sequelize.Error
+      error.statusCode || error instanceof DatabaseError
         ? httpStatus.BAD_REQUEST
         : httpStatus.INTERNAL_SERVER_ERROR;
     const name = error.name;
