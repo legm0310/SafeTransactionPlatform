@@ -1,12 +1,7 @@
 const Joi = require("joi");
 
 const validSchema = Joi.object({
-  id: Joi.string().required().messages({
-    "string.base": "ID는 문자열이어야 합니다.",
-    "any.required": "ID를 입력해주세요.",
-  }),
-
-  role: Joi.string().required().messages({
+  role: Joi.number().required().messages({
     "any.required": "Role을 입력해주세요.",
   }),
 
