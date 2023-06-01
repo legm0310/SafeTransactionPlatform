@@ -11,6 +11,7 @@ class Product extends Sequelize.Model {
         },
         title: {
           type: Sequelize.STRING(90),
+          unique: true,
           allowNull: false,
         },
         price: {
@@ -22,6 +23,10 @@ class Product extends Sequelize.Model {
           allowNull: true,
         },
         detail: {
+          type: Sequelize.STRING(255),
+          allowNull: false,
+        },
+        images: {
           type: Sequelize.STRING(255),
           allowNull: false,
         },

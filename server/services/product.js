@@ -7,8 +7,8 @@ class ProductService {
   }
   async addProduct(productBody) {
     const product = await this.Product.create(productBody);
+    return product;
   }
-  async purchaseProduct() {}
 
   async getProductById(id) {
     const product = await this.Product.findByPk(id);

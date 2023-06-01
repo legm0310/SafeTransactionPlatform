@@ -5,9 +5,7 @@ const { catchAsync } = require("../utils");
 module.exports = {
   addProduct: catchAsync(async (req, res) => {
     const prodServiceInstance = await Container.get("productService");
-    req.body.user_id = res.locals.userId;
-    // req.files.product.map(image => );
-    await prodServiceInstance.addProduct(req.body);
+    const product = await prodServiceInstance.addProduct(req.body);
     res.status(201).json({
       addProductSuccess: true,
       product: product,

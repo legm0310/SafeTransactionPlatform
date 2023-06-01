@@ -11,13 +11,13 @@ const productController = require("../controllers").productController;
  */
 module.exports = (app) => {
   app.use("/product", router);
-  // router.post("/", uploader, productController.addProduct);
-  router.post("/", isAuth, uploader, (req, res) => {
-    console.log(req.files);
-    console.log(req.files.map((obj) => obj.location));
-    utils.deleteProdImg(req.files.map((obj) => obj.location));
-    res.sendStatus(200).end();
-  });
+  router.post("/", isAuth, uploader, productController.addProduct);
+  // router.post("/", isAuth, uploader, (req, res) => {
+  //   console.log(req.files);
+  //   // console.log(req.files.map((obj) => obj.location));
+  //   utils.deleteProdImg(req.files.map((obj) => obj.location));
+  //   res.sendStatus(200).end();
+  // });
   router.get("/", productController.getProduct);
   router.get("/:productId", productController.getProduct);
   router.put("/:productId", productController.updateProduct);
