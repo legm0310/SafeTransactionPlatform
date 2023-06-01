@@ -114,11 +114,6 @@ const AddProduct = (props) => {
       return;
     }
 
-    const formData = new FormData();
-    imgFile.forEach((file, index) => {
-      formData.append(`product`, file);
-    });
-
     props.onAddProduct(
       title,
       price,
@@ -136,12 +131,24 @@ const AddProduct = (props) => {
     let body = {
       status: "SALE",
       title: title,
-      price: price,
-      category: category,
+      price: price.split(",").join(""),
+      category: category.join(","),
       detail: detail,
+      images: null,
     };
 
-    // formData.append("data", body);
+    //img, body 담을 formdata
+    //json은 Blob으로 객체에 넣어서 담아야함.
+    const formData = new FormData();
+    // const blobBody = new Blob([JSON.stringify(body)], {
+    //   type: "application/json",
+    // });
+
+    imgFile.forEach((file, index) => {
+      formData.append(`prodImg`, file);
+    });
+    formData.append("data", JSON.stringify(body));
+
     for (const key of formData.keys()) {
       console.log(key);
     }
