@@ -13,9 +13,9 @@ module.exports = (app) => {
   app.use("/product", router);
   // router.post("/", uploader, productController.addProduct);
   router.post("/", isAuth, uploader, (req, res) => {
-    console.log(req.files.product);
-    console.log(req.files.product.map((obj) => obj.location));
-    utils.deleteProdImg(req.files.product.map((obj) => obj.location));
+    console.log(req.files);
+    console.log(req.files.map((obj) => obj.location));
+    utils.deleteProdImg(req.files.map((obj) => obj.location));
     res.sendStatus(200).end();
   });
   router.get("/", productController.getProduct);
