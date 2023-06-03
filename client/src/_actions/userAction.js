@@ -6,14 +6,10 @@
 
 import axios from "axios";
 import { SIGNUP_USER, LOGIN_USER, LOGOUT_USER, AUTH_USER } from "./type";
-
-// 'withCredentials'속성을 'true'로 설정 --> 다른 도메인(client, server)에서 발급한 쿠키 제어 가능
-// client, server 모두 설정해줘야함(cors)
-axios.defaults.baseURL = process.env.REACT_APP_API_BASE_URL;
-axios.defaults.withCredentials = true;
+import { authRequest, baseRequest } from "../api/common";
 
 export function signup(dataToSubmit) {
-  const request = axios
+  const request = baseRequest()
     .post("/api/auth/signup", dataToSubmit)
     .then((response) => response.data)
     .catch((err) => {
@@ -27,15 +23,11 @@ export function signup(dataToSubmit) {
 }
 
 export function login(dataToSubmit) {
-  const request = axios
+  const request = baseRequest()
     .post("/api/auth/login", dataToSubmit)
-    .then((response) => {
-      let accessToken = response.headers.authorization;
-      localStorage.setItem("accessToken", accessToken);
-      return response.data;
-    })
+    .then((response) => response.data)
     .catch((err) => {
-      console.log(err.response);
+      console.log(err.response.data);
       return err.response.data;
     });
   return {
@@ -45,7 +37,7 @@ export function login(dataToSubmit) {
 }
 
 export function logout() {
-  const request = axios
+  const request = baseRequest()
     .get("/api/auth/logout")
     .then((response) => {
       localStorage.removeItem("accessToken");
@@ -53,7 +45,7 @@ export function logout() {
     })
     .catch((err) => {
       console.log(err.response);
-      return err.response;
+      return err.response.data;
     });
   return {
     type: LOGOUT_USER,
@@ -62,25 +54,11 @@ export function logout() {
 }
 
 export function auth() {
-  const accessToken = localStorage.getItem("accessToken");
-  const headers = {
-    Authorization: accessToken,
-    "Cache-control": "no-cache, no-store",
-  };
-
-  const request = axios
-    .get("/api/auth/check", {
-      headers,
-    })
-    .then((response) => {
-      let newAccessToken = response.headers.authorization;
-      if (newAccessToken) {
-        localStorage.setItem("accessToken", newAccessToken);
-      }
-      return response.data;
-    })
+  const request = authRequest()
+    .get("/api/auth/check")
+    .then((response) => response.data)
     .catch((err) => {
-      localStorage.removeItem("accessToken");
+      // localStorage.removeItem("accessToken");
       console.log(err.response);
       return err.response.data;
     });

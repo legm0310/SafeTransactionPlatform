@@ -29,7 +29,7 @@ export default function (state = initialState, action) {
       // 원본, 서버에서 넘어온 정보를 여기에 넣어준 것
       return {
         ...state,
-        isLoggedIn: action.payload.loginSuccess ? true : false,
+        isLoggedIn: action.payload?.loginSuccess ? true : false,
         loginSuccess: action.payload,
       };
       break;
@@ -40,7 +40,7 @@ export default function (state = initialState, action) {
       // 모든 유저데이터가 userData에 들어오게 됨
       return {
         ...state,
-        isLoggedIn: action.payload.authCheckSuccess ? true : false,
+        isLoggedIn: action.payload?.authCheckSuccess ? true : false,
         authCheck: action.payload,
       };
       break;
