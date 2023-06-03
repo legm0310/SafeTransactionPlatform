@@ -160,7 +160,7 @@ const AddProduct = (props) => {
     dispatch(addProduct(formData)).then((response) => {
       if (response.payload.addProductSuccess) {
         alert("상품 등록 완료");
-        navigate("/product/all");
+        navigate("/products/all");
       } else {
         alert("상품 등록에 실패했습니다.");
       }
