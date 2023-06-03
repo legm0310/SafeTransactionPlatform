@@ -79,7 +79,7 @@ class User extends Sequelize.Model {
     db.User.hasMany(db.Product, {
       foreignKey: {
         name: "seller_id",
-        unique: true,
+        unique: false,
         allowNull: false,
       },
       sourceKey: "id",

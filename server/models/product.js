@@ -44,7 +44,7 @@ class Product extends Sequelize.Model {
     db.Product.belongsTo(db.User, {
       foreignKey: {
         name: "seller_id",
-        unique: true,
+        unique: false,
         allowNull: false,
       },
       sourceKey: "id",
