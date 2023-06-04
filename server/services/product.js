@@ -10,14 +10,35 @@ class ProductService {
     return product;
   }
 
-  async getProductById(id) {
-    const product = await this.Product.findByPk(id);
-    if (!product) throw new NotFoundError("Product not found");
-    return product;
+  async getProducts() {
+    const products = await this.Product.findAll({
+      where: "",
+      limit: 12,
+      order: [["created_at", "DESC"]],
+      include: [
+        {
+          model: ProductImage,
+          attributes: ["image_url"],
+        },
+      ],
+    });
   }
 
-  async getProductByState(State) {
-    const product = await this.Product.findAll(id);
+  async getRecentProducts() {
+    const products = await this.Product.findAll({
+      offset: offset,
+      limit: 10,
+    });
+  }
+
+  async getProductsByState(State) {
+    const products = await this.Product.findAll(State);
+    if (!products) throw new NotFoundError("Product not found");
+    return products;
+  }
+
+  async getProductById(id) {
+    const product = await this.Product.findByPk(id);
     if (!product) throw new NotFoundError("Product not found");
     return product;
   }

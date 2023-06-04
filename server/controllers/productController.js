@@ -12,10 +12,27 @@ module.exports = {
     });
   }),
 
+  getProducts: catchAsync(async (req, res) => {
+    const prodServiceInstance = await Container.get("productService");
+    const products = await prodServiceInstance.getProducts();
+    res.ststus(202).json({
+      getProductsSuccess: true,
+      products: products,
+    });
+  }),
+
+  getRecentProducts: catchAsync(async (req, res) => {
+    const prodServiceInstance = await Container.get("productService");
+  }),
+
   getProduct: catchAsync(async (req, res) => {
     const prodServiceInstance = await Container.get("productService");
     const productId = req.params;
-    await prodServiceInstance.getProduct(productId);
+    const product = await prodServiceInstance.getProduct(productId);
+    res.ststus(202).json({
+      getProductSuccess: true,
+      product: product,
+    });
   }),
 
   updateProduct: catchAsync(async (req, res) => {
