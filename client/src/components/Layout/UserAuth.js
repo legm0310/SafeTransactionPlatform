@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { logout } from "../../_actions/userAction";
 
-import classes from "./UserAuth.module.css";
+import classes from "../../styles/UserAuth.module.css";
 
 const UserAuth = (props) => {
   const dispatch = useDispatch();

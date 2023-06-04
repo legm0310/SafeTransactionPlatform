@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { login } from "../../_actions/userAction";
 
-import classes from "./Login.module.css";
+import classes from "../../styles/Login.module.css";
 import { FaArrowLeft } from "react-icons/fa";
 import googleIcon from "../../assets/google.svg";
 import kakaoIcon from "../../assets/kakao.svg";

@@ -1,19 +1,19 @@
-import React, { Fragment, useState, useEffect } from "react"
-import classes from "./Product.module.css"
-import ProductCard from "./ProductCard"
-import { Link, useNavigate } from "react-router-dom"
+import React, { Fragment, useState, useEffect } from "react";
+import classes from "../../styles/Product.module.css";
+import ProductCard from "./ProductCard";
+import { Link, useNavigate } from "react-router-dom";
 
 const Product = (props) => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
-  const [selectedCategory, setSelectedCategory] = useState("all")
-  const [filteredProducts, setFilteredProducts] = useState([])
+  const [selectedCategory, setSelectedCategory] = useState("all");
+  const [filteredProducts, setFilteredProducts] = useState([]);
 
   // 선택 카테고리 값 변경
   const onCategoryClick = (productCategory) => {
-    setSelectedCategory(productCategory)
-    console.log(productCategory)
-  }
+    setSelectedCategory(productCategory);
+    console.log(productCategory);
+  };
 
   useEffect(() => {
     // 선택한 카테고리에 따라 제품을 필터링
@@ -24,14 +24,14 @@ const Product = (props) => {
             (card) =>
               card.productCategory &&
               card.productCategory.includes(selectedCategory)
-          )
-    setFilteredProducts(filtered)
-  }, [selectedCategory])
+          );
+    setFilteredProducts(filtered);
+  }, [selectedCategory]);
 
   return (
     <Fragment>
       <div className={classes.mainBox}>
-        <Link to='/detail' className={classes.detail}>
+        <Link to="/detail" className={classes.detail}>
           <div className={classes.categoryBox}>
             <div onClick={() => onCategoryClick("all")}>전체</div>
             <ul className={classes.category1}>
@@ -55,13 +55,13 @@ const Product = (props) => {
           </div>
         </Link>
         <div className={classes.productWrap}>
-          <Link to='/detail' className={classes.detail}>
+          <Link to="/detail" className={classes.detail}>
             <ProductCard products={filteredProducts} />
           </Link>
         </div>
       </div>
     </Fragment>
-  )
-}
+  );
+};
 
-export default Product
+export default Product;

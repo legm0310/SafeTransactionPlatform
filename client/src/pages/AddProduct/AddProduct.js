@@ -10,7 +10,7 @@ import {
   Alert,
 } from "@mui/material";
 
-import classes from "./AddProduct.module.css";
+import classes from "../../styles/AddProduct.module.css";
 
 const AddProduct = (props) => {
   const [imgFile, setimgFile] = useState([]);
