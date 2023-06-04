@@ -1,7 +1,7 @@
 import React, { Fragment, useState } from "react";
 import { Link } from "react-router-dom";
 import Button from "@mui/material/Button";
-import classes from "./Header.module.css";
+import classes from "../../styles/Header.module.css";
 import { Box } from "@mui/material";
 import Paper from "@mui/material/Paper";
 import InputBase from "@mui/material/InputBase";
