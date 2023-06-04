@@ -18,18 +18,21 @@ const UserAuth = (props) => {
 
   return (
     <Fragment>
-      <ul className={classes.Authwrap}>
+      <div className={classes.Authwrap}>
         {isLoggedIn ? (
-          <li className={classes.logout} onClick={onLogoutHandler}>
-            로그아웃
-          </li>
+          <div>
+            <div> 내 지갑 관리 </div>
+            <div className={classes.logout} onClick={onLogoutHandler}>
+              로그아웃
+            </div>
+          </div>
         ) : (
-          <Link to="/login" className={classes.loginRegister}>
-            <li className={classes.login}>로그인/</li>
-            <li className={classes.register}>회원가입</li>
+          <Link to='/login' className={classes.loginRegister}>
+            <div className={classes.login}>로그인/</div>
+            <div className={classes.register}>회원가입</div>
           </Link>
         )}
-      </ul>
+      </div>
     </Fragment>
   );
 };
