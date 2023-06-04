@@ -3,7 +3,7 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import testImg from "../../assets/test.jpg";
-import classes from "./Slide.module.css";
+import classes from "../../styles/DetailSlide.module.css";
 
 const Slide = () => {
   const settings = {

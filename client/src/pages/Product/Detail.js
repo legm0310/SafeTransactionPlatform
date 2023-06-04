@@ -1,6 +1,6 @@
 import { Fragment } from "react";
-import classes from "./Detail.module.css";
-import Slide from "./Slide";
+import classes from "../../styles/Detail.module.css";
+import Slide from "./DetailSlide";
 import { FaHeart } from "react-icons/fa";
 import { TbMessageCircle2Filled } from "react-icons/tb";
 import { IoCart } from "react-icons/io5";
