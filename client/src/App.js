@@ -2,12 +2,12 @@ import React, { Fragment, useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import Header from "./components/Layout/Header";
-import Home from "./components/Home/Home";
-import Product from "./components/Product/Product";
-import AddProduct from "./components/AddProduct/AddProduct";
-import Login from "./components/Auth/Login";
-import Register from "./components/Auth/Register";
-import Detail from "./components/Product/Detail";
+import Home from "./pages/Home/Home";
+import Product from "./pages/Product/Product";
+import AddProduct from "./pages/AddProduct/AddProduct";
+import Login from "./pages/Auth/Login";
+import Register from "./pages/Auth/Register";
+import Detail from "./pages/Product/Detail";
 import Auth from "./hoc/auth";
 
 function App() {

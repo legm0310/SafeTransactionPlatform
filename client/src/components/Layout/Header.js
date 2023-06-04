@@ -152,7 +152,7 @@
 import { Fragment } from "react";
 import { Link, useLocation } from "react-router-dom";
 
-import classes from "./Header.module.css";
+import classes from "../../styles/Header.module.css";
 import { FiSearch } from "react-icons/fi";
 import DropdownMenu from "./DropdownMenu";
 import UserAuth from "./UserAuth";

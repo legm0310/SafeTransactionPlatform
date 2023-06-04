@@ -1,8 +1,8 @@
 import { Fragment } from "react";
 
-import Slide from "./Slide";
+import Slide from "./HomeSlide";
 import mainImg from "../../assets/mainImg.png";
-import classes from "./Home.module.css";
+import classes from "../../styles/Home.module.css";
 
 const Home = (props) => {
   return (
