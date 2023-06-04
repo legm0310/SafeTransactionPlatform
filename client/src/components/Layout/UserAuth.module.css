@@ -10,12 +10,15 @@
 
 .login {
   cursor: pointer;
+  color: black;
 }
 
 .register {
   cursor: pointer;
+  color: black;
 }
 
 .logout {
   cursor: pointer;
+  color: black;
 }
