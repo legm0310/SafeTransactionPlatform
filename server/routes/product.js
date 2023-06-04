@@ -10,7 +10,7 @@ const productController = require("../controllers").productController;
  *
  */
 module.exports = (app) => {
-  app.use("/product", router);
+  app.use("/products", router);
   router.post("/", isAuth, uploader, productController.addProduct);
   // router.post("/", isAuth, uploader, (req, res) => {
   //   console.log(req.files);
