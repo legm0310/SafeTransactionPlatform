@@ -2,7 +2,6 @@ const { Container } = require("typedi");
 const moment = require("moment");
 const jwt = require("jsonwebtoken");
 const config = require("../config");
-const { UnauthorizedError } = require("../utils/generalError");
 
 class TokenService {
   constructor() {

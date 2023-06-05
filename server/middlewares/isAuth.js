@@ -1,7 +1,7 @@
 const { Container } = require("typedi");
 const config = require("../config");
 const passport = require("passport");
-const { UnauthorizedError } = require("../utils/generalError");
+const { UnauthorizedError } = require("../utils");
 const Unauthorized = new UnauthorizedError("Please authenticate");
 const loginAgain = new UnauthorizedError(
   "Authentication has expired. Please login again "
@@ -18,15 +18,16 @@ const handleAccessToken = async (req, res, next) => {
         //... passport.authenticate("refresh")
         return await handleRefreshToken(req, res, next);
       }
+
       if (err || info || !user) {
-        if (req.cookies.refreshToken)
+        if (req.cookies.refreshToken) {
           await tokenService.removeToken(req.cookies.refreshToken);
+        }
         return (
           console.log("🔥", err ? `err: ${err}` : `info: ${info}`),
           next(Unauthorized)
         );
       }
-
       res.locals.userId = user.sub;
       return next();
     }
@@ -40,12 +41,10 @@ const handleRefreshToken = async (req, res, next) => {
     { session: false },
     async (err, user, info) => {
       if (info && info.message == "jwt expired") {
-        await tokenService.removeToken(req.cookies.refreshToken);
         return console.log("🔥", loginAgain), next(loginAgain);
       }
 
       if (err || info || !user) {
-        await tokenService.removeToken(req.cookies.refreshToken);
         return (
           console.log("🔥", err ? `err: ${err}` : `info: ${info}`),
           next(Unauthorized)
@@ -53,9 +52,7 @@ const handleRefreshToken = async (req, res, next) => {
       }
 
       const { refreshToken } = await req.cookies;
-
       if (refreshToken !== user.tokenData.refresh_token) {
-        await tokenService.removeToken(refreshToken);
         return console.log("🔥", Unauthorized), next(Unauthorized);
       }
 
@@ -82,6 +79,7 @@ const isAuth = async (req, res, next) => {
 module.exports = isAuth;
 
 //access tokenService 검사 -> 유효 -> 인증 통과
+
 //access -> 만료   30
 //access tokenService 검사 -> 만료 -> refresh tokenService 검사 -> 유효 -> accesstoken 재발금
 //access tokenService 검사 -> 만료 -> refresh tokenService 검사 -> 만료 -> 재로그인

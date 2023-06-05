@@ -7,7 +7,7 @@ const morgan = require("morgan");
 const config = require("../config");
 const routerLoader = require("../routes");
 const { accessStrategy, refreshStrategy } = require("../config/passport");
-const { NotFoundError } = require("../utils/generalError");
+const { NotFoundError } = require("../utils");
 const { secure, errorConvert, globalErrorHandler } = require("../middlewares");
 
 /** express 앱의 미들웨어들을 로드하는 함수
@@ -44,28 +44,22 @@ module.exports = ({ app }) => {
   app.use("/api", routerLoader());
 
   //ALB health check
-  app.get("/", async (req, res) => {
+  app.get("/status", async (req, res) => {
     console.log("** health checking executed");
     res.sendStatus(200);
   });
+  app.head("/status", async (req, res) => {
+    console.log("** health checking head");
+    res.sendStatus(200);
+  });
 
-  //test routes
-  app.get("/reqCheck", (req, res) => {
-    console.log(req.headers);
-    console.log(req.cookies);
-    res.send("clear");
-  });
-  app.get("/status", (req, res) => {
-    res.status(200).end();
-  });
-  app.head("/status", (req, res) => {
-    res.status(200).end();
-  });
+  app.get("/favicon.ico", (req, res) => res.status(204).end());
 
   //요청 자원(Url)이 없을 때
   app.use((req, res, next) => {
     next(new NotFoundError("Not Found"));
   });
+
   //error handler
   app.use(errorConvert);
   app.use(globalErrorHandler);

@@ -8,7 +8,7 @@ const product = require("./product");
 const routerLoader = () => {
   const app = require("express").Router();
   auth(app);
-  // product(app);
+  product(app);
   return app;
 };
 

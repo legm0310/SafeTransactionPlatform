@@ -1,16 +1,21 @@
 const Sequelize = require("sequelize");
 
-//db productTable model
 class Product extends Sequelize.Model {
   static init(sequelize) {
     super.init(
       {
+        id: {
+          type: Sequelize.INTEGER,
+          primaryKey: true,
+          autoIncrement: true,
+        },
         status: {
           type: Sequelize.ENUM("SALE", "RESERVED", "COMPLETE"),
           allowNull: true,
         },
         title: {
           type: Sequelize.STRING(90),
+          unique: true,
           allowNull: false,
         },
         price: {
@@ -25,6 +30,10 @@ class Product extends Sequelize.Model {
           type: Sequelize.STRING(255),
           allowNull: false,
         },
+        images: {
+          type: Sequelize.STRING(3000),
+          allowNull: false,
+        },
       },
       {
         modelName: "product", // This is the name of the table in the database
@@ -36,10 +45,21 @@ class Product extends Sequelize.Model {
     );
   }
   static associate(db) {
+    // 정규화 시 이미지 테이블 분리
+    // db.Product.hasMany(db.ProductImage, {
+    //   foreignKey: {
+    //     name: "prod_id",
+    //     allowNull: false,
+    //   },
+    //   sourceKey: "id",
+    //   onDelete: "cascade",
+    //   onUpdate: "cascade",
+    // });
+
     db.Product.belongsTo(db.User, {
       foreignKey: {
         name: "seller_id",
-        unique: true,
+        unique: false,
         allowNull: false,
       },
       sourceKey: "id",
