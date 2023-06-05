@@ -18,8 +18,9 @@ module.exports = (app) => {
   //   utils.deleteProdImg(req.files.map((obj) => obj.location));
   //   res.sendStatus(200).end();
   // });
-  router.get("/", productController.getProduct);
-  router.get("/:productId", productController.getProduct);
-  router.put("/:productId", productController.updateProduct);
-  router.delete("/:productId", productController.deleteProduct);
+  router.get("/", productController.getProducts);
+  router.get("/recent", productController.getRecentProducts);
+  router.get("/:id", productController.getProduct);
+  router.put("/:id", productController.updateProduct);
+  router.delete("/:id", productController.deleteProduct);
 };
