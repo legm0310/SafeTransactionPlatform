@@ -40,13 +40,8 @@
     "passport-jwt": "^4.0.1",
     "reflect-metadata": "^0.1.13",
     "sequelize": "^6.31.0",
+    "sequelize-cli": "^6.6.0",
     "typedi": "^0.10.0",
     "winston": "^3.8.2"
-  },
-  "devDependencies": {
-    "@babel/cli": "^7.21.5",
-    "@babel/core": "^7.21.5",
-    "@babel/node": "^7.20.7",
-    "@babel/plugin-proposal-decorators": "^7.21.0"
   }
 }

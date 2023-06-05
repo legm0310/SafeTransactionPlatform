@@ -1,6 +1,8 @@
 const ApiError = require("./ApiError");
 const catchAsync = require("./catchAsync");
 const generalError = require("./generalError");
+const parse = require("./parse");
+
 const s3Upload = require("./s3Upload");
 
 module.exports = {
@@ -12,6 +14,7 @@ module.exports = {
   NotFoundError: generalError.NotFoundError,
   InternelServerError: generalError.InternalServerError,
   uploadProdImg: s3Upload.uploadProductImg,
+  parseProducts: parse.parseProducts,
   deleteProdImg: s3Upload.deleteProductImg,
   getImgUrlByKey: s3Upload.getImgUrlByKey,
 };

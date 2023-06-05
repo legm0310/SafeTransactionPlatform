@@ -4,6 +4,11 @@ class Product extends Sequelize.Model {
   static init(sequelize) {
     super.init(
       {
+        id: {
+          type: Sequelize.INTEGER,
+          primaryKey: true,
+          autoIncrement: true,
+        },
         status: {
           type: Sequelize.ENUM("SALE", "RESERVED", "COMPLETE"),
           allowNull: true,
