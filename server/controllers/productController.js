@@ -15,7 +15,7 @@ module.exports = {
   getProducts: catchAsync(async (req, res) => {
     const prodServiceInstance = await Container.get("productService");
     const products = await prodServiceInstance.getProducts();
-    res.ststus(202).json({
+    res.status(200).json({
       getProductsSuccess: true,
       products: products,
     });
@@ -23,13 +23,19 @@ module.exports = {
 
   getRecentProducts: catchAsync(async (req, res) => {
     const prodServiceInstance = await Container.get("productService");
+    const lastId = parseInt(req.query.lastId, 10);
+    const recentProducts = await prodServiceInstance.getRecentProducts(lastId);
+    res.status(200).json({
+      getRecentProductSuccess: true,
+      products: recentProducts,
+    });
   }),
 
   getProduct: catchAsync(async (req, res) => {
     const prodServiceInstance = await Container.get("productService");
-    const productId = req.params;
-    const product = await prodServiceInstance.getProduct(productId);
-    res.ststus(202).json({
+    const productId = req.params.id;
+    const product = await prodServiceInstance.getProductById(productId);
+    res.status(200).json({
       getProductSuccess: true,
       product: product,
     });
@@ -38,10 +44,12 @@ module.exports = {
   updateProduct: catchAsync(async (req, res) => {
     const prodServiceInstance = await Container.get("productService");
     const productId = req.params;
+    res.status(200).json({});
   }),
 
   deleteProduct: catchAsync(async (req, res) => {
     const prodServiceInstance = await Container.get("productService");
     const productId = req.params;
+    res.status(200).json({});
   }),
 };
