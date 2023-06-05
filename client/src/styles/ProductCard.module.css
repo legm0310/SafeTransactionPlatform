@@ -13,11 +13,12 @@
 
 /*상품 카드*/
 .prodCard {
-  border: 1px solid rgb(207, 210, 215);
+  border-radius: 13px;
   width: 220px;
   display: block;
   margin-right: 10px;
   margin-bottom: 10px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
 }
 
 .prodCard:nth-child(4n) {
@@ -27,12 +28,13 @@
 /*상품 이미지*/
 .imgBox {
   width: 100%;
-  height: 194px;
+  height: 220px;
 }
 
 .prodImg {
   width: 100%;
   height: 100%;
+  border-radius: 13px;
 }
 
 /*상품 정보*/
@@ -46,9 +48,11 @@
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
+  color: black;
 }
 
 .prodPrice {
+  text-decoration: none;
   font-size: 16px;
   font-weight: 700;
   color: rgb(33, 33, 33);

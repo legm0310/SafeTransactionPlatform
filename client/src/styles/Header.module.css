@@ -8,6 +8,7 @@
   top: 0;
   left: 0;
   right: 0;
+  z-index: 99;
 }
 
 .headerTop {
@@ -42,7 +43,7 @@
   width: 600px;
   height: 35px;
   display: flex;
-  border: 3px solid #75d700;
+  border: 3px solid #618dff;
   border-radius: 30px;
   justify-content: center;
 }
@@ -101,7 +102,6 @@
 .purchaseLink:hover {
   transform: scale(1.05);
   transition: 0.1s;
-  color: #75d700;
 }
 
 .list .purchaseList {

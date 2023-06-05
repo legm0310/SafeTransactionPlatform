@@ -1,8 +1,8 @@
-import { Fragment } from "react"
+import { Fragment } from "react";
 
-import Slide from "./Silde"
-import mainImg from "../../assets/mainImg.png"
-import classes from "./Home.module.css"
+import Slide from "./HomeSlide";
+import mainImg from "../../assets/mainImg.png";
+import classes from "../../styles/Home.module.css";
 
 const Home = (props) => {
   return (
@@ -23,7 +23,7 @@ const Home = (props) => {
             </div>
 
             <div className={classes.mainImgWrap}>
-              <img src={mainImg} alt='' className={classes.mainImg} />
+              <img src={mainImg} alt="" className={classes.mainImg} />
             </div>
           </div>
         </section>
@@ -33,26 +33,26 @@ const Home = (props) => {
         </section>
 
         <section className={classes.latesProductWrap}>
-          <div className={classes.latestProduct}>
+          <div className={classes.latestProductContainer}>
             <h1>판다의 최근 상품</h1>
             <div className={classes.latestProdList}>
               <div className={classes.latestProdCard}>
-                <div>이미지</div>
+                <div className={classes.imgBox}>이미지</div>
                 <h4>제목</h4>
                 <h4>가격</h4>
               </div>
               <div className={classes.latestProdCard}>
-                <div>이미지</div>
+                <div className={classes.imgBox}>이미지</div>
                 <h4>제목</h4>
                 <h4>가격</h4>
               </div>
               <div className={classes.latestProdCard}>
-                <div>이미지</div>
+                <div className={classes.imgBox}>이미지</div>
                 <h4>제목</h4>
                 <h4>가격</h4>
               </div>
               <div className={classes.latestProdCard}>
-                <div>이미지</div>
+                <div className={classes.imgBox}>이미지</div>
                 <h4>제목</h4>
                 <h4>가격</h4>
               </div>
@@ -61,7 +61,7 @@ const Home = (props) => {
         </section>
       </div>
     </Fragment>
-  )
-}
+  );
+};
 
-export default Home
+export default Home;

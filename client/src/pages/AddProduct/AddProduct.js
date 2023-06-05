@@ -1,7 +1,7 @@
 import React, { Fragment, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { addProduct } from "../../_actions/product_action";
+import { addProduct } from "../../_actions/productAction";
 import {
   FormControlLabel,
   Checkbox,
@@ -10,7 +10,7 @@ import {
   Alert,
 } from "@mui/material";
 
-import classes from "./AddProduct.module.css";
+import classes from "../../styles/AddProduct.module.css";
 
 const AddProduct = (props) => {
   const [imgFile, setimgFile] = useState([]);
@@ -25,19 +25,17 @@ const AddProduct = (props) => {
 
   const onImgFileHandler = (event) => {
     const imgLists = event.target.files;
-    const imgUrlLists = [...imgFile];
-
+    let imgUrlLists = [...imgFile];
     for (let i = 0; i < imgLists.length; i++) {
       // 미리보기 가능하게 변수화
-      const currentImgUrl = URL.createObjectURL(imgLists[i]);
+      imgUrlLists.push(imgLists[i]);
+      // const currentImgUrl = URL.createObjectURL(imgLists[i]);
       // 복사한 imgFile에 추가
-      imgUrlLists.push(currentImgUrl);
     }
 
     if (imgUrlLists.length > 10) {
       imgUrlLists = imgUrlLists.slice(0, 10);
     }
-
     setimgFile(imgUrlLists);
   };
 
@@ -116,26 +114,53 @@ const AddProduct = (props) => {
       return;
     }
 
-    props.onAddProduct(title, price, imgFile, detail, category);
+    props.onAddProduct(
+      title,
+      price,
+      URL.createObjectURL(imgFile[0]),
+      detail,
+      category
+    );
     setTitle("");
     setPrice("");
     setDetail("");
     setCategory([]);
     // code to submit the form
-    navigate("/purchase");
+    navigate("/products/all");
 
     let body = {
       status: "SALE",
       title: title,
-      price: price,
-      category: category,
+      price: price.split(",").join(""),
+      category: category.join(","),
       detail: detail,
+      images: null,
     };
 
-    dispatch(addProduct(body)).then((response) => {
+    //img, body 담을 formdata
+    //json은 Blob으로 객체에 넣어서 담아야함.
+    const formData = new FormData();
+    // const blobBody = new Blob([JSON.stringify(body)], {
+    //   type: "application/json",
+    // });
+
+    imgFile.forEach((file, index) => {
+      formData.append(`prodImg`, file);
+    });
+    formData.append("data", JSON.stringify(body));
+
+    for (const key of formData.keys()) {
+      console.log(key);
+    }
+    // FormData의 value 확인
+    for (const value of formData.values()) {
+      console.log(value);
+    }
+
+    dispatch(addProduct(formData)).then((response) => {
       if (response.payload.addProductSuccess) {
         alert("상품 등록 완료");
-        navigate("/purchase");
+        navigate("/products/all");
       } else {
         alert("상품 등록에 실패했습니다.");
       }
@@ -163,12 +188,17 @@ const AddProduct = (props) => {
                 />
               </li>
 
-              {imgFile.map((image, id) => (
-                <li className={classes.imgContainer} key={id}>
-                  <img src={image} alt={`${image}-${id}`} />
-                  {/* <Delete onClick={() => deleteImgHandler(id)} /> */}
-                </li>
-              ))}
+              {imgFile.map(
+                (image, id) => (
+                  (image = URL.createObjectURL(image)),
+                  (
+                    <li className={classes.imgContainer} key={id}>
+                      <img src={image} alt={`${image}-${id}`} />
+                      {/* <Delete onClick={() => deleteImgHandler(id)} /> */}
+                    </li>
+                  )
+                )
+              )}
             </ul>
 
             <ul className={classes.imgExplain}>
@@ -220,7 +250,7 @@ const AddProduct = (props) => {
             id="outlined-number"
             onChange={onPriceHandler}
             value={price}
-            type="number"
+            type="text"
             InputLabelProps={{
               shrink: true,
             }}

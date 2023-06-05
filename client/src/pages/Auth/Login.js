@@ -2,9 +2,9 @@ import { Fragment, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
-import { login } from "../../_actions/user_action";
+import { login } from "../../_actions/userAction";
 
-import classes from "./Login.module.css";
+import classes from "../../styles/Login.module.css";
 import { FaArrowLeft } from "react-icons/fa";
 import googleIcon from "../../assets/google.svg";
 import kakaoIcon from "../../assets/kakao.svg";
@@ -40,7 +40,6 @@ const Login = (props) => {
 
     dispatch(login(body)).then((response) => {
       if (response.payload.loginSuccess) {
-        props.setIsLoggedIn(true);
         alert("로그인 성공");
         navigate("/");
       } else if (

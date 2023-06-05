@@ -38,7 +38,7 @@
 
 .typingTop span {
   font-size: 4rem;
-  color: #75d700;
+  color: #1ecfba;
 }
 
 .typingMiddle {
@@ -91,12 +91,13 @@
   border-radius: 12px;
 }
 
+/* 세반쩨 섹샨 */
 .latesProductWrap {
   display: flex;
   justify-content: center;
 }
 
-.latestProduct {
+.latestProductContainer {
   margin-top: 30px;
   width: 1200px;
   height: 400px;
@@ -121,13 +122,13 @@
 }
 
 .latestProdCard {
-  width: 240px;
-  height: 300px;
-  background-color: rgba(173, 173, 173, 0.13);
+  width: 220px;
+  height: 280px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+  border-radius: 13px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: 0.7rem;
 }
 
 .latestProdCard * {
@@ -135,8 +136,9 @@
   padding: 0;
 }
 
-.latestProdCard div {
+.imgBox {
   width: 100%;
   background-color: black;
-  height: 240px;
+  height: 194px;
+  border-radius: 13px;
 }

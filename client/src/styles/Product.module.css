@@ -23,6 +23,7 @@
   border-bottom: 1px solid rgb(207, 210, 215);
   padding-bottom: 10px;
   cursor: pointer;
+  color: black;
 }
 
 .categoryBox ul {
@@ -38,10 +39,15 @@
 .categoryBox ul li {
   width: 120px;
   cursor: pointer;
+  color: black;
 }
 
 .productWrap {
   width: 920px;
   margin-top: 30px;
   border-top: 1px solid rgb(207, 210, 215);
+}
+
+.detail {
+  text-decoration: none;
 }
