@@ -1,4 +1,3 @@
-import axios from "axios";
 import { ADD_PRODUCT } from "./type";
 import { addProdRequest } from "../api/productApi";
 
