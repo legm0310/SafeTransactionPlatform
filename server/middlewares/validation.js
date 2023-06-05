@@ -1,4 +1,3 @@
-const Joi = require("joi");
 const { BadRequestError } = require("../utils");
 
 const validateRequest = (schema) => {
