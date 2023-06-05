@@ -16,10 +16,11 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@aws-sdk/client-s3": "^3.341.0",
     "@babel/plugin-proposal-class-properties": "^7.18.6",
     "@babel/preset-env": "^7.21.5",
-    "aws-sdk": "^2.1382.0",
     "bcrypt": "^5.1.0",
+    "celebrate": "^15.0.1",
     "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
     "cross-env": "^7.0.3",
@@ -27,9 +28,11 @@
     "express": "^4.18.2",
     "express-validator": "^7.0.1",
     "http-status": "^1.6.2",
+    "joi": "^17.9.2",
     "jsonwebtoken": "^9.0.0",
     "moment": "^2.29.4",
     "morgan": "^1.10.0",
+    "multer": "^1.4.5-lts.1",
     "multer-s3": "^3.0.1",
     "mysql": "^2.18.1",
     "mysql2": "^3.2.3",
@@ -37,13 +40,8 @@
     "passport-jwt": "^4.0.1",
     "reflect-metadata": "^0.1.13",
     "sequelize": "^6.31.0",
+    "sequelize-cli": "^6.6.0",
     "typedi": "^0.10.0",
     "winston": "^3.8.2"
-  },
-  "devDependencies": {
-    "@babel/cli": "^7.21.5",
-    "@babel/core": "^7.21.5",
-    "@babel/node": "^7.20.7",
-    "@babel/plugin-proposal-decorators": "^7.21.0"
   }
 }

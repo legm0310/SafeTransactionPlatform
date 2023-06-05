@@ -1,7 +1,7 @@
 const { Strategy: JwtStrategy, ExtractJwt } = require("passport-jwt");
 const { Container } = require("typedi");
 const config = require("../config");
-const { UnauthorizedError } = require("../utils/generalError");
+const { UnauthorizedError } = require("../utils");
 
 const cookieExtractor = function (req) {
   var token = null;

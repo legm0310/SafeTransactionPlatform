@@ -1,32 +1,25 @@
-import React, { Fragment, useState } from "react"
-import { BrowserRouter, Routes, Route } from "react-router-dom"
+import React, { Fragment, useState } from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-import Header from "./components/Layout/Header"
-import Home from "./components/Home/Home"
-import Purchase from "./components/Purchase/Purchase"
-import AddProduct from "./components/AddProduct/AddProduct"
-import Login from "./components/Auth/Login"
-import Register from "./components/Auth/Register"
-import Detail from "./components/Purchase/Detail"
-import Auth from "./hoc/auth"
+import Header from "./components/Layout/Header";
+import Home from "./pages/Home/Home";
+import Product from "./pages/Product/Product";
+import AddProduct from "./pages/AddProduct/AddProduct";
+import Login from "./pages/Auth/Login";
+import Register from "./pages/Auth/Register";
+import Detail from "./pages/Product/Detail";
+import Auth from "./hoc/auth";
 
 function App() {
-  const AuthHome = Auth(Home, null)
-  const AuthAddProduct = Auth(AddProduct, true)
+  const AuthHome = Auth(Home, null);
+  const AuthAddProduct = Auth(AddProduct, true);
 
-  const token = localStorage.getItem("accessToken")
-  const tokenCheck =
-    token !== "undefined" || token !== "null" || token !== ""
-      ? Boolean(token)
-      : false
-
-  const [purchaseCard, setPurchaseCard] = useState([])
-  const [isLoggedIn, setIsLoggedIn] = useState(tokenCheck)
+  const [productCard, setProductCard] = useState([]);
 
   const addProductHandler = (pName, pPrice, pImg, pExplanation, pCategory) => {
-    setPurchaseCard((prevPurchaseCard) => {
+    setProductCard((prevProductCard) => {
       return [
-        ...prevPurchaseCard,
+        ...prevProductCard,
         {
           name: pName,
           price: pPrice,
@@ -35,39 +28,34 @@ function App() {
           category: pCategory,
           id: Math.random().toString(),
         },
-      ]
-    })
-  }
+      ];
+    });
+  };
 
   return (
     <Fragment>
       <BrowserRouter>
-        <Header setIsLoggedIn={setIsLoggedIn} isLoggedIn={isLoggedIn} />
+        <Header />
         <Routes>
-          <Route path='/' element={<AuthHome />}></Route>
+          <Route path="/" element={<AuthHome />}></Route>
           <Route
-            path='/purchase/'
-            element={<Purchase purchaseCard={purchaseCard} />}
+            path="/products/all"
+            element={<Product ProductCard={productCard} />}
           ></Route>
           <Route
-            path='/addProduct/'
+            path="/products/add"
             element={<AuthAddProduct onAddProduct={addProductHandler} />}
           ></Route>
+          <Route path="/login" element={<Login />}></Route>
+          <Route path="/register" element={<Register />}></Route>
           <Route
-            path='/login'
-            element={
-              <Login setIsLoggedIn={setIsLoggedIn} isLoggedIn={isLoggedIn} />
-            }
-          ></Route>
-          <Route path='/register' element={<Register />}></Route>
-          <Route
-            path='/detail/:id'
-            element={<Detail purchaseCard={purchaseCard} />}
+            path="/detail"
+            element={<Detail ProductCard={productCard} />}
           ></Route>
         </Routes>
       </BrowserRouter>
     </Fragment>
-  )
+  );
 }
 
-export default App
+export default App;
