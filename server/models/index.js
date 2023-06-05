@@ -1,6 +1,6 @@
 const Sequelize = require("sequelize");
 const config = require("../config");
-const dbConfig = config["db"];
+const dbConfig = config[config.nodeEnv];
 
 const user = require("./user");
 const token = require("./token");
