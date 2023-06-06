@@ -18,6 +18,7 @@ const Logo = () => {
           letterSpacing: ".2rem",
           color: "black",
           textDecoration: "none",
+          fontFamily: "GongGothicMedium",
         }}
       >
         PANDA.
@@ -34,6 +35,7 @@ const Logo = () => {
           letterSpacing: ".2rem",
           color: "black",
           textDecoration: "none",
+          fontFamily: "GongGothicMedium",
         }}
       >
         PANDA.
