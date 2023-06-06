@@ -1,32 +1,14 @@
-import { Fragment } from "react";
+import { Fragment, useEffect, useState } from "react";
 
 import Slide from "./HomeSlide";
-import mainImg from "../../assets/mainImg.png";
+import mainImg from "../../assets/platformImage1.png";
+import mainImg1 from "../../assets/platformImage4.png";
 import classes from "../../styles/Home.module.css";
+import { useDispatch, useSelector } from "react-redux";
+import { getRecentProduct } from "../../_actions/productAction";
+import RecentProductList from "../../components/RecentProductList";
 
 const Home = (props) => {
-  const dispatch = useDispatch();
-  // const lastProdId = useSelector((state) => state.product);
-  const [lastProdId, setLastProdId] = useState(null);
-  const [productsList, setProductsList] = useState([]);
-
-  const onClickMoreProduct = () => {
-    console.log(
-      "newProdId",
-      setLastProdId(productsList[productsList.length - 1].id)
-    );
-    setLastProdId(productsList[productsList.length - 1].id);
-  };
-
-  useEffect(() => {
-    console.log("lastProdId", lastProdId);
-    dispatch(getRecentProduct(lastProdId))
-      .then((response) => {
-        console.log(response.payload.products);
-        setProductsList(response.payload.products);
-      })
-      .catch((err) => err);
-  }, [lastProdId]);
   return (
     <Fragment>
       <div className={classes.container}>
@@ -46,6 +28,7 @@ const Home = (props) => {
 
             <div className={classes.mainImgWrap}>
               <img src={mainImg} alt="" className={classes.mainImg} />
+              <img src={mainImg1} alt="" className={classes.mainImg1} />
             </div>
           </div>
         </section>
@@ -55,10 +38,7 @@ const Home = (props) => {
         </section>
 
         <section className={classes.latesProductWrap}>
-          <div className={classes.latestProductContainer}>
-            <h1>판다의 최근 상품</h1>
-            <button onClick={onClickMoreProduct}>더보기</button>
-          </div>
+          <RecentProductList />
         </section>
       </div>
     </Fragment>
