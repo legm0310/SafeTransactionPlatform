@@ -5,6 +5,28 @@ import mainImg from "../../assets/mainImg.png";
 import classes from "../../styles/Home.module.css";
 
 const Home = (props) => {
+  const dispatch = useDispatch();
+  // const lastProdId = useSelector((state) => state.product);
+  const [lastProdId, setLastProdId] = useState(null);
+  const [productsList, setProductsList] = useState([]);
+
+  const onClickMoreProduct = () => {
+    console.log(
+      "newProdId",
+      setLastProdId(productsList[productsList.length - 1].id)
+    );
+    setLastProdId(productsList[productsList.length - 1].id);
+  };
+
+  useEffect(() => {
+    console.log("lastProdId", lastProdId);
+    dispatch(getRecentProduct(lastProdId))
+      .then((response) => {
+        console.log(response.payload.products);
+        setProductsList(response.payload.products);
+      })
+      .catch((err) => err);
+  }, [lastProdId]);
   return (
     <Fragment>
       <div className={classes.container}>
@@ -35,28 +57,7 @@ const Home = (props) => {
         <section className={classes.latesProductWrap}>
           <div className={classes.latestProductContainer}>
             <h1>판다의 최근 상품</h1>
-            <div className={classes.latestProdList}>
-              <div className={classes.latestProdCard}>
-                <div className={classes.imgBox}>이미지</div>
-                <h4>제목</h4>
-                <h4>가격</h4>
-              </div>
-              <div className={classes.latestProdCard}>
-                <div className={classes.imgBox}>이미지</div>
-                <h4>제목</h4>
-                <h4>가격</h4>
-              </div>
-              <div className={classes.latestProdCard}>
-                <div className={classes.imgBox}>이미지</div>
-                <h4>제목</h4>
-                <h4>가격</h4>
-              </div>
-              <div className={classes.latestProdCard}>
-                <div className={classes.imgBox}>이미지</div>
-                <h4>제목</h4>
-                <h4>가격</h4>
-              </div>
-            </div>
+            <button onClick={onClickMoreProduct}>더보기</button>
           </div>
         </section>
       </div>
