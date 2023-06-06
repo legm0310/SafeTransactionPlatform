@@ -11,13 +11,8 @@ const productController = require("../controllers").productController;
  */
 module.exports = (app) => {
   app.use("/products", router);
+
   router.post("/", isAuth, uploader, productController.addProduct);
-  // router.post("/", isAuth, uploader, (req, res) => {
-  //   console.log(req.files);
-  //   // console.log(req.files.map((obj) => obj.location));
-  //   utils.deleteProdImg(req.files.map((obj) => obj.location));
-  //   res.sendStatus(200).end();
-  // });
   router.get("/", productController.getProducts);
   router.get("/recent", productController.getRecentProducts);
   router.get("/:id", productController.getProduct);
