@@ -4,7 +4,6 @@
   Dispatch에 inline으로 action을 넣는 것이 불편하기 때문에 action객체를 return 해주는 함수를 만들어놓는 것 (즉, Action을 return 해주는 함수)
 */
 
-import axios from "axios";
 import { SIGNUP_USER, LOGIN_USER, LOGOUT_USER, AUTH_USER } from "./type";
 import { authRequest, baseRequest } from "../api/common";
 
