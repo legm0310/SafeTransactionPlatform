@@ -1,6 +1,6 @@
 const catchAsync = require("./catchAsync");
 const generalError = require("./generalError");
-const parse = require("./parse");
+const dataParsers = require("./dataParsers");
 
 const s3Upload = require("./s3Upload");
 
@@ -15,6 +15,6 @@ module.exports = {
   uploadProdImg: s3Upload.uploadProductImg,
   deleteProdImg: s3Upload.deleteProductImg,
   getImgUrlByKey: s3Upload.getImgUrlByKey,
-  parseProducts: parse.parseProducts,
-  getProductsQueryConvert: parse.getProductsQueryConvert,
+  generateGetProductsQuery: dataParsers.generateGetProductsQuery,
+  extractProductsList: dataParsers.extractProductsList,
 };
