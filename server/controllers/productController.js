@@ -14,10 +14,12 @@ module.exports = {
 
   getProducts: catchAsync(async (req, res) => {
     const prodServiceInstance = await Container.get("productService");
-    const products = await prodServiceInstance.getProducts();
+    const params = req.query;
+    const { pages, prodList } = await prodServiceInstance.getProducts(params);
     res.status(200).json({
       getProductsSuccess: true,
-      products: products,
+      totalPage: pages,
+      products: prodList,
     });
   }),
 
@@ -44,12 +46,14 @@ module.exports = {
   updateProduct: catchAsync(async (req, res) => {
     const prodServiceInstance = await Container.get("productService");
     const productId = req.params;
+    await prodServiceInstance.updateProduct(productId);
     res.status(200).json({});
   }),
 
   deleteProduct: catchAsync(async (req, res) => {
     const prodServiceInstance = await Container.get("productService");
     const productId = req.params;
+    await prodServiceInstance.deleteProduct(productId);
     res.status(200).json({});
   }),
 };
