@@ -12,3 +12,4 @@ export const LOGOUT_USER = "logout";
 export const AUTH_USER = "auth";
 
 export const ADD_PRODUCT = "addProduct";
+export const RECENT_PRODUCT = "recentProduct";
