@@ -29,7 +29,10 @@ module.exports = {
     dialect: "mysql",
     timezone: "+09:00", // DB에 저장할 때 시간 설정
     dialectOptions: {
-      timezone: "+09:00", // DB에서 가져올 때 시간 설정
+      charset: "utf8mb4",
+      dateStrings: true,
+      typeCast: true,
+      // DB에서 가져올 때 시간 설정
     },
   },
   production: {
@@ -40,7 +43,10 @@ module.exports = {
     dialect: "mysql",
     timezone: "+09:00", // DB에 저장할 때 시간 설정
     dialectOptions: {
-      timezone: "+09:00", // DB에서 가져올 때 시간 설정
+      charset: "utf8mb4",
+      dateStrings: true,
+      typeCast: true,
+      // DB에서 가져올 때 시간 설정
     },
   },
 

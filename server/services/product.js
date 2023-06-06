@@ -27,8 +27,8 @@ class ProductService {
   }
 
   //infinite scrolling 방식 (lastId)
-  async getRecentProducts(lastId) {
-    const query = generateGetProductsQuery(lastId);
+  async getRecentProducts(params) {
+    const query = generateGetProductsQuery(params);
     console.log("query", query);
     const products = await this.Product.findAll(query);
     if (!products) throw new InternelServerError("Internel Server Error");

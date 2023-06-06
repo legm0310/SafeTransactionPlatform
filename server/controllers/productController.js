@@ -25,10 +25,10 @@ module.exports = {
 
   getRecentProducts: catchAsync(async (req, res) => {
     const prodServiceInstance = await Container.get("productService");
-    const lastId = parseInt(req.query.lastId, 10);
-    const recentProducts = await prodServiceInstance.getRecentProducts(lastId);
+    const params = req.query;
+    const recentProducts = await prodServiceInstance.getRecentProducts(params);
     res.status(200).json({
-      getRecentProductSuccess: true,
+      getRecentProductsSuccess: true,
       products: recentProducts,
     });
   }),
