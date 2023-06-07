@@ -1,12 +1,10 @@
-import { Fragment, useEffect, useState } from "react";
+import { Fragment } from "react";
 
 import Slide from "./HomeSlide";
 import mainImg from "../../assets/platformImage1.png";
 import mainImg1 from "../../assets/platformImage4.png";
 import classes from "../../styles/Home.module.css";
-import { useDispatch, useSelector } from "react-redux";
-import { getRecentProduct } from "../../_actions/productAction";
-import RecentProductList from "../../components/RecentProductList";
+import RecentProductsList from "../../components/RecentProductsList";
 
 const Home = (props) => {
   return (
@@ -38,7 +36,7 @@ const Home = (props) => {
         </section>
 
         <section className={classes.latesProductWrap}>
-          <RecentProductList />
+          <RecentProductsList />
         </section>
       </div>
     </Fragment>

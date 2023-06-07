@@ -1,4 +1,9 @@
-import { ADD_PRODUCT, RECENT_PRODUCT } from "./type";
+import {
+  ADD_PRODUCT,
+  RECENT_PRODUCTS,
+  GET_PRODUCTS,
+  GET_PRODUCT,
+} from "./type";
 import { addProdRequest } from "../api/productApi";
 import { baseRequest } from "../api/common";
 
@@ -19,7 +24,7 @@ export function addProduct(dataToSubmit) {
   };
 }
 
-export function getRecentProduct(dataToSubmit) {
+export function getRecentProducts(dataToSubmit) {
   const params = { lastId: dataToSubmit };
   const request = baseRequest({ params })
     .get(`/api/products/recent`)
@@ -29,7 +34,26 @@ export function getRecentProduct(dataToSubmit) {
       return err.response.data;
     });
   return {
-    type: RECENT_PRODUCT,
+    type: RECENT_PRODUCTS,
+    payload: request,
+  };
+}
+
+export function getProducts(dataToSubmit) {
+  const params = "";
+  const request = baseRequest().get().then().catch();
+
+  return {
+    type: GET_PRODUCTS,
+    payload: request,
+  };
+}
+export function getProduct(dataToSubmit) {
+  const params = "";
+  const request = baseRequest().get().then().catch();
+
+  return {
+    type: GET_PRODUCT,
     payload: request,
   };
 }

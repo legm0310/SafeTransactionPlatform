@@ -1,34 +1,30 @@
 import { Fragment, useEffect, useState } from "react";
 
-import classes from "../styles/RecentProductList.module.css";
-import { useDispatch } from "react-redux";
-import { getRecentProduct } from "../_actions/productAction";
+import classes from "../styles/RecentProductsList.module.css";
+import { useDispatch, useSelector } from "react-redux";
+import { getRecentProducts } from "../_actions/productAction";
 
-const RecentProductList = () => {
+const RecentProductsList = () => {
   const dispatch = useDispatch();
   const [lastProdId, setLastProdId] = useState(null);
-  const [productList, setProductList] = useState([]);
+  const [productsList, setProductsList] = useState([]);
   const [displayMore, setDisplayMore] = useState(true);
 
   const onClickMoreProduct = () => {
-    console.log(
-      "newProdId",
-      setLastProdId(productList[productList.length - 1].id)
-    );
-
-    setLastProdId(productList[productList.length - 1].id);
+    setLastProdId(productsList[productsList.length - 1].id);
   };
 
   useEffect(() => {
     console.log("lastProdId", lastProdId);
-    dispatch(getRecentProduct(lastProdId))
+    dispatch(getRecentProducts(lastProdId))
       .then((response) => {
-        console.log(response.payload.products);
-        setProductList((productList) => [
-          ...productList,
-          ...response.payload.products,
-        ]);
-        setDisplayMore(productList.length == 0 ? false : true);
+        const prodListFromDb = response.payload.products;
+        console.log(prodListFromDb);
+        setProductsList((productsList) => [...productsList, ...prodListFromDb]);
+
+        if (prodListFromDb.length < 12 || prodListFromDb[0]?.id <= 12) {
+          setDisplayMore(false);
+        }
       })
       .catch((err) => err);
   }, [lastProdId]);
@@ -39,7 +35,7 @@ const RecentProductList = () => {
         <h1>판다의 최근 상품</h1>
         <div className={classes.prodCardWrap}>
           <div className={classes.prodCardContainer}>
-            {productList.map((product) => (
+            {productsList.map((product) => (
               <div className={classes.prodCard}>
                 <div className={classes.imgBox}>
                   <img
@@ -66,4 +62,4 @@ const RecentProductList = () => {
   );
 };
 
-export default RecentProductList;
+export default RecentProductsList;
