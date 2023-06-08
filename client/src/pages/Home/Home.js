@@ -1,8 +1,10 @@
 import { Fragment } from "react";
 
 import Slide from "./HomeSlide";
-import mainImg from "../../assets/mainImg.png";
+import mainImg from "../../assets/platformImage1.png";
+import mainImg1 from "../../assets/platformImage4.png";
 import classes from "../../styles/Home.module.css";
+import RecentProductsList from "../../components/RecentProductsList";
 
 const Home = (props) => {
   return (
@@ -24,6 +26,7 @@ const Home = (props) => {
 
             <div className={classes.mainImgWrap}>
               <img src={mainImg} alt="" className={classes.mainImg} />
+              <img src={mainImg1} alt="" className={classes.mainImg1} />
             </div>
           </div>
         </section>
@@ -33,31 +36,7 @@ const Home = (props) => {
         </section>
 
         <section className={classes.latesProductWrap}>
-          <div className={classes.latestProductContainer}>
-            <h1>판다의 최근 상품</h1>
-            <div className={classes.latestProdList}>
-              <div className={classes.latestProdCard}>
-                <div className={classes.imgBox}>이미지</div>
-                <h4>제목</h4>
-                <h4>가격</h4>
-              </div>
-              <div className={classes.latestProdCard}>
-                <div className={classes.imgBox}>이미지</div>
-                <h4>제목</h4>
-                <h4>가격</h4>
-              </div>
-              <div className={classes.latestProdCard}>
-                <div className={classes.imgBox}>이미지</div>
-                <h4>제목</h4>
-                <h4>가격</h4>
-              </div>
-              <div className={classes.latestProdCard}>
-                <div className={classes.imgBox}>이미지</div>
-                <h4>제목</h4>
-                <h4>가격</h4>
-              </div>
-            </div>
-          </div>
+          <RecentProductsList />
         </section>
       </div>
     </Fragment>

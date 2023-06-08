@@ -46,7 +46,11 @@ const MobileNavMenu = () => {
           open={Boolean(anchorElNav)}
           onClose={handleCloseNavMenu}
           sx={{
-            display: { xs: "block", md: "none" },
+            display: {
+              xs: "block",
+              md: "none",
+              fontFamily: "GongGothicMedium",
+            },
           }}
         >
           <MenuItem onClick={handleCloseNavMenu}>
