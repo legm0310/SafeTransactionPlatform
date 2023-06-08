@@ -80,8 +80,8 @@
   align-items: center;
 }
 
-.mainImgWrap {
-  width: 100%;
+.mainImg {
+  margin-right: 40px;
 }
 
 /* 두번째 섹션 */

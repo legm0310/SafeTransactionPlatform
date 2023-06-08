@@ -29,7 +29,12 @@ const DesktopNavMenu = () => {
         <Link to='/products/all' className={classes.purchaseLink}>
           <Button
             onClick={handleCloseNavMenu}
-            sx={{ my: 2, color: "black", fontWeight: 700 }}
+            sx={{
+              my: 2,
+              color: "black",
+              fontWeight: 700,
+              fontFamily: "GongGothicMedium",
+            }}
           >
             구매하기
           </Button>
@@ -37,7 +42,12 @@ const DesktopNavMenu = () => {
         <Link to='/products/add' className={classes.purchaseLink}>
           <Button
             onClick={handleCloseNavMenu}
-            sx={{ my: 2, color: "black", fontWeight: 700 }}
+            sx={{
+              my: 2,
+              color: "black",
+              fontWeight: 700,
+              fontFamily: "GongGothicMedium",
+            }}
           >
             판매하기
           </Button>
