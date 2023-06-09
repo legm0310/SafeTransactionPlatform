@@ -4,8 +4,12 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import testImg from "../../assets/test.jpg";
 import classes from "../../styles/DetailSlide.module.css";
+import { useSelector } from "react-redux";
 
 const Slide = () => {
+  const productDetail = useSelector(
+    (state) => state.product.productDetail?.product
+  );
   const settings = {
     dots: true, // 캐러셀 밑에 ... 을 표시할지
     infinite: true, // 슬라이드가 끝까지 가면 다시 처음으로 반복
@@ -21,24 +25,11 @@ const Slide = () => {
     <Fragment>
       <div>
         <Slider {...settings}>
-          <div>
-            <img src={testImg} alt="" className={classes.slideImg} />
-          </div>
-          <div>
-            <h3>2</h3>
-          </div>
-          <div>
-            <h3>3</h3>
-          </div>
-          <div>
-            <h3>4</h3>
-          </div>
-          <div>
-            <h3>5</h3>
-          </div>
-          <div>
-            <h3>6</h3>
-          </div>
+          {productDetail?.images.map((img) => (
+            <div>
+              <img src={img} alt="" className={classes.slideImg} />
+            </div>
+          ))}
         </Slider>
       </div>
     </Fragment>

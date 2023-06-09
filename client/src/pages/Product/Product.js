@@ -1,6 +1,7 @@
 import React, { Fragment, useState, useEffect } from "react";
 import classes from "../../styles/Product.module.css";
 import ProductCard from "./ProductCard";
+import RecentProductsList from "../../components/RecentProductsList";
 import { Link, useNavigate } from "react-router-dom";
 
 const Product = (props) => {
@@ -56,7 +57,8 @@ const Product = (props) => {
         </Link>
         <div className={classes.productWrap}>
           <Link to="/detail" className={classes.detail}>
-            <ProductCard products={filteredProducts} />
+            <RecentProductsList />
+            {/* <ProductCard products={filteredProducts} /> */}
           </Link>
         </div>
       </div>
