@@ -29,7 +29,7 @@ class ProductService {
   //infinite scrolling 방식 (lastId)
   async getRecentProducts(params) {
     const query = generateGetProductsQuery(params);
-    console.log("query", query);
+    // console.log("query", query);
     const products = await this.Product.findAll(query);
     if (!products) throw new InternelServerError("Internel Server Error");
 
@@ -37,19 +37,11 @@ class ProductService {
     return extractedList;
   }
 
-  async getProductsByState(status) {
-    let query = {
-      where: { status: status },
-    };
-    const products = await this.Product.findAll(status);
-    if (!products) throw new InternelServerError("Internel Server Error");
-    const extractedList = extractProductsList(products);
-    return extractedList;
-  }
-
   async getProductById(id) {
     const product = await this.Product.findByPk(id);
-    return product.toJSON();
+    const parsedProduct = product.toJSON();
+    parsedProduct.images = parsedProduct.images.split(",");
+    return parsedProduct;
   }
 
   async updateProduct() {}
