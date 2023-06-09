@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { signup } from "../../_actions/userAction";
+import Button from "../../components/UI/Button";
 
 import classes from "../../styles/Register.module.css";
 import { FaArrowLeft } from "react-icons/fa";
@@ -142,9 +143,10 @@ const Register = (props) => {
                   />
                 </div>
               </div>
-              <button type="submit" className={classes.registerButton}>
-                회원가입
-              </button>
+
+              <Button>
+                <div className={classes.registerButton}>회원가입</div>
+              </Button>
             </form>
           </div>
         </div>
