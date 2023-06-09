@@ -114,19 +114,11 @@ const AddProduct = (props) => {
       return;
     }
 
-    props.onAddProduct(
-      title,
-      price,
-      URL.createObjectURL(imgFile[0]),
-      detail,
-      category
-    );
     setTitle("");
     setPrice("");
     setDetail("");
     setCategory([]);
     // code to submit the form
-    navigate("/products/all");
 
     let body = {
       status: "SALE",
@@ -160,7 +152,7 @@ const AddProduct = (props) => {
     dispatch(addProduct(formData)).then((response) => {
       if (response.payload.addProductSuccess) {
         alert("상품 등록 완료");
-        navigate("/products/all");
+        navigate("/");
       } else {
         alert("상품 등록에 실패했습니다.");
       }

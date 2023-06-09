@@ -1,9 +1,9 @@
 import { Fragment, useEffect, useState } from "react";
-
-import classes from "../styles/RecentProductsList.module.css";
 import { useDispatch } from "react-redux";
 import { getRecentProducts } from "../_actions/productAction";
 import Button from "./UI/Button";
+
+import classes from "../styles/RecentProductsList.module.css";
 
 const RecentProductsList = () => {
   const dispatch = useDispatch();
@@ -34,6 +34,7 @@ const RecentProductsList = () => {
     <Fragment>
       <div className={classes.latestProductContainer}>
         <h1>판다의 최근 상품</h1>
+
         <div className={classes.prodCardWrap}>
           <div className={classes.prodCardContainer}>
             {productsList.map((product) => (
@@ -41,6 +42,7 @@ const RecentProductsList = () => {
                 <div className={classes.imgBox}>
                   <img src={product.image} className={classes.prodImg} alt="" />
                 </div>
+
                 <div className={classes.prodInfo}>
                   <div className={classes.prodName}>{product.title}</div>
                   <div className={classes.prodPrice}> {product.price}</div>
@@ -49,6 +51,7 @@ const RecentProductsList = () => {
             ))}
           </div>
         </div>
+
         <div className={classes.moreButtonWrap}>
           {displayMore ? (
             <Button onClick={onClickMoreProduct}>
