@@ -18,7 +18,7 @@ const RecentProductsList = () => {
     console.log("lastProdId", lastProdId);
     dispatch(getRecentProducts(lastProdId))
       .then((response) => {
-        const prodListFromDb = response.payload.products;
+        const prodListFromDb = response.payload.products ?? [];
         console.log(prodListFromDb);
         setProductsList((productsList) => [...productsList, ...prodListFromDb]);
 
@@ -36,16 +36,10 @@ const RecentProductsList = () => {
         <div className={classes.prodCardWrap}>
           <div className={classes.prodCardContainer}>
             {productsList.map((product) => (
-              <div className={classes.prodCard}>
+              <div key={product.id} className={classes.prodCard}>
                 <div className={classes.imgBox}>
-                  <img
-                    key={product.id}
-                    src={product.image}
-                    className={classes.prodImg}
-                    alt=""
-                  />
+                  <img src={product.image} className={classes.prodImg} alt="" />
                 </div>
-
                 <div className={classes.prodInfo}>
                   <div className={classes.prodName}>{product.title}</div>
                   <div className={classes.prodPrice}> {product.price}</div>
