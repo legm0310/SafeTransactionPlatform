@@ -1,6 +1,7 @@
 import React, { Fragment, useState, useEffect } from "react";
-import classes from "../../styles/Product.module.css";
 import RecentProductsList from "../../components/RecentProductsList";
+
+import classes from "../../styles/Product.module.css";
 
 const Product = (props) => {
   const [selectedCategory, setSelectedCategory] = useState("all");
@@ -29,22 +30,22 @@ const Product = (props) => {
     <Fragment>
       <div className={classes.mainBox}>
         <div className={classes.categoryBox}>
-          <div onClick={() => onCategoryClick("all")}>전체</div>
+          <div onClick={() => onCategoryClick("전체")}>전체</div>
           <ul className={classes.category1}>
-            <li onClick={() => onCategoryClick("men")}>남성의류</li>
-            <li onClick={() => onCategoryClick("women")}>여성의류</li>
-            <li onClick={() => onCategoryClick("acc")}>패션잡화</li>
-            <li onClick={() => onCategoryClick("sports")}>스포츠 용품</li>
-            <li onClick={() => onCategoryClick("shoes")}>신발</li>
+            <li onClick={() => onCategoryClick("남성의류")}>남성의류</li>
+            <li onClick={() => onCategoryClick("여성의류")}>여성의류</li>
+            <li onClick={() => onCategoryClick("패션잡화")}>패션잡화</li>
+            <li onClick={() => onCategoryClick("스포츠 용품")}>스포츠 용품</li>
+            <li onClick={() => onCategoryClick("신발")}>신발</li>
           </ul>
           <ul className={classes.category2}>
-            <li onClick={() => onCategoryClick("homeappliances")}>가전제품</li>
-            <li onClick={() => onCategoryClick("computerPeripherals")}>
+            <li onClick={() => onCategoryClick("가전제품")}>가전제품</li>
+            <li onClick={() => onCategoryClick("컴퓨터/주변기기")}>
               컴퓨터/주변기기
             </li>
-            <li onClick={() => onCategoryClick("electronic")}>전자제품</li>
-            <li onClick={() => onCategoryClick("furniture")}>가구</li>
-            <li onClick={() => onCategoryClick("etc")}>기타</li>
+            <li onClick={() => onCategoryClick("전자제품")}>전자제품</li>
+            <li onClick={() => onCategoryClick("가구")}>가구</li>
+            <li onClick={() => onCategoryClick("기타")}>기타</li>
           </ul>
         </div>
         <div className={classes.productWrap}>
