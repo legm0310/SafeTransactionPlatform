@@ -1,8 +1,9 @@
 import { Fragment, useEffect, useState } from "react";
 
 import classes from "../styles/RecentProductsList.module.css";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { getRecentProducts } from "../_actions/productAction";
+import Button from "./UI/Button";
 
 const RecentProductsList = () => {
   const dispatch = useDispatch();
@@ -27,7 +28,7 @@ const RecentProductsList = () => {
         }
       })
       .catch((err) => err);
-  }, [lastProdId]);
+  }, [dispatch, lastProdId]);
 
   return (
     <Fragment>
@@ -48,9 +49,13 @@ const RecentProductsList = () => {
             ))}
           </div>
         </div>
-        {displayMore ? (
-          <button onClick={onClickMoreProduct}>더보기</button>
-        ) : null}
+        <div className={classes.moreButtonWrap}>
+          {displayMore ? (
+            <Button onClick={onClickMoreProduct}>
+              <div className={classes.moreButton}>더보기</div>
+            </Button>
+          ) : null}
+        </div>
       </div>
     </Fragment>
   );

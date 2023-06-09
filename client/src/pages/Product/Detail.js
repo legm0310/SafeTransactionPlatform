@@ -20,7 +20,7 @@ const Detail = (props) => {
 
   useEffect(() => {
     dispatch(getProduct(productId)).then((response) => console.log(response));
-  }, []);
+  }, [dispatch, productId]);
 
   return (
     <Fragment>
@@ -70,9 +70,6 @@ const Detail = (props) => {
             <div className={classes.productInfoHeader}>상품내용</div>
             <div className={classes.productInfoDescription}>
               {productDetail?.detail}
-              {/* 이것은 예시입니다. <br />
-              얼마 사용하지 않았고 돈이 필요하여 싸게 판매합니다. <br />
-              궁금한것 있으면 톡으로 연락주세요. */}
             </div>
           </div>
         </div>

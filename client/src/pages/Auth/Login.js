@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { login } from "../../_actions/userAction";
+import Button from "../../components/UI/Button";
 
 import classes from "../../styles/Login.module.css";
 import { FaArrowLeft } from "react-icons/fa";
@@ -97,7 +98,10 @@ const Login = (props) => {
                   />
                 </div>
               </div>
-              <button className={classes.loginButton}>로그인</button>
+
+              <Button>
+                <div className={classes.loginButton}>로그인</div>
+              </Button>
             </form>
           </div>
 
