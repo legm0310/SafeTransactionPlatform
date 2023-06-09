@@ -1,33 +1,20 @@
 // Logo.js
 import React, { Fragment } from "react";
 import Typography from "@mui/material/Typography";
+import { Link } from "react-router-dom";
+import classes from "../../styles/Logo.module.css";
 
 const Logo = () => {
   return (
     <Fragment>
+      <Link to="/" className={classes.logoWrap}>
+        <h1 className={classes.logo}>PANDA.</h1>
+      </Link>
+
       <Typography
-        variant='h4'
+        variant="h5"
         noWrap
-        component='a'
-        href='/'
-        sx={{
-          mr: 2,
-          ml: 11,
-          display: { xs: "none", md: "flex" },
-          fontWeight: 700,
-          letterSpacing: ".2rem",
-          color: "black",
-          textDecoration: "none",
-          fontFamily: "GongGothicMedium",
-        }}
-      >
-        PANDA.
-      </Typography>
-      <Typography
-        variant='h5'
-        noWrap
-        component='a'
-        href=''
+        component="a"
         sx={{
           display: { xs: "flex", md: "none" },
           flexGrow: 1,
