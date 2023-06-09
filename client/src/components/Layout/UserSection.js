@@ -16,6 +16,8 @@ import MoreIcon from "@mui/icons-material/MoreVert";
 import TelegramIcon from "@mui/icons-material/Telegram";
 import Tooltip from "@mui/material/Tooltip";
 import Fade from "@mui/material/Fade";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import { Typography } from "@mui/material";
 
 const UserSection = () => {
   const dispatch = useDispatch();
@@ -33,17 +35,17 @@ const UserSection = () => {
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
-  const handleProfileMenuOpen = (event) => {
+  const onProfileMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
   };
 
-  const handleMobileMenuClose = () => {
+  const onMobileMenuClose = () => {
     setMobileMoreAnchorEl(null);
   };
 
-  const handleMenuClose = () => {
+  const onMenuClose = () => {
     setAnchorEl(null);
-    handleMobileMenuClose();
+    onMobileMenuClose();
   };
 
   const handleMobileMenuOpen = (event) => {
@@ -65,10 +67,10 @@ const UserSection = () => {
         horizontal: "right",
       }}
       open={isMenuOpen}
-      onClose={handleMenuClose}
+      onClose={onMenuClose}
     >
-      <MenuItem onClick={handleMenuClose}>내 정보</MenuItem>
-      <MenuItem onClick={handleMenuClose}>
+      <MenuItem onClick={onMenuClose}>내 정보</MenuItem>
+      <MenuItem onClick={onMenuClose}>
         <MyWallet />
       </MenuItem>
       <MenuItem
@@ -96,7 +98,7 @@ const UserSection = () => {
         horizontal: "right",
       }}
       open={isMobileMenuOpen}
-      onClose={handleMobileMenuClose}
+      onClose={onMobileMenuClose}
     >
       <MenuItem>
         <IconButton size='large' aria-label='show 4 new mails' color='primary'>
@@ -118,7 +120,7 @@ const UserSection = () => {
         </IconButton>
         <p>찜 목록</p>
       </MenuItem>
-      <MenuItem onClick={handleProfileMenuOpen}>
+      <MenuItem onClick={onProfileMenuOpen}>
         <IconButton
           size='large'
           aria-label='account of current user'
@@ -130,7 +132,7 @@ const UserSection = () => {
         </IconButton>
         <p>내 정보</p>
       </MenuItem>
-      <MenuItem onClick={handleProfileMenuOpen}>
+      <MenuItem onClick={onProfileMenuOpen}>
         <IconButton
           size='large'
           aria-label='account of current user'
@@ -169,12 +171,13 @@ const UserSection = () => {
             <IconButton
               size='large'
               aria-label='show 4 new mails'
-              color='primary'
+              color='black'
               sx={{ mr: 2 }}
             >
               <Badge badgeContent={4} color='error'>
-                <TelegramIcon />
+                <TelegramIcon sx={{ fontSize: 30 }} />
               </Badge>
+              <Typography>판다톡</Typography>
             </IconButton>
           </Tooltip>
           <Tooltip
@@ -183,37 +186,32 @@ const UserSection = () => {
             TransitionProps={{ timeout: 600 }}
             arrow
           >
-            <IconButton
-              size='large'
-              aria-label='show 17 new notifications'
-              color='primary'
-              sx={{ mr: 2 }}
-            >
+            <IconButton size='large' color='black' sx={{ mr: 2 }}>
               <Badge badgeContent={17} color='error'>
-                <NotificationsIcon />
+                <FavoriteIcon sx={{ fontSize: 30 }} />
               </Badge>
+              <Typography>찜목록</Typography>
             </IconButton>
           </Tooltip>
           <IconButton
             size='large'
             edge='end'
-            aria-label='account of current user'
             aria-controls={menuId}
             aria-haspopup='true'
-            onClick={handleProfileMenuOpen}
-            color='primary'
+            onClick={onProfileMenuOpen}
+            color='black'
           >
-            <AccountCircle />
+            <AccountCircle sx={{ fontSize: 30 }} />
+            <Typography>내정보</Typography>
           </IconButton>
         </Box>
         <Box sx={{ display: { xs: "flex", md: "none" } }}>
           <IconButton
             size='large'
-            aria-label='show more'
             aria-controls={mobileMenuId}
             aria-haspopup='true'
             onClick={handleMobileMenuOpen}
-            color='primary'
+            color='black'
           >
             <MoreIcon />
           </IconButton>
