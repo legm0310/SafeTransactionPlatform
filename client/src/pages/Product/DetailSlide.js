@@ -1,11 +1,12 @@
 import { Fragment } from "react";
+import { useSelector } from "react-redux";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import classes from "../../styles/DetailSlide.module.css";
-import { useSelector } from "react-redux";
 
-const Slide = () => {
+import classes from "../../styles/DetailSlide.module.css";
+
+const DetailSlide = () => {
   const productDetail = useSelector(
     (state) => state.product.productDetail?.product
   );
@@ -25,7 +26,7 @@ const Slide = () => {
       <div>
         <Slider {...settings}>
           {productDetail?.images.map((img) => (
-            <div>
+            <div key={img.split("/").slice(-2).join("/")}>
               <img src={img} alt="" className={classes.slideImg} />
             </div>
           ))}
@@ -35,4 +36,4 @@ const Slide = () => {
   );
 };
 
-export default Slide;
+export default DetailSlide;
