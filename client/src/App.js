@@ -49,7 +49,7 @@ function App() {
           <Route path="/login" element={<Login />}></Route>
           <Route path="/register" element={<Register />}></Route>
           <Route
-            path="/detail"
+            path="/products/:productId"
             element={<Detail ProductCard={productCard} />}
           ></Route>
         </Routes>

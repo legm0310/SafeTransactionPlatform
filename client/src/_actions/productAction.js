@@ -41,7 +41,13 @@ export function getRecentProducts(dataToSubmit) {
 
 export function getProducts(dataToSubmit) {
   const params = "";
-  const request = baseRequest().get().then().catch();
+  const request = baseRequest()
+    .get(`/api/products`)
+    .then((response) => response.data)
+    .catch((err) => {
+      console.log(err);
+      return err.response.data;
+    });
 
   return {
     type: GET_PRODUCTS,
@@ -49,8 +55,14 @@ export function getProducts(dataToSubmit) {
   };
 }
 export function getProduct(dataToSubmit) {
-  const params = "";
-  const request = baseRequest().get().then().catch();
+  const params = dataToSubmit;
+  const request = baseRequest()
+    .get(`/api/products/${params}`)
+    .then((response) => response.data)
+    .catch((err) => {
+      console.log(err);
+      return err.response.data;
+    });
 
   return {
     type: GET_PRODUCT,
