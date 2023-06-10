@@ -57,6 +57,8 @@ const Register = (props) => {
       if (response.payload.signupSuccess) {
         alert("회원 정보 입력 완료");
         navigate("/login");
+      } else if (response.payload.code === 400) {
+        alert("존재하는 이메일입니다.");
       } else {
         alert("회원 가입에 실패했습니다.");
       }
