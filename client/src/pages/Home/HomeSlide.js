@@ -5,7 +5,7 @@ import "slick-carousel/slick/slick-theme.css";
 import testImg from "../../assets/testImg.png";
 import classes from "../../styles/HomeSlide.module.css";
 
-const Slide = () => {
+const HomeSlide = () => {
   const settings = {
     dots: true, // 캐러셀 밑에 ... 을 표시할지
     infinite: true, // 슬라이드가 끝까지 가면 다시 처음으로 반복
@@ -45,4 +45,4 @@ const Slide = () => {
   );
 };
 
-export default Slide;
+export default HomeSlide;

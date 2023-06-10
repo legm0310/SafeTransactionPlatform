@@ -1,16 +1,22 @@
-import { Fragment, useEffect } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getProduct } from "../../_actions/productAction";
 
-import classes from "../../styles/Detail.module.css";
 import Slide from "./DetailSlide";
 import { FaHeart } from "react-icons/fa";
 import { TbMessageCircle2Filled } from "react-icons/tb";
 import { IoCart } from "react-icons/io5";
 import { FaUserCircle } from "react-icons/fa";
+import Button from "../../components/UI/Button";
+import ProductStore from "./ProductStore";
+import ProductInformation from "./ProductInformation";
+
+import classes from "../../styles/Detail.module.css";
 
 const Detail = (props) => {
+  const [activeMenu, setActiveMenu] = useState("productInformation");
+
   const dispatch = useDispatch();
   const productDetail = useSelector(
     (state) => state.product.productDetail?.product
@@ -21,6 +27,10 @@ const Detail = (props) => {
   useEffect(() => {
     dispatch(getProduct(productId)).then((response) => console.log(response));
   }, [dispatch, productId]);
+
+  const onMenuHandler = (menu) => {
+    setActiveMenu(menu);
+  };
 
   return (
     <Fragment>
@@ -56,25 +66,41 @@ const Detail = (props) => {
         </div>
 
         <div className={classes.informationWrap}>
-          <div className={classes.storeInformation}>
-            <div className={classes.storeInfoHeader}>상점정보</div>
-            <div className={classes.store}>
-              <div className={classes.StoreIcon}>
-                <FaUserCircle />
-              </div>
-              이승훈
-            </div>
-          </div>
+          <div className={classes.prodInformation}>
+            <div className={classes.prodInfoButton}>
+              <Button onClick={() => onMenuHandler("productInformation")}>
+                <div
+                  className={`${classes.infoButton} ${
+                    activeMenu === "productInformation" ? classes.active : ""
+                  }`}
+                >
+                  상품정보
+                </div>
+              </Button>
 
-          <div className={classes.productInformation}>
-            <div className={classes.productInfoHeader}>상품내용</div>
-            <div className={classes.productInfoDescription}>
-              {productDetail?.detail}
+              <Button onClick={() => onMenuHandler("productStore")}>
+                <div
+                  className={`${classes.storeButton} ${
+                    activeMenu === "productStore" ? classes.active : ""
+                  }`}
+                >
+                  판매자정보
+                </div>
+              </Button>
+            </div>
+
+            <div className={classes.ProdinfoExplanation}>
+              {activeMenu === "productStore" && <ProductStore />}
+              {activeMenu === "productInformation" && <ProductInformation />}
             </div>
           </div>
         </div>
 
-        <div className={classes.relationproductWrap}></div>
+        <div className={classes.relationproductWrap}>
+          <div className={classes.relationProduct}>
+            <div className={classes.relationProductHeader}>연관 상품</div>
+          </div>
+        </div>
       </section>
     </Fragment>
   );
