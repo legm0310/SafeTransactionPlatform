@@ -49,7 +49,7 @@ const Detail = (props) => {
             </div>
 
             <div className={classes.buttonWrap}>
-              <button className={classes.productPut}>
+              {/* <button className={classes.productPut}>
                 <FaHeart />
                 <span>찜하기</span>
               </button>
@@ -60,7 +60,36 @@ const Detail = (props) => {
               <button className={classes.productPurchase}>
                 <IoCart />
                 <span>구매하기</span>
-              </button>
+              </button> */}
+              <Button>
+                <div className={classes.productPutWrap}>
+                  <div className={classes.productPut}>
+                    <FaHeart />
+                    <span className={classes.buttonText}>찜하기</span>
+                  </div>
+                  <span className={classes.prodPutborder}></span>
+                </div>
+              </Button>
+
+              <Button>
+                <div className={classes.productMessageWrap}>
+                  <div className={classes.productMessage}>
+                    <TbMessageCircle2Filled />
+                    <span className={classes.buttonText}>판다톡</span>
+                  </div>
+                  <span className={classes.prodMessageborder}></span>
+                </div>
+              </Button>
+
+              <Button>
+                <div className={classes.productPurchaseWrap}>
+                  <div className={classes.productPurchase}>
+                    <IoCart />
+                    <span className={classes.buttonText}>구매하기</span>
+                  </div>
+                  <span className={classes.prodPurchaseborder}></span>
+                </div>
+              </Button>
             </div>
           </div>
         </div>
@@ -81,7 +110,7 @@ const Detail = (props) => {
               <Button onClick={() => onMenuHandler("productStore")}>
                 <div
                   className={`${classes.storeButton} ${
-                    activeMenu === "productStore" ? classes.active : ""
+                    activeMenu === "productStore" ? classes.storeactive : ""
                   }`}
                 >
                   판매자정보
