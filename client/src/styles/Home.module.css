@@ -28,7 +28,7 @@
   font-size: 5em;
   font-weight: 500;
   line-height: 1.3;
-  width: 9.6ch;
+  width: 8ch;
   animation: typing 0.8s steps(22), blink 0.5s step-end infinite alternate;
   white-space: nowrap;
   overflow: hidden;
@@ -45,7 +45,7 @@
   font-size: 5em;
   font-weight: 500;
   line-height: 1.3;
-  width: 16ch;
+  width: 13ch;
   animation: typing 0.8s steps(22), blink 0.5s step-end infinite alternate;
   white-space: nowrap;
   overflow: hidden;
