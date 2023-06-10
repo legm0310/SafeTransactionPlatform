@@ -15,7 +15,7 @@ const Loading = () => {
   return (
     <Fragment>
       <div className={classes.loadingWrap}>
-        <div clasName={classes.loading}>
+        <div className={classes.loading}>
           <h2>로딩중...</h2>
 
           <BounceLoader color="#1ecfba" size={100} />
