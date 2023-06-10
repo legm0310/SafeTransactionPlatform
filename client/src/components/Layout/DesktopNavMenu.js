@@ -15,6 +15,7 @@ const DesktopNavMenu = () => {
   const dispatch = useDispatch();
   const [searchTerm, setSearchTerm] = useState("");
   const [anchorElNav, setAnchorElNav] = useState(null);
+
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
   };
@@ -54,6 +55,7 @@ const DesktopNavMenu = () => {
             구매하기
           </Button>
         </Link>
+
         <Link to="/products/add" className={classes.purchaseLink}>
           <Button
             onClick={handleCloseNavMenu}
@@ -67,6 +69,21 @@ const DesktopNavMenu = () => {
             판매하기
           </Button>
         </Link>
+
+        <Link to="Loading" className={classes.purchaseLink}>
+          <Button
+            onClick={handleCloseNavMenu}
+            sx={{
+              my: 2,
+              color: "black",
+              fontWeight: 700,
+              fontFamily: "GongGothicMedium",
+            }}
+          >
+            로딩버튼
+          </Button>
+        </Link>
+
         <Paper
           component="form"
           sx={{

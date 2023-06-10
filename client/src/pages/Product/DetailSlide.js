@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import styled from "styled-components";
 
 import classes from "../../styles/DetailSlide.module.css";
 
@@ -24,16 +25,49 @@ const DetailSlide = () => {
   return (
     <Fragment>
       <div>
-        <Slider {...settings}>
+        <StyledSlider {...settings}>
           {productDetail?.images.map((img) => (
             <div key={img.split("/").slice(-2).join("/")}>
               <img src={img} alt="" className={classes.slideImg} />
             </div>
           ))}
-        </Slider>
+        </StyledSlider>
       </div>
     </Fragment>
   );
 };
 
 export default DetailSlide;
+
+const StyledSlider = styled(Slider)`
+  .slick-prev {
+    z-index: 1;
+    left: 30px;
+  }
+
+  .slick-next {
+    right: 60px;
+  }
+
+  .slick-prev:before,
+  .slick-next:before {
+    font-size: 50px;
+    opacity: 1;
+    color: #1ecfba;
+  }
+
+  .slick-dots {
+    display: flex;
+    justify-content: center;
+    bottom: 30px;
+    color: white;
+
+    li button:before {
+      color: white;
+    }
+
+    li.slick-active button:before {
+      color: white;
+    }
+  }
+`;
