@@ -25,7 +25,7 @@ const Slide = () => {
       <div>
         <Slider {...settings}>
           {productDetail?.images.map((img) => (
-            <div>
+            <div key={img.split("/").slice(-2).join("/")}>
               <img src={img} alt="" className={classes.slideImg} />
             </div>
           ))}
