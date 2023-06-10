@@ -40,8 +40,9 @@ export function getRecentProducts(dataToSubmit) {
 }
 
 export function getProducts(dataToSubmit) {
-  const params = "";
-  const request = baseRequest()
+  const params = { ...dataToSubmit };
+  console.log(params);
+  const request = baseRequest({ params })
     .get(`/api/products`)
     .then((response) => response.data)
     .catch((err) => {

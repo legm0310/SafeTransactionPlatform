@@ -25,7 +25,7 @@ export default function (state = {}, action) {
       return { ...state, recentProductsSuccess: action.payload };
       break;
     case GET_PRODUCTS:
-      return { ...state };
+      return { ...state, searchProducts: action.payload };
       break;
     case GET_PRODUCT:
       return { ...state, productDetail: action.payload };

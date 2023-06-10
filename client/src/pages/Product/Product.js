@@ -1,29 +1,49 @@
 import React, { Fragment, useState, useEffect } from "react";
-import classes from "../../styles/Product.module.css";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { getProducts } from "../../_actions/productAction";
 import RecentProductsList from "../../components/RecentProductsList";
+import ProductCard from "./ProductCard";
+
+import { getItem } from "../../utils";
+
+import classes from "../../styles/Product.module.css";
+import Paging from "../../components/UI/Paging";
 
 const Product = (props) => {
-  const [selectedCategory, setSelectedCategory] = useState("all");
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const [selectedCategory, setSelectedCategory] = useState(null);
   const [filteredProducts, setFilteredProducts] = useState([]);
 
   // 선택 카테고리 값 변경
   const onCategoryClick = (productCategory) => {
+    const filter = {};
     setSelectedCategory(productCategory);
-    console.log(productCategory);
+    const searchWord = getItem("searchWord") ?? "";
+    filter.search = searchWord;
+    filter.category = selectedCategory ?? "";
+    // filter.page = page ?? "";
+    filter.status = "";
+    dispatch(getProducts(filter)).then((response) => {
+      console.log(response);
+      setFilteredProducts(response.payload?.products);
+    });
   };
 
   useEffect(() => {
     // 선택한 카테고리에 따라 제품을 필터링
-    const filtered =
-      selectedCategory === "all"
-        ? props.ProductCard
-        : props.ProductCard.filter(
-            (card) =>
-              card.productCategory &&
-              card.productCategory.includes(selectedCategory)
-          );
-    setFilteredProducts(filtered);
-  }, [selectedCategory, props.ProductCard]);
+
+    // const filtered =
+    //   selectedCategory === null
+    //     ? props.ProductCard
+    //     : props.ProductCard.filter(
+    //         (card) =>
+    //           card.productCategory &&
+    //           card.productCategory.includes(selectedCategory)
+    //       );
+    setFilteredProducts();
+  }, [selectedCategory]);
 
   return (
     <Fragment>
@@ -47,8 +67,13 @@ const Product = (props) => {
             <li onClick={() => onCategoryClick("etc")}>기타</li>
           </ul>
         </div>
+
         <div className={classes.productWrap}>
-          <RecentProductsList />
+          {selectedCategory ? (
+            ((<ProductCard />), (<Paging />))
+          ) : (
+            <RecentProductsList />
+          )}
         </div>
       </div>
     </Fragment>
