@@ -39,8 +39,8 @@ const RecentProductsList = () => {
         <div className={classes.prodCardWrap}>
           <div className={classes.prodCardContainer}>
             {productsList.map((product) => (
-              <Link to={`/products/${product.id}`} className={classes.prodCard}>
-                <div key={product.id}>
+              <div key={product.id} className={classes.prodCard}>
+                <Link to={`/products/${product.id}`}>
                   <div className={classes.imgBox}>
                     <img
                       src={product.image}
@@ -53,8 +53,8 @@ const RecentProductsList = () => {
                     <div className={classes.prodName}>{product.title}</div>
                     <div className={classes.prodPrice}> {product.price}</div>
                   </div>
-                </div>
-              </Link>
+                </Link>
+              </div>
             ))}
           </div>
         </div>
