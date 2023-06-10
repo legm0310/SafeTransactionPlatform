@@ -1,15 +1,12 @@
 import React, { Fragment, useState } from "react";
-import { Link } from "react-router-dom";
-import Button from "@mui/material/Button";
-import classes from "../../styles/Header.module.css";
-import { Box } from "@mui/material";
-import Paper from "@mui/material/Paper";
-import InputBase from "@mui/material/InputBase";
-import SearchIcon from "@mui/icons-material/Search";
-import IconButton from "@mui/material/IconButton";
 import { useDispatch } from "react-redux";
-import { setItem } from "../../utils";
+import { Link } from "react-router-dom";
 import { getProducts } from "../../_actions/productAction";
+import { setItem } from "../../utils";
+
+import classes from "../../styles/Header.module.css";
+import { Box, Button, Paper, InputBase, IconButton } from "@mui/material";
+import { Search as SearchIcon } from "@mui/icons-material/Search";
 
 const DesktopNavMenu = () => {
   const dispatch = useDispatch();

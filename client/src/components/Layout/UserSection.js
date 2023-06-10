@@ -1,10 +1,9 @@
 import React, { useState, Fragment } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-
 import { logout } from "../../_actions/userAction";
-// import MyWallet from "./MyWallet";
 import { ConnectWallet } from "@thirdweb-dev/react";
+// import MyWallet from "./MyWallet";
 
 import classes from "../../styles/UserAuth.module.css";
 import {

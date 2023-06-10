@@ -1,13 +1,12 @@
 import React, { Fragment, useState } from "react";
 import { useLocation } from "react-router-dom";
-import classes from "../../styles/Header.module.css";
-import AppBar from "@mui/material/AppBar";
-import Container from "@mui/material/Container";
-import Toolbar from "@mui/material/Toolbar";
 import UserAuth from "./UserAuth";
 import MobileNavMenu from "./MobileNavMenu";
 import DesktopNavMenu from "./DesktopNavMenu";
 import Logo from "./Logo";
+
+import classes from "../../styles/Header.module.css";
+import { AppBar, Container, Toolbar } from "@mui/material/AppBar";
 
 const Header = (props) => {
   const location = useLocation();

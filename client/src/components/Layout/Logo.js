@@ -1,8 +1,9 @@
 // Logo.js
 import React, { Fragment } from "react";
-import Typography from "@mui/material/Typography";
 import { Link } from "react-router-dom";
+
 import classes from "../../styles/Logo.module.css";
+import { Typography } from "@mui/material";
 
 const Logo = () => {
   return (

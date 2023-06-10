@@ -1,11 +1,9 @@
 import React, { useState, Fragment } from "react";
 import { Link } from "react-router-dom";
-import IconButton from "@mui/material/IconButton";
-import MenuIcon from "@mui/icons-material/Menu";
-import Menu from "@mui/material/Menu";
-import MenuItem from "@mui/material/MenuItem";
+
 import classes from "../../styles/Header.module.css";
-import { Box } from "@mui/material";
+import { Box, IconButton, Menu, MenuItem } from "@mui/material";
+import { Menu as MenuIcon } from "@mui/icons-material";
 
 const MobileNavMenu = () => {
   const [anchorElNav, setAnchorElNav] = useState(null);
