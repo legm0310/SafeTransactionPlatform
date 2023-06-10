@@ -3,6 +3,9 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { auth } from "./_actions/userAction";
 
+import { ThirdwebProvider } from "@thirdweb-dev/react";
+import { Sepolia } from "@thirdweb-dev/chains";
+
 import Header from "./components/Layout/Header";
 import Home from "./pages/Home/Home";
 import Product from "./pages/Product/Product";
