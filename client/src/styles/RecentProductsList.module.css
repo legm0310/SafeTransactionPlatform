@@ -20,6 +20,12 @@
   margin-bottom: 30px;
 }
 
+.prodCard:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  transform: translateY(-10px);
+  transition: box-shadow 0.3s, transform 0.5s;
+}
+
 .prodCard:nth-child(4n) {
   margin-right: 0px;
 }
