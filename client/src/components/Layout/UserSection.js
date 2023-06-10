@@ -1,21 +1,28 @@
 import React, { useState, Fragment } from "react";
-import Badge from "@mui/material/Badge";
-import classes from "../../styles/UserAuth.module.css";
-import MyWallet from "./MyWallet";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { logout } from "../../_actions/userAction";
-import Box from "@mui/material/Box";
-import IconButton from "@mui/material/IconButton";
-import MenuItem from "@mui/material/MenuItem";
-import Menu from "@mui/material/Menu";
-import AccountCircle from "@mui/icons-material/AccountCircle";
+import { ConnectWallet } from "@thirdweb-dev/react";
+// import MyWallet from "./MyWallet";
 
-import NotificationsIcon from "@mui/icons-material/Notifications";
-import MoreIcon from "@mui/icons-material/MoreVert";
-import TelegramIcon from "@mui/icons-material/Telegram";
-import Tooltip from "@mui/material/Tooltip";
-import Fade from "@mui/material/Fade";
+import classes from "../../styles/UserAuth.module.css";
+import {
+  Badge,
+  Box,
+  IconButton,
+  MenuItem,
+  Menu,
+  Tooltip,
+  Fade,
+  Typography,
+} from "@mui/material";
+import {
+  AccountCircle,
+  Notifications as NotificationsIcon,
+  MoreVert as MoreIcon,
+  Telegram as TelegramIcon,
+  Favorite as FavoriteIcon,
+} from "@mui/icons-material";
 
 const UserSection = () => {
   const dispatch = useDispatch();
@@ -33,17 +40,17 @@ const UserSection = () => {
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
-  const handleProfileMenuOpen = (event) => {
+  const onProfileMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
   };
 
-  const handleMobileMenuClose = () => {
+  const onMobileMenuClose = () => {
     setMobileMoreAnchorEl(null);
   };
 
-  const handleMenuClose = () => {
+  const onMenuClose = () => {
     setAnchorEl(null);
-    handleMobileMenuClose();
+    onMobileMenuClose();
   };
 
   const handleMobileMenuOpen = (event) => {
@@ -65,11 +72,11 @@ const UserSection = () => {
         horizontal: "right",
       }}
       open={isMenuOpen}
-      onClose={handleMenuClose}
+      onClose={onMenuClose}
     >
-      <MenuItem onClick={handleMenuClose}>내 정보</MenuItem>
-      <MenuItem onClick={handleMenuClose}>
-        <MyWallet />
+      <MenuItem onClick={onMenuClose}>내 정보</MenuItem>
+      <MenuItem onClick={onMenuClose}>
+        <ConnectWallet theme="white" btnTitle="지갑 연결" />
       </MenuItem>
       <MenuItem
         className={classes.logout}
@@ -96,11 +103,11 @@ const UserSection = () => {
         horizontal: "right",
       }}
       open={isMobileMenuOpen}
-      onClose={handleMobileMenuClose}
+      onClose={onMobileMenuClose}
     >
       <MenuItem>
-        <IconButton size='large' aria-label='show 4 new mails' color='primary'>
-          <Badge badgeContent={4} color='error'>
+        <IconButton size="large" aria-label="show 4 new mails" color="primary">
+          <Badge badgeContent={4} color="error">
             <TelegramIcon />
           </Badge>
         </IconButton>
@@ -108,35 +115,35 @@ const UserSection = () => {
       </MenuItem>
       <MenuItem>
         <IconButton
-          size='large'
-          aria-label='show 17 new notifications'
-          color='primary'
+          size="large"
+          aria-label="show 17 new notifications"
+          color="primary"
         >
-          <Badge badgeContent={17} color='error'>
+          <Badge badgeContent={17} color="error">
             <NotificationsIcon />
           </Badge>
         </IconButton>
         <p>찜 목록</p>
       </MenuItem>
-      <MenuItem onClick={handleProfileMenuOpen}>
+      <MenuItem onClick={onProfileMenuOpen}>
         <IconButton
-          size='large'
-          aria-label='account of current user'
-          aria-controls='primary-search-account-menu'
-          aria-haspopup='true'
-          color='primary'
+          size="large"
+          aria-label="account of current user"
+          aria-controls="primary-search-account-menu"
+          aria-haspopup="true"
+          color="primary"
         >
           <AccountCircle />
         </IconButton>
         <p>내 정보</p>
       </MenuItem>
-      <MenuItem onClick={handleProfileMenuOpen}>
+      <MenuItem onClick={onProfileMenuOpen}>
         <IconButton
-          size='large'
-          aria-label='account of current user'
-          aria-controls='primary-search-account-menu'
-          aria-haspopup='true'
-          color='primary'
+          size="large"
+          aria-label="account of current user"
+          aria-controls="primary-search-account-menu"
+          aria-haspopup="true"
+          color="primary"
         >
           <AccountCircle />
         </IconButton>
@@ -144,11 +151,11 @@ const UserSection = () => {
       </MenuItem>
       <MenuItem onClick={onLogoutHandler} sx={{ borderTop: 2 }}>
         <IconButton
-          size='large'
-          aria-label='account of current user'
-          aria-controls='primary-search-account-menu'
-          aria-haspopup='true'
-          color='primary'
+          size="large"
+          aria-label="account of current user"
+          aria-controls="primary-search-account-menu"
+          aria-haspopup="true"
+          color="primary"
         >
           <AccountCircle />
         </IconButton>
@@ -161,59 +168,55 @@ const UserSection = () => {
       <Box sx={{ flexGrow: 1, mr: 10 }}>
         <Box sx={{ display: { xs: "none", md: "flex" } }}>
           <Tooltip
-            title='현재 진행중인 대화'
+            title="현재 진행중인 대화"
             TransitionComponent={Fade}
             TransitionProps={{ timeout: 600 }}
             arrow
           >
             <IconButton
-              size='large'
-              aria-label='show 4 new mails'
-              color='primary'
+              size="large"
+              aria-label="show 4 new mails"
+              color="black"
               sx={{ mr: 2 }}
             >
-              <Badge badgeContent={4} color='error'>
-                <TelegramIcon />
+              <Badge badgeContent={4} color="error">
+                <TelegramIcon sx={{ fontSize: 30 }} />
               </Badge>
+              <Typography>판다톡</Typography>
             </IconButton>
           </Tooltip>
           <Tooltip
-            title='찜 목록'
+            title="찜 목록"
             TransitionComponent={Fade}
             TransitionProps={{ timeout: 600 }}
             arrow
           >
-            <IconButton
-              size='large'
-              aria-label='show 17 new notifications'
-              color='primary'
-              sx={{ mr: 2 }}
-            >
-              <Badge badgeContent={17} color='error'>
-                <NotificationsIcon />
+            <IconButton size="large" color="black" sx={{ mr: 2 }}>
+              <Badge badgeContent={17} color="error">
+                <FavoriteIcon sx={{ fontSize: 30 }} />
               </Badge>
+              <Typography>찜목록</Typography>
             </IconButton>
           </Tooltip>
           <IconButton
-            size='large'
-            edge='end'
-            aria-label='account of current user'
+            size="large"
+            edge="end"
             aria-controls={menuId}
-            aria-haspopup='true'
-            onClick={handleProfileMenuOpen}
-            color='primary'
+            aria-haspopup="true"
+            onClick={onProfileMenuOpen}
+            color="black"
           >
-            <AccountCircle />
+            <AccountCircle sx={{ fontSize: 30 }} />
+            <Typography>내정보</Typography>
           </IconButton>
         </Box>
         <Box sx={{ display: { xs: "flex", md: "none" } }}>
           <IconButton
-            size='large'
-            aria-label='show more'
+            size="large"
             aria-controls={mobileMenuId}
-            aria-haspopup='true'
+            aria-haspopup="true"
             onClick={handleMobileMenuOpen}
-            color='primary'
+            color="black"
           >
             <MoreIcon />
           </IconButton>

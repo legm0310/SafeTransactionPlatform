@@ -1,16 +1,22 @@
 import React, { Fragment } from "react";
 
 import classes from "../../styles/ProductCard.module.css";
+import { useSelector } from "react-redux";
+import Paging from "../../components/UI/Paging";
 
 const ProductCard = (props) => {
+  const searchedProducts = useSelector(
+    (state) => state.product.searchProducts?.products
+  );
+  console.log(searchedProducts);
   return (
     <Fragment>
       <div className={classes.prodCardWrap}>
         <div className={classes.prodCardContainer}>
-          {props.products.map((product) => (
+          {searchedProducts?.map((product) => (
             <div className={classes.prodCard}>
               <div className={classes.imgBox}>
-                <img src={product.imgFile} className={classes.prodImg} alt="" />
+                <img src={product.image} className={classes.prodImg} alt="" />
               </div>
 
               <div className={classes.prodInfo}>
@@ -21,6 +27,7 @@ const ProductCard = (props) => {
           ))}
         </div>
       </div>
+      {/* <Paging /> */}
     </Fragment>
   );
 };

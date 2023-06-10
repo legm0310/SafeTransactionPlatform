@@ -57,7 +57,6 @@ export function auth() {
     .get("/api/auth/check")
     .then((response) => response.data)
     .catch((err) => {
-      // localStorage.removeItem("accessToken");
       console.log(err.response);
       return err.response.data;
     });

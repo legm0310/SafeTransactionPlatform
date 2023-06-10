@@ -1,5 +1,5 @@
 import axios from "axios";
-import { getItem, setItem } from "../utils";
+import { getItem, setItem, removeItem } from "../utils";
 
 const apiBaseUrl = process.env.REACT_APP_API_BASE_URL;
 
@@ -30,6 +30,9 @@ export const interceptRes = (instance) => {
       return res;
     },
     (err) => {
+      if (err.response.status === 401) {
+        removeItem("accessToken");
+      }
       console.log(err);
       return Promise.reject(err);
     }

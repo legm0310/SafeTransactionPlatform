@@ -6,7 +6,12 @@
   action의 type을 switch case문으로 조건을 걸어 동작
 */
 
-import { ADD_PRODUCT, RECENT_PRODUCTS } from "../_actions/type";
+import {
+  ADD_PRODUCT,
+  RECENT_PRODUCTS,
+  GET_PRODUCTS,
+  GET_PRODUCT,
+} from "../_actions/type";
 
 // Action의 type에 따라 변화된 state 반환
 // eslint-disable-next-line import/no-anonymous-default-export
@@ -18,6 +23,12 @@ export default function (state = {}, action) {
       break;
     case RECENT_PRODUCTS:
       return { ...state, recentProductsSuccess: action.payload };
+      break;
+    case GET_PRODUCTS:
+      return { ...state, searchProducts: action.payload };
+      break;
+    case GET_PRODUCT:
+      return { ...state, productDetail: action.payload };
       break;
     default: // state가 들어오지 않았을 경우 전의 state를 넣어줌
       return state;

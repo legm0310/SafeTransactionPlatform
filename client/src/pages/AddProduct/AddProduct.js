@@ -40,7 +40,8 @@ const AddProduct = (props) => {
   };
 
   // 이미지 삭제
-  const deleteImgHandler = (id) => {
+  const deleteImgHandler = (event, id) => {
+    event.preventDefault();
     setimgFile(imgFile.filter((_, index) => index !== id));
   };
 
@@ -78,7 +79,7 @@ const AddProduct = (props) => {
   // 카테고리
   const onCategoryChange = (event) => {
     const selectedCategory = event.target.value; // 선택한 체크박스의 값
-
+    console.log(event.target);
     // 선택 여부
     const isSelected = category.includes(selectedCategory);
 
@@ -95,6 +96,7 @@ const AddProduct = (props) => {
 
   // 등록하기
   const onSubmitHandler = (event) => {
+    console.log(event);
     event.preventDefault(); // prevent form submission
 
     if (title.trim() === "") {
@@ -114,19 +116,11 @@ const AddProduct = (props) => {
       return;
     }
 
-    props.onAddProduct(
-      title,
-      price,
-      URL.createObjectURL(imgFile[0]),
-      detail,
-      category
-    );
     setTitle("");
     setPrice("");
     setDetail("");
     setCategory([]);
     // code to submit the form
-    navigate("/products/all");
 
     let body = {
       status: "SALE",
@@ -160,7 +154,7 @@ const AddProduct = (props) => {
     dispatch(addProduct(formData)).then((response) => {
       if (response.payload.addProductSuccess) {
         alert("상품 등록 완료");
-        navigate("/products/all");
+        navigate("/");
       } else {
         alert("상품 등록에 실패했습니다.");
       }
@@ -193,7 +187,15 @@ const AddProduct = (props) => {
                   (image = URL.createObjectURL(image)),
                   (
                     <li className={classes.imgContainer} key={id}>
-                      <img src={image} alt={`${image}-${id}`} />
+                      <div>
+                        <a
+                          href=""
+                          onClick={(event) => deleteImgHandler(event, id)}
+                        >
+                          x
+                        </a>
+                        <img src={image} alt={`${image}-${id}`} />
+                      </div>
                       {/* <Delete onClick={() => deleteImgHandler(id)} /> */}
                     </li>
                   )
@@ -237,6 +239,7 @@ const AddProduct = (props) => {
             maxLength={40}
             type="search"
             size="small"
+            className={classes.input}
           />
           <div>{titleLength}/40</div>
         </div>
@@ -246,7 +249,10 @@ const AddProduct = (props) => {
             가격
           </label>
           <TextField
-            sx={{ width: "20ch", m: 1 }}
+            sx={{
+              width: "20ch",
+              m: 1,
+            }}
             id="outlined-number"
             onChange={onPriceHandler}
             value={price}
@@ -255,6 +261,7 @@ const AddProduct = (props) => {
               shrink: true,
             }}
             size="small"
+            className={classes.input}
           />
           <div>BB</div>
         </div>
@@ -374,7 +381,7 @@ const AddProduct = (props) => {
         </div>
 
         <div className={classes.buttonWrap}>
-          <Button type="submit" variant="contained">
+          <Button type="submit" variant="contained" className={classes.button}>
             등록하기
           </Button>
         </div>

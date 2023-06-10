@@ -1,12 +1,37 @@
-import { Fragment } from "react";
-import classes from "../../styles/Detail.module.css";
+import { Fragment, useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { getProduct } from "../../_actions/productAction";
+
 import Slide from "./DetailSlide";
 import { FaHeart } from "react-icons/fa";
 import { TbMessageCircle2Filled } from "react-icons/tb";
 import { IoCart } from "react-icons/io5";
 import { FaUserCircle } from "react-icons/fa";
+import Button from "../../components/UI/Button";
+import ProductStore from "./ProductStore";
+import ProductInformation from "./ProductInformation";
+
+import classes from "../../styles/Detail.module.css";
 
 const Detail = (props) => {
+  const [activeMenu, setActiveMenu] = useState("productInformation");
+
+  const dispatch = useDispatch();
+  const productDetail = useSelector(
+    (state) => state.product.productDetail?.product
+  );
+  const { productId } = useParams();
+  console.log(productDetail);
+
+  useEffect(() => {
+    dispatch(getProduct(productId)).then((response) => console.log(response));
+  }, [dispatch, productId]);
+
+  const onMenuHandler = (menu) => {
+    setActiveMenu(menu);
+  };
+
   return (
     <Fragment>
       <section className={classes.productDetailWrap}>
@@ -17,14 +42,14 @@ const Detail = (props) => {
 
           <div className={classes.producContentWrap}>
             <div>
-              <div className={classes.category}>홈 - 남성의류</div>
-              <div className={classes.title}>중부대 로고 팝니다</div>
-              <div className={classes.price}>100,000원</div>
+              <div className={classes.category}>{productDetail?.category}</div>
+              <div className={classes.title}>{productDetail?.title}</div>
+              <div className={classes.price}>{productDetail?.price}원</div>
               <div className={classes.time}>올라온 시간 및 조회 찜</div>
             </div>
 
             <div className={classes.buttonWrap}>
-              <button className={classes.productPut}>
+              {/* <button className={classes.productPut}>
                 <FaHeart />
                 <span>찜하기</span>
               </button>
@@ -35,33 +60,76 @@ const Detail = (props) => {
               <button className={classes.productPurchase}>
                 <IoCart />
                 <span>구매하기</span>
-              </button>
+              </button> */}
+              <Button>
+                <div className={classes.productPutWrap}>
+                  <div className={classes.productPut}>
+                    <FaHeart />
+                    <span className={classes.buttonText}>찜하기</span>
+                  </div>
+                  <span className={classes.prodPutborder}></span>
+                </div>
+              </Button>
+
+              <Button>
+                <div className={classes.productMessageWrap}>
+                  <div className={classes.productMessage}>
+                    <TbMessageCircle2Filled />
+                    <span className={classes.buttonText}>판다톡</span>
+                  </div>
+                  <span className={classes.prodMessageborder}></span>
+                </div>
+              </Button>
+
+              <Button>
+                <div className={classes.productPurchaseWrap}>
+                  <div className={classes.productPurchase}>
+                    <IoCart />
+                    <span className={classes.buttonText}>구매하기</span>
+                  </div>
+                  <span className={classes.prodPurchaseborder}></span>
+                </div>
+              </Button>
             </div>
           </div>
         </div>
 
         <div className={classes.informationWrap}>
-          <div className={classes.storeInformation}>
-            <div className={classes.storeInfoHeader}>상점정보</div>
-            <div className={classes.store}>
-              <div className={classes.StoreIcon}>
-                <FaUserCircle />
-              </div>
-              이승훈
-            </div>
-          </div>
+          <div className={classes.prodInformation}>
+            <div className={classes.prodInfoButton}>
+              <Button onClick={() => onMenuHandler("productInformation")}>
+                <div
+                  className={`${classes.infoButton} ${
+                    activeMenu === "productInformation" ? classes.active : ""
+                  }`}
+                >
+                  상품정보
+                </div>
+              </Button>
 
-          <div className={classes.productInformation}>
-            <div className={classes.productInfoHeader}>상품내용</div>
-            <div className={classes.productInfoDescription}>
-              이것은 예시입니다. <br />
-              얼마 사용하지 않았고 돈이 필요하여 싸게 판매합니다. <br />
-              궁금한것 있으면 톡으로 연락주세요.
+              <Button onClick={() => onMenuHandler("productStore")}>
+                <div
+                  className={`${classes.storeButton} ${
+                    activeMenu === "productStore" ? classes.storeactive : ""
+                  }`}
+                >
+                  판매자정보
+                </div>
+              </Button>
+            </div>
+
+            <div className={classes.ProdinfoExplanation}>
+              {activeMenu === "productStore" && <ProductStore />}
+              {activeMenu === "productInformation" && <ProductInformation />}
             </div>
           </div>
         </div>
 
-        <div className={classes.relationproductWrap}></div>
+        <div className={classes.relationproductWrap}>
+          <div className={classes.relationProduct}>
+            <div className={classes.relationProductHeader}>연관 상품</div>
+          </div>
+        </div>
       </section>
     </Fragment>
   );

@@ -14,11 +14,16 @@
 /*상품 카드*/
 .prodCard {
   border-radius: 13px;
-  width: 220px;
+  width: 277.5px;
   display: block;
-  margin-right: 10px;
-  margin-bottom: 10px;
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+  margin-right: 30px;
+  margin-bottom: 30px;
+}
+
+.prodCard:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  transform: translateY(-10px);
+  transition: box-shadow 0.3s, transform 0.5s;
 }
 
 .prodCard:nth-child(4n) {
@@ -28,7 +33,7 @@
 /*상품 이미지*/
 .imgBox {
   width: 100%;
-  height: 220px;
+  height: 276px;
 }
 
 .prodImg {
@@ -65,4 +70,21 @@
   content: "원";
   font-size: 16px;
   margin-left: 3px;
+}
+
+.moreButtonWrap {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+
+.moreButton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #dbe1e5;
+  border: 1px solid gray;
+  width: 200px;
+  height: 40px;
+  border-radius: 5px;
 }
