@@ -15,6 +15,7 @@ import Register from "./pages/Auth/Register";
 import Detail from "./pages/Product/Detail";
 import Auth from "./hoc/auth";
 import Loading from "./components/UI/Loading";
+import ScrollTop from "./components/UI/ScrollTop";
 
 function App() {
   const dispatch = useDispatch();
@@ -31,6 +32,7 @@ function App() {
     <Fragment>
       {isLoggedIn !== null ? (
         <BrowserRouter>
+          <ScrollTop />
           <Header />
           <Routes>
             <Route path="/" element={<AuthHome />}></Route>
