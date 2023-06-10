@@ -6,7 +6,7 @@ import DesktopNavMenu from "./DesktopNavMenu";
 import Logo from "./Logo";
 
 import classes from "../../styles/Header.module.css";
-import { AppBar, Container, Toolbar } from "@mui/material/AppBar";
+import { AppBar, Container, Toolbar } from "@mui/material";
 
 const Header = (props) => {
   const location = useLocation();

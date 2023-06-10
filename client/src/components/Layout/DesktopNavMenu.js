@@ -6,7 +6,7 @@ import { setItem } from "../../utils";
 
 import classes from "../../styles/Header.module.css";
 import { Box, Button, Paper, InputBase, IconButton } from "@mui/material";
-import { Search as SearchIcon } from "@mui/icons-material/Search";
+import { Search as SearchIcon } from "@mui/icons-material";
 
 const DesktopNavMenu = () => {
   const dispatch = useDispatch();
