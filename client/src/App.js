@@ -14,6 +14,7 @@ import Login from "./pages/Auth/Login";
 import Register from "./pages/Auth/Register";
 import Detail from "./pages/Product/Detail";
 import Auth from "./hoc/auth";
+import Loading from "./components/UI/Loading";
 
 function App() {
   const dispatch = useDispatch();
@@ -38,11 +39,13 @@ function App() {
             <Route path="/login" element={<Login />}></Route>
             <Route path="/register" element={<Register />}></Route>
             <Route path="/products/:productId" element={<Detail />}></Route>
+
+            <Route path="/Loading" element={<Loading />}></Route>
           </Routes>
         </BrowserRouter>
       ) : (
         <div>
-          <h1>...Loading</h1>
+          <Loading />
         </div>
       )}
     </Fragment>

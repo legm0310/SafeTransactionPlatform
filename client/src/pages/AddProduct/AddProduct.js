@@ -239,6 +239,7 @@ const AddProduct = (props) => {
             maxLength={40}
             type="search"
             size="small"
+            className={classes.input}
           />
           <div>{titleLength}/40</div>
         </div>
@@ -248,7 +249,10 @@ const AddProduct = (props) => {
             가격
           </label>
           <TextField
-            sx={{ width: "20ch", m: 1 }}
+            sx={{
+              width: "20ch",
+              m: 1,
+            }}
             id="outlined-number"
             onChange={onPriceHandler}
             value={price}
@@ -257,6 +261,7 @@ const AddProduct = (props) => {
               shrink: true,
             }}
             size="small"
+            className={classes.input}
           />
           <div>BB</div>
         </div>
@@ -376,7 +381,7 @@ const AddProduct = (props) => {
         </div>
 
         <div className={classes.buttonWrap}>
-          <Button type="submit" variant="contained">
+          <Button type="submit" variant="contained" className={classes.button}>
             등록하기
           </Button>
         </div>
