@@ -65,3 +65,17 @@ export function auth() {
     payload: request,
   };
 }
+
+export function connectWallet() {
+  const request = authRequest()
+    .post()
+    .then((response) => response.data)
+    .catch((err) => {
+      console.log(err.response);
+      return err.response.data;
+    });
+  return {
+    type: "",
+    payload: request,
+  };
+}
