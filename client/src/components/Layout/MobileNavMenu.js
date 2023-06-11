@@ -1,11 +1,9 @@
 import React, { useState, Fragment } from "react";
 import { Link } from "react-router-dom";
-import IconButton from "@mui/material/IconButton";
-import MenuIcon from "@mui/icons-material/Menu";
-import Menu from "@mui/material/Menu";
-import MenuItem from "@mui/material/MenuItem";
+
 import classes from "../../styles/Header.module.css";
-import { Box } from "@mui/material";
+import { Box, IconButton, Menu, MenuItem } from "@mui/material";
+import { Menu as MenuIcon } from "@mui/icons-material";
 
 const MobileNavMenu = () => {
   const [anchorElNav, setAnchorElNav] = useState(null);
@@ -21,11 +19,18 @@ const MobileNavMenu = () => {
   return (
     <Fragment>
       <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
-        <IconButton size='large' onClick={handleOpenNavMenu} color='black'>
+        <IconButton
+          size="large"
+          aria-label="account of current user"
+          aria-controls="menu-appbar"
+          aria-haspopup="true"
+          onClick={handleOpenNavMenu}
+          color="black"
+        >
           <MenuIcon />
         </IconButton>
         <Menu
-          id='menu-appbar'
+          id="menu-appbar"
           anchorEl={anchorElNav}
           anchorOrigin={{
             vertical: "bottom",
@@ -47,12 +52,12 @@ const MobileNavMenu = () => {
           }}
         >
           <MenuItem onClick={handleCloseNavMenu}>
-            <Link to='/Product/all' className={classes.purchaseLink}>
+            <Link to="/products/all" className={classes.purchaseLink}>
               구매하기
             </Link>
           </MenuItem>
           <MenuItem onClick={handleCloseNavMenu}>
-            <Link to='/Product/add' className={classes.purchaseLink}>
+            <Link to="/products/add" className={classes.purchaseLink}>
               판매하기
             </Link>
           </MenuItem>

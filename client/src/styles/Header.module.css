@@ -1,5 +1,5 @@
 .header {
-  background-color: #fff;
+  background-color: black;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -30,7 +30,7 @@
 /* logo*/
 .logoWrap {
   text-decoration: none;
-  color: black;
+  color: #fff;
 }
 
 .logo {
@@ -46,6 +46,7 @@
   border: 3px solid #618dff;
   border-radius: 30px;
   justify-content: center;
+  align-items: center;
 }
 
 .search:focus {
@@ -54,11 +55,13 @@
 
 .search {
   width: 500px;
+  height: 100%;
   display: flex;
   align-items: center;
   border: none;
   padding: 0 15px;
   font-size: 15px;
+  background-color: black;
 }
 
 .searchBox button {
@@ -67,6 +70,7 @@
   margin-top: 3px;
   background-color: rgba(255, 255, 255, 0);
   align-items: center;
+  color: #fff;
 }
 
 .searchBox button :hover {
@@ -84,6 +88,7 @@
   margin: 0;
   padding: 0;
   font-size: 15px;
+  color: #fff;
 }
 
 /*구매하기, 판매하기*/
@@ -96,7 +101,7 @@
 
 .purchaseLink {
   text-decoration: none;
-  color: #0a0400;
+  color: #fff;
 }
 
 .purchaseLink:hover {
@@ -111,14 +116,14 @@
 
 .AddProductLink {
   text-decoration: none;
-  color: #0a0400;
+  color: #fff;
 }
 
-.AddProductLink:hover {
+/* .AddProductLink:hover {
   transform: scale(1.05);
   transition: 0.1s;
   color: #75d700;
-}
+} */
 
 .list .AddProductList {
   list-style: none;

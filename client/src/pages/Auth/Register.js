@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { signup } from "../../_actions/userAction";
+import Button from "../../components/UI/Button";
 
 import classes from "../../styles/Register.module.css";
 import { FaArrowLeft } from "react-icons/fa";
@@ -56,6 +57,8 @@ const Register = (props) => {
       if (response.payload.signupSuccess) {
         alert("회원 정보 입력 완료");
         navigate("/login");
+      } else if (response.payload.code === 400) {
+        alert("존재하는 이메일입니다.");
       } else {
         alert("회원 가입에 실패했습니다.");
       }
@@ -142,9 +145,10 @@ const Register = (props) => {
                   />
                 </div>
               </div>
-              <button type="submit" className={classes.registerButton}>
-                회원가입
-              </button>
+
+              <Button>
+                <div className={classes.registerButton}>회원가입</div>
+              </Button>
             </form>
           </div>
         </div>

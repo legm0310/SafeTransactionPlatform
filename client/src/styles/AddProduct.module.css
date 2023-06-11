@@ -91,31 +91,13 @@
   padding: 0;
   margin: 15px 0 0 0;
   font-weight: bold;
-  color: #8fbc94;
+  color: #1ecfba;
 }
 
 .imgExplain li {
   font-weight: normal;
   margin: 0;
   padding: 0;
-}
-
-/*제목 input*/
-.inputTitle {
-  padding: 0.5rem;
-  font-size: 1rem;
-  border: 1px solid #ccc;
-  width: 60%;
-  margin-right: 10px;
-}
-
-/*가격 input*/
-.inputPrice {
-  padding: 0.5rem;
-  font-size: 1rem;
-  border: 1px solid #ccc;
-  width: 12.5%;
-  margin-right: 10px;
 }
 
 /* 카테고리 박스 */
@@ -137,15 +119,6 @@
   padding: 0.4rem;
 }
 
-/*설명 input*/
-.inputTextarea {
-  height: 150px;
-  padding: 0.5rem;
-  font-size: 1rem;
-  border: 1px solid #ccc;
-  width: 83%;
-}
-
 /*등록 버튼이 들어있는 리스트*/
 .buttonWrap {
   list-style: none;
@@ -156,26 +129,21 @@
   align-items: flex-end;
 }
 
-/*등록버튼*/
-.addButton {
-  width: 160px;
-  height: 56px;
-  font-size: 20px;
-  font-weight: bold;
-  border: none;
-  background-color: #72ce01;
-  color: white;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
 /* 인풋 및 텍스트박스 클릭시 테두리 색상*/
 input:focus {
-  border-color: #72ce01;
+  border: 1px solid #1ecfba;
   outline: none;
 }
 
 textarea:focus {
-  border-color: #72ce01;
+  border-color: #1ecfba;
   outline: none;
+}
+
+.button {
+  background-color: #1ecfba;
+}
+
+.button:hover {
+  background-color: #1ecfba;
 }
