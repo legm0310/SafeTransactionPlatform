@@ -1,6 +1,7 @@
 import * as React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import PropTypes from "prop-types";
+import { ConnectWallet, Web3Button } from "@thirdweb-dev/react";
 
 import {
   styled,
@@ -15,7 +16,7 @@ import {
 import {
   Close as CloseIcon,
   WalletRounded as WalletRoundedIcon,
-} from "@mui/icons-material/Close";
+} from "@mui/icons-material";
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   "& .MuiDialogContent-root": {
@@ -84,20 +85,15 @@ export default function MyWallet() {
           내 지갑 관리
         </BootstrapDialogTitle>
         <DialogContent dividers>
-          <Typography gutterBottom>
-            Cras mattis consectetur purus sit amet fermentum. Cras justo odio,
-            dapibus ac facilisis in, 내 돈 5조 5억 BB
-          </Typography>
+          <Typography gutterBottom>내 돈 5조 5억 BB</Typography>
           <Typography gutterBottom>
             Praesent commodo cursus magna, vel scelerisque nisl consectetur et.
-            Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor
-            auctor.
           </Typography>
           <Typography gutterBottom>
             Aenean lacinia bibendum nulla sed consectetur. Praesent commodo
-            cursus magna, vel scelerisque nisl consectetur et. Donec sed odio
-            dui. Donec ullamcorper nulla non metus auctor fringilla.
           </Typography>
+          <ConnectWallet theme="white" btnTitle="지갑 연결" />
+          <Web3Button />
         </DialogContent>
         <DialogActions>
           <Button autoFocus onClick={handleClose}>

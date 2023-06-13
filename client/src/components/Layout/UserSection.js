@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { logout } from "../../_actions/userAction";
 import { ConnectWallet } from "@thirdweb-dev/react";
-// import MyWallet from "./MyWallet";
+import MyWallet from "./MyWallet";
 
 import classes from "../../styles/UserAuth.module.css";
 import {
@@ -77,6 +77,7 @@ const UserSection = () => {
       <MenuItem onClick={onMenuClose}>내 정보</MenuItem>
       <MenuItem onClick={onMenuClose}>
         <ConnectWallet theme="white" btnTitle="지갑 연결" />
+        {/* <MyWallet /> */}
       </MenuItem>
       <MenuItem
         className={classes.logout}
