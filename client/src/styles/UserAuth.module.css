@@ -1,0 +1,30 @@
+.loginRegister {
+  display: flex;
+  text-decoration: none;
+  color: black;
+}
+
+.login {
+  cursor: pointer;
+  color: black;
+}
+
+.register {
+  cursor: pointer;
+  color: black;
+}
+
+.logout {
+  cursor: pointer;
+  color: black;
+}
+
+.userSection {
+  color: black;
+  display: flex;
+  list-style: none;
+}
+
+.userSection li {
+  padding: 10px;
+}
