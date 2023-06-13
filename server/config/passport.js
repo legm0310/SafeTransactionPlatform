@@ -35,7 +35,9 @@ const refreshVerify = async (payload, done) => {
   try {
     const tokenData = await tokenService.getTokenByUserId(payload.sub);
     const tokenValues = tokenData.dataValues;
-    const reissueTimeout = tokenValues.reissue_timeout.getTime();
+    const reissueTimeout = new Date(
+      Date.parse(tokenValues.reissue_timeout)
+    ).getTime();
 
     console.log("재생성 만료기간", reissueTimeout / 1000);
     console.log("현재 타임스탬프", Math.floor(Date.now() / 1000));

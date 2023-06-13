@@ -9,7 +9,7 @@ if (process.env.NODE_ENV === "production") {
   envFound = dotenv.config({
     path: path.join(__dirname, "../.env.development"),
   });
-}
+} else envFound = dotenv.config();
 
 if (envFound.error) {
   throw new Error("⚠️  Couldn't find .env file  ⚠️");
@@ -20,8 +20,8 @@ module.exports = {
   nodeEnv: process.env.NODE_ENV,
   port: parseInt(process.env.PORT, 10),
 
-  //db 설정
-  db: {
+  //db 설정 (development, production)
+  development: {
     username: process.env.DB_USER,
     password: process.env.DB_PASSWORD,
     database: process.env.DATABASE,
@@ -29,7 +29,24 @@ module.exports = {
     dialect: "mysql",
     timezone: "+09:00", // DB에 저장할 때 시간 설정
     dialectOptions: {
-      timezone: "+09:00", // DB에서 가져올 때 시간 설정
+      charset: "utf8mb4",
+      dateStrings: true,
+      typeCast: true,
+      // DB에서 가져올 때 시간 설정
+    },
+  },
+  production: {
+    username: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DATABASE,
+    host: process.env.DB_HOST,
+    dialect: "mysql",
+    timezone: "+09:00", // DB에 저장할 때 시간 설정
+    dialectOptions: {
+      charset: "utf8mb4",
+      dateStrings: true,
+      typeCast: true,
+      // DB에서 가져올 때 시간 설정
     },
   },
 

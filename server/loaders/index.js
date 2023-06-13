@@ -2,10 +2,6 @@ const sequelizeLoader = require("./sequelize");
 const config = require("../config");
 const expressLoader = require("./express");
 const dependencyInjectorLoader = require("./dependencyInjector");
-const {
-  modelDependencyArr,
-  serviceDependencyArr,
-} = require("./containerObject");
 /** 앱 실행 전 필요한 파일들을 로드하는 함수.
  * @description sequelize, MysqlDB 동기화, 의존성 주입, express 미들웨어 로드
  * @description loader 폴더의 index -> sequelize -> dependencyInjector, containerObject -> express 순으로 실행
@@ -27,9 +23,9 @@ const init = async ({ expressApp }) => {
   }
 
   try {
-    await dependencyInjectorLoader({
-      models: modelDependencyArr,
-      services: serviceDependencyArr,
+    dependencyInjectorLoader({
+      models: require("../models"),
+      services: require("../services"),
     });
 
     console.log("👌 Dependency Injector loaded\n");
@@ -39,7 +35,7 @@ const init = async ({ expressApp }) => {
   }
 
   try {
-    await expressLoader({ app: expressApp });
+    expressLoader({ app: expressApp });
     console.log("👌 Express loaded\n");
   } catch (err) {
     console.log(`🔥 Error on Express Loader: `);

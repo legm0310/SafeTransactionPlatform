@@ -1,6 +1,9 @@
 const { Container } = require("typedi");
-const { BadRequestError, NotFoundError, parseProducts } = require("../utils");
-const { Op } = require("sequelize");
+const {
+  InternelServerError,
+  generateGetProductsQuery,
+  extractProductsList,
+} = require("../utils");
 
 class ProductService {
   constructor() {
@@ -13,63 +16,55 @@ class ProductService {
   }
 
   //query에 따른 분기
-  //status, search, page
   async getProducts(params) {
-    let limit = 12;
-    let query = {
-      where: { ...params },
-      order: [
-        ["created_at", "DESC"],
-        ["id", "DESC"],
-      ],
-      limit: limit,
-      attributes: ["title", "price", "images", "created_at"],
-    };
-
-    const products = await this.Product.findAll(query);
-    const parsedProds = parseProducts(products);
-    return parsedProds;
+    const query = generateGetProductsQuery(params);
+    const { count, rows } = await this.Product.findAndCountAll(query);
+    const pages = Math.ceil(count / 12);
+    console.log("query", query);
+    console.log(rows);
+    const extractedList = extractProductsList(rows);
+    return { pages, prodList: extractedList };
   }
 
   //infinite scrolling 방식 (lastId)
-  async getRecentProducts(lastId) {
-    let limit = 12;
-    let query = {
-      where: lastId ? { id: { [Op.lt]: lastId } } : null,
-      order: [
-        ["created_at", "DESC"],
-        ["id", "DESC"],
-      ],
-      limit: limit,
-      attributes: ["title", "price", "images", "created_at"],
-    };
-
+  async getRecentProducts(params) {
+    const query = generateGetProductsQuery(params);
+    // console.log("query", query);
     const products = await this.Product.findAll(query);
-    if (!products) throw new NotFoundError("Product not found");
+    if (!products) throw new InternelServerError("Internel Server Error");
 
-    const parsedProds = parseProducts(products);
-    return parsedProds;
-  }
-
-  async getProductsByState(status) {
-    let query = {
-      where: { status: status },
-    };
-    const products = await this.Product.findAll(status);
-    if (!products) throw new NotFoundError("Product not found");
-    const parsedProds = parseProducts(products);
-    return products;
+    const extractedList = extractProductsList(products);
+    return extractedList;
   }
 
   async getProductById(id) {
     const product = await this.Product.findByPk(id);
-    return product.toJSON();
+    const parsedProduct = product.toJSON();
+    parsedProduct.images = parsedProduct.images.split(",");
+    return parsedProduct;
   }
 
-  async updateProduct() {}
+  async updateProductStatus(state, id) {
+    const updated = await this.Product.update(
+      { status: state },
+      { where: { id: id } }
+    );
+    if (!updated) {
+      throw new InternelServerError(updated);
+    }
+    return updated;
+  }
 
-  async deleteProduct() {
-    const deletedRows = await User.destroy({
+  async updateProduct(attr, id) {
+    const updated = await this.Product.update(
+      { status: attr },
+      { where: { id: id } }
+    );
+    return updated;
+  }
+
+  async deleteProduct(id) {
+    const deletedRows = await this.Product.destroy({
       where: {},
     });
     if (!deletedRows) {
