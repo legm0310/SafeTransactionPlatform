@@ -1,10 +1,10 @@
 import { Fragment } from "react";
-
 import Slide from "./HomeSlide";
+import RecentProductsList from "../../components/RecentProductsList";
 import mainImg from "../../assets/platformImage1.png";
 import mainImg1 from "../../assets/platformImage4.png";
+
 import classes from "../../styles/Home.module.css";
-import RecentProductsList from "../../components/RecentProductsList";
 
 const Home = (props) => {
   return (

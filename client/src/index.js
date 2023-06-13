@@ -10,6 +10,24 @@ import promiseMiddleware from "redux-promise";
 import ReduxThunk from "redux-thunk";
 import Reducer from "./_reducers";
 
+import { ThemeProvider, createTheme } from "@mui/material";
+
+import {
+  ThirdwebProvider,
+  metamaskWallet,
+  coinbaseWallet,
+  walletConnectV1,
+} from "@thirdweb-dev/react";
+import { Sepolia } from "@thirdweb-dev/chains";
+
+const muiTheme = createTheme();
+// const smartWalletConfig = {
+//   factoryAddress: "",
+//   gasless: true,
+//   thirdwebApiKey: process.env.REACT_APP_THIRDWEB_API_KEY,
+//   personalWallets: [metamaskWallet(), coinbaseWallet(), walletConnectV1()],
+// };
+
 // const store1 = configureStore({
 //   reducer: Reducer,
 //   devTools: process.env.NODE_ENV !== "production",
@@ -33,7 +51,14 @@ root.render(
         window.__REDUX_DEVTOOLS_EXTENSION__()
     )}
   >
-    <App />
+    <ThirdwebProvider
+      activeChain={Sepolia}
+      supportedWallets={[metamaskWallet(), coinbaseWallet(), walletConnectV1()]}
+    >
+      <ThemeProvider theme={muiTheme}>
+        <App />
+      </ThemeProvider>
+    </ThirdwebProvider>
   </Provider>
 );
 

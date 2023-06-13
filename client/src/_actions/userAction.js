@@ -57,12 +57,25 @@ export function auth() {
     .get("/api/auth/check")
     .then((response) => response.data)
     .catch((err) => {
-      // localStorage.removeItem("accessToken");
       console.log(err.response);
       return err.response.data;
     });
   return {
     type: AUTH_USER,
+    payload: request,
+  };
+}
+
+export function connectWallet() {
+  const request = authRequest()
+    .post()
+    .then((response) => response.data)
+    .catch((err) => {
+      console.log(err.response);
+      return err.response.data;
+    });
+  return {
+    type: "",
     payload: request,
   };
 }

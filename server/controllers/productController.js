@@ -14,19 +14,21 @@ module.exports = {
 
   getProducts: catchAsync(async (req, res) => {
     const prodServiceInstance = await Container.get("productService");
-    const products = await prodServiceInstance.getProducts();
+    const params = req.query;
+    const { pages, prodList } = await prodServiceInstance.getProducts(params);
     res.status(200).json({
       getProductsSuccess: true,
-      products: products,
+      totalPage: pages,
+      products: prodList,
     });
   }),
 
   getRecentProducts: catchAsync(async (req, res) => {
     const prodServiceInstance = await Container.get("productService");
-    const lastId = parseInt(req.query.lastId, 10);
-    const recentProducts = await prodServiceInstance.getRecentProducts(lastId);
+    const params = req.query;
+    const recentProducts = await prodServiceInstance.getRecentProducts(params);
     res.status(200).json({
-      getRecentProductSuccess: true,
+      getRecentProductsSuccess: true,
       products: recentProducts,
     });
   }),
@@ -44,12 +46,38 @@ module.exports = {
   updateProduct: catchAsync(async (req, res) => {
     const prodServiceInstance = await Container.get("productService");
     const productId = req.params;
+    await prodServiceInstance.updateProduct(productId);
     res.status(200).json({});
   }),
 
   deleteProduct: catchAsync(async (req, res) => {
     const prodServiceInstance = await Container.get("productService");
     const productId = req.params;
+    await prodServiceInstance.deleteProduct(productId);
     res.status(200).json({});
+  }),
+
+  escrowDeposit: catchAsync(async (req, res) => {
+    const prodServiceInstance = await Container.get("productService");
+    const productId = req.params.id;
+    const updatedProd = await prodServiceInstance.updateProductStatus(
+      "RESERVED",
+      productId
+    );
+    res.status(200).json({
+      updated: updatedProd,
+    });
+  }),
+
+  release: catchAsync(async (req, res) => {
+    const prodServiceInstance = await Container.get("productService");
+    const productId = req.params.id;
+    const updatedProd = await prodServiceInstance.updateProductStatus(
+      "SOLD",
+      productId
+    );
+    res.status(200).json({
+      updated: updatedProd,
+    });
   }),
 };

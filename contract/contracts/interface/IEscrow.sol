@@ -8,13 +8,20 @@ pragma solidity >=0.8.0 <0.9.0;
 
 interface IEscrow {
 
-  function release() external returns (bool);
+  function releaseToSeller(bool _isApprove, address _sellerAddress, uint256 _amount) external returns (bool);
 
-  function refund() external returns (bool);
+  function refundsToBuyer(address _buyerAddress, uint256 _amount) external returns (bool);
 
-  event CompleteTransaction(address indexed from, address indexed to, uint256  indexed productId, uint256 timestamp, uint256 value);
+  event EscrowCreate(address indexed buyer, address indexed seller, uint32 productId, uint256 amount, uint256 timestamp);
+
+  event EscrowDeposit(uint32 indexed escrowId, uint256 amount, uint256 indexed timestamp);
+
+  event ReleaseApproval(uint32 indexed escrowId, uint256 indexed timestamp);
+
+
+  // event CompletedTransaction(address indexed buyer, address indexed seller, uint256 indexed productId, uint256 timestamp, uint256 value);
   
-  event CancelTransaction(address indexed from, address indexed to, uint256 indexed productId, uint256 timestamp, uint256 value);
+  // event CanceledTransaction(address indexed buyer, address indexed seller, uint256 indexed productId, uint256 timestamp, uint256 value);
 
     // function totalSupply() external view returns (uint256);
 

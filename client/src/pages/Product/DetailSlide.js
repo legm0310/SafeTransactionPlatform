@@ -1,11 +1,16 @@
 import { Fragment } from "react";
+import { useSelector } from "react-redux";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import testImg from "../../assets/test.jpg";
+import styled from "styled-components";
+
 import classes from "../../styles/DetailSlide.module.css";
 
-const Slide = () => {
+const DetailSlide = () => {
+  const productDetail = useSelector(
+    (state) => state.product.productDetail?.product
+  );
   const settings = {
     dots: true, // 캐러셀 밑에 ... 을 표시할지
     infinite: true, // 슬라이드가 끝까지 가면 다시 처음으로 반복
@@ -20,29 +25,49 @@ const Slide = () => {
   return (
     <Fragment>
       <div>
-        <Slider {...settings}>
-          <div>
-            <img src={testImg} alt="" className={classes.slideImg} />
-          </div>
-          <div>
-            <h3>2</h3>
-          </div>
-          <div>
-            <h3>3</h3>
-          </div>
-          <div>
-            <h3>4</h3>
-          </div>
-          <div>
-            <h3>5</h3>
-          </div>
-          <div>
-            <h3>6</h3>
-          </div>
-        </Slider>
+        <StyledSlider {...settings}>
+          {productDetail?.images.map((img) => (
+            <div key={img.split("/").slice(-2).join("/")}>
+              <img src={img} alt="" className={classes.slideImg} />
+            </div>
+          ))}
+        </StyledSlider>
       </div>
     </Fragment>
   );
 };
 
-export default Slide;
+export default DetailSlide;
+
+const StyledSlider = styled(Slider)`
+  .slick-prev {
+    z-index: 1;
+    left: 30px;
+  }
+
+  .slick-next {
+    right: 60px;
+  }
+
+  .slick-prev:before,
+  .slick-next:before {
+    font-size: 50px;
+    opacity: 1;
+    color: #1ecfba;
+  }
+
+  .slick-dots {
+    display: flex;
+    justify-content: center;
+    bottom: 30px;
+    color: white;
+
+    li button:before {
+      color: white;
+    }
+
+    li.slick-active button:before {
+      color: white;
+    }
+  }
+`;

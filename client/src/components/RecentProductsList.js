@@ -1,8 +1,10 @@
 import { Fragment, useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { getRecentProducts } from "../_actions/productAction";
+import Button from "./UI/Button";
 
 import classes from "../styles/RecentProductsList.module.css";
-import { useDispatch, useSelector } from "react-redux";
-import { getRecentProducts } from "../_actions/productAction";
 
 const RecentProductsList = () => {
   const dispatch = useDispatch();
@@ -18,7 +20,7 @@ const RecentProductsList = () => {
     console.log("lastProdId", lastProdId);
     dispatch(getRecentProducts(lastProdId))
       .then((response) => {
-        const prodListFromDb = response.payload.products;
+        const prodListFromDb = response.payload.products ?? [];
         console.log(prodListFromDb);
         setProductsList((productsList) => [...productsList, ...prodListFromDb]);
 
@@ -27,36 +29,43 @@ const RecentProductsList = () => {
         }
       })
       .catch((err) => err);
-  }, [lastProdId]);
+  }, [dispatch, lastProdId]);
 
   return (
     <Fragment>
       <div className={classes.latestProductContainer}>
         <h1>판다의 최근 상품</h1>
+
         <div className={classes.prodCardWrap}>
           <div className={classes.prodCardContainer}>
             {productsList.map((product) => (
-              <div className={classes.prodCard}>
-                <div className={classes.imgBox}>
-                  <img
-                    key={product.id}
-                    src={product.image}
-                    className={classes.prodImg}
-                    alt=""
-                  />
-                </div>
+              <div key={product.id} className={classes.prodCard}>
+                <Link to={`/products/${product.id}`}>
+                  <div className={classes.imgBox}>
+                    <img
+                      src={product.image}
+                      className={classes.prodImg}
+                      alt=""
+                    />
+                  </div>
 
-                <div className={classes.prodInfo}>
-                  <div className={classes.prodName}>{product.title}</div>
-                  <div className={classes.prodPrice}> {product.price}</div>
-                </div>
+                  <div className={classes.prodInfo}>
+                    <div className={classes.prodName}>{product.title}</div>
+                    <div className={classes.prodPrice}> {product.price}</div>
+                  </div>
+                </Link>
               </div>
             ))}
           </div>
         </div>
-        {displayMore ? (
-          <button onClick={onClickMoreProduct}>더보기</button>
-        ) : null}
+
+        <div className={classes.moreButtonWrap}>
+          {displayMore ? (
+            <Button onClick={onClickMoreProduct}>
+              <div className={classes.moreButton}>더보기</div>
+            </Button>
+          ) : null}
+        </div>
       </div>
     </Fragment>
   );
