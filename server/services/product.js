@@ -44,10 +44,27 @@ class ProductService {
     return parsedProduct;
   }
 
-  async updateProduct() {}
+  async updateProductStatus(state, id) {
+    const updated = await this.Product.update(
+      { status: state },
+      { where: { id: id } }
+    );
+    if (!updated) {
+      throw new InternelServerError(updated);
+    }
+    return updated;
+  }
 
-  async deleteProduct() {
-    const deletedRows = await User.destroy({
+  async updateProduct(attr, id) {
+    const updated = await this.Product.update(
+      { status: attr },
+      { where: { id: id } }
+    );
+    return updated;
+  }
+
+  async deleteProduct(id) {
+    const deletedRows = await this.Product.destroy({
       where: {},
     });
     if (!deletedRows) {

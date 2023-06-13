@@ -56,4 +56,28 @@ module.exports = {
     await prodServiceInstance.deleteProduct(productId);
     res.status(200).json({});
   }),
+
+  escrowDeposit: catchAsync(async (req, res) => {
+    const prodServiceInstance = await Container.get("productService");
+    const productId = req.params.id;
+    const updatedProd = await prodServiceInstance.updateProductStatus(
+      "RESERVED",
+      productId
+    );
+    res.status(200).json({
+      updated: updatedProd,
+    });
+  }),
+
+  release: catchAsync(async (req, res) => {
+    const prodServiceInstance = await Container.get("productService");
+    const productId = req.params.id;
+    const updatedProd = await prodServiceInstance.updateProductStatus(
+      "SOLD",
+      productId
+    );
+    res.status(200).json({
+      updated: updatedProd,
+    });
+  }),
 };
