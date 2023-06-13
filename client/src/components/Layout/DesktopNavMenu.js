@@ -67,7 +67,7 @@ const DesktopNavMenu = () => {
           </Button>
         </Link>
 
-        <Link to="Loading" className={classes.purchaseLink}>
+        {/* <Link to="Loading" className={classes.purchaseLink}>
           <Button
             onClick={handleCloseNavMenu}
             sx={{
@@ -79,7 +79,7 @@ const DesktopNavMenu = () => {
           >
             로딩버튼
           </Button>
-        </Link>
+        </Link> */}
 
         <Paper
           component="form"
