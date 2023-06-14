@@ -7,7 +7,7 @@ const token = require("./token");
 const product = require("./product");
 // const productImage = require("./productImage");
 const chatRoom = require("./chatRoom");
-const chatParticipant = require("./chatParticipant");
+const chatLog = require("./chatLog");
 
 const sequelize = new Sequelize(
   dbConfig.database,
@@ -21,7 +21,7 @@ db.User = user;
 db.Token = token;
 db.Product = product;
 db.ChatRoom = chatRoom;
-db.chatParticipant = chatParticipant;
+db.ChatLog = chatLog;
 
 // console.log(new db.User());
 Object.keys(db).forEach(async (name) => {
