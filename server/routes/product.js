@@ -17,5 +17,7 @@ module.exports = (app) => {
   router.get("/recent", productController.getRecentProducts);
   router.get("/:id", productController.getProduct);
   router.put("/:id", productController.updateProduct);
+  router.put("/purchase/:id", productController.escrowDeposit);
+  router.put("/release/:id", productController.release);
   router.delete("/:id", productController.deleteProduct);
 };

@@ -52,7 +52,7 @@ module.exports = {
           updated_at: "2023-02-10 20:53:20",
         },
         {
-          status: "COMPLETE",
+          status: "SOLD",
           title: "yejuNqWvWwOGIOsU",
           price: 2006,
           category: "UVA/UVB SPF 15",
@@ -63,7 +63,7 @@ module.exports = {
           updated_at: "2023-02-10 20:55:00",
         },
         {
-          status: "COMPLETE",
+          status: "SOLD",
           title: "wcwcWhXpWxJAQTrY",
           price: 2005,
           category: "Naratriptan",
@@ -85,7 +85,7 @@ module.exports = {
           updated_at: "2023-02-10 20:58:20",
         },
         {
-          status: "COMPLETE",
+          status: "SOLD",
           title: "lkjfEcIuCnYGAKzJ",
           price: 2010,
           category: "Torsemide",
@@ -107,7 +107,7 @@ module.exports = {
           updated_at: "2023-02-10 21:01:40",
         },
         {
-          status: "COMPLETE",
+          status: "SOLD",
           title: "nyxtAtGqFsLZCLvX",
           price: 1992,
           category: "Furosemide",
@@ -118,7 +118,7 @@ module.exports = {
           updated_at: "2023-02-10 21:03:20",
         },
         {
-          status: "COMPLETE",
+          status: "SOLD",
           title: "uqzdSqBwQiXFSShA",
           price: 2005,
           category: "Premier Value Infants Ibuprofen",
@@ -140,7 +140,7 @@ module.exports = {
           updated_at: "2023-02-10 21:06:40",
         },
         {
-          status: "COMPLETE",
+          status: "SOLD",
           title: "dgfuKvTtZfHLPTxN",
           price: 2007,
           category: "Aspirin",
@@ -173,7 +173,7 @@ module.exports = {
           updated_at: "2023-02-10 21:11:40",
         },
         {
-          status: "COMPLETE",
+          status: "SOLD",
           title: "scwwAkNbQvKJOXiD",
           price: 1992,
           category: "Tartar Control Plus",
@@ -195,7 +195,7 @@ module.exports = {
           updated_at: "2023-02-10 21:15:00",
         },
         {
-          status: "COMPLETE",
+          status: "SOLD",
           title: "yxocVpKvJqKCBOrV",
           price: 2010,
           category: "ShopRite Allergy",
@@ -206,7 +206,7 @@ module.exports = {
           updated_at: "2023-02-10 21:16:40",
         },
         {
-          status: "COMPLETE",
+          status: "SOLD",
           title: "eabcYhQtSsYBDKtE",
           price: 2009,
           category: "Quetiapine fumarate",
@@ -239,7 +239,7 @@ module.exports = {
           updated_at: "2023-02-10 21:21:40",
         },
         {
-          status: "COMPLETE",
+          status: "SOLD",
           title: "dudrPuLtZoLHUJuE",
           price: 2002,
           category: "Foaming Antibacterial",
@@ -327,7 +327,7 @@ module.exports = {
           updated_at: "2023-02-10 21:35:00",
         },
         {
-          status: "COMPLETE",
+          status: "SOLD",
           title: "ffznQcMtBeWUJOiR",
           price: 1996,
           category: "Glimepiride",
@@ -393,7 +393,7 @@ module.exports = {
           updated_at: "2023-02-10 21:45:00",
         },
         {
-          status: "COMPLETE",
+          status: "SOLD",
           title: "ilakPrOzQzBLZHhP",
           price: 1990,
           category: "Anti-Bacterial Hand Sanitizer",
@@ -404,7 +404,7 @@ module.exports = {
           updated_at: "2023-02-10 21:46:40",
         },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "znhgHyCaCiWATGoH",
         //   price: 1992,
         //   category: "TussiCaps",
@@ -426,7 +426,7 @@ module.exports = {
         //   updated_at: "2023-02-10 21:50:00",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "czkvAxVrRrUZWDpM",
         //   price: 1992,
         //   category: "Mandragora Rheum",
@@ -459,7 +459,7 @@ module.exports = {
         //   updated_at: "2023-02-10 21:55:00",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "nwuqSaBvRvTVVZqD",
         //   price: 2010,
         //   category: "BroveX PSB DM",
@@ -481,7 +481,7 @@ module.exports = {
         //   updated_at: "2023-02-10 21:58:20",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "wbtfKvYuLcGOMFvV",
         //   price: 2010,
         //   category: "Icy Hot Medicated Roll Medium",
@@ -525,7 +525,7 @@ module.exports = {
         //   updated_at: "2023-02-10 22:05:00",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "quikNoNzNbAEKGhP",
         //   price: 1995,
         //   category: "Zolpidem Tartrate",
@@ -536,7 +536,7 @@ module.exports = {
         //   updated_at: "2023-02-10 22:06:40",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "yctyVtAdWyWFHQaZ",
         //   price: 1992,
         //   category: "Beauty Dynamics",
@@ -569,7 +569,7 @@ module.exports = {
         //   updated_at: "2023-02-10 22:11:40",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "bqqaAmSwKvPFXPrN",
         //   price: 2002,
         //   category: "SODIUM SULFACETAMIDE and SULFUR",
@@ -668,7 +668,7 @@ module.exports = {
         //   updated_at: "2023-02-10 22:26:40",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "kscfUyWrFrDKKMeO",
         //   price: 1978,
         //   category: "Fluoxetine",
@@ -734,7 +734,7 @@ module.exports = {
         //   updated_at: "2023-02-10 22:36:40",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "sdwsKhHoVvDJLYbQ",
         //   price: 2011,
         //   category: "Panama Jack",
@@ -767,7 +767,7 @@ module.exports = {
         //   updated_at: "2023-02-10 22:41:40",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "pclwShUhLsCFPNtJ",
         //   price: 1994,
         //   category:
@@ -790,7 +790,7 @@ module.exports = {
         //   updated_at: "2023-02-10 22:45:00",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "juknQqHaMsEPAZoN",
         //   price: 2010,
         //   category: "ANTIBIOTIC",
@@ -801,7 +801,7 @@ module.exports = {
         //   updated_at: "2023-02-10 22:46:40",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "xezjZfJhXdMHSMmA",
         //   price: 2001,
         //   category: "Indomethacin",
@@ -823,7 +823,7 @@ module.exports = {
         //   updated_at: "2023-02-10 22:50:00",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "ncbuTtCsToOCBGhC",
         //   price: 2005,
         //   category: "Valproic Acid",
@@ -834,7 +834,7 @@ module.exports = {
         //   updated_at: "2023-02-10 22:51:40",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "bimlCtRlLpEXHPhV",
         //   price: 2009,
         //   category: "Clonazepam",
@@ -889,7 +889,7 @@ module.exports = {
         //   updated_at: "2023-02-10 23:00:00",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "sqmiHjJiKtHDSPfU",
         //   price: 1994,
         //   category: "Plum Emergency Eyewash",
@@ -922,7 +922,7 @@ module.exports = {
         //   updated_at: "2023-02-10 23:05:00",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "aksqDzLjJwGEYUrO",
         //   price: 2004,
         //   category: "Omeprazole",
@@ -944,7 +944,7 @@ module.exports = {
         //   updated_at: "2023-02-10 23:08:20",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "kfzmMvZmWjSRYOrY",
         //   price: 2011,
         //   category: "ATORVASTATIN CALCIUM",
@@ -988,7 +988,7 @@ module.exports = {
         //   updated_at: "2023-02-10 23:15:00",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "ulxhLbYdIcJHTJoC",
         //   price: 1994,
         //   category: "EMEND",
@@ -1120,7 +1120,7 @@ module.exports = {
         //   updated_at: "2023-02-10 23:35:00",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "giorMsSkBxMHDOzD",
         //   price: 2011,
         //   category: "Bladder Incontinence Formula",
@@ -1131,7 +1131,7 @@ module.exports = {
         //   updated_at: "2023-02-10 23:36:40",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "wgzfJzTcLxYGZElD",
         //   price: 2000,
         //   category: "KHUSKIA ORYZAE",
@@ -1142,7 +1142,7 @@ module.exports = {
         //   updated_at: "2023-02-10 23:38:20",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "vjmuHaNvMxTUDHiI",
         //   price: 2008,
         //   category: "Sertraline Hydrochloride",
@@ -1175,7 +1175,7 @@ module.exports = {
         //   updated_at: "2023-02-10 23:43:20",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "phqaHwGrPpDXOGlW",
         //   price: 1998,
         //   category: "DG Health tussin cf",
@@ -1197,7 +1197,7 @@ module.exports = {
         //   updated_at: "2023-02-10 23:46:40",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "ojadPwLmNcXJTLtR",
         //   price: 1986,
         //   category: "Haloperidol",
@@ -1208,7 +1208,7 @@ module.exports = {
         //   updated_at: "2023-02-10 23:48:20",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "dcueHsRfHpSZBLhF",
         //   price: 2011,
         //   category: "Ibuprofen",
@@ -1263,7 +1263,7 @@ module.exports = {
         //   updated_at: "2023-02-10 23:56:40",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "itdkPiVeTiZZVNtY",
         //   price: 2007,
         //   category: "Sepia",
@@ -1274,7 +1274,7 @@ module.exports = {
         //   updated_at: "2023-02-10 23:58:20",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "srvkVkGyZsYYSOgV",
         //   price: 2008,
         //   category: "Nu Skin 180 Degree UV Defense Hydrator SPF 18",
@@ -1296,7 +1296,7 @@ module.exports = {
         //   updated_at: "2023-02-11 00:01:40",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "nlfxVkQgAhWZWNxI",
         //   price: 2007,
         //   category: "Gabapentin",
@@ -1428,7 +1428,7 @@ module.exports = {
         //   updated_at: "2023-02-11 00:21:40",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "nrpwEyAePtQDYArP",
         //   price: 2006,
         //   category: "JIANZE ALCOHOL PREP PAD LARGE",
@@ -1450,7 +1450,7 @@ module.exports = {
         //   updated_at: "2023-02-11 00:25:00",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "ichmIjHlMiRTOBfL",
         //   price: 1998,
         //   category: "Testosterone Cypionate",
@@ -1461,7 +1461,7 @@ module.exports = {
         //   updated_at: "2023-02-11 00:26:40",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "mzhuQhYxJnDICOqQ",
         //   price: 2005,
         //   category: "ATORVASTATIN CALCIUM",
@@ -1483,7 +1483,7 @@ module.exports = {
         //   updated_at: "2023-02-11 00:30:00",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "htteUmKuZcJAPQtP",
         //   price: 2001,
         //   category: "Image Essentials",
@@ -1516,7 +1516,7 @@ module.exports = {
         //   updated_at: "2023-02-11 00:35:00",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "llsbFfRjAaIOSXcG",
         //   price: 1994,
         //   category: "Entacapone",
@@ -1582,7 +1582,7 @@ module.exports = {
         //   updated_at: "2023-02-11 00:45:00",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "apgnDnCvAnCOQJpC",
         //   price: 1993,
         //   category: "Clean and Clear Continuous Control Acne Cleanser",
@@ -1615,7 +1615,7 @@ module.exports = {
         //   updated_at: "2023-02-11 00:50:00",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "pnaeYlQaQuFNRPtE",
         //   price: 2004,
         //   category: "Better Breath",
@@ -1637,7 +1637,7 @@ module.exports = {
         //   updated_at: "2023-02-11 00:53:20",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "qnemEvEwWbWQBOtA",
         //   price: 1997,
         //   category: "PROVIGIL",
@@ -1659,7 +1659,7 @@ module.exports = {
         //   updated_at: "2023-02-11 00:56:40",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "qeurZqSkSuXSXQaF",
         //   price: 2003,
         //   category: "Mavik",
@@ -1703,7 +1703,7 @@ module.exports = {
         //   updated_at: "2023-02-11 01:03:20",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "wxbtNrIxIoJFZGdG",
         //   price: 1984,
         //   category: "Venlafaxine Hydrochloride",
@@ -1747,7 +1747,7 @@ module.exports = {
         //   updated_at: "2023-02-11 01:10:00",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "ezwoLpFbLrQWWHdF",
         //   price: 1983,
         //   category: "Penicilium chrysogenum",
@@ -1792,7 +1792,7 @@ module.exports = {
         //   updated_at: "2023-02-11 01:16:40",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "crybDlJbCyGJMTtR",
         //   price: 2004,
         //   category: "Health Smart Blue Ice Topical Analgesic",
@@ -1803,7 +1803,7 @@ module.exports = {
         //   updated_at: "2023-02-11 01:18:20",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "xxmyPlDhHcBMGJfQ",
         //   price: 1989,
         //   category: "Pleo Stolo",
@@ -1869,7 +1869,7 @@ module.exports = {
         //   updated_at: "2023-02-11 01:28:20",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "bgsmSzGjGdYPFBrQ",
         //   price: 2006,
         //   category: "Skelaxin",
@@ -1935,7 +1935,7 @@ module.exports = {
         //   updated_at: "2023-02-11 01:38:20",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "tkjcAvYrOiAKYOsP",
         //   price: 2006,
         //   category: "good neighbor pharmacy pain relief",
@@ -1957,7 +1957,7 @@ module.exports = {
         //   updated_at: "2023-02-11 01:41:40",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "aisrXbMvSfNMMTjB",
         //   price: 2008,
         //   category: "Warfarin Sodium",
@@ -2001,7 +2001,7 @@ module.exports = {
         //   updated_at: "2023-02-11 01:48:20",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "ktusCeJpToMTUFiH",
         //   price: 2011,
         //   category: "Aspirin",
@@ -2023,7 +2023,7 @@ module.exports = {
         //   updated_at: "2023-02-11 01:51:40",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "atozNyHvJuCTXDmK",
         //   price: 2004,
         //   category: "Agaricus Phosphorus",
@@ -2078,7 +2078,7 @@ module.exports = {
         //   updated_at: "2023-02-11 02:00:00",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "dpmcNnUlZzESEMyK",
         //   price: 2008,
         //   category: "HYDROCODONE BITARTRATE AND ACETAMINOPHEN",
@@ -2089,7 +2089,7 @@ module.exports = {
         //   updated_at: "2023-02-11 02:01:40",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "ynmbHaAjHtVUFNnJ",
         //   price: 2002,
         //   category: "Naropin",
@@ -2133,7 +2133,7 @@ module.exports = {
         //   updated_at: "2023-02-11 02:08:20",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "fsdcQfXcRcTRMSiZ",
         //   price: 1987,
         //   category: "Assured Day time Cold and Cough",
@@ -2166,7 +2166,7 @@ module.exports = {
         //   updated_at: "2023-02-11 02:13:20",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "mftjAoBuLtCISKkO",
         //   price: 2007,
         //   category: "The Cover Classic Soft Foundation",
@@ -2177,7 +2177,7 @@ module.exports = {
         //   updated_at: "2023-02-11 02:15:00",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "pxamVaCaCgYKIEnU",
         //   price: 2009,
         //   category: "Duloxetine hydrochloride",
@@ -2210,7 +2210,7 @@ module.exports = {
         //   updated_at: "2023-02-11 02:20:00",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "ahyiHsAsMeFCXJvL",
         //   price: 1986,
         //   category: "Methocarbamol",
@@ -2221,7 +2221,7 @@ module.exports = {
         //   updated_at: "2023-02-11 02:21:40",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "zzbzGfPnGiXMXYjH",
         //   price: 1989,
         //   category: "Pac-Dent Top Gel",
@@ -2232,7 +2232,7 @@ module.exports = {
         //   updated_at: "2023-02-11 02:23:20",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "okxnUaOeQfLSGLoB",
         //   price: 2008,
         //   category: "Sun Shades Lip Balm",
@@ -2276,7 +2276,7 @@ module.exports = {
         //   updated_at: "2023-02-11 02:30:00",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "leriAlRkLoOQXAgT",
         //   price: 1999,
         //   category: "Pulsatilla Tormentilla",
@@ -2287,7 +2287,7 @@ module.exports = {
         //   updated_at: "2023-02-11 02:31:40",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "xzqeYgRjTbDKKQhK",
         //   price: 1961,
         //   category: "Face Saver Gel",
@@ -2375,7 +2375,7 @@ module.exports = {
         //   updated_at: "2023-02-11 02:45:00",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "beoiBmUhSxBVXXeT",
         //   price: 1998,
         //   category: "Olay Total Effects CC Tone Correcting",
@@ -2386,7 +2386,7 @@ module.exports = {
         //   updated_at: "2023-02-11 02:46:40",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "imaoJpAaKnIEIRhK",
         //   price: 2000,
         //   category: "Precose",
@@ -2408,7 +2408,7 @@ module.exports = {
         //   updated_at: "2023-02-11 02:50:00",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "pofrJiFdElLCXKaF",
         //   price: 2008,
         //   category: "smart sense hemorrhoidal",
@@ -2477,7 +2477,7 @@ module.exports = {
         //   status: "SALE",
         //   title: "hxnzFgWnArEYAQgM",
         //   price: 2006,
-        //   category: "acid reducer complete",
+        //   category: "acid reducer SOLD",
         //   detail: "productize rich bandwidth",
         //   images: "http://dummyimage.com/140x100.png/ff4444/ffffff",
         //   seller_id: 2,
@@ -2485,7 +2485,7 @@ module.exports = {
         //   updated_at: "2023-02-11 03:01:40",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "tjgxHsYkVwBTQUuH",
         //   price: 2008,
         //   category: "Liver Tonic II",
@@ -2507,7 +2507,7 @@ module.exports = {
         //   updated_at: "2023-02-11 03:05:00",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "cdvpIwRjKwRPXTfP",
         //   price: 1990,
         //   category: "Salsalate",
@@ -2540,7 +2540,7 @@ module.exports = {
         //   updated_at: "2023-02-11 03:10:00",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "orjkPnGqMnVEIDjY",
         //   price: 2006,
         //   category: "Mirtazapine",
@@ -2551,7 +2551,7 @@ module.exports = {
         //   updated_at: "2023-02-11 03:11:40",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "ltsrJsMqIwQQZJgE",
         //   price: 2009,
         //   category: "Argentum Malachite Athletes Foot Relief",
@@ -2562,7 +2562,7 @@ module.exports = {
         //   updated_at: "2023-02-11 03:13:20",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "rlyqEdUaKhLTZTiA",
         //   price: 2012,
         //   category: "Cipro",
@@ -2573,7 +2573,7 @@ module.exports = {
         //   updated_at: "2023-02-11 03:15:00",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "uzzvCyKdZzSOFFrU",
         //   price: 1996,
         //   category: "Bicalutamide",
@@ -2606,7 +2606,7 @@ module.exports = {
         //   updated_at: "2023-02-11 03:20:00",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "mvleTxLnRsKKZMvW",
         //   price: 2002,
         //   category: "Temozolomide",
@@ -2661,7 +2661,7 @@ module.exports = {
         //   updated_at: "2023-02-11 03:28:20",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "lsilUbKwEsUKDYvX",
         //   price: 1997,
         //   category: "Kimvent Oral Care Suction Swab pack",
@@ -2683,7 +2683,7 @@ module.exports = {
         //   updated_at: "2023-02-11 03:31:40",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "tpacOtHaDxLBVYhR",
         //   price: 2004,
         //   category: "Citalopram Hydrobromide",
@@ -2705,7 +2705,7 @@ module.exports = {
         //   updated_at: "2023-02-11 03:35:00",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "otwsHrXjZzUFWGoK",
         //   price: 2004,
         //   category: "Tolnaftate Antifungal",
@@ -2727,7 +2727,7 @@ module.exports = {
         //   updated_at: "2023-02-11 03:38:20",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "zmcyDwFuOhXYXMyV",
         //   price: 1992,
         //   category: "Fissure Control",
@@ -2760,7 +2760,7 @@ module.exports = {
         //   updated_at: "2023-02-11 03:43:20",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "fpjlTdKpOdUVXNzI",
         //   price: 1997,
         //   category: "CVS PHARMACY",
@@ -2793,7 +2793,7 @@ module.exports = {
         //   updated_at: "2023-02-11 03:48:20",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "yzolWpWhPqSVLTcB",
         //   price: 1984,
         //   category: "Metoprolol Tartrate",
@@ -2804,7 +2804,7 @@ module.exports = {
         //   updated_at: "2023-02-11 03:50:00",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "wohlMkWcUiKVPMuZ",
         //   price: 2009,
         //   category: "Metformin Hydrochloride",
@@ -2815,7 +2815,7 @@ module.exports = {
         //   updated_at: "2023-02-11 03:51:40",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "iukgUaHlOhKEQQwZ",
         //   price: 2005,
         //   category: "VaricoGo",
@@ -2870,7 +2870,7 @@ module.exports = {
         //   updated_at: "2023-02-11 04:00:00",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "upawRmDgKbVZYRkL",
         //   price: 2004,
         //   category: "CVS Scalp Relief",
@@ -2881,7 +2881,7 @@ module.exports = {
         //   updated_at: "2023-02-11 04:01:40",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "umffPxYzQkWTSIfG",
         //   price: 1982,
         //   category: "Bisoprolol Fumarate",
@@ -2892,7 +2892,7 @@ module.exports = {
         //   updated_at: "2023-02-11 04:03:20",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "ukyyZePvJoPWJRlC",
         //   price: 1995,
         //   category: "Ondansetron",
@@ -2914,7 +2914,7 @@ module.exports = {
         //   updated_at: "2023-02-11 04:06:40",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "mudmTqYbOkGDAArE",
         //   price: 2010,
         //   category: "Afrin No Drip",
@@ -2936,7 +2936,7 @@ module.exports = {
         //   updated_at: "2023-02-11 04:10:00",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "cfeqFxXmChVJONrO",
         //   price: 1992,
         //   category: "FUSARIUM OXYSPORUM VASINFECTUM",
@@ -2958,7 +2958,7 @@ module.exports = {
         //   updated_at: "2023-02-11 04:13:20",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "qvcaIvFyVyTYGMrR",
         //   price: 2010,
         //   category: "Alprazolam",
@@ -2992,7 +2992,7 @@ module.exports = {
         //   updated_at: "2023-02-11 04:18:20",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "vfmhFiNxDsDOPHuE",
         //   price: 1995,
         //   category: "Cepacol",
@@ -3014,7 +3014,7 @@ module.exports = {
         //   updated_at: "2023-02-11 04:21:40",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "xyibCvWrCoIVGUkW",
         //   price: 2007,
         //   category: "Ibuprofen",
@@ -3025,7 +3025,7 @@ module.exports = {
         //   updated_at: "2023-02-11 04:23:20",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "hdruYhQfZoVDONtC",
         //   price: 2009,
         //   category: "SkinMedica Daily Physical Defense SPF 30 Sunscreen",
@@ -3036,7 +3036,7 @@ module.exports = {
         //   updated_at: "2023-02-11 04:25:00",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "ozbnSxBfPsSDAFpB",
         //   price: 2002,
         //   category: "NICOTINE",
@@ -3047,7 +3047,7 @@ module.exports = {
         //   updated_at: "2023-02-11 04:26:40",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "ebteVaBtQwOISJdE",
         //   price: 2005,
         //   category: "SECTRAL",
@@ -3091,7 +3091,7 @@ module.exports = {
         //   updated_at: "2023-02-11 04:33:20",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "ilfaVoYdQqGGCQjS",
         //   price: 2012,
         //   category: "Diltiazem Hydrochloride",
@@ -3136,7 +3136,7 @@ module.exports = {
         //   updated_at: "2023-02-11 04:40:00",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "ftbcShSdDtUMATtC",
         //   price: 2011,
         //   category: "Childrens Ear Relief",
@@ -3180,7 +3180,7 @@ module.exports = {
         //   updated_at: "2023-02-11 04:46:40",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "jsjzBlUoEbFGEUuN",
         //   price: 1986,
         //   category: "Good Neighbor Pharmacy Nicotine",
@@ -3202,7 +3202,7 @@ module.exports = {
         //   updated_at: "2023-02-11 04:50:00",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "ewgrMbBuSvZMIZrL",
         //   price: 2002,
         //   category:
@@ -3236,7 +3236,7 @@ module.exports = {
         //   updated_at: "2023-02-11 04:55:00",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "wxepNiRhLuARWMdP",
         //   price: 2002,
         //   category: "Oxygen",
@@ -3247,7 +3247,7 @@ module.exports = {
         //   updated_at: "2023-02-11 04:56:40",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "gvwxUiKnTmIBJEnO",
         //   price: 2006,
         //   category: "Patch",
@@ -3280,7 +3280,7 @@ module.exports = {
         //   updated_at: "2023-02-11 05:01:40",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "itblBsZuKmCZUJqV",
         //   price: 2012,
         //   category: "ANTIBACTERIAL FOAMING",
@@ -3291,7 +3291,7 @@ module.exports = {
         //   updated_at: "2023-02-11 05:03:20",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "jehmXeOmObNSIHyE",
         //   price: 1985,
         //   category: "Lotrimin",
@@ -3335,7 +3335,7 @@ module.exports = {
         //   updated_at: "2023-02-11 05:10:00",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "loqrJbKgQiNLMIiC",
         //   price: 2007,
         //   category: "ALAHIST",
@@ -3368,7 +3368,7 @@ module.exports = {
         //   updated_at: "2023-02-11 05:15:00",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "yrlpEmMoBvAKNWpZ",
         //   price: 2009,
         //   category: "Oxygen",
@@ -3390,7 +3390,7 @@ module.exports = {
         //   updated_at: "2023-02-11 05:18:20",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "vfriHqDpUoAXGLtH",
         //   price: 1997,
         //   category: "Pleo Reb",
@@ -3412,7 +3412,7 @@ module.exports = {
         //   updated_at: "2023-02-11 05:21:40",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "curdExPaPdCDVEgB",
         //   price: 2009,
         //   category: "Benzoyl Peroxide",
@@ -3423,7 +3423,7 @@ module.exports = {
         //   updated_at: "2023-02-11 05:23:20",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "yasfAgRfEgVCLWhJ",
         //   price: 1998,
         //   category: "Bupropion Hydrochloride",
@@ -3545,7 +3545,7 @@ module.exports = {
         //   updated_at: "2023-02-11 05:41:40",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "nkvtSlYiLlSWCHjG",
         //   price: 2009,
         //   category: "Furosemide",
@@ -3611,7 +3611,7 @@ module.exports = {
         //   updated_at: "2023-02-11 05:51:40",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "fgewZtBcSsVFYCoG",
         //   price: 2005,
         //   category: "HYDROMORPHONE HYDROCHLORIDE",
@@ -3744,7 +3744,7 @@ module.exports = {
         //   updated_at: "2023-02-11 06:11:40",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "stclPiLuQvVIPWtU",
         //   price: 1991,
         //   category: "Oxycodone Hydrochloride",
@@ -3766,7 +3766,7 @@ module.exports = {
         //   updated_at: "2023-02-11 06:15:00",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "pdwcLdVrNaCVKErJ",
         //   price: 2010,
         //   category: "Aspirin",
@@ -3777,7 +3777,7 @@ module.exports = {
         //   updated_at: "2023-02-11 06:16:40",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "qorcGzJnOsZLZYvF",
         //   price: 2012,
         //   category: "Dendracin Neurodendraxcin",
@@ -3788,7 +3788,7 @@ module.exports = {
         //   updated_at: "2023-02-11 06:18:20",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "ufgnUsBcNyXKLPjA",
         //   price: 2005,
         //   category: "Oxygen",
@@ -3799,7 +3799,7 @@ module.exports = {
         //   updated_at: "2023-02-11 06:20:00",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "mavcYyZfZxYZAEjI",
         //   price: 1972,
         //   category: "healthy accents allergy",
@@ -3821,7 +3821,7 @@ module.exports = {
         //   updated_at: "2023-02-11 06:23:20",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "kfiiKyFeGfJWMXlB",
         //   price: 1984,
         //   category: "HEALTHMART NICOTINE TRANSDERMAL SYSTEM",
@@ -3843,7 +3843,7 @@ module.exports = {
         //   updated_at: "2023-02-11 06:26:40",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "wotkCkWkLkAJBLrB",
         //   price: 2012,
         //   category: "Coast Live Oak Pollen",
@@ -3865,7 +3865,7 @@ module.exports = {
         //   updated_at: "2023-02-11 06:30:00",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "cxhbBbFrBqYRZAkF",
         //   price: 1992,
         //   category:
@@ -3932,7 +3932,7 @@ module.exports = {
         //   updated_at: "2023-02-11 06:40:00",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "mylhKiJeLqITPGpP",
         //   price: 2009,
         //   category: "Daytime Sinus",
@@ -3954,7 +3954,7 @@ module.exports = {
         //   updated_at: "2023-02-11 06:43:20",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "nhfuGmPuDoGBPPzO",
         //   price: 1993,
         //   category: "PROPRANOLOL HYDROCHLORIDE",
@@ -3987,7 +3987,7 @@ module.exports = {
         //   updated_at: "2023-02-11 06:48:20",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "pynoTcZlKpKAPHcI",
         //   price: 1992,
         //   category: "Ibuprofen PM",
@@ -4031,7 +4031,7 @@ module.exports = {
         //   updated_at: "2023-02-11 06:55:00",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "kpmyLcUgAhMZVLxF",
         //   price: 2005,
         //   category: "Anti-Bacterial Hand",
@@ -4064,7 +4064,7 @@ module.exports = {
         //   updated_at: "2023-02-11 07:00:00",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "ijltPcGhApBFXNaR",
         //   price: 1997,
         //   category: "equaline allergy",
@@ -4086,7 +4086,7 @@ module.exports = {
         //   updated_at: "2023-02-11 07:03:20",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "xrdkDlRnReCTGRmQ",
         //   price: 1989,
         //   category: "TRETTEN",
@@ -4141,7 +4141,7 @@ module.exports = {
         //   updated_at: "2023-02-11 07:11:40",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "vhmnKeKkOxQBZQzO",
         //   price: 2009,
         //   category: "Ring Relief",
@@ -4163,7 +4163,7 @@ module.exports = {
         //   updated_at: "2023-02-11 07:15:00",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "aapzTwKfIuDKQInG",
         //   price: 2000,
         //   category: "Ampicillin and Sulbactam",
@@ -4229,7 +4229,7 @@ module.exports = {
         //   updated_at: "2023-02-11 07:25:00",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "ajovUrQqVhSBOKnO",
         //   price: 2002,
         //   category: "Terazosin Hydrochloride Anhydrous",
@@ -4251,7 +4251,7 @@ module.exports = {
         //   updated_at: "2023-02-11 07:28:20",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "uipsSxXoPiUMYHcD",
         //   price: 1992,
         //   category: "Technetium Tc99m Generator",
@@ -4262,7 +4262,7 @@ module.exports = {
         //   updated_at: "2023-02-11 07:30:00",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "ycbvPxTkJiATOTyM",
         //   price: 2004,
         //   category: "Molds, Rusts and Smuts, Stemphylium botryosum",
@@ -4306,7 +4306,7 @@ module.exports = {
         //   updated_at: "2023-02-11 07:36:40",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "jnhaVrGhFlZPKBsP",
         //   price: 1995,
         //   category: "KAO-TIN PEPPERMINT FLAVOR",
@@ -4339,7 +4339,7 @@ module.exports = {
         //   updated_at: "2023-02-11 07:41:40",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "ukpmQdGeWoVNLNaO",
         //   price: 2006,
         //   category: "Vinorelbine",
@@ -4361,7 +4361,7 @@ module.exports = {
         //   updated_at: "2023-02-11 07:45:00",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "qpayLoLwLqJSFQpL",
         //   price: 2000,
         //   category: "Non-Drowsy Wal-Phed PE Triple Relief",
@@ -4383,7 +4383,7 @@ module.exports = {
         //   updated_at: "2023-02-11 07:48:20",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "edbsWjEhMhXZIHmV",
         //   price: 2001,
         //   category: "Clinpro 5000",
@@ -4416,7 +4416,7 @@ module.exports = {
         //   updated_at: "2023-02-11 07:53:20",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "kvavPbDkWhCPBLoW",
         //   price: 1988,
         //   category: "up and up",
@@ -4427,7 +4427,7 @@ module.exports = {
         //   updated_at: "2023-02-11 07:55:00",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "tjhlMhNuFvWBURuK",
         //   price: 1992,
         //   category: "Lovenox",
@@ -4438,7 +4438,7 @@ module.exports = {
         //   updated_at: "2023-02-11 07:56:40",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "wwbdOpDaSxKODCjZ",
         //   price: 2004,
         //   category: "Karaya Gum",
@@ -4471,7 +4471,7 @@ module.exports = {
         //   updated_at: "2023-02-11 08:01:40",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "qwirYxDdFeJXATuW",
         //   price: 1989,
         //   category: "lisinopril",
@@ -4504,7 +4504,7 @@ module.exports = {
         //   updated_at: "2023-02-11 08:06:40",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "mhccUrNsYvOTBDaS",
         //   price: 1964,
         //   category: "Hydralazine Hydrochloride",
@@ -4537,7 +4537,7 @@ module.exports = {
         //   updated_at: "2023-02-11 08:11:40",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "idswWvAnQiSCMSsD",
         //   price: 2007,
         //   category: "Diphenhydramine",
@@ -4559,7 +4559,7 @@ module.exports = {
         //   updated_at: "2023-02-11 08:15:00",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "wdyxVkWhKsEOPFgU",
         //   price: 2000,
         //   category: "Aspirin",
@@ -4570,7 +4570,7 @@ module.exports = {
         //   updated_at: "2023-02-11 08:16:40",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "hcxhXeGuZyEVVJqU",
         //   price: 2003,
         //   category: "Pentazocine and naloxone",
@@ -4581,7 +4581,7 @@ module.exports = {
         //   updated_at: "2023-02-11 08:18:20",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "cjyiEjBhUhRORBzK",
         //   price: 2012,
         //   category: "Levoxyl",
@@ -4714,7 +4714,7 @@ module.exports = {
         //   updated_at: "2023-02-11 08:38:20",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "hmhgQfChPnBMHQvA",
         //   price: 1995,
         //   category: "Glyburide and Metformin Hydrochloride",
@@ -4747,7 +4747,7 @@ module.exports = {
         //   updated_at: "2023-02-11 08:43:20",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "llkaRrYbQgCJHGwB",
         //   price: 2002,
         //   category: "Risk Seduction",
@@ -4791,7 +4791,7 @@ module.exports = {
         //   updated_at: "2023-02-11 08:50:00",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "qknzAdBhHfUIVZvE",
         //   price: 1997,
         //   category: "Orange",
@@ -4802,7 +4802,7 @@ module.exports = {
         //   updated_at: "2023-02-11 08:51:40",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "emvuSnVmLxGDJWrT",
         //   price: 2002,
         //   category: "Spa Originals Antibacterial Gold Hand",
@@ -4868,7 +4868,7 @@ module.exports = {
         //   updated_at: "2023-02-11 09:01:40",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "nogyEvNaUjKDIOoH",
         //   price: 1996,
         //   category: "Solar Protection Formula TiZO3",
@@ -4901,7 +4901,7 @@ module.exports = {
         //   updated_at: "2023-02-11 09:06:40",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "glarOwPlBhNTDOuA",
         //   price: 2005,
         //   category: "topcare infants pain and fever",
@@ -4956,7 +4956,7 @@ module.exports = {
         //   updated_at: "2023-02-11 09:15:00",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "gumnTtKpFwCLKGcQ",
         //   price: 2006,
         //   category: "Mobic",
@@ -5022,7 +5022,7 @@ module.exports = {
         //   updated_at: "2023-02-11 09:25:00",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "ekvcHsWkQdHBEMhD",
         //   price: 1983,
         //   category: "Penicilium chrysogenum",
@@ -5033,7 +5033,7 @@ module.exports = {
         //   updated_at: "2023-02-11 09:26:40",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "vssjOsBdSsVZEBcW",
         //   price: 2011,
         //   category: "Betamethasone Dipropionate",
@@ -5055,7 +5055,7 @@ module.exports = {
         //   updated_at: "2023-02-11 09:30:00",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "icqsFvSmGiEKTGdT",
         //   price: 1999,
         //   category: "Ibuprofen",
@@ -5066,7 +5066,7 @@ module.exports = {
         //   updated_at: "2023-02-11 09:31:40",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "wewlRcWcJwJMBFsB",
         //   price: 2007,
         //   category: "Fluoxetine Hydrochloride",
@@ -5110,7 +5110,7 @@ module.exports = {
         //   updated_at: "2023-02-11 09:38:20",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "wyxiKxAaLyXLHAoX",
         //   price: 1993,
         //   category: "Cortisone Cream",
@@ -5132,7 +5132,7 @@ module.exports = {
         //   updated_at: "2023-02-11 09:41:40",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "hjbbXxBwUnFUTWdN",
         //   price: 1997,
         //   category: "Ceramide EyeWish Eye Sunscreen SPF 10",
@@ -5165,7 +5165,7 @@ module.exports = {
         //   updated_at: "2023-02-11 09:46:40",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "vzqiQnJhLaDJPYmY",
         //   price: 2004,
         //   category: "Belladonna 30C",
@@ -5198,7 +5198,7 @@ module.exports = {
         //   updated_at: "2023-02-11 09:51:40",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "jkshQvGzUdODTTvW",
         //   price: 1993,
         //   category: "LEADER Caldyphen Clear",
@@ -5209,7 +5209,7 @@ module.exports = {
         //   updated_at: "2023-02-11 09:53:20",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "eangWnRtXpPRYRyD",
         //   price: 2010,
         //   category: "Antibacterial Hand Soap",
@@ -5308,7 +5308,7 @@ module.exports = {
         //   updated_at: "2023-02-11 10:08:20",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "obghLpNgLtPUIScU",
         //   price: 2007,
         //   category: "Protriptyline Hydrochloride",
@@ -5330,7 +5330,7 @@ module.exports = {
         //   updated_at: "2023-02-11 10:11:40",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "yyhmNuRvPaBYGJjB",
         //   price: 1995,
         //   category: "CPDA-1",
@@ -5341,7 +5341,7 @@ module.exports = {
         //   updated_at: "2023-02-11 10:13:20",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "jasmEaRrPzFJXTbO",
         //   price: 2007,
         //   category: "Saline Refills",
@@ -5374,7 +5374,7 @@ module.exports = {
         //   updated_at: "2023-02-11 10:18:20",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "tyaaClCwKtFJVSkM",
         //   price: 1995,
         //   category: "Phenazopyridine Hydrochloride",
@@ -5418,7 +5418,7 @@ module.exports = {
         //   updated_at: "2023-02-11 10:25:00",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "kehfMrNeUzSKNVjT",
         //   price: 2009,
         //   category: "Polytrim",
@@ -5462,7 +5462,7 @@ module.exports = {
         //   updated_at: "2023-02-11 10:31:40",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "umsdOpUxFeLCLQvW",
         //   price: 1985,
         //   category: "Olay Total Effects Feather Weight Moisturizer",
@@ -5473,7 +5473,7 @@ module.exports = {
         //   updated_at: "2023-02-11 10:33:20",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "nrozJxRkShEPDSgC",
         //   price: 2012,
         //   category: "Doxycycline",
@@ -5550,7 +5550,7 @@ module.exports = {
         //   updated_at: "2023-02-11 10:45:00",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "yuiaFdViQjCFKPjA",
         //   price: 2001,
         //   category: "AK-Con",
@@ -5572,7 +5572,7 @@ module.exports = {
         //   updated_at: "2023-02-11 10:48:20",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "ydsiKzHcMmRPZXpH",
         //   price: 1993,
         //   category: "DIPYRIDAMOLE",
@@ -5583,7 +5583,7 @@ module.exports = {
         //   updated_at: "2023-02-11 10:50:00",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "hkymBvSvEeRAXChF",
         //   price: 2008,
         //   category: "Zolpidem Tartrate",
@@ -5594,7 +5594,7 @@ module.exports = {
         //   updated_at: "2023-02-11 10:51:40",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "rodmYaSzGqOXONrJ",
         //   price: 2012,
         //   category: "Risperidone",
@@ -5616,7 +5616,7 @@ module.exports = {
         //   updated_at: "2023-02-11 10:55:00",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "odmcEjZxOaQDLQdC",
         //   price: 2001,
         //   category: "Phentermine Hydrochloride",
@@ -5737,7 +5737,7 @@ module.exports = {
         //   updated_at: "2023-02-11 11:13:20",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "ttumTkSbWnTWBNxB",
         //   price: 1993,
         //   category: "Menadione",
@@ -5781,7 +5781,7 @@ module.exports = {
         //   updated_at: "2023-02-11 11:20:00",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "dkzcMwWbXlIZWGvJ",
         //   price: 1999,
         //   category: "citroma",
@@ -5836,7 +5836,7 @@ module.exports = {
         //   updated_at: "2023-02-11 11:28:20",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "jhdjDrTbNjBZTQmX",
         //   price: 2002,
         //   category: "Heparin Sodium",
@@ -5858,7 +5858,7 @@ module.exports = {
         //   updated_at: "2023-02-11 11:31:40",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "wkhpKmZtGgYTXGyO",
         //   price: 2005,
         //   category: "Ramipril",
@@ -5869,7 +5869,7 @@ module.exports = {
         //   updated_at: "2023-02-11 11:33:20",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "fjosUwQlXhGAQCyG",
         //   price: 2002,
         //   category: "Oral Defense Fluoride Rinse",
@@ -5902,7 +5902,7 @@ module.exports = {
         //   updated_at: "2023-02-11 11:38:20",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "yfxqIbKrHjLNGNiM",
         //   price: 2011,
         //   category: "Ciloxan",
@@ -5935,7 +5935,7 @@ module.exports = {
         //   updated_at: "2023-02-11 11:43:20",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "dqdjUnPpXcPNRAqJ",
         //   price: 1984,
         //   category: "Miconazole Nitrate",
@@ -5957,7 +5957,7 @@ module.exports = {
         //   updated_at: "2023-02-11 11:46:40",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "xqgbQpAjImCGVUaN",
         //   price: 1991,
         //   category: "EQUATE LUBRICANT EYE DROPS",
@@ -5968,7 +5968,7 @@ module.exports = {
         //   updated_at: "2023-02-11 11:48:20",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "nuauSfSmLpBSBRhA",
         //   price: 1991,
         //   category:
@@ -5980,7 +5980,7 @@ module.exports = {
         //   updated_at: "2023-02-11 11:50:00",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "yzhgTvTqBaBCHZjJ",
         //   price: 2000,
         //   category: "Sulfadiazine",
@@ -5991,7 +5991,7 @@ module.exports = {
         //   updated_at: "2023-02-11 11:51:40",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "slmoEtFyXmHPHLfX",
         //   price: 1996,
         //   category: "Hydrogen Peroxide",
@@ -6002,7 +6002,7 @@ module.exports = {
         //   updated_at: "2023-02-11 11:53:20",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "hqgtNvDmXqNDMCuR",
         //   price: 1999,
         //   category: "Hand Sanitizer",
@@ -6013,7 +6013,7 @@ module.exports = {
         //   updated_at: "2023-02-11 11:55:00",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "oktyUzZtFnNUQZmD",
         //   price: 1984,
         //   category: "Bladder Incontinence Formula",
@@ -6112,7 +6112,7 @@ module.exports = {
         //   updated_at: "2023-02-11 12:10:00",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "lngiPzHuInIZGEgT",
         //   price: 1967,
         //   category: "QUERCUS ALBA POLLEN",
@@ -6123,7 +6123,7 @@ module.exports = {
         //   updated_at: "2023-02-11 12:11:40",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "mitbPjTuCiOSBFiB",
         //   price: 1969,
         //   category: "Diclofenac Sodium and Misoprostol",
@@ -6134,7 +6134,7 @@ module.exports = {
         //   updated_at: "2023-02-11 12:13:20",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "femqNyYrWiSBPRcW",
         //   price: 1993,
         //   category: "Neostigmine Methylsulfate",
@@ -6145,7 +6145,7 @@ module.exports = {
         //   updated_at: "2023-02-11 12:15:00",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "emygVnRjQiWZLWnW",
         //   price: 1985,
         //   category: "Mirapex",
@@ -6167,7 +6167,7 @@ module.exports = {
         //   updated_at: "2023-02-11 12:18:20",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "pnndCaTsVtIAFRwR",
         //   price: 2009,
         //   category: "EPOGEN",
@@ -6189,7 +6189,7 @@ module.exports = {
         //   updated_at: "2023-02-11 12:21:40",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "edjoApXrRfTNYMhB",
         //   price: 2006,
         //   category: "enema",
@@ -6200,7 +6200,7 @@ module.exports = {
         //   updated_at: "2023-02-11 12:23:20",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "dyibFlTzJdEQZCfL",
         //   price: 2003,
         //   category: "Aller-Chlor",
@@ -6222,7 +6222,7 @@ module.exports = {
         //   updated_at: "2023-02-11 12:26:40",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "ponyLxYiHjEIBVhQ",
         //   price: 2004,
         //   category: "Atorvastatin Calcium",
@@ -6236,7 +6236,7 @@ module.exports = {
         //   status: "RESERVED",
         //   title: "idrbHoNzHnJMIVrA",
         //   price: 2007,
-        //   category: "Sensodyne Complete Protection",
+        //   category: "Sensodyne SOLD Protection",
         //   detail: "matrix virtual architectures",
         //   images: "http://dummyimage.com/217x100.png/dddddd/000000",
         //   seller_id: 5,
@@ -6255,7 +6255,7 @@ module.exports = {
         //   updated_at: "2023-02-11 12:31:40",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "dkhrBeYnSuEHUCiI",
         //   price: 1981,
         //   category: "Lotrimin",
@@ -6299,7 +6299,7 @@ module.exports = {
         //   updated_at: "2023-02-11 12:38:20",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "jewoRoUcJcMMCVxM",
         //   price: 1987,
         //   category: "NUVIGIL",
@@ -6310,7 +6310,7 @@ module.exports = {
         //   updated_at: "2023-02-11 12:40:00",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "uetrWbMoXoZHUOdX",
         //   price: 1999,
         //   category: "Famotidine",
@@ -6354,7 +6354,7 @@ module.exports = {
         //   updated_at: "2023-02-11 12:46:40",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "ynjlVuMjUgIHTBiO",
         //   price: 1996,
         //   category: "Fenofibrate",
@@ -6475,7 +6475,7 @@ module.exports = {
         //   updated_at: "2023-02-11 13:05:00",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "kgohNlDwUtKLHBwR",
         //   price: 1996,
         //   category: "Cefdinir",
@@ -6497,7 +6497,7 @@ module.exports = {
         //   updated_at: "2023-02-11 13:08:20",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "mrztDhSiOlZZZPwS",
         //   price: 1996,
         //   category: "Carbamazepine",
@@ -6541,7 +6541,7 @@ module.exports = {
         //   updated_at: "2023-02-11 13:15:00",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "awmfIvFsAeFJOVsY",
         //   price: 1992,
         //   category:
@@ -6598,7 +6598,7 @@ module.exports = {
         //   updated_at: "2023-02-11 13:23:20",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "lvmbYvGlFwVBKDhR",
         //   price: 2007,
         //   category: "Metformin hydrochloride",
@@ -6686,7 +6686,7 @@ module.exports = {
         //   updated_at: "2023-02-11 13:36:40",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "vwjyKzHiThFRVRqX",
         //   price: 1991,
         //   category: "Lanacane Anti Itch Original Strength",
@@ -6763,7 +6763,7 @@ module.exports = {
         //   updated_at: "2023-02-11 13:48:20",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "zsuzMcHfFgNJUIvE",
         //   price: 2003,
         //   category: "Cefuroxime Axetil",
@@ -6808,7 +6808,7 @@ module.exports = {
         //   updated_at: "2023-02-11 13:55:00",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "uzydTxAkIrBZAKuH",
         //   price: 1996,
         //   category: "Cat Pelt, Standardized",
@@ -6830,7 +6830,7 @@ module.exports = {
         //   updated_at: "2023-02-11 13:58:20",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "pcttFbLbDlVQKPpM",
         //   price: 2008,
         //   category: "Tarka",
@@ -6863,7 +6863,7 @@ module.exports = {
         //   updated_at: "2023-02-11 14:03:20",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "wwcxQqSnQkIEZOrF",
         //   price: 2006,
         //   category: "Antispetic",
@@ -6874,7 +6874,7 @@ module.exports = {
         //   updated_at: "2023-02-11 14:05:00",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "wvqxJgQdLvNRKVlQ",
         //   price: 2010,
         //   category: "Trichoderma harzianam",
@@ -6896,7 +6896,7 @@ module.exports = {
         //   updated_at: "2023-02-11 14:08:20",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "onpeYbGjAvKDVUzS",
         //   price: 1994,
         //   category: "Daytime",
@@ -6929,7 +6929,7 @@ module.exports = {
         //   updated_at: "2023-02-11 14:13:20",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "crrrOfPoXfEBFOaD",
         //   price: 1993,
         //   category: "Olay Fresh Effects BB",
@@ -7017,7 +7017,7 @@ module.exports = {
         //   updated_at: "2023-02-11 14:26:40",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "dnpcMtWvVyTCTLpQ",
         //   price: 2008,
         //   category: "FENTANYL",
@@ -7061,7 +7061,7 @@ module.exports = {
         //   updated_at: "2023-02-11 14:33:20",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "voidGtKkHtGQWRfO",
         //   price: 2007,
         //   category: "Leader Antacid",
@@ -7116,7 +7116,7 @@ module.exports = {
         //   updated_at: "2023-02-11 14:41:40",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "dgsmXvAlPyQFZHrD",
         //   price: 2003,
         //   category: "OXYGEN",
@@ -7127,7 +7127,7 @@ module.exports = {
         //   updated_at: "2023-02-11 14:43:20",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "qnxlZlOiAhEMITdJ",
         //   price: 2006,
         //   category: "Oxygen-Helium Mixture",
@@ -7171,7 +7171,7 @@ module.exports = {
         //   updated_at: "2023-02-11 14:50:00",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "nhsqQpObOvBWAVrY",
         //   price: 1993,
         //   category:
@@ -7194,7 +7194,7 @@ module.exports = {
         //   updated_at: "2023-02-11 14:53:20",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "vnowMnNoCwMITEwA",
         //   price: 2011,
         //   category: "Octreotide Acetate",
@@ -7205,7 +7205,7 @@ module.exports = {
         //   updated_at: "2023-02-11 14:55:00",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "vtlyTzNmLuAIYIqP",
         //   price: 1999,
         //   category: "Suboxone",
@@ -7238,7 +7238,7 @@ module.exports = {
         //   updated_at: "2023-02-11 15:00:00",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "tsjaQeZnAcRRQGkI",
         //   price: 1994,
         //   category: "Renewing Antioxidant Treatment SPF 6",
@@ -7249,7 +7249,7 @@ module.exports = {
         //   updated_at: "2023-02-11 15:01:40",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "dxmaFoDcBoVOIWaR",
         //   price: 1992,
         //   category: "ANTI-BLEMISH MATTE PRIMER",
@@ -7271,7 +7271,7 @@ module.exports = {
         //   updated_at: "2023-02-11 15:05:00",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "efksRtOdFiUEVMqU",
         //   price: 1991,
         //   category: "FertiCare",
@@ -7359,7 +7359,7 @@ module.exports = {
         //   updated_at: "2023-02-11 15:18:20",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "yxsoFlAeYzYYWOjC",
         //   price: 2006,
         //   category: "Argentum 8",
@@ -7370,7 +7370,7 @@ module.exports = {
         //   updated_at: "2023-02-11 15:20:00",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "kxhhFqUqApGOOAoP",
         //   price: 1991,
         //   category: "Blistex",
@@ -7392,7 +7392,7 @@ module.exports = {
         //   updated_at: "2023-02-11 15:23:20",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "wwisCeNuNsEMWDnX",
         //   price: 2000,
         //   category: "Carrot",
@@ -7414,7 +7414,7 @@ module.exports = {
         //   updated_at: "2023-02-11 15:26:40",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "ddwzLwCtKzWHQAcL",
         //   price: 1991,
         //   category: "Bluefish",
@@ -7491,7 +7491,7 @@ module.exports = {
         //   updated_at: "2023-02-11 15:38:20",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "alxtGwNjGfTQHNiS",
         //   price: 1999,
         //   category: "Pepto-Bismol",
@@ -7502,7 +7502,7 @@ module.exports = {
         //   updated_at: "2023-02-11 15:40:00",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "eeqxPwNdQuWBMViE",
         //   price: 1998,
         //   category: "Gabapentin",
@@ -7524,7 +7524,7 @@ module.exports = {
         //   updated_at: "2023-02-11 15:43:20",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "ojepYcXdPbQBYOqT",
         //   price: 1990,
         //   category: "Denti-Care Denti-Freeze",
@@ -7546,7 +7546,7 @@ module.exports = {
         //   updated_at: "2023-02-11 15:46:40",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "bqwaPhMySnVOGDqC",
         //   price: 1989,
         //   category: "healthy accents stool softener",
@@ -7601,7 +7601,7 @@ module.exports = {
         //   updated_at: "2023-02-11 15:55:00",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "unesAxQaWhEZYGbW",
         //   price: 1998,
         //   category: "Ofloxacin",
@@ -7689,7 +7689,7 @@ module.exports = {
         //   updated_at: "2023-02-11 16:08:20",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "srpbShYfAoTVAPqW",
         //   price: 1970,
         //   category: "KALI MURIATICUM",
@@ -7755,7 +7755,7 @@ module.exports = {
         //   updated_at: "2023-02-11 16:18:20",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "yrpvTeWrQjCGIChB",
         //   price: 2011,
         //   category: "Fluconazole",
@@ -7766,7 +7766,7 @@ module.exports = {
         //   updated_at: "2023-02-11 16:20:00",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "mrqsLhLbFsORHJwG",
         //   price: 2003,
         //   category: "Soft and Silky/Health Guard Antibacterial Hand",
@@ -7777,7 +7777,7 @@ module.exports = {
         //   updated_at: "2023-02-11 16:21:40",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "nuiiWxMsLtXCVZyQ",
         //   price: 1996,
         //   category: "The Medicine Shoppe Extra Strength Pain Relieving",
@@ -7799,7 +7799,7 @@ module.exports = {
         //   updated_at: "2023-02-11 16:25:00",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "drdkGfCzDpDFQKcI",
         //   price: 2005,
         //   category: "DEEP REMEDY",
@@ -7854,7 +7854,7 @@ module.exports = {
         //   updated_at: "2023-02-11 16:33:20",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "rvibDsCzKzQQXTjJ",
         //   price: 2009,
         //   category: "e-HCG",
@@ -7887,7 +7887,7 @@ module.exports = {
         //   updated_at: "2023-02-11 16:38:20",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "vqxsIiRwTbVRWOzJ",
         //   price: 1998,
         //   category: "Carisoprodol",
@@ -7898,7 +7898,7 @@ module.exports = {
         //   updated_at: "2023-02-11 16:40:00",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "cnhhFxVhVsEFMLdQ",
         //   price: 1994,
         //   category: "Foscavir",
@@ -7909,7 +7909,7 @@ module.exports = {
         //   updated_at: "2023-02-11 16:41:40",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "eftiCdAvItYKXEqQ",
         //   price: 2010,
         //   category: "Technetium Tc99m Generator",
@@ -7931,7 +7931,7 @@ module.exports = {
         //   updated_at: "2023-02-11 16:45:00",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "nezxYhRuEhSLBDuW",
         //   price: 2008,
         //   category: "Potassium Chloride in Dextrose and Sodium Chloride",
@@ -7942,7 +7942,7 @@ module.exports = {
         //   updated_at: "2023-02-11 16:46:40",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "hbwyFaJkTbAHZSnP",
         //   price: 2002,
         //   category: "imipramine hydrochloride",
@@ -7975,7 +7975,7 @@ module.exports = {
         //   updated_at: "2023-02-11 16:51:40",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "fvynSuEePyZRQDyO",
         //   price: 1968,
         //   category: "Artificial Tears",
@@ -8008,7 +8008,7 @@ module.exports = {
         //   updated_at: "2023-02-11 16:56:40",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "piyoLhRyLwCXKZmV",
         //   price: 1969,
         //   category: "Lidocaine Hydrochloride and Epinephrine",
@@ -8074,7 +8074,7 @@ module.exports = {
         //   updated_at: "2023-02-11 17:06:40",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "mptxJeQtHqTQAHoW",
         //   price: 1997,
         //   category: "Hydrochlorothiazide",
@@ -8107,7 +8107,7 @@ module.exports = {
         //   updated_at: "2023-02-11 17:11:40",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "wnctBmTlAsPDHCoV",
         //   price: 2005,
         //   category: "GAMMAGARD",
@@ -8118,7 +8118,7 @@ module.exports = {
         //   updated_at: "2023-02-11 17:13:20",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "figbEbPfCrWHEMgW",
         //   price: 1984,
         //   category: "Physostigmine Salicylate",
@@ -8129,7 +8129,7 @@ module.exports = {
         //   updated_at: "2023-02-11 17:15:00",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "cekcHpStGtUROMsL",
         //   price: 1998,
         //   category: "Rugby Nicotine Polacrilex Gum, Coated Cinnamon Flavor",
@@ -8140,7 +8140,7 @@ module.exports = {
         //   updated_at: "2023-02-11 17:16:40",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "mfoiFdHpCzRZKOaN",
         //   price: 1993,
         //   category: "Alendronate Sodium",
@@ -8218,7 +8218,7 @@ module.exports = {
         //   updated_at: "2023-02-11 17:28:20",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "jbsvSrAeBuHTWYhC",
         //   price: 1993,
         //   category: "Diflorasone Diacetate",
@@ -8251,7 +8251,7 @@ module.exports = {
         //   updated_at: "2023-02-11 17:33:20",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "rfqsLbWtPcBSOBhY",
         //   price: 2003,
         //   category: "Neutrogena OIl Free Moisture",
@@ -8284,7 +8284,7 @@ module.exports = {
         //   updated_at: "2023-02-11 17:38:20",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "nvdzKxOyXePMFAbP",
         //   price: 2008,
         //   category: "ATORVASTATIN CALCIUM",
@@ -8306,7 +8306,7 @@ module.exports = {
         //   updated_at: "2023-02-11 17:41:40",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "acwsAmIkHdYYWJlV",
         //   price: 2002,
         //   category: "Degree",
@@ -8339,7 +8339,7 @@ module.exports = {
         //   updated_at: "2023-02-11 17:46:40",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "gcvcZpZbKwGNMLbC",
         //   price: 2005,
         //   category: "PILOCARPINE HYDROCHLORIDE",
@@ -8350,7 +8350,7 @@ module.exports = {
         //   updated_at: "2023-02-11 17:48:20",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "hdrwLsMoDbNSHLhX",
         //   price: 2013,
         //   category: "Icy Hot",
@@ -8394,7 +8394,7 @@ module.exports = {
         //   updated_at: "2023-02-11 17:55:00",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "zhddRdXjLxDTKSzD",
         //   price: 2005,
         //   category: "Penicillium notatum",
@@ -8405,7 +8405,7 @@ module.exports = {
         //   updated_at: "2023-02-11 17:56:40",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "xolgIhAyBvTZNQdL",
         //   price: 1994,
         //   category: "Extra Strength Gas Relief",
@@ -8438,7 +8438,7 @@ module.exports = {
         //   updated_at: "2023-02-11 18:01:40",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "kujlEwNfPdIVMUsG",
         //   price: 2009,
         //   category: "DG Health cold multi symptom",
@@ -8460,7 +8460,7 @@ module.exports = {
         //   updated_at: "2023-02-11 18:05:00",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "howgWiSwWlDMWMjG",
         //   price: 2001,
         //   category: "Pollens - Trees, Cedar, Mountain Juniperus ashei",
@@ -8548,7 +8548,7 @@ module.exports = {
         //   updated_at: "2023-02-11 18:18:20",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "euycSmGcCiLRHQjX",
         //   price: 2008,
         //   category: "Oxymorphone Hydrochloride",
@@ -8581,7 +8581,7 @@ module.exports = {
         //   updated_at: "2023-02-11 18:23:20",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "bwmyNcXyTnHLJQkA",
         //   price: 2004,
         //   category: "First aid and Burn",
@@ -8614,7 +8614,7 @@ module.exports = {
         //   updated_at: "2023-02-11 18:28:20",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "pdlxWoBzGdPRHMkW",
         //   price: 1992,
         //   category: "CORN",
@@ -8647,7 +8647,7 @@ module.exports = {
         //   updated_at: "2023-02-11 18:33:20",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "kgcuVgUwRnRTMMaW",
         //   price: 1994,
         //   category: "Sertraline Hydrochloride",
@@ -8680,7 +8680,7 @@ module.exports = {
         //   updated_at: "2023-02-11 18:38:20",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "qlebYsWsAxZVPAtF",
         //   price: 1985,
         //   category: "AFLURIA",
@@ -8713,7 +8713,7 @@ module.exports = {
         //   updated_at: "2023-02-11 18:43:20",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "dbgcHcReIuROJHjP",
         //   price: 2002,
         //   category: "Digoxin",
@@ -8746,7 +8746,7 @@ module.exports = {
         //   updated_at: "2023-02-11 18:48:20",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "dhciSyWrRwKUDLvO",
         //   price: 1996,
         //   category:
@@ -8758,7 +8758,7 @@ module.exports = {
         //   updated_at: "2023-02-11 18:50:00",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "wecnUbInMiFWNBbA",
         //   price: 1995,
         //   category: "Vita",
@@ -8769,7 +8769,7 @@ module.exports = {
         //   updated_at: "2023-02-11 18:51:40",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "bjfvYpCsAwGLQVzB",
         //   price: 2006,
         //   category: "PreviDent 5000 Enamel Protect",
@@ -8802,7 +8802,7 @@ module.exports = {
         //   updated_at: "2023-02-11 18:56:40",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "lyhkLuFxQpOHUOxK",
         //   price: 2007,
         //   category:
@@ -8814,7 +8814,7 @@ module.exports = {
         //   updated_at: "2023-02-11 18:58:20",
         // },
         // {
-        //   status: "COMPLETE",
+        //   status: "SOLD",
         //   title: "qvhoZxHvMlMHAEoK",
         //   price: 2010,
         //   category: "Amlodipine Besylate",

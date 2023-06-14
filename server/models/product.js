@@ -10,7 +10,7 @@ class Product extends Sequelize.Model {
           autoIncrement: true,
         },
         status: {
-          type: Sequelize.ENUM("SALE", "RESERVED", "COMPLETE"),
+          type: Sequelize.ENUM("SALE", "RESERVED", "SOLD"),
           allowNull: true,
         },
         title: {
