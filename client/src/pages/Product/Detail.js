@@ -61,25 +61,27 @@ const Detail = (props) => {
                 <IoCart />
                 <span>구매하기</span>
               </button> */}
-              <Button>
-                <div className={classes.productPutWrap}>
-                  <div className={classes.productPut}>
-                    <FaHeart />
-                    <span className={classes.buttonText}>찜하기</span>
+              <div className={classes.putMessageButton}>
+                <Button>
+                  <div className={classes.productPutWrap}>
+                    <div className={classes.productPut}>
+                      <FaHeart />
+                      <span className={classes.buttonText}>찜하기</span>
+                    </div>
+                    <span className={classes.prodPutborder}></span>
                   </div>
-                  <span className={classes.prodPutborder}></span>
-                </div>
-              </Button>
+                </Button>
 
-              <Button>
-                <div className={classes.productMessageWrap}>
-                  <div className={classes.productMessage}>
-                    <TbMessageCircle2Filled />
-                    <span className={classes.buttonText}>판다톡</span>
+                <Button>
+                  <div className={classes.productMessageWrap}>
+                    <div className={classes.productMessage}>
+                      <TbMessageCircle2Filled />
+                      <span className={classes.buttonText}>판다톡</span>
+                    </div>
+                    <span className={classes.prodMessageborder}></span>
                   </div>
-                  <span className={classes.prodMessageborder}></span>
-                </div>
-              </Button>
+                </Button>
+              </div>
 
               <Button>
                 <div className={classes.productPurchaseWrap}>
