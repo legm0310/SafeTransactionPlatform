@@ -1,0 +1,34 @@
+.UserInfoSection {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  border: 1px solid blue;
+}
+
+.UserInfoWrap {
+  width: 1200px;
+  height: 300px;
+  border: 1px solid blue;
+}
+
+.UserInfoMenuWrap {
+  margin-top: 20px;
+  border: 1px solid green;
+  width: 1200px;
+}
+
+.UserInfoMenu {
+  display: flex;
+  height: 30px;
+}
+
+/* .MenuButton {
+
+} */
+
+.UserInfoExplanation {
+  margin-top: 30px;
+  border: 1px solid brown;
+  height: 200px;
+}
