@@ -1,9 +1,10 @@
 import React, { useState, Fragment } from "react";
 import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { logout } from "../../_actions/userAction";
 import { ConnectWallet } from "@thirdweb-dev/react";
 import MyWallet from "./MyWallet";
+import UserInfo from "../../pages/User/UserInfo";
 
 import classes from "../../styles/UserAuth.module.css";
 import {
@@ -74,7 +75,10 @@ const UserSection = () => {
       open={isMenuOpen}
       onClose={onMenuClose}
     >
-      <MenuItem onClick={onMenuClose}>내 정보</MenuItem>
+      <Link to="/userinfo">
+        <MenuItem onClick={onMenuClose}>내 정보</MenuItem>
+      </Link>
+
       <MenuItem onClick={onMenuClose}>
         <ConnectWallet theme="white" btnTitle="지갑 연결" />
         {/* <MyWallet /> */}
@@ -114,6 +118,7 @@ const UserSection = () => {
         </IconButton>
         <p>채팅</p>
       </MenuItem>
+
       <MenuItem>
         <IconButton
           size="large"
@@ -126,6 +131,7 @@ const UserSection = () => {
         </IconButton>
         <p>찜 목록</p>
       </MenuItem>
+
       <MenuItem onClick={onProfileMenuOpen}>
         <IconButton
           size="large"
@@ -138,6 +144,7 @@ const UserSection = () => {
         </IconButton>
         <p>내 정보</p>
       </MenuItem>
+
       <MenuItem onClick={onProfileMenuOpen}>
         <IconButton
           size="large"
@@ -186,6 +193,7 @@ const UserSection = () => {
               <Typography>판다톡</Typography>
             </IconButton>
           </Tooltip>
+
           <Tooltip
             title="찜 목록"
             TransitionComponent={Fade}
@@ -199,6 +207,7 @@ const UserSection = () => {
               <Typography>찜목록</Typography>
             </IconButton>
           </Tooltip>
+
           <IconButton
             size="large"
             edge="end"
@@ -211,6 +220,7 @@ const UserSection = () => {
             <Typography>내정보</Typography>
           </IconButton>
         </Box>
+
         <Box sx={{ display: { xs: "flex", md: "none" } }}>
           <IconButton
             size="large"
