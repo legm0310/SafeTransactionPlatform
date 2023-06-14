@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { login } from "../../_actions/userAction";
 import Button from "../../components/UI/Button";
+// import CustomAlert from "../../components/UI/Alert";
 
 import classes from "../../styles/Login.module.css";
 import { FaArrowLeft } from "react-icons/fa";
@@ -16,6 +17,7 @@ const Login = (props) => {
 
   const [Email, setEmail] = useState("");
   const [Password, setPassword] = useState("");
+  // const [showAlert, setShowAlert] = useState(false);
 
   const onEmailHandler = (event) => {
     setEmail(event.currentTarget.value);
@@ -42,14 +44,17 @@ const Login = (props) => {
     dispatch(login(body)).then((response) => {
       if (response.payload.loginSuccess) {
         alert("로그인 성공");
+        // setShowAlert(true);
         navigate("/");
       } else if (
         response.payload.code === 404 ||
         response.payload.code === 401
       ) {
         alert("이메일 또는 비밀번호를 잘못 입력했습니다.");
+        // setShowAlert(true);
       } else {
         alert("로그인 실패");
+        // setShowAlert(true);
       }
     });
   };
@@ -59,7 +64,7 @@ const Login = (props) => {
       <div className={classes.wrap}>
         <div className={classes.container}>
           <header className={classes.header}>
-            <Link to="/" className={classes.backButton}>
+            <Link to='/' className={classes.backButton}>
               <FaArrowLeft />
             </Link>
           </header>
@@ -78,8 +83,8 @@ const Login = (props) => {
               <div className={classes.idField}>
                 <div className={classes.idInputGroup}>
                   <input
-                    type="email"
-                    placeholder="이메일 입력"
+                    type='email'
+                    placeholder='이메일 입력'
                     value={Email}
                     onChange={onEmailHandler}
                     className={classes.idInput}
@@ -90,8 +95,8 @@ const Login = (props) => {
               <div className={classes.pwField}>
                 <div className={classes.pwInputGroup}>
                   <input
-                    type="password"
-                    placeholder="비밀번호 입력"
+                    type='password'
+                    placeholder='비밀번호 입력'
                     value={Password}
                     onChange={onPasswordHandler}
                     className={classes.pwInput}
@@ -106,8 +111,8 @@ const Login = (props) => {
           </div>
 
           <div className={classes.registerWrap}>
-            <button type="submit" className={classes.registerButton}>
-              <Link to="/register" className={classes.textButton}>
+            <button type='submit' className={classes.registerButton}>
+              <Link to='/register' className={classes.textButton}>
                 회원가입
               </Link>
             </button>
@@ -120,11 +125,11 @@ const Login = (props) => {
           </div>
 
           <div className={classes.snsIconWrap}>
-            <a href="1" className={classes.snsIcon}>
-              <img src={googleIcon} alt="" />
+            <a href='1' className={classes.snsIcon}>
+              <img src={googleIcon} alt='' />
             </a>
-            <a href="1" className={classes.snsIcon}>
-              <img src={kakaoIcon} alt="" />
+            <a href='1' className={classes.snsIcon}>
+              <img src={kakaoIcon} alt='' />
             </a>
           </div>
         </div>
