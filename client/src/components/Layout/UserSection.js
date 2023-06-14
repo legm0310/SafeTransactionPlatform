@@ -76,8 +76,8 @@ const UserSection = () => {
     >
       <MenuItem onClick={onMenuClose}>내 정보</MenuItem>
       <MenuItem onClick={onMenuClose}>
-        <ConnectWallet theme="white" btnTitle="지갑 연결" />
-        {/* <MyWallet /> */}
+        {/* <ConnectWallet theme="white" btnTitle="지갑 연결" /> */}
+        <MyWallet />
       </MenuItem>
       <MenuItem
         className={classes.logout}

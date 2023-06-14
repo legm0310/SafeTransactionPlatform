@@ -1,7 +1,18 @@
 import * as React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import PropTypes from "prop-types";
-import { ConnectWallet, Web3Button } from "@thirdweb-dev/react";
+import {
+  ConnectWallet,
+  useMetamask,
+  useDisconnect,
+  useAddress,
+  Web3Button,
+  useSwitchChain,
+  useChainId,
+  useNetworkMismatch,
+} from "@thirdweb-dev/react";
+import { Sepolia } from "@thirdweb-dev/chains";
+import { AddProductButton } from "../../api/web3/addProductButton";
 
 import {
   styled,
@@ -57,17 +68,38 @@ BootstrapDialogTitle.propTypes = {
 };
 
 export default function MyWallet() {
+  const address = useAddress();
+  const disconnectWallet = useDisconnect();
+  const connectMetamask = useMetamask();
+  const isMismatched = useNetworkMismatch();
+  const switchNetwork = useSwitchChain();
   const [open, setOpen] = React.useState(false);
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user.user);
+  const handleConnectWallet = async () => {
+    try {
+      await connectMetamask();
+      if (isMismatched) {
+        await switchNetwork(Sepolia.chainId);
+      }
+    } catch (error) {
+      console.error("Failed to connect wallet", error);
+    }
+  };
 
+  const handleSwitchNetwork = async () => {
+    try {
+      await switchNetwork(Sepolia.chainId);
+    } catch (error) {
+      console.error("Failed to switch network", error);
+    }
+  };
   const handleClickOpen = () => {
     setOpen(true);
   };
   const handleClose = () => {
     setOpen(false);
   };
-
   return (
     <div>
       <Button onClick={handleClickOpen}>
@@ -92,8 +124,29 @@ export default function MyWallet() {
           <Typography gutterBottom>
             Aenean lacinia bibendum nulla sed consectetur. Praesent commodo
           </Typography>
-          <ConnectWallet theme="white" btnTitle="지갑 연결" />
+
+          {/* // <button onClick={handleConnectWallet}>지갑 연결하기</button> */}
+          {address && isMismatched ? (
+            <div>
+              <div>지갑 네트워크를 전환해주세요</div>
+              <button onClick={handleSwitchNetwork}>네트워크 전환하기</button>
+            </div>
+          ) : (
+            <ConnectWallet
+              type="submit"
+              theme="white"
+              btnTitle="지갑 연결"
+              // detailsBtn={() => {
+              //   return <button>hi</button>;
+              // }}
+              dropdownPosition={{
+                align: "center",
+                side: "bottom",
+              }}
+            />
+          )}
           <Web3Button />
+          <button onClick={AddProductButton}>test</button>
         </DialogContent>
         <DialogActions>
           <Button autoFocus onClick={handleClose}>

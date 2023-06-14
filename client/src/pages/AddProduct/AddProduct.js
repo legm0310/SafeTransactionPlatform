@@ -2,6 +2,9 @@ import React, { Fragment, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { addProduct } from "../../_actions/productAction";
+import { useAddress } from "@thirdweb-dev/react";
+
+import classes from "../../styles/AddProduct.module.css";
 import {
   FormControlLabel,
   Checkbox,
@@ -9,8 +12,6 @@ import {
   TextField,
   Alert,
 } from "@mui/material";
-
-import classes from "../../styles/AddProduct.module.css";
 
 const AddProduct = (props) => {
   const [imgFile, setimgFile] = useState([]);
@@ -22,6 +23,7 @@ const AddProduct = (props) => {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const address = useAddress();
 
   const onImgFileHandler = (event) => {
     const imgLists = event.target.files;
@@ -150,7 +152,10 @@ const AddProduct = (props) => {
     for (const value of formData.values()) {
       console.log(value);
     }
-
+    const data = {
+      formData: formData,
+      address: address,
+    };
     dispatch(addProduct(formData)).then((response) => {
       if (response.payload.addProductSuccess) {
         alert("상품 등록 완료");
