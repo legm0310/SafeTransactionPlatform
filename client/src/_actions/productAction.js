@@ -3,6 +3,8 @@ import {
   RECENT_PRODUCTS,
   GET_PRODUCTS,
   GET_PRODUCT,
+  PURCHASE,
+  RELEASE,
 } from "./type";
 import { addProdRequest } from "../api/productApi";
 import { baseRequest } from "../api/common";
@@ -55,6 +57,7 @@ export function getProducts(dataToSubmit) {
     payload: request,
   };
 }
+
 export function getProduct(dataToSubmit) {
   const params = dataToSubmit;
   const request = baseRequest()
@@ -67,6 +70,35 @@ export function getProduct(dataToSubmit) {
 
   return {
     type: GET_PRODUCT,
+    payload: request,
+  };
+}
+
+export function purchase(dataToSubmit) {
+  const request = baseRequest()
+    .put()
+    .then((response) => response.data)
+    .catch((err) => {
+      console.log(err);
+      return err.response.data;
+    });
+
+  return {
+    type: PURCHASE,
+    payload: request,
+  };
+}
+export function release(dataToSubmit) {
+  const request = baseRequest()
+    .put()
+    .then((response) => response.data)
+    .catch((err) => {
+      console.log(err);
+      return err.response.data;
+    });
+
+  return {
+    type: RELEASE,
     payload: request,
   };
 }
