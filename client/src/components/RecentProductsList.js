@@ -51,7 +51,10 @@ const RecentProductsList = () => {
 
                   <div className={classes.prodInfo}>
                     <div className={classes.prodName}>{product.title}</div>
-                    <div className={classes.prodPrice}> {product.price}</div>
+                    <div className={classes.prodPrice}>
+                      {" "}
+                      {product.price.toLocaleString()}
+                    </div>
                   </div>
                 </Link>
               </div>

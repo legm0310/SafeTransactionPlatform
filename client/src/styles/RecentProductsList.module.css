@@ -30,6 +30,10 @@
   margin-right: 0px;
 }
 
+a {
+  text-decoration: none;
+}
+
 /*상품 이미지*/
 .imgBox {
   width: 100%;
@@ -49,7 +53,6 @@
 
 .prodName {
   margin-bottom: 10px;
-  font-size: 15px;
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
@@ -57,7 +60,6 @@
 }
 
 .prodPrice {
-  text-decoration: none;
   font-size: 16px;
   font-weight: 700;
   color: rgb(33, 33, 33);

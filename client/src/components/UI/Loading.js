@@ -3,14 +3,6 @@ import BounceLoader from "react-spinners/BounceLoader";
 
 import classes from "../../styles/Loading.module.css";
 
-const override = {
-  display: "flex",
-
-  margin: "0 auto",
-  borderColor: "#E50915",
-  textAlign: "center",
-};
-
 const Loading = () => {
   return (
     <Fragment>
