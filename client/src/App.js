@@ -16,6 +16,7 @@ import Detail from "./pages/Product/Detail";
 import Auth from "./hoc/auth";
 import Loading from "./components/UI/Loading";
 import ScrollTop from "./components/UI/ScrollTop";
+import UserInfo from "./pages/User/UserInfo";
 
 function App() {
   const dispatch = useDispatch();
@@ -41,6 +42,7 @@ function App() {
             <Route path="/login" element={<Login />}></Route>
             <Route path="/register" element={<Register />}></Route>
             <Route path="/products/:productId" element={<Detail />}></Route>
+            <Route path="/userInfo" element={<UserInfo />}></Route>
 
             <Route path="/Loading" element={<Loading />}></Route>
           </Routes>
