@@ -37,7 +37,7 @@ class ChatParticipant extends Sequelize.Model {
         },
       },
       {
-        modelName: "chatParticipant", // This is the name of the table in the database
+        modelName: "chatLog",
         freezeTableName: true,
         timestamps: true,
         underscored: true,
