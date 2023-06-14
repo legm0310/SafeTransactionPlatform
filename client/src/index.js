@@ -15,8 +15,8 @@ import { ThemeProvider, createTheme } from "@mui/material";
 import {
   ThirdwebProvider,
   metamaskWallet,
-  // coinbaseWallet,
-  // walletConnectV1,
+  coinbaseWallet,
+  walletConnectV1,
 } from "@thirdweb-dev/react";
 import { Sepolia } from "@thirdweb-dev/chains";
 
@@ -53,7 +53,7 @@ root.render(
   >
     <ThirdwebProvider
       activeChain={Sepolia}
-      supportedWallets={[metamaskWallet()]}
+      supportedWallets={[metamaskWallet(), coinbaseWallet(), walletConnectV1()]}
     >
       <ThemeProvider theme={muiTheme}>
         <App />

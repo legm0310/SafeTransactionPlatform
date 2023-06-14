@@ -15,3 +15,5 @@ export const ADD_PRODUCT = "addProduct";
 export const GET_PRODUCTS = "getProducts";
 export const RECENT_PRODUCTS = "recentProducts";
 export const GET_PRODUCT = "getProduct";
+export const PURCHASE = "purchase";
+export const RELEASE = "release";
