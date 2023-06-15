@@ -1,21 +1,21 @@
 const Sequelize = require("sequelize");
 
-class ChatParticipant extends Sequelize.Model {
+class ChatLog extends Sequelize.Model {
   static init(sequelize) {
     super.init(
       {
-        ChatParticipantId: {
+        id: {
           type: Sequelize.INTEGER,
           primaryKey: true,
           autoIncrement: true,
           allowNull: false,
         },
-        receiveUserId: {
+        receiver_id: {
           allowNull: false,
           type: Sequelize.INTEGER,
           comment: "메세지 수신자",
         },
-        sendUserId: {
+        sender_id: {
           allowNull: false,
           type: Sequelize.INTEGER,
           comment: "메세지 송신자",
@@ -46,11 +46,11 @@ class ChatParticipant extends Sequelize.Model {
     );
   }
   static associate(db) {
-    ChatParticipant.belongsTo(db.ChatRoom, {
-      foreignKey: "chatRoomId",
+    ChatLog.belongsTo(db.ChatRoom, {
+      foreignKey: "chatroom_id",
       onDelete: "cascade",
     });
   }
 }
 
-module.exports = ChatParticipant;
+module.exports = ChatLog;
