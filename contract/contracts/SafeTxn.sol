@@ -50,23 +50,31 @@ contract SafeTxn is ISafeTxn, IEscrow, ERC20Base {
   }
 
   //제품 등록
-  function addProduct(uint32 _sellerId, uint256 _price) public virtual override returns (bool) {
+  function addProduct(uint32 _sellerId, uint32 _productId, uint256 _price) public virtual override returns (bool) {
     require(_price>=0, "price of the product is less than zero");
-    uint32 newProductId = increaseTotalProduct();
+    increaseTotalProduct();
 
-    products[newProductId] = Product(newProductId, _price, _sellerId, msg.sender, State.SALE);
+    products[_productId] = Product(_productId, _price, _sellerId, msg.sender, State.SALE);
 
-    require(products[newProductId].sellerAddress != address(0), "Faild to register product");
+    require(products[_productId].sellerAddress != address(0), "Faild to register product");
+    emit ProductRegister(msg.sender, _productId, _price, block.timestamp);
     return true;
+  }
+
+  function getProduct(uint32 _productId) public view returns(Product memory) {
+    return products[_productId];
+  }
+
+  function getEscrow(uint32 _escrowId) public view returns(EscrowData memory) {
+    return escrows[_escrowId];
   }
 
   function setProductStatus(Product storage _product, State _status) internal returns(bool) {
     _product.status = _status;
     return true;
   }
-
-
-  //제품 삭제
+  
+  //TODO 제품 삭제
   //제품 수정
 
 
