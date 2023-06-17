@@ -10,25 +10,21 @@ class ChatRoom extends Sequelize.Model {
           autoIncrement: true,
           allowNull: false,
         },
-        //seller_id
-        user_id1: {
+        seller_id: {
           allowNull: false,
           type: Sequelize.INTEGER,
         },
-        //buyer_id
-        user_id2: {
+        buyer_id: {
           allowNull: false,
           type: Sequelize.INTEGER,
         },
-        //room_number
-        roomNum: {
+        room_number: {
           allowNull: false,
           type: Sequelize.INTEGER,
         },
       },
       {
-        //chat_room
-        modelName: "chatRoom", // This is the name of the table in the database
+        modelName: "chat_room", // This is the name of the table in the database
         freezeTableName: true,
         timestamps: true,
         underscored: true,
@@ -37,11 +33,9 @@ class ChatRoom extends Sequelize.Model {
     );
   }
   static associate(db) {
-    //room_id
-    ChatRoom.hasMany(db.ChatLog, { foreignKey: "chatroom_id" });
+    ChatRoom.hasMany(db.ChatLog, { foreignKey: "room_id" });
     ChatRoom.belongsTo(db.User, {
-      //user_id, id 어떤 아이디 말하는거임 ?
-      foreignKey: "userId",
+      foreignKey: "id",
       onDelete: "cascade",
     });
   }
