@@ -20,28 +20,24 @@ class ChatLog extends Sequelize.Model {
           type: Sequelize.INTEGER,
           comment: "메세지 송신자",
         },
-        //chat_type
-        chatType: {
+        chat_type: {
           allowNull: false,
           type: Sequelize.STRING,
           comment: "텍스트, 이미지 구분",
         },
-        //chat_text, message
-        chatText: {
+        message: {
           allowNull: false,
           type: Sequelize.STRING,
           comment: "메세지 내용",
         },
-        //check_read
-        checkChat: {
+        check_read: {
           allowNull: false,
           type: Sequelize.BOOLEAN,
           comment: "메세지 읽음 유무 (1 없애기)",
         },
       },
       {
-        //chat_log
-        modelName: "chatLog",
+        modelName: "chat_log",
         freezeTableName: true,
         timestamps: true,
         underscored: true,
@@ -51,8 +47,7 @@ class ChatLog extends Sequelize.Model {
   }
   static associate(db) {
     ChatLog.belongsTo(db.ChatRoom, {
-      //room_id
-      foreignKey: "chatroom_id",
+      foreignKey: "room_id",
       onDelete: "cascade",
     });
   }
