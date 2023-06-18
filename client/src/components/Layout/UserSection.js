@@ -184,17 +184,19 @@ const UserSection = () => {
             TransitionProps={{ timeout: 600 }}
             arrow
           >
-            <IconButton
-              size="large"
-              aria-label="show 4 new mails"
-              color="black"
-              sx={{ mr: 2 }}
-            >
-              <Badge badgeContent={4} color="error">
-                <TelegramIcon sx={{ fontSize: 30 }} />
-              </Badge>
-              <Typography>판다톡</Typography>
-            </IconButton>
+            <Link to={`/chat/`}>
+              <IconButton
+                size="large"
+                aria-label="show 4 new mails"
+                color="black"
+                sx={{ mr: 2 }}
+              >
+                <Badge badgeContent={4} color="error">
+                  <TelegramIcon sx={{ fontSize: 30 }} />
+                </Badge>
+                <Typography>판다톡</Typography>
+              </IconButton>
+            </Link>
           </Tooltip>
 
           <Tooltip

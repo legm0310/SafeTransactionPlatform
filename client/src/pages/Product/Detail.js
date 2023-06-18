@@ -1,4 +1,5 @@
 import { Fragment, useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getProduct } from "../../_actions/productAction";
@@ -60,15 +61,17 @@ const Detail = (props) => {
                   </div>
                 </Button>
 
-                <Button>
-                  <div className={classes.productMessageWrap}>
-                    <div className={classes.productMessage}>
-                      <TbMessageCircle2Filled />
-                      <span className={classes.buttonText}>판다톡</span>
+                <Link to={`/chat/`}>
+                  <Button>
+                    <div className={classes.productMessageWrap}>
+                      <div className={classes.productMessage}>
+                        <TbMessageCircle2Filled />
+                        <span className={classes.buttonText}>판다톡</span>
+                      </div>
+                      <span className={classes.prodMessageborder}></span>
                     </div>
-                    <span className={classes.prodMessageborder}></span>
-                  </div>
-                </Button>
+                  </Button>
+                </Link>
               </div>
 
               <Button>
