@@ -31,7 +31,7 @@ const Header = (props) => {
 
   return (
     <Fragment>
-      <AppBar position="sticky" sx={{ bgcolor: "white" }}>
+      <AppBar position="sticky" sx={{ bgcolor: "white", width: "100vw" }}>
         <Container maxWidth="xl">
           <Toolbar disableGutters>
             <MobileNavMenu
