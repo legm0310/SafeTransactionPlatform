@@ -1,17 +1,20 @@
 import React, { Fragment, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { setLoadings } from "../../_actions/uiAction";
 import { addProduct } from "../../_actions/productAction";
-import { useAddress } from "@thirdweb-dev/react";
+import { useAddress, useSigner, useSDK } from "@thirdweb-dev/react";
 
 import classes from "../../styles/AddProduct.module.css";
 import {
   FormControlLabel,
+  Backdrop,
   Checkbox,
   Button,
   TextField,
   Alert,
 } from "@mui/material";
+import Loading from "../../components/UI/Loading";
 
 const AddProduct = (props) => {
   const [imgFile, setimgFile] = useState([]);
@@ -20,10 +23,11 @@ const AddProduct = (props) => {
   const [detail, setDetail] = useState("");
   const [titleLength, setTitleLength] = useState(0);
   const [category, setCategory] = useState([]);
+  const isLoading = useSelector((state) => state.ui.isLoading);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const address = useAddress();
+  const sdk = useSDK();
 
   const onImgFileHandler = (event) => {
     const imgLists = event.target.files;
@@ -98,9 +102,8 @@ const AddProduct = (props) => {
 
   // 등록하기
   const onSubmitHandler = (event) => {
-    console.log(event);
     event.preventDefault(); // prevent form submission
-
+    dispatch(setLoadings({ isLoading: true }));
     if (title.trim() === "") {
       alert("상품 이름을 입력해주세요.");
       return;
@@ -133,30 +136,22 @@ const AddProduct = (props) => {
       images: null,
     };
 
-    //img, body 담을 formdata
-    //json은 Blob으로 객체에 넣어서 담아야함.
     const formData = new FormData();
-    // const blobBody = new Blob([JSON.stringify(body)], {
-    //   type: "application/json",
-    // });
 
     imgFile.forEach((file, index) => {
       formData.append(`prodImg`, file);
     });
     formData.append("data", JSON.stringify(body));
 
-    for (const key of formData.keys()) {
-      console.log(key);
-    }
     // FormData의 value 확인
     for (const value of formData.values()) {
       console.log(value);
     }
     const data = {
       formData: formData,
-      address: address,
+      sdk: sdk,
     };
-    dispatch(addProduct(formData)).then((response) => {
+    dispatch(addProduct(data)).then((response) => {
       if (response.payload.addProductSuccess) {
         alert("상품 등록 완료");
         navigate("/");
@@ -168,6 +163,9 @@ const AddProduct = (props) => {
 
   return (
     <Fragment>
+      <Backdrop open={false}>
+        <Loading />
+      </Backdrop>
       <form className={classes.form} onSubmit={onSubmitHandler}>
         <div className={classes.title}>상품 등록하기</div>
 

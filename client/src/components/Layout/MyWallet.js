@@ -1,18 +1,20 @@
-import * as React from "react";
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import PropTypes from "prop-types";
 import {
   ConnectWallet,
   useMetamask,
   useDisconnect,
+  useContract,
   useAddress,
   Web3Button,
   useSwitchChain,
-  useChainId,
   useNetworkMismatch,
+  useSDK,
+  useTokenBalance,
 } from "@thirdweb-dev/react";
 import { Sepolia } from "@thirdweb-dev/chains";
-import { AddProductButton } from "../../api/web3/addProductButton";
+import { testCall } from "../../api/web3/contractCall";
 
 import {
   styled,
@@ -68,14 +70,30 @@ BootstrapDialogTitle.propTypes = {
 };
 
 export default function MyWallet() {
-  const address = useAddress();
-  const disconnectWallet = useDisconnect();
-  const connectMetamask = useMetamask();
-  const isMismatched = useNetworkMismatch();
-  const switchNetwork = useSwitchChain();
-  const [open, setOpen] = React.useState(false);
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user.user);
+  const [open, setOpen] = useState(false);
+
+  const sdk = useSDK();
+  const { contract } = useContract(process.env.REACT_APP_CONTRACT_ADDRESS);
+  const address = useAddress();
+  const connectMetamask = useMetamask();
+  const disconnectWallet = useDisconnect();
+  const isMismatched = useNetworkMismatch();
+  const switchNetwork = useSwitchChain();
+  const {
+    data: tokenData,
+    isLoading,
+    error,
+  } = useTokenBalance(contract, address);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+  const handleClose = () => {
+    setOpen(false);
+  };
+
   const handleConnectWallet = async () => {
     try {
       await connectMetamask();
@@ -94,12 +112,11 @@ export default function MyWallet() {
       console.error("Failed to switch network", error);
     }
   };
-  const handleClickOpen = () => {
-    setOpen(true);
+
+  const handleTestButton = async () => {
+    const data = await testCall(sdk);
   };
-  const handleClose = () => {
-    setOpen(false);
-  };
+
   return (
     <div>
       <Button onClick={handleClickOpen}>
@@ -146,7 +163,10 @@ export default function MyWallet() {
             />
           )}
           <Web3Button />
-          <button onClick={AddProductButton}>test</button>
+          <h3>{`잔액: ${tokenData?.displayValue || 0} ${
+            tokenData?.symbol || ""
+          }`}</h3>
+          <button onClick={handleTestButton}>테스트 호출</button>
         </DialogContent>
         <DialogActions>
           <Button autoFocus onClick={handleClose}>

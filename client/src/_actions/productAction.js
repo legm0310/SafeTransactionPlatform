@@ -6,23 +6,52 @@ import {
   PURCHASE,
   RELEASE,
 } from "./type";
-import { addProdRequest } from "../api/productApi";
+
 import { baseRequest } from "../api/common";
+import { addProdRequest } from "../api/productApi";
+import { callAddProduct } from "../api/web3/callAddProduct";
+import { setLoadings } from "./uiAction";
+
+// export function addProduct(dataToSubmit) {
+//   const { formData, sdk } = dataToSubmit;
+//   const request = addProdRequest()
+//     .post("/api/products", formData)
+//     .then((response) => {
+//       console.log("res", response);
+//       callAddProduct(sdk, response.data.product);
+//       return response.data;
+//     })
+//     .catch((err) => {
+//       console.log(err);
+//       return err.response.data;
+//     });
+//   return {
+//     type: ADD_PRODUCT,
+//     payload: request,
+//   };
+// }
 
 export function addProduct(dataToSubmit) {
-  const request = addProdRequest()
-    .post("/api/products", dataToSubmit)
-    .then((response) => {
-      console.log("res", response);
-      return response.data;
-    })
-    .catch((err) => {
+  const { formData, sdk } = dataToSubmit;
+  return async (dispatch) => {
+    try {
+      const res = await addProdRequest().post("/api/products", formData);
+      console.log("res", res);
+      dispatch(setLoadings({ isLoading: false, isContractLoading: true }));
+
+      callAddProduct(sdk, res.data.product).then((data) => {
+        console.log("contractRes", data);
+        dispatch(setLoadings({ isContractLoading: false }));
+      });
+
+      return res.data;
+    } catch (err) {
       console.log(err);
-      return err.response.data;
-    });
-  return {
-    type: ADD_PRODUCT,
-    payload: request,
+      return dispatch({
+        type: ADD_PRODUCT,
+        payload: err.response.data,
+      });
+    }
   };
 }
 

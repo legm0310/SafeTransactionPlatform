@@ -15,6 +15,7 @@ import {
 
 const initialState = {
   isLoggedIn: null,
+  userId: "",
 };
 
 // Action의 type에 따라 변화된 state 반환
@@ -30,11 +31,17 @@ export default function (state = initialState, action) {
       return {
         ...state,
         isLoggedIn: action.payload?.loginSuccess ? true : false,
+        userId: action.payload?.user.id,
         loginSuccess: action.payload,
       };
       break;
     case LOGOUT_USER:
-      return { ...state, isLoggedIn: false, logoutSuccess: action.payload };
+      return {
+        ...state,
+        isLoggedIn: false,
+        userId: "",
+        logoutSuccess: action.payload,
+      };
       break;
     case AUTH_USER:
       // 모든 유저데이터가 userData에 들어오게 됨

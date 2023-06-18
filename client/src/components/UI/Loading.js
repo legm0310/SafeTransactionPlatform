@@ -1,5 +1,6 @@
 import React, { Fragment } from "react";
 import BounceLoader from "react-spinners/BounceLoader";
+import ContractLoading from "./ContractLoading";
 
 import classes from "../../styles/Loading.module.css";
 
@@ -8,9 +9,20 @@ const Loading = () => {
     <Fragment>
       <div className={classes.loadingWrap}>
         <div className={classes.loading}>
-          <h2>로딩중...</h2>
-
-          <BounceLoader color="#1ecfba" size={100} />
+          {/* <ContractLoading /> */}
+          <BounceLoader color="#1ecfba" size={130} />
+        </div>
+        <div className={classes.loadingText}>
+          <h2>LOADING</h2>
+          <span>
+            <h2>.</h2>
+          </span>
+          <span>
+            <h2>.</h2>
+          </span>
+          <span>
+            <h2>.</h2>
+          </span>
         </div>
       </div>
     </Fragment>
