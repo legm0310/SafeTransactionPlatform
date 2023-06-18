@@ -3,7 +3,6 @@
   justify-content: center;
   flex-direction: column;
   align-items: center;
-  border: 1px solid blue;
 }
 
 .UserInfoWrap {
@@ -14,7 +13,6 @@
 
 .UserInfoMenuWrap {
   margin-top: 20px;
-  border: 1px solid green;
   width: 1200px;
 }
 
@@ -23,9 +21,18 @@
   height: 30px;
 }
 
-/* .MenuButton {
+.MenuButton {
+  width: 100%;
+}
 
-} */
+.active {
+  color: #1ecfba;
+  border-bottom: 5px solid #1ecfba;
+}
+
+span {
+  font-size: 14px;
+}
 
 .UserInfoExplanation {
   margin-top: 30px;

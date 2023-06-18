@@ -23,6 +23,7 @@ import {
   MoreVert as MoreIcon,
   Telegram as TelegramIcon,
   Favorite as FavoriteIcon,
+  WalletRounded as WalletRoundedIcon,
 } from "@mui/icons-material";
 
 const UserSection = () => {
@@ -76,13 +77,16 @@ const UserSection = () => {
       onClose={onMenuClose}
     >
       <Link to="/userinfo">
-        <MenuItem onClick={onMenuClose}>내 정보</MenuItem>
+        <MenuItem onClick={onMenuClose} sx={{ color: "black" }}>
+          내 정보
+        </MenuItem>
       </Link>
 
-      <MenuItem onClick={onMenuClose}>
-        {/* <ConnectWallet theme="white" btnTitle="지갑 연결" /> */}
+      {/* <MenuItem onClick={onMenuClose}>
+        <ConnectWallet theme="white" btnTitle="지갑 연결" />
         <MyWallet />
-      </MenuItem>
+      </MenuItem>  */}
+
       <MenuItem
         className={classes.logout}
         onClick={onLogoutHandler}
@@ -145,18 +149,17 @@ const UserSection = () => {
         <p>내 정보</p>
       </MenuItem>
 
-      <MenuItem onClick={onProfileMenuOpen}>
+      <MenuItem>
         <IconButton
           size="large"
           aria-label="account of current user"
           aria-controls="primary-search-account-menu"
           aria-haspopup="true"
           color="primary"
-        >
-          <AccountCircle />
-        </IconButton>
-        <p>내 지갑</p>
+        ></IconButton>
+        <MyWallet />
       </MenuItem>
+
       <MenuItem onClick={onLogoutHandler} sx={{ borderTop: 2 }}>
         <IconButton
           size="large"
@@ -207,6 +210,10 @@ const UserSection = () => {
               <Typography>찜목록</Typography>
             </IconButton>
           </Tooltip>
+
+          <IconButton size="large" sx={{ mr: 2 }}>
+            <MyWallet />
+          </IconButton>
 
           <IconButton
             size="large"
