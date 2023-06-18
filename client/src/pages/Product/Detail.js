@@ -1,7 +1,10 @@
 import { Fragment, useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { getProduct } from "../../_actions/productAction";
+import { addRoom } from "../../_actions/roomAction";
 
 import Slide from "./DetailSlide";
 import { FaHeart } from "react-icons/fa";
@@ -13,16 +16,31 @@ import ProductStore from "./ProductStore";
 import ProductInformation from "./ProductInformation";
 
 import classes from "../../styles/Detail.module.css";
+import { setLoadings } from "../../_actions/uiAction";
 
 const Detail = (props) => {
   const [activeMenu, setActiveMenu] = useState("productInformation");
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const productDetail = useSelector(
     (state) => state.product.productDetail?.product
   );
   const { productId } = useParams();
+  const userId = productDetail?.seller_id;
+  const myId = 5;
+  console.log(userId);
   console.log(productDetail);
+
+  const createRoomNumber = () => {
+    const total_Id = [myId, userId];
+    return total_Id
+      .map(Number)
+      .sort((a, b) => a - b)
+      .join("_");
+  };
+  const roomName = createRoomNumber();
+  console.log(`roomName : ${roomName}`);
 
   useEffect(() => {
     dispatch(getProduct(productId)).then((response) => console.log(response));
@@ -30,6 +48,41 @@ const Detail = (props) => {
 
   const onMenuHandler = (menu) => {
     setActiveMenu(menu);
+  };
+
+  const onCreateRoomHandler = (event) => {
+    event.preventDefault();
+    dispatch(setLoadings({ isLoading: true }));
+
+    let body = {
+      seller_id: userId,
+      buyer_id: myId,
+      room_name: roomName,
+      id: myId,
+    };
+
+    const formData = new FormData();
+
+    formData.append("data", JSON.stringify(body));
+
+    const data = {
+      formData: formData,
+    };
+
+    for (const value of formData.values()) {
+      console.log(value);
+    }
+
+    // console.log(data)
+
+    dispatch(addRoom(data)).then((response) => {
+      if (response.addRoomSuccess) {
+        alert("채팅방 생성 완료");
+        navigate(`/chat/${roomName}`);
+      } else {
+        alert("방 생성에 실패했습니다.");
+      }
+    });
   };
 
   return (
@@ -60,7 +113,7 @@ const Detail = (props) => {
                   </div>
                 </Button>
 
-                <Button>
+                <Button onClick={onCreateRoomHandler}>
                   <div className={classes.productMessageWrap}>
                     <div className={classes.productMessage}>
                       <TbMessageCircle2Filled />
