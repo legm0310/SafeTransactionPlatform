@@ -26,32 +26,28 @@ const UserInfo = () => {
             <Button onClick={() => onMenuHandler("UserAddProduct")}>
               <div
                 className={`${classes.MenuButton} ${
-                  activeMenu === "UserAddProduct"
-                    ? classes.AddProductButton
-                    : ""
+                  activeMenu === "UserAddProduct" ? classes.active : ""
                 }`}
               >
-                판매상품
+                <span>판매상품</span>
               </div>
             </Button>
             <Button onClick={() => onMenuHandler("UserPurchaseProduct")}>
               <div
                 className={`${classes.MenuButton} ${
-                  activeMenu === "UserPurchaseProduct"
-                    ? classes.PurchaseProductButton
-                    : ""
+                  activeMenu === "UserPurchaseProduct" ? classes.active : ""
                 }`}
               >
-                구매상품
+                <span>구매상품</span>
               </div>
             </Button>
             <Button onClick={() => onMenuHandler("UserWishList")}>
               <div
                 className={`${classes.MenuButton} ${
-                  activeMenu === "UserWishList" ? classes.wishListButton : ""
+                  activeMenu === "UserWishList" ? classes.active : ""
                 }`}
               >
-                찜목록
+                <span>찜목록</span>
               </div>
             </Button>
           </div>
