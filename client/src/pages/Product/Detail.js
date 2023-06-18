@@ -1,7 +1,9 @@
 import { Fragment, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { getProduct } from "../../_actions/productAction";
+import { useSDK, useAddress } from "@thirdweb-dev/react";
+import { getProduct, purchase } from "../../_actions/productAction";
+import { setLoadings } from "../../_actions/uiAction";
 
 import Slide from "./DetailSlide";
 import { FaHeart } from "react-icons/fa";
@@ -18,10 +20,13 @@ const Detail = (props) => {
   const [activeMenu, setActiveMenu] = useState("productInformation");
 
   const dispatch = useDispatch();
+  const userId = useSelector((state) => state.user.userId);
   const productDetail = useSelector(
     (state) => state.product.productDetail?.product
   );
   const { productId } = useParams();
+
+  const sdk = useSDK();
   console.log(productDetail);
 
   useEffect(() => {
@@ -30,6 +35,16 @@ const Detail = (props) => {
 
   const onMenuHandler = (menu) => {
     setActiveMenu(menu);
+  };
+
+  const onPurchaseHandler = () => {
+    dispatch(setLoadings({ isLoading: true }));
+    const data = {
+      productId,
+      userId,
+      sdk,
+    };
+    dispatch(purchase(data)).then((response) => console.log(response));
   };
 
   return (
@@ -71,7 +86,7 @@ const Detail = (props) => {
                 </Button>
               </div>
 
-              <Button>
+              <Button onClick={onPurchaseHandler}>
                 <div className={classes.productPurchaseWrap}>
                   <div className={classes.productPurchase}>
                     <IoCart />

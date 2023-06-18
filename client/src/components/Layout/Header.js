@@ -5,8 +5,7 @@ import UserAuth from "./UserAuth";
 import MobileNavMenu from "./MobileNavMenu";
 import DesktopNavMenu from "./DesktopNavMenu";
 import Logo from "./Logo";
-import Modal from "../UI/Modal";
-import ContractLoading from "../UI/ContractLoading";
+import ContractModal from "../UI/ContractModal";
 
 import classes from "../../styles/Header.module.css";
 import { AppBar, Container, Toolbar } from "@mui/material";
@@ -52,9 +51,7 @@ const Header = (props) => {
           </Toolbar>
         </Container>
       </AppBar>
-      {/* <Modal>
-        <ContractLoading />
-      </Modal> */}
+      <ContractModal />
     </Fragment>
   );
 };

@@ -168,7 +168,7 @@ export default function MyWallet() {
           <h3>{`잔액: ${tokenData?.displayValue || 0} ${
             tokenData?.symbol || ""
           }`}</h3>
-          <button onClick={handleTestButton}>테스트 호출</button>
+          {/* <button onClick={handleTestButton}>테스트 호출</button> */}
         </DialogContent>
         <DialogActions>
           <Button autoFocus onClick={handleClose}>

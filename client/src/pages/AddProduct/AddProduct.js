@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { setLoadings } from "../../_actions/uiAction";
 import { addProduct } from "../../_actions/productAction";
-import { useAddress, useSigner, useSDK } from "@thirdweb-dev/react";
+import { useAddress, useSDK } from "@thirdweb-dev/react";
 
 import classes from "../../styles/AddProduct.module.css";
 import {
@@ -13,6 +13,8 @@ import {
   Button,
   TextField,
   Alert,
+  Snackbar,
+  Slide,
 } from "@mui/material";
 import Loading from "../../components/UI/Loading";
 
@@ -23,20 +25,20 @@ const AddProduct = (props) => {
   const [detail, setDetail] = useState("");
   const [titleLength, setTitleLength] = useState(0);
   const [category, setCategory] = useState([]);
+  const [alertOpen, setAlertOpen] = useState(false);
   const isLoading = useSelector((state) => state.ui.isLoading);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
   const sdk = useSDK();
+  const address = useAddress();
 
   const onImgFileHandler = (event) => {
     const imgLists = event.target.files;
     let imgUrlLists = [...imgFile];
     for (let i = 0; i < imgLists.length; i++) {
-      // 미리보기 가능하게 변수화
       imgUrlLists.push(imgLists[i]);
-      // const currentImgUrl = URL.createObjectURL(imgLists[i]);
-      // 복사한 imgFile에 추가
     }
 
     if (imgUrlLists.length > 10) {
@@ -45,6 +47,17 @@ const AddProduct = (props) => {
     setimgFile(imgUrlLists);
   };
 
+  const handleAlert = () => {
+    setAlertOpen(true);
+  };
+
+  const handleAlertClose = () => {
+    setAlertOpen(false);
+  };
+
+  function SlideTrans() {
+    return <Slide direction="up" />;
+  }
   // 이미지 삭제
   const deleteImgHandler = (event, id) => {
     event.preventDefault();
@@ -103,7 +116,11 @@ const AddProduct = (props) => {
   // 등록하기
   const onSubmitHandler = (event) => {
     event.preventDefault(); // prevent form submission
-    dispatch(setLoadings({ isLoading: true }));
+
+    if (!address) {
+      setAlertOpen(true);
+      return;
+    }
     if (title.trim() === "") {
       alert("상품 이름을 입력해주세요.");
       return;
@@ -120,6 +137,8 @@ const AddProduct = (props) => {
       alert("상품 카테고리를 입력해주세요.");
       return;
     }
+
+    dispatch(setLoadings({ isLoading: true }));
 
     setTitle("");
     setPrice("");
@@ -152,7 +171,8 @@ const AddProduct = (props) => {
       sdk: sdk,
     };
     dispatch(addProduct(data)).then((response) => {
-      if (response.addProductSuccess) {
+      console.log(response);
+      if (response.payload.addProductSuccess) {
         alert("상품 등록 완료");
         navigate("/");
       } else {
@@ -163,9 +183,22 @@ const AddProduct = (props) => {
 
   return (
     <Fragment>
-      <Backdrop open={isLoading}>
-        <Loading />
-      </Backdrop>
+      <Snackbar
+        open={alertOpen}
+        anchorOrigin={{ vertical: "top", horizontal: "center" }}
+        autoHideDuration={2500}
+        onClose={handleAlertClose}
+        sx={{ marginTop: "70px" }}
+      >
+        <Alert
+          onClose={handleAlertClose}
+          severity="error"
+          elevation={3}
+          sx={{ width: "100%" }}
+        >
+          연결된 지갑이 없습니다.
+        </Alert>
+      </Snackbar>
       <form className={classes.form} onSubmit={onSubmitHandler}>
         <div className={classes.title}>상품 등록하기</div>
 
@@ -392,5 +425,4 @@ const AddProduct = (props) => {
     </Fragment>
   );
 };
-
 export default AddProduct;

@@ -55,7 +55,10 @@ export function logout() {
 export function auth() {
   const request = authRequest()
     .get("/api/auth/check")
-    .then((response) => response.data)
+    .then((response) => {
+      console.log(response.data);
+      return response.data;
+    })
     .catch((err) => {
       console.log(err.response);
       return err.response.data;
