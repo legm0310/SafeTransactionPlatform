@@ -4,7 +4,7 @@ class ChatRoom extends Sequelize.Model {
   static init(sequelize) {
     super.init(
       {
-        id: {
+        room_id: {
           type: Sequelize.INTEGER,
           primaryKey: true,
           autoIncrement: true,
@@ -18,9 +18,9 @@ class ChatRoom extends Sequelize.Model {
           allowNull: false,
           type: Sequelize.INTEGER,
         },
-        room_number: {
+        room_name: {
           allowNull: false,
-          type: Sequelize.INTEGER,
+          type: Sequelize.STRING,
         },
       },
       {
