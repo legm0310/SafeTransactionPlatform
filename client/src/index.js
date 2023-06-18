@@ -35,22 +35,19 @@ const muiTheme = createTheme();
 //     getDefaultMiddleware().concat(promiseMiddleware),
 // });
 
-// const store = createStore(Reducer);
-
 const createStoreWithMiddleware = applyMiddleware(
   promiseMiddleware,
   ReduxThunk
 )(createStore);
 
+const store = createStoreWithMiddleware(
+  Reducer,
+  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+);
+
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <Provider
-    store={createStoreWithMiddleware(
-      Reducer,
-      window.__REDUX_DEVTOOLS_EXTENSION__ &&
-        window.__REDUX_DEVTOOLS_EXTENSION__()
-    )}
-  >
+  <Provider store={store}>
     <ThirdwebProvider
       activeChain={Sepolia}
       supportedWallets={[metamaskWallet(), coinbaseWallet(), walletConnectV1()]}
