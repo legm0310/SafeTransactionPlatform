@@ -39,7 +39,7 @@
 }
 
 /* searchBox */
-.searchBox {
+/* .searchBox {
   width: 600px;
   height: 35px;
   display: flex;
@@ -75,7 +75,7 @@
 
 .searchBox button :hover {
   cursor: pointer;
-}
+} */
 
 /* 로그인/회원가입 */
 .AuthList {
@@ -101,12 +101,7 @@
 
 .purchaseLink {
   text-decoration: none;
-  color: #fff;
-}
-
-.purchaseLink:hover {
-  transform: scale(1.05);
-  transition: 0.1s;
+  color: black;
 }
 
 .list .purchaseList {
@@ -116,14 +111,8 @@
 
 .AddProductLink {
   text-decoration: none;
-  color: #fff;
+  color: black;
 }
-
-/* .AddProductLink:hover {
-  transform: scale(1.05);
-  transition: 0.1s;
-  color: #75d700;
-} */
 
 .list .AddProductList {
   list-style: none;
