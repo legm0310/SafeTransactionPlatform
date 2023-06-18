@@ -9,7 +9,7 @@ import {
 
 import { baseRequest } from "../api/common";
 import { addProdRequest } from "../api/productApi";
-import { callAddProduct } from "../api/web3/callAddProduct";
+import { callAddProduct } from "../contract/callAddProduct";
 import { setLoadings } from "./uiAction";
 
 // export function addProduct(dataToSubmit) {

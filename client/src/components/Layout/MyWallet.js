@@ -14,7 +14,7 @@ import {
   useTokenBalance,
 } from "@thirdweb-dev/react";
 import { Sepolia } from "@thirdweb-dev/chains";
-import { testCall } from "../../api/web3/contractCall";
+import { testCall } from "../../contract/contractCall";
 
 import {
   styled,
@@ -90,6 +90,7 @@ export default function MyWallet() {
   const handleClickOpen = () => {
     setOpen(true);
   };
+
   const handleClose = () => {
     setOpen(false);
   };
