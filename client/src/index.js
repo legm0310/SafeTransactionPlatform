@@ -20,7 +20,11 @@ import {
 } from "@thirdweb-dev/react";
 import { Sepolia } from "@thirdweb-dev/chains";
 
-const muiTheme = createTheme();
+const muiTheme = createTheme({
+  typography: {
+    fontFamily: "GongGothicMedium",
+  },
+});
 // const smartWalletConfig = {
 //   factoryAddress: "",
 //   gasless: true,
