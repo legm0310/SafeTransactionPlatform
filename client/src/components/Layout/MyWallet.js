@@ -103,7 +103,8 @@ export default function MyWallet() {
   return (
     <div>
       <Button onClick={handleClickOpen}>
-        <WalletRoundedIcon />
+        <WalletRoundedIcon sx={{ fontSize: 30, color: "#1ecfba" }} />
+        <Typography sx={{ color: "#707070" }}>지갑</Typography>
       </Button>
       <BootstrapDialog
         onClose={handleClose}
@@ -117,7 +118,7 @@ export default function MyWallet() {
           내 지갑 관리
         </BootstrapDialogTitle>
         <DialogContent dividers>
-          <Typography gutterBottom>내 돈 5조 5억 BB</Typography>
+          {/* <Typography gutterBottom>내 돈 5조 5억 BB</Typography> */}
           <Typography gutterBottom>
             Praesent commodo cursus magna, vel scelerisque nisl consectetur et.
           </Typography>
