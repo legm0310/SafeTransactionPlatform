@@ -49,18 +49,6 @@ const Detail = (props) => {
             </div>
 
             <div className={classes.buttonWrap}>
-              {/* <button className={classes.productPut}>
-                <FaHeart />
-                <span>찜하기</span>
-              </button>
-              <button className={classes.productMessage}>
-                <TbMessageCircle2Filled />
-                <span>톡하기</span>
-              </button>
-              <button className={classes.productPurchase}>
-                <IoCart />
-                <span>구매하기</span>
-              </button> */}
               <div className={classes.putMessageButton}>
                 <Button>
                   <div className={classes.productPutWrap}>
