@@ -31,7 +31,7 @@ export default function (state = initialState, action) {
       return {
         ...state,
         isLoggedIn: action.payload?.loginSuccess ? true : false,
-        userId: action.payload?.user.id,
+        userId: action.payload.user?.id,
         loginSuccess: action.payload,
       };
       break;
