@@ -152,7 +152,7 @@ const AddProduct = (props) => {
       sdk: sdk,
     };
     dispatch(addProduct(data)).then((response) => {
-      if (response.payload.addProductSuccess) {
+      if (response.addProductSuccess) {
         alert("상품 등록 완료");
         navigate("/");
       } else {
@@ -163,7 +163,7 @@ const AddProduct = (props) => {
 
   return (
     <Fragment>
-      <Backdrop open={false}>
+      <Backdrop open={isLoading}>
         <Loading />
       </Backdrop>
       <form className={classes.form} onSubmit={onSubmitHandler}>

@@ -2,7 +2,6 @@ import { Fragment } from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import testImg from "../../assets/ethereum.png";
 import styled from "styled-components";
 
 import classes from "../../styles/HomeSlide.module.css";
