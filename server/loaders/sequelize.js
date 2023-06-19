@@ -42,7 +42,7 @@ module.exports = async () => {
         });
         await db.Product.bulkCreate([
           {
-            status: "SALE",
+            status: "SOLD",
             title: "텐트",
             price: 200000,
             category: "기타",
@@ -82,7 +82,7 @@ module.exports = async () => {
             seller_id: 1,
           },
           {
-            status: "SALE",
+            status: "SOLD",
             title: "아이패드",
             price: 500000,
             category: "전자기기",
@@ -92,7 +92,7 @@ module.exports = async () => {
             seller_id: 1,
           },
           {
-            status: "SALE",
+            status: "RESERVED",
             title: "빔프로젝터",
             price: 200000,
             category: "전자기기",
@@ -122,7 +122,7 @@ module.exports = async () => {
             seller_id: 1,
           },
           {
-            status: "SALE",
+            status: "RESERVED",
             title: "키보드",
             price: 80000,
             category: "컴퓨터/주변기기",
@@ -132,7 +132,7 @@ module.exports = async () => {
             seller_id: 1,
           },
           {
-            status: "SALE",
+            status: "RESERVED",
             title: "카메라",
             price: 200000,
             category: "전자기기",
