@@ -8,20 +8,7 @@ import { signup } from "../../_actions/userAction";
 import classes from "../../styles/Register.module.css";
 import { FaArrowLeft } from "react-icons/fa";
 
-import {
-  Avatar,
-  Button,
-  CssBaseline,
-  TextField,
-  FormControl,
-  FormControlLabel,
-  Checkbox,
-  FormHelperText,
-  Grid,
-  Box,
-  Typography,
-  Container,
-} from "@mui/material/";
+import { Button, TextField, FormControl, Grid, Box } from "@mui/material/";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 const Register = (props) => {
@@ -41,8 +28,6 @@ const Register = (props) => {
   const [registerError, setRegisterError] = useState("");
 
   const onEmailHandler = (event) => {
-    setEmail(event.currentTarget.value);
-
     // 이메일 유효성 체크
     const emailPattern = /^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/;
     const isValidEmail = emailPattern.test(event.currentTarget.value);
@@ -51,22 +36,22 @@ const Register = (props) => {
     } else {
       setEmailError("");
     }
+
+    setEmail(event.currentTarget.value);
   };
 
   const onNameHandler = (event) => {
-    setName(event.currentTarget.value);
-
     // 이름 유효성 체크
     if (event.currentTarget.value.trim() === "") {
       setNameError("이름을 입력해주세요.");
     } else {
       setNameError("");
     }
+
+    setName(event.currentTarget.value);
   };
 
   const onPhoneNumberHandler = (event) => {
-    setPhoneNumber(event.currentTarget.value);
-
     // 핸드폰 번호 유효성 체크
     const phoneNumberPattern = /^\d{3}-\d{3,4}-\d{4}$/;
     const isValidPhoneNumber = phoneNumberPattern.test(
@@ -77,11 +62,11 @@ const Register = (props) => {
     } else {
       setPhoneNumberError("");
     }
+
+    setPhoneNumber(event.currentTarget.value);
   };
 
   const onPasswordHandler = (event) => {
-    setPassword(event.currentTarget.value);
-
     // 비밀번호 유효성 체크
     const passwordPattern = /^(?=.*\d)(?=.*[a-zA-Z])[a-zA-Z0-9]{8,}$/;
     const isValidPassword = passwordPattern.test(event.currentTarget.value);
@@ -92,17 +77,19 @@ const Register = (props) => {
     } else {
       setPasswordError("");
     }
+
+    setPassword(event.currentTarget.value);
   };
 
   const onConfirmPasswordHandler = (event) => {
-    setConfirmPassword(event.currentTarget.value);
-
     // 비밀번호 재입력 체크
     if (event.currentTarget.value !== Password) {
       setPasswordError("비밀번호가 일치하지 않습니다.");
     } else {
       setPasswordError("");
     }
+
+    setConfirmPassword(event.currentTarget.value);
   };
 
   const onSubmitHandler = (event) => {
@@ -117,16 +104,16 @@ const Register = (props) => {
       password: Password,
     };
 
+    console.log(body);
+
     dispatch(signup(body)).then((response) => {
       if (response.payload.signupSuccess) {
         console.log("회원가입 성공");
         navigate("/login");
       } else if (response.payload.code === 400) {
         alert("존재하는 이메일입니다.");
-        setRegisterError("이미 가입된 이메일입니다.");
       } else {
         alert("회원 가입에 실패했습니다.");
-        setRegisterError("회원가입에 실패하였습니다. 다시 한번 확인해 주세요.");
       }
     });
   };
@@ -150,12 +137,13 @@ const Register = (props) => {
             </div>
           </div>
 
-          <Box component='form' noValidate sx={{ px: 3 }}>
-            <FormControl
-              component='fieldset'
-              variant='standard'
-              onSubmit={onSubmitHandler}
-            >
+          <Box
+            component='form'
+            noValidate
+            sx={{ px: 3 }}
+            onSubmit={onSubmitHandler}
+          >
+            <FormControl component='fieldset' variant='standard'>
               <Grid container spacing={2}>
                 <Grid item xs={12}>
                   <TextField
@@ -188,7 +176,7 @@ const Register = (props) => {
                     required
                     autoFocus
                     fullWidth
-                    type='number'
+                    type='text'
                     value={PhoneNumber}
                     label='핸드폰 번호'
                     onChange={onPhoneNumberHandler}
@@ -222,7 +210,15 @@ const Register = (props) => {
                 type='submit'
                 fullWidth
                 variant='contained'
-                sx={{ mt: 3, mb: 2 }}
+                sx={{
+                  mt: 3,
+                  mb: 2,
+                  backgroundColor: "#1ecfba",
+                  fontFamily: "GongGothicMedium",
+                  fontWeight: 500,
+                  fontSize: 18,
+                  "&:hover": { backgroundColor: "#1ecfba" },
+                }}
                 size='large'
               >
                 회원가입
