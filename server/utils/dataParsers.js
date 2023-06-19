@@ -25,7 +25,7 @@ const generateGetProductsQuery = (params) => {
     ],
     offset: offset,
     limit: limit,
-    attributes: ["id", "title", "price", "images", "created_at"],
+    attributes: ["id", "status", "title", "price", "images", "created_at"],
   };
   return query;
 };
