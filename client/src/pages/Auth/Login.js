@@ -88,7 +88,7 @@ const Login = (props) => {
       <div className={classes.wrap}>
         <div className={classes.container}>
           <header className={classes.header}>
-            <Link to='/' className={classes.backButton}>
+            <Link to="/" className={classes.backButton}>
               <FaArrowLeft />
             </Link>
           </header>
@@ -103,20 +103,20 @@ const Login = (props) => {
           </div>
 
           <Box
-            component='form'
+            component="form"
             noValidate
             sx={{ px: 3 }}
             onSubmit={onSubmitHandler}
           >
-            <FormControl component='fieldset' variant='standard' fullWidth>
+            <FormControl component="fieldset" variant="standard" fullWidth>
               <Grid container spacing={2}>
                 <Grid item xs={12}>
                   <TextField
                     autoFocus
                     fullWidth
-                    type='email'
+                    type="email"
                     value={Email}
-                    label='이메일 주소'
+                    label="이메일 주소"
                     onChange={onEmailHandler}
                     error={emailError !== ""}
                     helperText={emailError}
@@ -125,20 +125,20 @@ const Login = (props) => {
                 <Grid item xs={12}>
                   <TextField
                     fullWidth
-                    type='password'
+                    type="password"
                     value={Password}
-                    label='비밀번호'
+                    label="비밀번호"
                     onChange={onPasswordHandler}
                     error={passwordError !== ""}
                     helperText={passwordError}
-                    id='outlined-password-input'
+                    id="outlined-password-input"
                   />
                 </Grid>
               </Grid>
               <Button
-                type='submit'
+                type="submit"
                 fullWidth
-                variant='contained'
+                variant="contained"
                 sx={{
                   mt: 3,
                   mb: 2,
@@ -148,7 +148,7 @@ const Login = (props) => {
                   fontSize: 18,
                   "&:hover": { backgroundColor: "#1ecfba" },
                 }}
-                size='large'
+                size="large"
               >
                 로그인
               </Button>
@@ -156,8 +156,8 @@ const Login = (props) => {
           </Box>
 
           <div className={classes.registerWrap}>
-            <button type='submit' className={classes.registerButton}>
-              <Link to='/register' className={classes.textButton}>
+            <Button type="submit" className={classes.registerButton}>
+              <Link to="/register" className={classes.textButton}>
                 회원가입
               </Link>
             </Button>
@@ -170,11 +170,11 @@ const Login = (props) => {
           </div>
 
           <div className={classes.snsIconWrap}>
-            <a href='1' className={classes.snsIcon}>
-              <img src={googleIcon} alt='' />
+            <a href="1" className={classes.snsIcon}>
+              <img src={googleIcon} alt="" />
             </a>
-            <a href='1' className={classes.snsIcon}>
-              <img src={kakaoIcon} alt='' />
+            <a href="1" className={classes.snsIcon}>
+              <img src={kakaoIcon} alt="" />
             </a>
           </div>
         </div>

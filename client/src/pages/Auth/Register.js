@@ -7,6 +7,7 @@ import { signup } from "../../_actions/userAction";
 
 import classes from "../../styles/Register.module.css";
 import { FaArrowLeft } from "react-icons/fa";
+import { useSnackbar } from "notistack";
 
 import { Button, TextField, FormControl, Grid, Box } from "@mui/material/";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
