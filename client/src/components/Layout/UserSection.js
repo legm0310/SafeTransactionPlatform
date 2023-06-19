@@ -4,7 +4,6 @@ import { Link, useNavigate } from "react-router-dom";
 import { logout } from "../../_actions/userAction";
 import { ConnectWallet } from "@thirdweb-dev/react";
 import MyWallet from "./MyWallet";
-import UserInfo from "../../pages/User/UserInfo";
 
 import classes from "../../styles/UserAuth.module.css";
 import {
