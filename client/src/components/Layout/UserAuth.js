@@ -15,11 +15,10 @@ const UserAuth = (props) => {
         {isLoggedIn ? (
           <UserSection />
         ) : (
-          <Link to="/login" className={classes.loginRegister}>
+          <Link to='/login' className={classes.loginRegister}>
             <Button
-              variant="text"
+              variant='text'
               sx={{
-                mr: 11,
                 color: "black",
                 fontWeight: 700,
                 fontFamily: "GongGothicMedium",
