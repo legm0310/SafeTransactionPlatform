@@ -2,8 +2,8 @@ const { Container } = require("typedi");
 
 class ChatService {
   constructor() {
-    this.ChatLog = Container.get("chatlogModel");
-    this.ChatRoom = Container.get("chatroomModel");
+    this.ChatLog = Container.get("chatLogModel");
+    this.ChatRoom = Container.get("chatRoomModel");
   }
 
   async addRoom(chatBody) {
