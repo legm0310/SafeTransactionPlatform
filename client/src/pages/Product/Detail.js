@@ -17,7 +17,6 @@ import ProductStore from "./ProductStore";
 import ProductInformation from "./ProductInformation";
 
 import classes from "../../styles/Detail.module.css";
-import { setLoadings } from "../../_actions/uiAction";
 
 const Detail = (props) => {
   const [activeMenu, setActiveMenu] = useState("productInformation");
@@ -35,8 +34,8 @@ const Detail = (props) => {
   console.log(productDetail);
 
   const createRoomNumber = () => {
-    const total_Id = [myId, userId];
-    return total_Id
+    const totalId = [userId, sellerId];
+    return totalId
       .map(Number)
       .sort((a, b) => a - b)
       .join("_");
@@ -59,7 +58,15 @@ const Detail = (props) => {
       userId,
       sdk,
     };
-    dispatch(purchase(data)).then((response) => console.log(response));
+    dispatch(purchase(data)).then((response) => {
+      console.log(response);
+      if (response.payload.updated) {
+        alert("에스크로 결제 완료");
+        navigate("/userinfo");
+      } else {
+        alert("구매 신청에 실패했습니다.");
+      }
+    });
   };
 
   const onCreateRoomHandler = (event) => {
@@ -70,7 +77,6 @@ const Detail = (props) => {
       seller_id: sellerId,
       buyer_id: userId,
       room_name: roomName,
-      id: myId,
     };
 
     const formData = new FormData();
@@ -84,8 +90,6 @@ const Detail = (props) => {
     for (const value of formData.values()) {
       console.log(value);
     }
-
-    // console.log(data)
 
     dispatch(addRoom(data)).then((response) => {
       if (response.addRoomSuccess) {
@@ -110,7 +114,7 @@ const Detail = (props) => {
               <div className={classes.category}>{productDetail?.category}</div>
               <div className={classes.title}>{productDetail?.title}</div>
               <div className={classes.price}>{productDetail?.price}원</div>
-              <div className={classes.time}>올라온 시간 및 조회 찜</div>
+              <div className={classes.time}>{productDetail?.createdAt}</div>
             </div>
 
             <div className={classes.buttonWrap}>
