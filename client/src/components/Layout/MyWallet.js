@@ -27,10 +27,7 @@ import {
   IconButton,
   Typography,
 } from "@mui/material";
-import {
-  Close as CloseIcon,
-  WalletRounded as WalletRoundedIcon,
-} from "@mui/icons-material";
+import { Close as CloseIcon } from "@mui/icons-material";
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   "& .MuiDialogContent-root": {
@@ -74,7 +71,7 @@ export default function MyWallet(props) {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user.user);
 
-  const [openExchange, setOpenExchange] = useState(false);
+  const [showExchange, setShowExchange] = useState(false);
 
   const sdk = useSDK();
   const { contract } = useContract(process.env.REACT_APP_CONTRACT_ADDRESS);
@@ -89,16 +86,16 @@ export default function MyWallet(props) {
     error,
   } = useTokenBalance(contract, address);
 
-  // const handleOpenExchange = () => {
-  //   setOpenExchange(true);
-  // };
-
-  // const handleCloseExchange = () => {
-  //   setOpenExchange(false);
-  // };
-
   const handleClose = () => {
     props.onClose();
+  };
+
+  const handleOpenExchange = () => {
+    setShowExchange(true);
+  };
+
+  const handleCloseExchange = () => {
+    setShowExchange(false);
   };
 
   const handleConnectWallet = async () => {
@@ -139,7 +136,6 @@ export default function MyWallet(props) {
         </BootstrapDialogTitle>
 
         <DialogContent dividers>
-          {/* <Typography gutterBottom>내 돈 5조 5억 BB</Typography> */}
           <Typography gutterBottom>
             Praesent commodo cursus magna, vel scelerisque nisl consectetur et.
           </Typography>
@@ -169,16 +165,22 @@ export default function MyWallet(props) {
           )}
           <Web3Button />
 
+          <Button onClick={handleOpenExchange} sx={{ color: "black" }}>
+            <p>환전하기</p>
+          </Button>
+          <Exchange
+            open={showExchange}
+            handleCloseExchange={handleCloseExchange}
+          />
+
           <h3>{`잔액: ${tokenData?.displayValue || 0} ${
             tokenData?.symbol || ""
           }`}</h3>
           {/* <button onClick={handleTestButton}>테스트 호출</button> */}
         </DialogContent>
 
-        {/* {openExchange && <Exchange onOpenExchange={handleOpenExchange} />} */}
-
         <DialogActions>
-          <Button autoFocus onClick={handleClose}>
+          <Button autoFocus onClick={handleClose} sx={{ color: "black" }}>
             Save changes
           </Button>
         </DialogActions>
