@@ -135,9 +135,7 @@ input[type="password"]:focus {
 }
 
 .textButton {
-  text-decoration: none;
-  color: rgb(32, 36, 41);
-  font-weight: 400;
+  color: rgb(122, 127, 134);
   letter-spacing: 0.0175rem;
   font-size: 14px;
 }

@@ -13,16 +13,6 @@
   padding: 24px 0;
 }
 
-.ImgDelete {
-  border: none;
-  position: absolute;
-  font-size: 30px;
-  background-color: rgba(30, 29, 41, 0.6);
-  color: #fff;
-  border-radius: 50%;
-  padding: 0;
-}
-
 /*사진등록 및 설명 라벨*/
 .label {
   display: flex;
@@ -75,6 +65,17 @@
   border: 1px solid rgb(207, 210, 215);
   margin-right: 15px;
   border-radius: 5px;
+}
+
+.ImgDelete {
+  border: none;
+  position: absolute;
+  font-size: 30px;
+  background-color: rgba(30, 29, 41, 0.6);
+  color: #fff;
+  border-radius: 50%;
+  padding: 0;
+  cursor: pointer;
 }
 
 .img {

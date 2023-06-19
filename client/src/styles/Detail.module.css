@@ -15,15 +15,15 @@
 }
 
 .productImgWrap {
-  width: 50%;
-  padding-right: 30px;
+  width: 55%;
+  border-radius: 13px;
 }
 
 .producContentWrap {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  width: 50%;
+  width: 45%;
 }
 
 .category {
@@ -41,6 +41,11 @@
   font-weight: 500;
   font-size: 3rem;
   margin-bottom: 20px;
+}
+
+.price::after {
+  content: "PDT";
+  margin-left: 3px;
 }
 
 .time {
@@ -190,7 +195,6 @@
   width: 1200px;
   height: 500px;
   margin-bottom: 50px;
-  /* border: 1px solid blue; */
 }
 
 .prodInfoButton {
