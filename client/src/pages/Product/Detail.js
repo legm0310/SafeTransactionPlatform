@@ -11,7 +11,6 @@ import Slide from "./DetailSlide";
 import { FaHeart } from "react-icons/fa";
 import { TbMessageCircle2Filled } from "react-icons/tb";
 import { IoCart } from "react-icons/io5";
-import { FaUserCircle } from "react-icons/fa";
 import Button from "../../components/UI/Button";
 import ProductStore from "./ProductStore";
 import ProductInformation from "./ProductInformation";
@@ -102,7 +101,10 @@ const Detail = (props) => {
             <div>
               <div className={classes.category}>{productDetail?.category}</div>
               <div className={classes.title}>{productDetail?.title}</div>
-              <div className={classes.price}>{productDetail?.price}원</div>
+              <div className={classes.price}>
+                {" "}
+                {productDetail?.price.toLocaleString()}
+              </div>
               <div className={classes.time}>{productDetail?.createdAt}</div>
             </div>
 
