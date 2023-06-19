@@ -3,7 +3,8 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { setLoadings } from "../../_actions/uiAction";
 import { addProduct } from "../../_actions/productAction";
-import { useAddress, useSigner, useSDK } from "@thirdweb-dev/react";
+import { useAddress, useSDK } from "@thirdweb-dev/react";
+import { RxCrossCircled } from "react-icons/rx";
 
 import classes from "../../styles/AddProduct.module.css";
 import {
@@ -13,8 +14,9 @@ import {
   Button,
   TextField,
   Alert,
+  Snackbar,
+  Slide,
 } from "@mui/material";
-import Loading from "../../components/UI/Loading";
 
 const AddProduct = (props) => {
   const [imgFile, setimgFile] = useState([]);
@@ -22,21 +24,20 @@ const AddProduct = (props) => {
   const [price, setPrice] = useState("");
   const [detail, setDetail] = useState("");
   const [titleLength, setTitleLength] = useState(0);
-  const [category, setCategory] = useState([]);
-  const isLoading = useSelector((state) => state.ui.isLoading);
+  const [category, setCategory] = useState("");
+  const [alertOpen, setAlertOpen] = useState(false);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
   const sdk = useSDK();
+  const address = useAddress();
 
   const onImgFileHandler = (event) => {
     const imgLists = event.target.files;
     let imgUrlLists = [...imgFile];
     for (let i = 0; i < imgLists.length; i++) {
-      // 미리보기 가능하게 변수화
       imgUrlLists.push(imgLists[i]);
-      // const currentImgUrl = URL.createObjectURL(imgLists[i]);
-      // 복사한 imgFile에 추가
     }
 
     if (imgUrlLists.length > 10) {
@@ -45,9 +46,18 @@ const AddProduct = (props) => {
     setimgFile(imgUrlLists);
   };
 
+  const handleAlert = () => {
+    setAlertOpen(true);
+  };
+
+  const handleAlertClose = () => {
+    setAlertOpen(false);
+  };
+
   // 이미지 삭제
   const deleteImgHandler = (event, id) => {
     event.preventDefault();
+    URL.revokeObjectURL(imgFile[id]);
     setimgFile(imgFile.filter((_, index) => index !== id));
   };
 
@@ -82,28 +92,38 @@ const AddProduct = (props) => {
     setDetail(value);
   };
 
-  // 카테고리
-  const onCategoryChange = (event) => {
-    const selectedCategory = event.target.value; // 선택한 체크박스의 값
-    console.log(event.target);
-    // 선택 여부
-    const isSelected = category.includes(selectedCategory);
+  //카테고리
+  // const onCategoryChange = (event) => {
+  //   const selectedCategory = event.target.value; // 선택한 체크박스의 값
+  //   console.log(event.target);
+  //   // 선택 여부
+  //   const isSelected = category.includes(selectedCategory);
 
-    if (isSelected) {
-      // 이미 선택된 카테고리를 클릭한 경우, 선택 해제
-      setCategory((prevCategories) =>
-        prevCategories.filter((category) => category !== selectedCategory)
-      );
-    } else {
-      // 선택되지 않은 카테고리를 클릭한 경우, 선택 추가
-      setCategory((prevCategories) => [...prevCategories, selectedCategory]);
-    }
+  //   if (isSelected) {
+  //     // 이미 선택된 카테고리를 클릭한 경우, 선택 해제
+  //     setCategory((prevCategories) =>
+  //       prevCategories.filter((category) => category !== selectedCategory)
+  //     );
+  //   } else {
+  //     // 선택되지 않은 카테고리를 클릭한 경우, 선택 추가
+  //     setCategory((prevCategories) => [...prevCategories, selectedCategory]);
+  //   }
+  // };
+
+  const onCategoryChange = (event) => {
+    const selectedCategoryValue = event.target.value;
+
+    setCategory(selectedCategoryValue);
   };
 
   // 등록하기
   const onSubmitHandler = (event) => {
     event.preventDefault(); // prevent form submission
-    dispatch(setLoadings({ isLoading: true }));
+
+    if (!address) {
+      setAlertOpen(true);
+      return;
+    }
     if (title.trim() === "") {
       alert("상품 이름을 입력해주세요.");
       return;
@@ -121,6 +141,8 @@ const AddProduct = (props) => {
       return;
     }
 
+    dispatch(setLoadings({ isLoading: true }));
+
     setTitle("");
     setPrice("");
     setDetail("");
@@ -131,7 +153,7 @@ const AddProduct = (props) => {
       status: "SALE",
       title: title,
       price: price.split(",").join(""),
-      category: category.join(","),
+      category: category,
       detail: detail,
       images: null,
     };
@@ -152,7 +174,8 @@ const AddProduct = (props) => {
       sdk: sdk,
     };
     dispatch(addProduct(data)).then((response) => {
-      if (response.addProductSuccess) {
+      console.log(response);
+      if (response.payload.addProductSuccess) {
         alert("상품 등록 완료");
         navigate("/");
       } else {
@@ -163,9 +186,22 @@ const AddProduct = (props) => {
 
   return (
     <Fragment>
-      <Backdrop open={isLoading}>
-        <Loading />
-      </Backdrop>
+      <Snackbar
+        open={alertOpen}
+        anchorOrigin={{ vertical: "top", horizontal: "center" }}
+        autoHideDuration={2500}
+        onClose={handleAlertClose}
+        sx={{ marginTop: "70px" }}
+      >
+        <Alert
+          onClose={handleAlertClose}
+          severity="error"
+          elevation={3}
+          sx={{ width: "100%" }}
+        >
+          연결된 지갑이 없습니다.
+        </Alert>
+      </Snackbar>
       <form className={classes.form} onSubmit={onSubmitHandler}>
         <div className={classes.title}>상품 등록하기</div>
 
@@ -191,15 +227,17 @@ const AddProduct = (props) => {
                   (
                     <li className={classes.imgContainer} key={id}>
                       <div>
-                        <a
-                          href=""
+                        <RxCrossCircled
                           onClick={(event) => deleteImgHandler(event, id)}
-                        >
-                          x
-                        </a>
-                        <img src={image} alt={`${image}-${id}`} />
+                          className={classes.ImgDelete}
+                        />
+
+                        <img
+                          src={image}
+                          alt={`${image}-${id}`}
+                          className={classes.img}
+                        />
                       </div>
-                      {/* <Delete onClick={() => deleteImgHandler(id)} /> */}
                     </li>
                   )
                 )
@@ -234,7 +272,15 @@ const AddProduct = (props) => {
         <div className={classes.label2}>
           <div className={classes.labelTitle}>제목</div>
           <TextField
-            sx={{ width: "80ch", m: 1 }}
+            sx={{
+              width: "80ch",
+              m: 1,
+              "& .MuiOutlinedInput-root.Mui-focused": {
+                "& > fieldset": {
+                  borderColor: "#1ecfba",
+                },
+              },
+            }}
             id="outlined-search"
             onChange={onTitleHandler}
             value={title}
@@ -255,6 +301,11 @@ const AddProduct = (props) => {
             sx={{
               width: "20ch",
               m: 1,
+              "& .MuiOutlinedInput-root.Mui-focused": {
+                "& > fieldset": {
+                  borderColor: "#1ecfba",
+                },
+              },
             }}
             id="outlined-number"
             onChange={onPriceHandler}
@@ -266,7 +317,7 @@ const AddProduct = (props) => {
             size="small"
             className={classes.input}
           />
-          <div>BB</div>
+          <div>PDT</div>
         </div>
 
         <div className={classes.label2}>
@@ -277,91 +328,182 @@ const AddProduct = (props) => {
               <div className={classes.checkList1}>
                 <FormControlLabel
                   sx={{ width: "15ch" }}
-                  control={<Checkbox />}
+                  control={
+                    <Checkbox
+                      sx={{
+                        "&.Mui-checked": {
+                          color: "#1ecfba",
+                        },
+                      }}
+                    />
+                  }
                   onChange={onCategoryChange}
-                  checked={category.includes("men")}
+                  // checked={category.includes("men")}
+                  checked={category === "men"}
                   value="men"
                   label="남성의류"
                 />
 
                 <FormControlLabel
                   sx={{ width: "15ch" }}
-                  control={<Checkbox />}
+                  control={
+                    <Checkbox
+                      sx={{
+                        "&.Mui-checked": {
+                          color: "#1ecfba",
+                        },
+                      }}
+                    />
+                  }
                   onChange={onCategoryChange}
-                  checked={category.includes("women")}
+                  // checked={category.includes("women")}
+                  checked={category === "women"}
                   value="women"
                   label="여성의류"
                 />
 
                 <FormControlLabel
                   sx={{ width: "15ch" }}
-                  control={<Checkbox />}
+                  control={
+                    <Checkbox
+                      sx={{
+                        "&.Mui-checked": {
+                          color: "#1ecfba",
+                        },
+                      }}
+                    />
+                  }
                   onChange={onCategoryChange}
-                  checked={category.includes("acc")}
+                  // checked={category.includes("acc")}
+                  checked={category === "acc"}
                   value="acc"
                   label="패션잡화"
                 />
 
                 <FormControlLabel
                   sx={{ width: "15ch" }}
-                  control={<Checkbox />}
+                  control={
+                    <Checkbox
+                      sx={{
+                        "&.Mui-checked": {
+                          color: "#1ecfba",
+                        },
+                      }}
+                    />
+                  }
                   onChange={onCategoryChange}
-                  checked={category.includes("sports")}
+                  // checked={category.includes("sports")}
+                  checked={category === "sports"}
                   value="sports"
                   label="스포츠 용품"
                 />
 
                 <FormControlLabel
                   sx={{ width: "15ch" }}
-                  control={<Checkbox />}
+                  control={
+                    <Checkbox
+                      sx={{
+                        "&.Mui-checked": {
+                          color: "#1ecfba",
+                        },
+                      }}
+                    />
+                  }
                   onChange={onCategoryChange}
-                  checked={category.includes("shoes")}
+                  // checked={category.includes("shoes")}
+                  checked={category === "shoes"}
                   value="shoes"
                   label="신발"
                 />
               </div>
+
               <div className={classes.checkList2}>
                 <FormControlLabel
                   sx={{ width: "15ch" }}
-                  control={<Checkbox />}
+                  control={
+                    <Checkbox
+                      sx={{
+                        "&.Mui-checked": {
+                          color: "#1ecfba",
+                        },
+                      }}
+                    />
+                  }
                   onChange={onCategoryChange}
-                  checked={category.includes("homeappliances")}
+                  // checked={category.includes("homeappliances")}
+                  checked={category === "homeappliances"}
                   value="homeappliances"
                   label="가전제품"
                 />
 
                 <FormControlLabel
                   sx={{ width: "15ch" }}
-                  control={<Checkbox />}
+                  control={
+                    <Checkbox
+                      sx={{
+                        "&.Mui-checked": {
+                          color: "#1ecfba",
+                        },
+                      }}
+                    />
+                  }
                   onChange={onCategoryChange}
-                  checked={category.includes("computerPeripherals")}
+                  // checked={category.includes("computerPeripherals")}
+                  checked={category === "computerPeripherals"}
                   value="computerPeripherals"
                   label="컴퓨터/주변기기"
                 />
 
                 <FormControlLabel
                   sx={{ width: "15ch" }}
-                  control={<Checkbox />}
+                  control={
+                    <Checkbox
+                      sx={{
+                        "&.Mui-checked": {
+                          color: "#1ecfba",
+                        },
+                      }}
+                    />
+                  }
                   onChange={onCategoryChange}
-                  checked={category.includes("electronic")}
+                  // checked={category.includes("electronic")}
+                  checked={category === "electronic"}
                   value="electronic"
                   label="전자제품"
                 />
 
                 <FormControlLabel
                   sx={{ width: "15ch" }}
-                  control={<Checkbox />}
+                  control={
+                    <Checkbox
+                      sx={{
+                        "&.Mui-checked": {
+                          color: "#1ecfba",
+                        },
+                      }}
+                    />
+                  }
                   onChange={onCategoryChange}
-                  checked={category.includes("furniture")}
+                  // checked={category.includes("furniture")}
+                  checked={category === "furniture"}
                   value="furniture"
                   label="가구"
                 />
 
                 <FormControlLabel
                   sx={{ width: "15ch" }}
-                  control={<Checkbox />}
+                  control={
+                    <Checkbox
+                      sx={{
+                        "&.Mui-checked": {
+                          color: "#1ecfba",
+                        },
+                      }}
+                    />
+                  }
                   onChange={onCategoryChange}
-                  checked={category.includes("etc")}
+                  // checked={category.includes("etc")}
+                  checked={category === "etc"}
                   value="etc"
                   label="기타"
                 />
@@ -374,7 +516,15 @@ const AddProduct = (props) => {
           <div className={classes.labelTitle}>설명</div>
 
           <TextField
-            sx={{ width: "80ch", m: 1 }}
+            sx={{
+              width: "80ch",
+              m: 1,
+              "& .MuiOutlinedInput-root.Mui-focused": {
+                "& > fieldset": {
+                  borderColor: "#1ecfba",
+                },
+              },
+            }}
             onChange={onDetailHandler}
             value={detail}
             id="outlined-multiline-static"
@@ -392,5 +542,4 @@ const AddProduct = (props) => {
     </Fragment>
   );
 };
-
 export default AddProduct;

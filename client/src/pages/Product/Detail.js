@@ -1,9 +1,10 @@
 import { Fragment, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import { getProduct } from "../../_actions/productAction";
+import { useSDK, useAddress } from "@thirdweb-dev/react";
+import { setLoadings } from "../../_actions/uiAction";
+import { getProduct, purchase } from "../../_actions/productAction";
 import { addRoom } from "../../_actions/roomAction";
 
 import Slide from "./DetailSlide";
@@ -16,7 +17,6 @@ import ProductStore from "./ProductStore";
 import ProductInformation from "./ProductInformation";
 
 import classes from "../../styles/Detail.module.css";
-import { setLoadings } from "../../_actions/uiAction";
 
 const Detail = (props) => {
   const [activeMenu, setActiveMenu] = useState("productInformation");
@@ -26,15 +26,16 @@ const Detail = (props) => {
   const productDetail = useSelector(
     (state) => state.product.productDetail?.product
   );
+  const userId = useSelector((state) => state.user.userId);
+  const sellerId = productDetail?.seller_id;
   const { productId } = useParams();
-  const userId = productDetail?.seller_id;
-  const myId = 5;
-  console.log(userId);
+
+  const sdk = useSDK();
   console.log(productDetail);
 
   const createRoomNumber = () => {
-    const total_Id = [myId, userId];
-    return total_Id
+    const totalId = [userId, sellerId];
+    return totalId
       .map(Number)
       .sort((a, b) => a - b)
       .join("_");
@@ -50,36 +51,40 @@ const Detail = (props) => {
     setActiveMenu(menu);
   };
 
+  const onPurchaseHandler = () => {
+    dispatch(setLoadings({ isLoading: true }));
+    const data = {
+      productId,
+      userId,
+      sdk,
+    };
+    dispatch(purchase(data)).then((response) => {
+      console.log(response);
+      if (response.payload.updated) {
+        alert("에스크로 결제 완료");
+        navigate("/userinfo");
+      } else {
+        alert("구매 신청에 실패했습니다.");
+      }
+    });
+  };
+
   const onCreateRoomHandler = (event) => {
     event.preventDefault();
     dispatch(setLoadings({ isLoading: true }));
 
     let body = {
-      seller_id: userId,
-      buyer_id: myId,
+      seller_id: sellerId,
+      buyer_id: userId,
       room_name: roomName,
-      id: myId,
     };
 
-    const formData = new FormData();
-
-    formData.append("data", JSON.stringify(body));
-
-    const data = {
-      formData: formData,
-    };
-
-    for (const value of formData.values()) {
-      console.log(value);
-    }
-
-    // console.log(data)
-
-    dispatch(addRoom(data)).then((response) => {
-      if (response.addRoomSuccess) {
+    dispatch(addRoom(body)).then((response) => {
+      if (response.payload.addRoomSuccess) {
         alert("채팅방 생성 완료");
         navigate(`/chat/${roomName}`);
       } else {
+        dispatch(setLoadings({ isLoading: false }));
         alert("방 생성에 실패했습니다.");
       }
     });
@@ -98,7 +103,7 @@ const Detail = (props) => {
               <div className={classes.category}>{productDetail?.category}</div>
               <div className={classes.title}>{productDetail?.title}</div>
               <div className={classes.price}>{productDetail?.price}원</div>
-              <div className={classes.time}>올라온 시간 및 조회 찜</div>
+              <div className={classes.time}>{productDetail?.createdAt}</div>
             </div>
 
             <div className={classes.buttonWrap}>
@@ -124,7 +129,7 @@ const Detail = (props) => {
                 </Button>
               </div>
 
-              <Button>
+              <Button onClick={onPurchaseHandler}>
                 <div className={classes.productPurchaseWrap}>
                   <div className={classes.productPurchase}>
                     <IoCart />

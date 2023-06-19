@@ -12,22 +12,22 @@ const Logo = () => {
         <h1 className={classes.logo}>PANDA.</h1>
       </Link>
 
-      <Typography
-        variant="h5"
-        noWrap
-        component="a"
-        sx={{
-          display: { xs: "flex", md: "none" },
-          flexGrow: 1,
-          fontWeight: 700,
-          letterSpacing: ".2rem",
-          color: "black",
-          textDecoration: "none",
-          fontFamily: "GongGothicMedium",
-        }}
-      >
-        PANDA.
-      </Typography>
+      {/* <Typography
+          variant="h5"
+          noWrap
+          component="a"
+          sx={{
+            display: { xs: "flex", md: "none" },
+            flexGrow: 1,
+            fontWeight: 700,
+            letterSpacing: ".2rem",
+            color: "black",
+            textDecoration: "none",
+            fontFamily: "GongGothicMedium",
+          }}
+        >
+          PANDA.
+        </Typography> */}
     </Fragment>
   );
 };

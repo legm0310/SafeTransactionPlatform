@@ -49,6 +49,7 @@ export default function (state = initialState, action) {
         ...state,
         isLoggedIn: action.payload?.authCheckSuccess ? true : false,
         authCheck: action.payload,
+        userId: action.payload.userData?.id,
       };
       break;
     default: // state가 들어오지 않았을 경우 전의 state를 넣어줌

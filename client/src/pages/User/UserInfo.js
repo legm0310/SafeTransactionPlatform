@@ -1,13 +1,14 @@
 import React, { Fragment, useState } from "react";
 import Button from "../../components/UI/Button";
-import UserAddProduct from "./UserAddProduct";
-import UserPurchaseProduct from "./UserPurchaseProduct";
-import UserWishList from "./UserWishList";
+import OnSaleProduct from "./OnSaleProduct";
+import ReservedProduct from "./ReservedProduct";
+import PurchasedProduct from "./PurchasedProduct";
+import WishList from "./WishList";
 
 import classes from "../../styles/UserInfo.module.css";
 
 const UserInfo = () => {
-  const [activeMenu, setActiveMenu] = useState("UserAddProduct");
+  const [activeMenu, setActiveMenu] = useState("OnSaleProduct");
 
   const onMenuHandler = (menu) => {
     setActiveMenu(menu);
@@ -23,28 +24,40 @@ const UserInfo = () => {
 
         <div className={classes.UserInfoMenuWrap}>
           <div className={classes.UserInfoMenu}>
-            <Button onClick={() => onMenuHandler("UserAddProduct")}>
+            <Button onClick={() => onMenuHandler("OnSaleProduct")}>
               <div
                 className={`${classes.MenuButton} ${
-                  activeMenu === "UserAddProduct" ? classes.active : ""
+                  activeMenu === "OnSaleProduct" ? classes.active : ""
                 }`}
               >
                 <span>판매상품</span>
               </div>
             </Button>
-            <Button onClick={() => onMenuHandler("UserPurchaseProduct")}>
+
+            <Button onClick={() => onMenuHandler("ReservedProduct")}>
               <div
                 className={`${classes.MenuButton} ${
-                  activeMenu === "UserPurchaseProduct" ? classes.active : ""
+                  activeMenu === "ReservedProduct" ? classes.active : ""
                 }`}
               >
-                <span>구매상품</span>
+                <span>구매진행상품</span>
               </div>
             </Button>
-            <Button onClick={() => onMenuHandler("UserWishList")}>
+
+            <Button onClick={() => onMenuHandler("PurchasedProduct")}>
               <div
                 className={`${classes.MenuButton} ${
-                  activeMenu === "UserWishList" ? classes.active : ""
+                  activeMenu === "PurchasedProduct" ? classes.active : ""
+                }`}
+              >
+                <span>구매완료상품</span>
+              </div>
+            </Button>
+
+            <Button onClick={() => onMenuHandler("WishList")}>
+              <div
+                className={`${classes.MenuButton} ${
+                  activeMenu === "WishList" ? classes.active : ""
                 }`}
               >
                 <span>찜목록</span>
@@ -53,9 +66,10 @@ const UserInfo = () => {
           </div>
 
           <div className={classes.UserInfoExplanation}>
-            {activeMenu === "UserAddProduct" && <UserAddProduct />}
-            {activeMenu === "UserPurchaseProduct" && <UserPurchaseProduct />}
-            {activeMenu === "UserWishList" && <UserWishList />}
+            {activeMenu === "OnSaleProduct" && <OnSaleProduct />}
+            {activeMenu === "ReservedProduct" && <ReservedProduct />}
+            {activeMenu === "PurchasedProduct" && <PurchasedProduct />}
+            {activeMenu === "WishList" && <WishList />}
           </div>
         </div>
       </section>

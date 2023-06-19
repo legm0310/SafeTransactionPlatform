@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import PropTypes from "prop-types";
+import Exchange from "../User/Exchange";
 import {
   ConnectWallet,
   useMetamask,
@@ -26,10 +27,7 @@ import {
   IconButton,
   Typography,
 } from "@mui/material";
-import {
-  Close as CloseIcon,
-  WalletRounded as WalletRoundedIcon,
-} from "@mui/icons-material";
+import { Close as CloseIcon } from "@mui/icons-material";
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   "& .MuiDialogContent-root": {
@@ -49,7 +47,7 @@ function BootstrapDialogTitle(props) {
       {onClose ? (
         <IconButton
           aria-label="close"
-          onClick={onClose}
+          onClick={props.onClose}
           sx={{
             position: "absolute",
             right: 8,
@@ -69,10 +67,11 @@ BootstrapDialogTitle.propTypes = {
   onClose: PropTypes.func.isRequired,
 };
 
-export default function MyWallet() {
+export default function MyWallet(props) {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user.user);
-  const [open, setOpen] = useState(false);
+
+  const [showExchange, setShowExchange] = useState(false);
 
   const sdk = useSDK();
   const { contract } = useContract(process.env.REACT_APP_CONTRACT_ADDRESS);
@@ -87,12 +86,16 @@ export default function MyWallet() {
     error,
   } = useTokenBalance(contract, address);
 
-  const handleClickOpen = () => {
-    setOpen(true);
+  const handleClose = () => {
+    props.onClose();
   };
 
-  const handleClose = () => {
-    setOpen(false);
+  const handleOpenExchange = () => {
+    setShowExchange(true);
+  };
+
+  const handleCloseExchange = () => {
+    setShowExchange(false);
   };
 
   const handleConnectWallet = async () => {
@@ -120,14 +123,10 @@ export default function MyWallet() {
 
   return (
     <div>
-      <Button onClick={handleClickOpen}>
-        <WalletRoundedIcon sx={{ fontSize: 30, color: "#1ecfba" }} />
-        <Typography sx={{ color: "#707070" }}>지갑</Typography>
-      </Button>
       <BootstrapDialog
         onClose={handleClose}
         aria-labelledby="customized-dialog-title"
-        open={open}
+        open={props.open || false}
       >
         <BootstrapDialogTitle
           id="customized-dialog-title"
@@ -135,8 +134,8 @@ export default function MyWallet() {
         >
           내 지갑 관리
         </BootstrapDialogTitle>
+
         <DialogContent dividers>
-          {/* <Typography gutterBottom>내 돈 5조 5억 BB</Typography> */}
           <Typography gutterBottom>
             Praesent commodo cursus magna, vel scelerisque nisl consectetur et.
           </Typography>
@@ -165,13 +164,23 @@ export default function MyWallet() {
             />
           )}
           <Web3Button />
+
+          <Button onClick={handleOpenExchange} sx={{ color: "black" }}>
+            <p>환전하기</p>
+          </Button>
+          <Exchange
+            open={showExchange}
+            handleCloseExchange={handleCloseExchange}
+          />
+
           <h3>{`잔액: ${tokenData?.displayValue || 0} ${
             tokenData?.symbol || ""
           }`}</h3>
-          <button onClick={handleTestButton}>테스트 호출</button>
+          {/* <button onClick={handleTestButton}>테스트 호출</button> */}
         </DialogContent>
+
         <DialogActions>
-          <Button autoFocus onClick={handleClose}>
+          <Button autoFocus onClick={handleClose} sx={{ color: "black" }}>
             Save changes
           </Button>
         </DialogActions>

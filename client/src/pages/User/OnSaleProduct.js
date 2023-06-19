@@ -1,6 +1,6 @@
 import { Fragment } from "react";
 
-const UserAddProduct = () => {
+const OnSaleProduct = () => {
   return (
     <Fragment>
       <h1>판매상품</h1>
@@ -8,4 +8,4 @@ const UserAddProduct = () => {
   );
 };
 
-export default UserAddProduct;
+export default OnSaleProduct;

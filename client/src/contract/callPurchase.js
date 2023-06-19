@@ -10,6 +10,8 @@ export const callPurchaseDeposit = async (signer, productId, buyerId) => {
         gasLimit: 1000000,
       }
     );
+    console.log(data);
+    return data;
   } catch (error) {
     console.log(error);
   }
@@ -21,6 +23,8 @@ export const callRelease = async (signer, productId) => {
     const data = await contract.call("purchaseConfirmation", [productId], {
       gasLimit: 1000000,
     });
+    console.log(data);
+    return data;
   } catch (error) {
     console.log(error);
   }
