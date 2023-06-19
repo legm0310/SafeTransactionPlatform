@@ -1,6 +1,6 @@
 import React, { useState, Fragment } from "react";
 import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { logout } from "../../_actions/userAction";
 import { ConnectWallet } from "@thirdweb-dev/react";
 import MyWallet from "./MyWallet";
@@ -22,9 +22,10 @@ import {
   MoreVert as MoreIcon,
   Telegram as TelegramIcon,
   Favorite as FavoriteIcon,
+  WalletRounded as WalletRoundedIcon,
 } from "@mui/icons-material";
 
-const UserSection = () => {
+const UserSection = (props) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const onLogoutHandler = () => {
@@ -34,11 +35,20 @@ const UserSection = () => {
     });
   };
 
+  const [openWallet, setOpenWallet] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
 
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
+
+  const handleOpenWallet = () => {
+    setOpenWallet(true);
+  };
+
+  const handleCloseWallet = () => {
+    setOpenWallet(false);
+  };
 
   const onProfileMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
@@ -74,11 +84,19 @@ const UserSection = () => {
       open={isMenuOpen}
       onClose={onMenuClose}
     >
-      <MenuItem onClick={onMenuClose}>내 정보</MenuItem>
-      <MenuItem onClick={onMenuClose}>
-        <ConnectWallet theme="white" btnTitle="지갑 연결" />
-        {/* <MyWallet /> */}
+      <Link to="/userinfo">
+        <MenuItem onClick={onMenuClose} sx={{ color: "black" }}>
+          <AccountCircle sx={{ fontSize: 30 }} />내 정보
+        </MenuItem>
+      </Link>
+
+      <MenuItem sx={{ color: "black" }}>
+        <Badge badgeContent={17} color="error">
+          <FavoriteIcon sx={{ fontSize: 30 }} />
+        </Badge>
+        <Typography>찜목록</Typography>
       </MenuItem>
+
       <MenuItem
         className={classes.logout}
         onClick={onLogoutHandler}
@@ -114,6 +132,7 @@ const UserSection = () => {
         </IconButton>
         <p>채팅</p>
       </MenuItem>
+
       <MenuItem>
         <IconButton
           size="large"
@@ -126,6 +145,21 @@ const UserSection = () => {
         </IconButton>
         <p>찜 목록</p>
       </MenuItem>
+
+      <MenuItem onClick={handleOpenWallet} onClose={onMobileMenuClose}>
+        <IconButton
+          size="large"
+          aria-label="account of current user"
+          aria-controls="primary-search-account-menu"
+          aria-haspopup="true"
+          color="primary"
+        >
+          <WalletRoundedIcon sx={{ color: "#1ecfba" }} />
+        </IconButton>
+        <p>내지갑</p>
+      </MenuItem>
+      <MyWallet open={openWallet} onClose={handleCloseWallet} />
+
       <MenuItem onClick={onProfileMenuOpen}>
         <IconButton
           size="large"
@@ -136,20 +170,9 @@ const UserSection = () => {
         >
           <AccountCircle />
         </IconButton>
-        <p>내 정보</p>
+        <p>내정보</p>
       </MenuItem>
-      <MenuItem onClick={onProfileMenuOpen}>
-        <IconButton
-          size="large"
-          aria-label="account of current user"
-          aria-controls="primary-search-account-menu"
-          aria-haspopup="true"
-          color="primary"
-        >
-          <AccountCircle />
-        </IconButton>
-        <p>내 지갑</p>
-      </MenuItem>
+
       <MenuItem onClick={onLogoutHandler} sx={{ borderTop: 2 }}>
         <IconButton
           size="large"
@@ -174,18 +197,21 @@ const UserSection = () => {
             TransitionProps={{ timeout: 600 }}
             arrow
           >
-            <IconButton
-              size="large"
-              aria-label="show 4 new mails"
-              color="black"
-              sx={{ mr: 2 }}
-            >
-              <Badge badgeContent={4} color="error">
-                <TelegramIcon sx={{ fontSize: 30 }} />
-              </Badge>
-              <Typography>판다톡</Typography>
-            </IconButton>
+            <Link to={`/chat/`}>
+              <IconButton
+                size="large"
+                aria-label="show 4 new mails"
+                color="black"
+                sx={{ mr: 2 }}
+              >
+                <Badge badgeContent={4} color="error">
+                  <TelegramIcon sx={{ fontSize: 30 }} />
+                </Badge>
+                <Typography>판다톡</Typography>
+              </IconButton>
+            </Link>
           </Tooltip>
+
           <Tooltip
             title="찜 목록"
             TransitionComponent={Fade}
@@ -199,6 +225,13 @@ const UserSection = () => {
               <Typography>찜목록</Typography>
             </IconButton>
           </Tooltip>
+
+          <IconButton size="large" sx={{ mr: 2 }} onClick={handleOpenWallet}>
+            <WalletRoundedIcon sx={{ fontSize: 30, color: "#1ecfba" }} />
+            <Typography>내지갑</Typography>
+          </IconButton>
+          <MyWallet open={openWallet} onClose={handleCloseWallet} />
+
           <IconButton
             size="large"
             edge="end"
@@ -211,6 +244,7 @@ const UserSection = () => {
             <Typography>내정보</Typography>
           </IconButton>
         </Box>
+
         <Box sx={{ display: { xs: "flex", md: "none" } }}>
           <IconButton
             size="large"

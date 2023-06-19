@@ -6,23 +6,38 @@ import {
   PURCHASE,
   RELEASE,
 } from "./type";
+
+import { baseRequest, authRequest } from "../api/common";
 import { addProdRequest } from "../api/productApi";
-import { baseRequest } from "../api/common";
+import { callAddProduct } from "../contract/callAddProduct";
+import { callPurchaseDeposit, callRelease } from "../contract/callPurchase";
+import { setLoadings } from "./uiAction";
 
 export function addProduct(dataToSubmit) {
-  const request = addProdRequest()
-    .post("/api/products", dataToSubmit)
-    .then((response) => {
-      console.log("res", response);
-      return response.data;
-    })
-    .catch((err) => {
+  const { formData, sdk } = dataToSubmit;
+
+  return async (dispatch) => {
+    try {
+      const res = await addProdRequest().post("/api/products", formData);
+      console.log("res", res);
+      dispatch(setLoadings({ isLoading: false, isContractLoading: true }));
+
+      callAddProduct(sdk, res.data.product).then((data) => {
+        console.log("contractRes", data);
+        dispatch(setLoadings({ isContractLoading: false }));
+      });
+
+      return dispatch({
+        type: ADD_PRODUCT,
+        payload: res.data,
+      });
+    } catch (err) {
       console.log(err);
-      return err.response.data;
-    });
-  return {
-    type: ADD_PRODUCT,
-    payload: request,
+      return dispatch({
+        type: ADD_PRODUCT,
+        payload: err.response.data,
+      });
+    }
   };
 }
 
@@ -75,30 +90,57 @@ export function getProduct(dataToSubmit) {
 }
 
 export function purchase(dataToSubmit) {
-  const request = baseRequest()
-    .put()
-    .then((response) => response.data)
-    .catch((err) => {
-      console.log(err);
-      return err.response.data;
-    });
+  const { productId, userId, sdk } = dataToSubmit;
+  return async (dispatch) => {
+    try {
+      const res = await authRequest().put(
+        `/api/products/purchase/${productId}`
+      );
+      console.log("res", res);
+      dispatch(setLoadings({ isLoading: false, isContractLoading: true }));
 
-  return {
-    type: PURCHASE,
-    payload: request,
+      callPurchaseDeposit(sdk, productId, userId).then((data) => {
+        console.log("contractRes", data);
+        dispatch(setLoadings({ isContractLoading: false }));
+      });
+
+      return dispatch({
+        type: PURCHASE,
+        payload: res.data,
+      });
+    } catch (err) {
+      console.log(err);
+      return dispatch({
+        type: PURCHASE,
+        payload: err.response.data,
+      });
+    }
   };
 }
-export function release(dataToSubmit) {
-  const request = baseRequest()
-    .put()
-    .then((response) => response.data)
-    .catch((err) => {
-      console.log(err);
-      return err.response.data;
-    });
 
-  return {
-    type: RELEASE,
-    payload: request,
+export function release(dataToSubmit) {
+  const { productId, sdk } = dataToSubmit;
+  return async (dispatch) => {
+    try {
+      const res = await authRequest().put(`/api/products/release/${productId}`);
+      console.log("res", res);
+      dispatch(setLoadings({ isLoading: false, isContractLoading: true }));
+
+      callRelease(sdk, productId).then((data) => {
+        console.log("contractRes", data);
+        dispatch(setLoadings({ isContractLoading: false }));
+      });
+
+      return dispatch({
+        type: RELEASE,
+        payload: res.data,
+      });
+    } catch (err) {
+      console.log(err);
+      return dispatch({
+        type: RELEASE,
+        payload: err.response.data,
+      });
+    }
   };
 }

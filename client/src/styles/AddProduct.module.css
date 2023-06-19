@@ -13,6 +13,16 @@
   padding: 24px 0;
 }
 
+.ImgDelete {
+  border: none;
+  position: absolute;
+  font-size: 30px;
+  background-color: rgba(30, 29, 41, 0.6);
+  color: #fff;
+  border-radius: 50%;
+  padding: 0;
+}
+
 /*사진등록 및 설명 라벨*/
 .label {
   display: flex;
@@ -56,6 +66,7 @@
   justify-content: center;
   flex-direction: column;
   margin-right: 15px;
+  border-radius: 5px;
 }
 
 .imgContainer {
@@ -63,6 +74,11 @@
   height: 202px;
   border: 1px solid rgb(207, 210, 215);
   margin-right: 15px;
+  border-radius: 5px;
+}
+
+.img {
+  border-radius: 4px;
 }
 
 .imgContainer img {
@@ -105,19 +121,27 @@
   width: 60%;
   margin: 0;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: space-between;
 }
 
-.category div {
+.checkList1 {
+  display: flex;
+}
+
+.checkList2 {
+  display: flex;
+}
+
+/* .category div {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-}
+} */
 
-.category div label {
+/* .category div label {
   padding: 0.4rem;
-}
+} */
 
 /*등록 버튼이 들어있는 리스트*/
 .buttonWrap {
@@ -141,9 +165,9 @@ textarea:focus {
 }
 
 .button {
-  background-color: #1ecfba;
+  background-color: #1ecfba !important;
 }
 
 .button:hover {
-  background-color: #1ecfba;
+  background-color: #1ecfba !important;
 }

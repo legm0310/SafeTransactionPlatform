@@ -1,7 +1,21 @@
-import * as React from "react";
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import PropTypes from "prop-types";
-import { ConnectWallet, Web3Button } from "@thirdweb-dev/react";
+import Exchange from "../User/Exchange";
+import {
+  ConnectWallet,
+  useMetamask,
+  useDisconnect,
+  useContract,
+  useAddress,
+  Web3Button,
+  useSwitchChain,
+  useNetworkMismatch,
+  useSDK,
+  useTokenBalance,
+} from "@thirdweb-dev/react";
+import { Sepolia } from "@thirdweb-dev/chains";
+import { testCall } from "../../contract/contractCall";
 
 import {
   styled,
@@ -13,10 +27,7 @@ import {
   IconButton,
   Typography,
 } from "@mui/material";
-import {
-  Close as CloseIcon,
-  WalletRounded as WalletRoundedIcon,
-} from "@mui/icons-material";
+import { Close as CloseIcon } from "@mui/icons-material";
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   "& .MuiDialogContent-root": {
@@ -36,7 +47,7 @@ function BootstrapDialogTitle(props) {
       {onClose ? (
         <IconButton
           aria-label="close"
-          onClick={onClose}
+          onClick={props.onClose}
           sx={{
             position: "absolute",
             right: 8,
@@ -56,27 +67,66 @@ BootstrapDialogTitle.propTypes = {
   onClose: PropTypes.func.isRequired,
 };
 
-export default function MyWallet() {
-  const [open, setOpen] = React.useState(false);
+export default function MyWallet(props) {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user.user);
 
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
+  const [showExchange, setShowExchange] = useState(false);
+
+  const sdk = useSDK();
+  const { contract } = useContract(process.env.REACT_APP_CONTRACT_ADDRESS);
+  const address = useAddress();
+  const connectMetamask = useMetamask();
+  const disconnectWallet = useDisconnect();
+  const isMismatched = useNetworkMismatch();
+  const switchNetwork = useSwitchChain();
+  const {
+    data: tokenData,
+    isLoading,
+    error,
+  } = useTokenBalance(contract, address);
+
   const handleClose = () => {
-    setOpen(false);
+    props.onClose();
+  };
+
+  const handleOpenExchange = () => {
+    setShowExchange(true);
+  };
+
+  const handleCloseExchange = () => {
+    setShowExchange(false);
+  };
+
+  const handleConnectWallet = async () => {
+    try {
+      await connectMetamask();
+      if (isMismatched) {
+        await switchNetwork(Sepolia.chainId);
+      }
+    } catch (error) {
+      console.error("Failed to connect wallet", error);
+    }
+  };
+
+  const handleSwitchNetwork = async () => {
+    try {
+      await switchNetwork(Sepolia.chainId);
+    } catch (error) {
+      console.error("Failed to switch network", error);
+    }
+  };
+
+  const handleTestButton = async () => {
+    const data = await testCall(sdk);
   };
 
   return (
     <div>
-      <Button onClick={handleClickOpen}>
-        <WalletRoundedIcon />
-      </Button>
       <BootstrapDialog
         onClose={handleClose}
         aria-labelledby="customized-dialog-title"
-        open={open}
+        open={props.open || false}
       >
         <BootstrapDialogTitle
           id="customized-dialog-title"
@@ -84,19 +134,53 @@ export default function MyWallet() {
         >
           내 지갑 관리
         </BootstrapDialogTitle>
+
         <DialogContent dividers>
-          <Typography gutterBottom>내 돈 5조 5억 BB</Typography>
           <Typography gutterBottom>
             Praesent commodo cursus magna, vel scelerisque nisl consectetur et.
           </Typography>
           <Typography gutterBottom>
             Aenean lacinia bibendum nulla sed consectetur. Praesent commodo
           </Typography>
-          <ConnectWallet theme="white" btnTitle="지갑 연결" />
+
+          {/* // <button onClick={handleConnectWallet}>지갑 연결하기</button> */}
+          {address && isMismatched ? (
+            <div>
+              <div>지갑 네트워크를 전환해주세요</div>
+              <button onClick={handleSwitchNetwork}>네트워크 전환하기</button>
+            </div>
+          ) : (
+            <ConnectWallet
+              type="submit"
+              theme="white"
+              btnTitle="지갑 연결"
+              // detailsBtn={() => {
+              //   return <button>hi</button>;
+              // }}
+              dropdownPosition={{
+                align: "center",
+                side: "bottom",
+              }}
+            />
+          )}
           <Web3Button />
+
+          <Button onClick={handleOpenExchange} sx={{ color: "black" }}>
+            <p>환전하기</p>
+          </Button>
+          <Exchange
+            open={showExchange}
+            handleCloseExchange={handleCloseExchange}
+          />
+
+          <h3>{`잔액: ${tokenData?.displayValue || 0} ${
+            tokenData?.symbol || ""
+          }`}</h3>
+          {/* <button onClick={handleTestButton}>테스트 호출</button> */}
         </DialogContent>
+
         <DialogActions>
-          <Button autoFocus onClick={handleClose}>
+          <Button autoFocus onClick={handleClose} sx={{ color: "black" }}>
             Save changes
           </Button>
         </DialogActions>

@@ -6,14 +6,7 @@
   action의 type을 switch case문으로 조건을 걸어 동작
 */
 
-import {
-  ADD_PRODUCT,
-  RECENT_PRODUCTS,
-  GET_PRODUCTS,
-  GET_PRODUCT,
-  PURCHASE,
-  RELEASE,
-} from "../_actions/type";
+import { ADD_ROOM } from "../_actions/type";
 
 const initialState = {};
 
@@ -22,24 +15,10 @@ const initialState = {};
 export default function (state = initialState, action) {
   // 전의 state, 지금의 state
   switch (action.type) {
-    case ADD_PRODUCT:
-      return { ...state, addProductSuccess: action.payload };
+    case ADD_ROOM:
+      return { ...state, addRoomSuccess: action.payload };
       break;
-    case RECENT_PRODUCTS:
-      return { ...state, recentProductsSuccess: action.payload };
-      break;
-    case GET_PRODUCTS:
-      return { ...state, searchProducts: action.payload };
-      break;
-    case GET_PRODUCT:
-      return { ...state, productDetail: action.payload };
-      break;
-    case PURCHASE:
-      return { ...state, purchaseDeposit: action.payload };
-      break;
-    case RELEASE:
-      return { ...state, release: action.payload };
-      break;
+
     default: // state가 들어오지 않았을 경우 전의 state를 넣어줌
       return state;
   }
