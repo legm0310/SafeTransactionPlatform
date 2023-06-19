@@ -6,6 +6,7 @@ import { ConnectWallet } from "@thirdweb-dev/react";
 import MyWallet from "./MyWallet";
 
 import classes from "../../styles/UserAuth.module.css";
+import { useSnackbar } from "notistack";
 import {
   Badge,
   Box,
@@ -28,9 +29,13 @@ import {
 const UserSection = (props) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { enqueueSnackbar } = useSnackbar();
+
   const onLogoutHandler = () => {
     dispatch(logout()).then((response) => {
-      alert("로그아웃 되었습니다.");
+      enqueueSnackbar("로그아웃 되었습니다.", {
+        variant: "success",
+      });
       navigate("/");
     });
   };
@@ -140,7 +145,7 @@ const UserSection = (props) => {
           color="primary"
         >
           <Badge badgeContent={17} color="error">
-            <NotificationsIcon />
+            <NotificationsIcon sx={{ color: "#fe4e62" }} />
           </Badge>
         </IconButton>
         <p>찜 목록</p>
@@ -205,7 +210,7 @@ const UserSection = (props) => {
                 sx={{ mr: 2 }}
               >
                 <Badge badgeContent={4} color="error">
-                  <TelegramIcon sx={{ fontSize: 30 }} />
+                  <TelegramIcon sx={{ fontSize: 30, color: "#fe4e62" }} />
                 </Badge>
                 <Typography>판다톡</Typography>
               </IconButton>

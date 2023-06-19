@@ -7,12 +7,14 @@ import Button from "../../components/UI/Button";
 
 import classes from "../../styles/Login.module.css";
 import { FaArrowLeft } from "react-icons/fa";
+import { useSnackbar } from "notistack";
 import googleIcon from "../../assets/google.svg";
 import kakaoIcon from "../../assets/kakao.svg";
 
 const Login = (props) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { enqueueSnackbar } = useSnackbar();
 
   const [Email, setEmail] = useState("");
   const [Password, setPassword] = useState("");
@@ -30,7 +32,9 @@ const Login = (props) => {
     event.preventDefault();
 
     if (Password.trim() === "") {
-      alert("비밀번호를 입력해주세요.");
+      enqueueSnackbar("비밀번호를 입력해주세요.", {
+        variant: "error",
+      });
       return;
     }
     // 적은 내용이 이메일이 서버로 보내지고, 이메일을 찾고 비밀번호를 비교한 후 토큰을 생성해서 쿠키에 저장하여 클라이언트에게 전해줌
@@ -41,15 +45,19 @@ const Login = (props) => {
 
     dispatch(login(body)).then((response) => {
       if (response.payload.loginSuccess) {
-        alert("로그인 성공");
+        enqueueSnackbar("로그인 성공", {
+          variant: "success",
+        });
         navigate("/");
       } else if (
         response.payload.code === 404 ||
         response.payload.code === 401
       ) {
-        alert("이메일 또는 비밀번호를 잘못 입력했습니다.");
+        enqueueSnackbar("이메일 또는 비밀번호를 잘못 입력했습니다", {
+          variant: "error",
+        });
       } else {
-        alert("로그인 실패");
+        enqueueSnackbar("로그인 실패", { variant: "error" });
       }
     });
   };
@@ -100,17 +108,19 @@ const Login = (props) => {
               </div>
 
               <Button>
-                <div className={classes.loginButton}>로그인</div>
+                <div type="submit" className={classes.loginButton}>
+                  로그인
+                </div>
               </Button>
             </form>
           </div>
 
           <div className={classes.registerWrap}>
-            <button type="submit" className={classes.registerButton}>
+            <Button type="submit" className={classes.registerButton}>
               <Link to="/register" className={classes.textButton}>
                 회원가입
               </Link>
-            </button>
+            </Button>
           </div>
 
           <div className={classes.snsWrap}>

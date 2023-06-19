@@ -7,10 +7,12 @@ import Button from "../../components/UI/Button";
 
 import classes from "../../styles/Register.module.css";
 import { FaArrowLeft } from "react-icons/fa";
+import { useSnackbar } from "notistack";
 
 const Register = (props) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { enqueueSnackbar } = useSnackbar();
 
   const [Email, setEmail] = useState("");
   const [Name, setName] = useState("");
@@ -42,7 +44,9 @@ const Register = (props) => {
     event.preventDefault();
 
     if (Password !== ConfirmPassword) {
-      return alert("비밀번호가 같지 않습니다.");
+      return enqueueSnackbar("비밀번호가 같지 않습니다.", {
+        variant: "error",
+      });
     }
 
     let body = {
@@ -55,12 +59,18 @@ const Register = (props) => {
 
     dispatch(signup(body)).then((response) => {
       if (response.payload.signupSuccess) {
-        alert("회원 정보 입력 완료");
+        enqueueSnackbar("회원 정보 입력 완료", {
+          variant: "success",
+        });
         navigate("/login");
       } else if (response.payload.code === 400) {
-        alert("존재하는 이메일입니다.");
+        enqueueSnackbar("존재하는 이메일입니다.", {
+          variant: "error",
+        });
       } else {
-        alert("회원 가입에 실패했습니다.");
+        enqueueSnackbar("회원 가입에 실패했습니다.", {
+          variant: "error",
+        });
       }
     });
   };

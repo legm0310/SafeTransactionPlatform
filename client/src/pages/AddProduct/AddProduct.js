@@ -1,21 +1,20 @@
 import React, { Fragment, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { setLoadings } from "../../_actions/uiAction";
 import { addProduct } from "../../_actions/productAction";
 import { useAddress, useSDK } from "@thirdweb-dev/react";
 import { RxCrossCircled } from "react-icons/rx";
 
 import classes from "../../styles/AddProduct.module.css";
+import { useSnackbar } from "notistack";
 import {
   FormControlLabel,
-  Backdrop,
   Checkbox,
   Button,
   TextField,
   Alert,
   Snackbar,
-  Slide,
 } from "@mui/material";
 
 const AddProduct = (props) => {
@@ -32,6 +31,7 @@ const AddProduct = (props) => {
 
   const sdk = useSDK();
   const address = useAddress();
+  const { enqueueSnackbar } = useSnackbar();
 
   const onImgFileHandler = (event) => {
     const imgLists = event.target.files;
@@ -176,10 +176,14 @@ const AddProduct = (props) => {
     dispatch(addProduct(data)).then((response) => {
       console.log(response);
       if (response.payload.addProductSuccess) {
-        alert("상품 등록 완료");
+        enqueueSnackbar("상품 등록 완료.", {
+          variant: "success",
+        });
         navigate("/");
       } else {
-        alert("상품 등록에 실패했습니다.");
+        enqueueSnackbar("상품 등록에 실패했습니다.", {
+          variant: "error",
+        });
       }
     });
   };

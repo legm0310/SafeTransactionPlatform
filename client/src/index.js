@@ -6,6 +6,7 @@ import App from "./App";
 import store from "./store/store";
 
 import "./index.css";
+import { SnackbarProvider } from "notistack";
 import { ThemeProvider, createTheme } from "@mui/material";
 
 import {
@@ -35,9 +36,18 @@ root.render(
       activeChain={Sepolia}
       supportedWallets={[metamaskWallet(), coinbaseWallet(), walletConnectV1()]}
     >
-      <ThemeProvider theme={muiTheme}>
-        <App />
-      </ThemeProvider>
+      <SnackbarProvider
+        anchorOrigin={{
+          vertical: "top",
+          horizontal: "center",
+          marginTop: "70px",
+        }}
+        autoHideDuration={2500}
+      >
+        <ThemeProvider theme={muiTheme}>
+          <App />
+        </ThemeProvider>
+      </SnackbarProvider>
     </ThirdwebProvider>
   </Provider>
 );
