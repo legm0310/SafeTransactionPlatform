@@ -125,19 +125,27 @@ const AddProduct = (props) => {
       return;
     }
     if (title.trim() === "") {
-      alert("상품 이름을 입력해주세요.");
+      enqueueSnackbar("상품 이름을 입력해주세요.", {
+        variant: "error",
+      });
       return;
     }
     if (price.trim() === "") {
-      alert("상품 가격을 입력해주세요.");
+      enqueueSnackbar("상품 가격을 입력해주세요.", {
+        variant: "error",
+      });
       return;
     }
     if (detail.trim() === "") {
-      alert("상품 설명을 입력해주세요.");
+      enqueueSnackbar("상품 설명을 입력해주세요.", {
+        variant: "error",
+      });
       return;
     }
     if (category.length === 0) {
-      alert("상품 카테고리를 입력해주세요.");
+      enqueueSnackbar("상품 카테고리를 입력해주세요.", {
+        variant: "error",
+      });
       return;
     }
 
@@ -199,7 +207,7 @@ const AddProduct = (props) => {
       >
         <Alert
           onClose={handleAlertClose}
-          severity='error'
+          severity="error"
           elevation={3}
           sx={{ width: "100%" }}
         >
@@ -218,8 +226,8 @@ const AddProduct = (props) => {
                 이미지등록
                 <input
                   className={classes.imgUpload}
-                  type='file'
-                  accept='image/*'
+                  type="file"
+                  accept="image/*"
                   onChange={onImgFileHandler}
                   multiple
                 />
@@ -285,20 +293,20 @@ const AddProduct = (props) => {
                 },
               },
             }}
-            id='outlined-search'
+            id="outlined-search"
             onChange={onTitleHandler}
             value={title}
             onInput={(e) => setTitleLength(e.target.value.length)}
             maxLength={40}
-            type='search'
-            size='small'
+            type="search"
+            size="small"
             className={classes.input}
           />
           <div>{titleLength}/40</div>
         </div>
 
         <div className={classes.label2}>
-          <label htmlFor='price' className={classes.labelTitle}>
+          <label htmlFor="price" className={classes.labelTitle}>
             가격
           </label>
           <TextField
@@ -311,14 +319,14 @@ const AddProduct = (props) => {
                 },
               },
             }}
-            id='outlined-number'
+            id="outlined-number"
             onChange={onPriceHandler}
             value={price}
-            type='text'
+            type="text"
             InputLabelProps={{
               shrink: true,
             }}
-            size='small'
+            size="small"
             className={classes.input}
           />
           <div>PDT</div>
@@ -343,8 +351,8 @@ const AddProduct = (props) => {
                 onChange={onCategoryChange}
                 // checked={category.includes("men")}
                 checked={category === "men"}
-                value='men'
-                label='남성의류'
+                value="men"
+                label="남성의류"
               />
 
               <FormControlLabel
@@ -361,8 +369,8 @@ const AddProduct = (props) => {
                 onChange={onCategoryChange}
                 // checked={category.includes("women")}
                 checked={category === "women"}
-                value='women'
-                label='여성의류'
+                value="women"
+                label="여성의류"
               />
 
               <FormControlLabel
@@ -379,8 +387,8 @@ const AddProduct = (props) => {
                 onChange={onCategoryChange}
                 // checked={category.includes("acc")}
                 checked={category === "acc"}
-                value='acc'
-                label='패션잡화'
+                value="acc"
+                label="패션잡화"
               />
 
               <FormControlLabel
@@ -397,8 +405,8 @@ const AddProduct = (props) => {
                 onChange={onCategoryChange}
                 // checked={category.includes("sports")}
                 checked={category === "sports"}
-                value='sports'
-                label='스포츠 용품'
+                value="sports"
+                label="스포츠 용품"
               />
 
               <FormControlLabel
@@ -415,8 +423,8 @@ const AddProduct = (props) => {
                 onChange={onCategoryChange}
                 // checked={category.includes("shoes")}
                 checked={category === "shoes"}
-                value='shoes'
-                label='신발'
+                value="shoes"
+                label="신발"
               />
             </div>
 
@@ -435,8 +443,8 @@ const AddProduct = (props) => {
                 onChange={onCategoryChange}
                 // checked={category.includes("homeappliances")}
                 checked={category === "homeappliances"}
-                value='homeappliances'
-                label='가전제품'
+                value="homeappliances"
+                label="가전제품"
               />
 
               <FormControlLabel
@@ -453,8 +461,8 @@ const AddProduct = (props) => {
                 onChange={onCategoryChange}
                 // checked={category.includes("computerPeripherals")}
                 checked={category === "computerPeripherals"}
-                value='computerPeripherals'
-                label='컴퓨터/주변기기'
+                value="computerPeripherals"
+                label="컴퓨터/주변기기"
               />
 
               <FormControlLabel
@@ -471,8 +479,8 @@ const AddProduct = (props) => {
                 onChange={onCategoryChange}
                 // checked={category.includes("electronic")}
                 checked={category === "electronic"}
-                value='electronic'
-                label='전자제품'
+                value="electronic"
+                label="전자제품"
               />
 
               <FormControlLabel
@@ -489,8 +497,8 @@ const AddProduct = (props) => {
                 onChange={onCategoryChange}
                 // checked={category.includes("furniture")}
                 checked={category === "furniture"}
-                value='furniture'
-                label='가구'
+                value="furniture"
+                label="가구"
               />
 
               <FormControlLabel
@@ -507,8 +515,8 @@ const AddProduct = (props) => {
                 onChange={onCategoryChange}
                 // checked={category.includes("etc")}
                 checked={category === "etc"}
-                value='etc'
-                label='기타'
+                value="etc"
+                label="기타"
               />
             </div>
           </div>
@@ -529,14 +537,14 @@ const AddProduct = (props) => {
             }}
             onChange={onDetailHandler}
             value={detail}
-            id='outlined-multiline-static'
+            id="outlined-multiline-static"
             multiline
             rows={6}
           />
         </div>
 
         <div className={classes.buttonWrap}>
-          <Button type='submit' variant='contained' className={classes.button}>
+          <Button type="submit" variant="contained" className={classes.button}>
             등록하기
           </Button>
         </div>
