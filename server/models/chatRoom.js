@@ -4,7 +4,7 @@ class ChatRoom extends Sequelize.Model {
   static init(sequelize) {
     super.init(
       {
-        room_id: {
+        id: {
           type: Sequelize.INTEGER,
           primaryKey: true,
           autoIncrement: true,
@@ -33,7 +33,11 @@ class ChatRoom extends Sequelize.Model {
     );
   }
   static associate(db) {
-    ChatRoom.hasMany(db.ChatLog, { foreignKey: "room_id" });
+    ChatRoom.hasMany(
+      db.ChatLog,
+      { foreignKey: "room_id" },
+      { sourceKey: "id" }
+    );
     ChatRoom.belongsTo(db.User, {
       foreignKey: "id",
       onDelete: "cascade",
