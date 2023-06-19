@@ -84,7 +84,12 @@ function App() {
         {isLoggedIn !== null ? (
           <BrowserRouter>
             <ScrollTop />
-            <Backdrop open={isLoading}>
+            <Backdrop
+              open={isLoading}
+              sx={{
+                zIndex: "tooltip",
+              }}
+            >
               <Loading />
             </Backdrop>
             <Header />

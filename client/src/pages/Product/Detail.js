@@ -79,23 +79,12 @@ const Detail = (props) => {
       room_name: roomName,
     };
 
-    const formData = new FormData();
-
-    formData.append("data", JSON.stringify(body));
-
-    const data = {
-      formData: formData,
-    };
-
-    for (const value of formData.values()) {
-      console.log(value);
-    }
-
-    dispatch(addRoom(data)).then((response) => {
-      if (response.addRoomSuccess) {
+    dispatch(addRoom(body)).then((response) => {
+      if (response.payload.addRoomSuccess) {
         alert("채팅방 생성 완료");
         navigate(`/chat/${roomName}`);
       } else {
+        dispatch(setLoadings({ isLoading: false }));
         alert("방 생성에 실패했습니다.");
       }
     });

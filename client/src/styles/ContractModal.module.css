@@ -1,7 +1,7 @@
 .modal {
   position: fixed;
   margin: 0 auto;
-  top: 16%;
+  top: 90px;
   left: 75%;
   right: 0;
   width: 170px;
@@ -9,7 +9,6 @@
   padding: 1rem;
   border-radius: 4px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
-  z-index: 1000000;
   animation: slide-down 300ms ease-out forwards;
 }
 

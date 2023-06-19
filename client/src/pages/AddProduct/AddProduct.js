@@ -17,7 +17,6 @@ import {
   Snackbar,
   Slide,
 } from "@mui/material";
-import Loading from "../../components/UI/Loading";
 
 const AddProduct = (props) => {
   const [imgFile, setimgFile] = useState([]);
@@ -27,7 +26,6 @@ const AddProduct = (props) => {
   const [titleLength, setTitleLength] = useState(0);
   const [category, setCategory] = useState("");
   const [alertOpen, setAlertOpen] = useState(false);
-  const isLoading = useSelector((state) => state.ui.isLoading);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -56,12 +54,10 @@ const AddProduct = (props) => {
     setAlertOpen(false);
   };
 
-  function SlideTrans() {
-    return <Slide direction='up' />;
-  }
   // 이미지 삭제
   const deleteImgHandler = (event, id) => {
     event.preventDefault();
+    URL.revokeObjectURL(imgFile[id]);
     setimgFile(imgFile.filter((_, index) => index !== id));
   };
 
