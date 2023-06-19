@@ -11,7 +11,7 @@ const Home = (props) => {
   const [text] = useTypewriter({
     words: ["안전한", "투명한"],
     loop: {},
-    typeSpeed: 120,
+    typeSpeed: 70,
   });
 
   return (
@@ -23,11 +23,11 @@ const Home = (props) => {
               <div className={classes.typingTop}>
                 <span>{text}</span>
                 <span>
-                  <Cursor />
+                  <Cursor style={{ fontWeight: "normal" }} />
                 </span>
               </div>
               <div className={classes.typingMiddle}>
-                <span>거래플랫폼</span>
+                <span>중고거래</span>
               </div>
               <div className={classes.typingBottom}>
                 <span>블록체인을 활용해 보다 안전하게!</span>
