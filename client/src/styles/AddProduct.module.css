@@ -130,10 +130,10 @@
 }
 
 /* 인풋 및 텍스트박스 클릭시 테두리 색상*/
-input:focus {
+/* input:focus {
   border: 1px solid #1ecfba;
   outline: none;
-}
+} */
 
 textarea:focus {
   border-color: #1ecfba;
