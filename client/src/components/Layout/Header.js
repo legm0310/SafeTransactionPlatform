@@ -30,9 +30,15 @@ const Header = (props) => {
 
   return (
     <Fragment>
-      <AppBar position="sticky" sx={{ bgcolor: "white", width: "100vw" }}>
-        <Container maxWidth="xl">
-          <Toolbar disableGutters>
+      <AppBar position='sticky' sx={{ bgcolor: "white", width: "100vw" }}>
+        <Container maxWidth='xl'>
+          <Toolbar
+            disableGutters
+            sx={{
+              display: "flex",
+              justifyContent: "space-between",
+            }}
+          >
             <MobileNavMenu
               handleOpenNavMenu={handleOpenNavMenu}
               handleCloseNavMenu={handleCloseNavMenu}
@@ -40,7 +46,7 @@ const Header = (props) => {
               classes={classes}
             />
 
-            <Logo display="xs" />
+            <Logo />
 
             <DesktopNavMenu classes={classes} />
 
