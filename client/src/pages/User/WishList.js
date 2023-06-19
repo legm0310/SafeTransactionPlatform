@@ -1,6 +1,6 @@
 import { Fragment } from "react";
 
-const UserWishList = () => {
+const WishList = () => {
   return (
     <Fragment>
       <h1>찜목록</h1>
@@ -8,4 +8,4 @@ const UserWishList = () => {
   );
 };
 
-export default UserWishList;
+export default WishList;

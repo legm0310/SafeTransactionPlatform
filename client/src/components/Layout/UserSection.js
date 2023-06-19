@@ -26,7 +26,7 @@ import {
   WalletRounded as WalletRoundedIcon,
 } from "@mui/icons-material";
 
-const UserSection = () => {
+const UserSection = (props) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const onLogoutHandler = () => {
@@ -36,11 +36,20 @@ const UserSection = () => {
     });
   };
 
+  const [openWallet, setOpenWallet] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
 
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
+
+  const handleOpenWallet = () => {
+    setOpenWallet(true);
+  };
+
+  const handleCloseWallet = () => {
+    setOpenWallet(false);
+  };
 
   const onProfileMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
@@ -78,14 +87,16 @@ const UserSection = () => {
     >
       <Link to="/userinfo">
         <MenuItem onClick={onMenuClose} sx={{ color: "black" }}>
-          내 정보
+          <AccountCircle sx={{ fontSize: 30 }} />내 정보
         </MenuItem>
       </Link>
 
-      {/* <MenuItem onClick={onMenuClose}>
-        <ConnectWallet theme="white" btnTitle="지갑 연결" />
-        <MyWallet />
-      </MenuItem>  */}
+      <MenuItem sx={{ color: "black" }}>
+        <Badge badgeContent={17} color="error">
+          <FavoriteIcon sx={{ fontSize: 30 }} />
+        </Badge>
+        <Typography>찜목록</Typography>
+      </MenuItem>
 
       <MenuItem
         className={classes.logout}
@@ -136,6 +147,20 @@ const UserSection = () => {
         <p>찜 목록</p>
       </MenuItem>
 
+      <MenuItem onClick={handleOpenWallet} onClose={onMobileMenuClose}>
+        <IconButton
+          size="large"
+          aria-label="account of current user"
+          aria-controls="primary-search-account-menu"
+          aria-haspopup="true"
+          color="primary"
+        >
+          <WalletRoundedIcon sx={{ color: "#1ecfba" }} />
+        </IconButton>
+        <p>내지갑</p>
+      </MenuItem>
+      <MyWallet open={openWallet} onClose={handleCloseWallet} />
+
       <MenuItem onClick={onProfileMenuOpen}>
         <IconButton
           size="large"
@@ -146,18 +171,7 @@ const UserSection = () => {
         >
           <AccountCircle />
         </IconButton>
-        <p>내 정보</p>
-      </MenuItem>
-
-      <MenuItem>
-        <IconButton
-          size="large"
-          aria-label="account of current user"
-          aria-controls="primary-search-account-menu"
-          aria-haspopup="true"
-          color="primary"
-        ></IconButton>
-        <MyWallet />
+        <p>내정보</p>
       </MenuItem>
 
       <MenuItem onClick={onLogoutHandler} sx={{ borderTop: 2 }}>
@@ -184,17 +198,19 @@ const UserSection = () => {
             TransitionProps={{ timeout: 600 }}
             arrow
           >
-            <IconButton
-              size="large"
-              aria-label="show 4 new mails"
-              color="black"
-              sx={{ mr: 2 }}
-            >
-              <Badge badgeContent={4} color="error">
-                <TelegramIcon sx={{ fontSize: 30 }} />
-              </Badge>
-              <Typography>판다톡</Typography>
-            </IconButton>
+            <Link to={`/chat/`}>
+              <IconButton
+                size="large"
+                aria-label="show 4 new mails"
+                color="black"
+                sx={{ mr: 2 }}
+              >
+                <Badge badgeContent={4} color="error">
+                  <TelegramIcon sx={{ fontSize: 30 }} />
+                </Badge>
+                <Typography>판다톡</Typography>
+              </IconButton>
+            </Link>
           </Tooltip>
 
           <Tooltip
@@ -211,9 +227,11 @@ const UserSection = () => {
             </IconButton>
           </Tooltip>
 
-          <IconButton size="large" sx={{ mr: 2 }}>
-            <MyWallet />
+          <IconButton size="large" sx={{ mr: 2 }} onClick={handleOpenWallet}>
+            <WalletRoundedIcon sx={{ fontSize: 30, color: "#1ecfba" }} />
+            <Typography>내지갑</Typography>
           </IconButton>
+          <MyWallet open={openWallet} onClose={handleCloseWallet} />
 
           <IconButton
             size="large"
