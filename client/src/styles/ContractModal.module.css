@@ -1,0 +1,65 @@
+.modal {
+  position: fixed;
+  margin: 0 auto;
+  top: 16%;
+  left: 75%;
+  right: 0;
+  width: 170px;
+  background-color: rgb(247, 247, 247);
+  padding: 1rem;
+  border-radius: 4px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+  z-index: 1000000;
+  animation: slide-down 300ms ease-out forwards;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.content h3 {
+  margin: 4px;
+}
+
+.loadingText {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.loadingText p {
+  margin: 2px;
+}
+
+.loadingText span {
+  animation-name: loading;
+  animation-duration: 3s;
+  animation-iteration-count: infinite;
+  opacity: 1;
+}
+
+.loadingText span:nth-of-type(1) {
+  animation-delay: 0s;
+}
+.loadingText span:nth-of-type(2) {
+  animation-delay: 0.5s;
+}
+.loadingText span:nth-of-type(3) {
+  animation-delay: 1s;
+}
+
+@keyframes loading {
+  0%,
+  80%,
+  100% {
+    opacity: 1;
+  }
+  20%,
+  60% {
+    opacity: 0;
+  }
+}
