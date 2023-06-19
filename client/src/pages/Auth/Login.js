@@ -3,7 +3,8 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { login } from "../../_actions/userAction";
-import Button from "../../components/UI/Button";
+// import Button from "../../components/UI/Button";
+// import CustomAlert from "../../components/UI/Alert";
 
 import classes from "../../styles/Login.module.css";
 import { FaArrowLeft } from "react-icons/fa";
@@ -11,6 +12,7 @@ import { useSnackbar } from "notistack";
 import googleIcon from "../../assets/google.svg";
 import kakaoIcon from "../../assets/kakao.svg";
 
+import { Button, TextField, FormControl, Grid, Box } from "@mui/material/";
 const Login = (props) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -18,12 +20,31 @@ const Login = (props) => {
 
   const [Email, setEmail] = useState("");
   const [Password, setPassword] = useState("");
+  const [emailError, setEmailError] = useState("");
+  const [passwordError, setPasswordError] = useState("");
+  // const [showAlert, setShowAlert] = useState(false);
 
   const onEmailHandler = (event) => {
+    // 이메일 유효성 체크
+    const emailPattern = /^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/;
+    const isValidEmail = emailPattern.test(event.currentTarget.value);
+    if (!isValidEmail) {
+      setEmailError("유효한 이메일 주소를 입력해주세요.");
+    } else {
+      setEmailError("");
+    }
+
     setEmail(event.currentTarget.value);
   };
 
   const onPasswordHandler = (event) => {
+    // 비밀번호 유효성 체크
+    const passwordPattern = /^(?=.*\d)(?=.*[a-zA-Z])[a-zA-Z0-9]{8,}$/;
+    const isValidPassword = passwordPattern.test(event.currentTarget.value);
+    if (!isValidPassword) {
+      setPasswordError("");
+    }
+
     setPassword(event.currentTarget.value);
   };
 
@@ -67,7 +88,7 @@ const Login = (props) => {
       <div className={classes.wrap}>
         <div className={classes.container}>
           <header className={classes.header}>
-            <Link to="/" className={classes.backButton}>
+            <Link to='/' className={classes.backButton}>
               <FaArrowLeft />
             </Link>
           </header>
@@ -81,43 +102,62 @@ const Login = (props) => {
             </div>
           </div>
 
-          <div className={classes.loginInputWrap}>
-            <form onSubmit={onSubmitHandler}>
-              <div className={classes.idField}>
-                <div className={classes.idInputGroup}>
-                  <input
-                    type="email"
-                    placeholder="이메일 입력"
+          <Box
+            component='form'
+            noValidate
+            sx={{ px: 3 }}
+            onSubmit={onSubmitHandler}
+          >
+            <FormControl component='fieldset' variant='standard' fullWidth>
+              <Grid container spacing={2}>
+                <Grid item xs={12}>
+                  <TextField
+                    autoFocus
+                    fullWidth
+                    type='email'
                     value={Email}
+                    label='이메일 주소'
                     onChange={onEmailHandler}
-                    className={classes.idInput}
+                    error={emailError !== ""}
+                    helperText={emailError}
                   />
-                </div>
-              </div>
-
-              <div className={classes.pwField}>
-                <div className={classes.pwInputGroup}>
-                  <input
-                    type="password"
-                    placeholder="비밀번호 입력"
+                </Grid>
+                <Grid item xs={12}>
+                  <TextField
+                    fullWidth
+                    type='password'
                     value={Password}
+                    label='비밀번호'
                     onChange={onPasswordHandler}
-                    className={classes.pwInput}
+                    error={passwordError !== ""}
+                    helperText={passwordError}
+                    id='outlined-password-input'
                   />
-                </div>
-              </div>
-
-              <Button>
-                <div type="submit" className={classes.loginButton}>
-                  로그인
-                </div>
+                </Grid>
+              </Grid>
+              <Button
+                type='submit'
+                fullWidth
+                variant='contained'
+                sx={{
+                  mt: 3,
+                  mb: 2,
+                  backgroundColor: "#1ecfba",
+                  fontFamily: "GongGothicMedium",
+                  fontWeight: 500,
+                  fontSize: 18,
+                  "&:hover": { backgroundColor: "#1ecfba" },
+                }}
+                size='large'
+              >
+                로그인
               </Button>
-            </form>
-          </div>
+            </FormControl>
+          </Box>
 
           <div className={classes.registerWrap}>
-            <Button type="submit" className={classes.registerButton}>
-              <Link to="/register" className={classes.textButton}>
+            <button type='submit' className={classes.registerButton}>
+              <Link to='/register' className={classes.textButton}>
                 회원가입
               </Link>
             </Button>
@@ -130,11 +170,11 @@ const Login = (props) => {
           </div>
 
           <div className={classes.snsIconWrap}>
-            <a href="1" className={classes.snsIcon}>
-              <img src={googleIcon} alt="" />
+            <a href='1' className={classes.snsIcon}>
+              <img src={googleIcon} alt='' />
             </a>
-            <a href="1" className={classes.snsIcon}>
-              <img src={kakaoIcon} alt="" />
+            <a href='1' className={classes.snsIcon}>
+              <img src={kakaoIcon} alt='' />
             </a>
           </div>
         </div>
