@@ -3,14 +3,15 @@ import { setLoadings } from "./uiAction";
 import { addProdRequest } from "../api/productApi";
 
 export function addRoom(dataToSubmit) {
-  const { formData } = dataToSubmit;
   return async (dispatch) => {
     try {
-      const res = await addProdRequest().post("/api/chats", formData);
+      const res = await addProdRequest().post("/api/chats", dataToSubmit);
       console.log("res", res);
-      dispatch(setLoadings({ isLoading: false, isContractLoading: true }));
-
-      return res.data;
+      dispatch(setLoadings({ isLoading: false }));
+      return dispatch({
+        type: ADD_ROOM,
+        payload: res.data,
+      });
     } catch (err) {
       console.log(err);
       return dispatch({
