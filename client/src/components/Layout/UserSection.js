@@ -2,7 +2,7 @@ import React, { useState, Fragment } from "react";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { logout } from "../../_actions/userAction";
-import { ConnectWallet } from "@thirdweb-dev/react";
+import { useDisconnect } from "@thirdweb-dev/react";
 import MyWallet from "./MyWallet";
 
 import classes from "../../styles/UserAuth.module.css";
@@ -32,11 +32,14 @@ const UserSection = (props) => {
   const navigate = useNavigate();
   const { enqueueSnackbar } = useSnackbar();
 
+  const disconnect = useDisconnect();
+
   const onLogoutHandler = () => {
     dispatch(logout()).then((response) => {
       enqueueSnackbar("로그아웃 되었습니다.", {
         variant: "success",
       });
+      disconnect();
       navigate("/");
     });
   };

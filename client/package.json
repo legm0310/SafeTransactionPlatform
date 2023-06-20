@@ -31,7 +31,8 @@
     "redux-promise": "^0.6.0",
     "redux-thunk": "^2.4.2",
     "slick-carousel": "^1.8.1",
-    "styled-components": "^6.0.0-rc.3"
+    "styled-components": "^6.0.0-rc.3",
+    "web3": "^4.0.1"
   },
   "scripts": {
     "start": "react-scripts start",

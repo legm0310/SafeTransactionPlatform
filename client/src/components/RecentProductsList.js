@@ -13,15 +13,14 @@ const RecentProductsList = () => {
   const [displayMore, setDisplayMore] = useState(true);
 
   const onClickMoreProduct = () => {
-    setLastProdId(productsList[productsList.length - 1].id);
+    setLastProdId(productsList[productsList.length - 1]?.id);
   };
 
   useEffect(() => {
-    // console.log("lastProdId", lastProdId);
     dispatch(getRecentProducts(lastProdId))
       .then((response) => {
         const prodListFromDb = response.payload.products ?? [];
-        // console.log(prodListFromDb);
+
         setProductsList((productsList) => [...productsList, ...prodListFromDb]);
 
         if (prodListFromDb.length < 12 || prodListFromDb[0]?.id <= 12) {
@@ -58,7 +57,6 @@ const RecentProductsList = () => {
                       </div>
                     ) : null}
                   </div>
-
                   <div className={classes.prodInfo}>
                     <div className={classes.prodName}>{product.title}</div>
                     <div className={classes.prodPrice}>

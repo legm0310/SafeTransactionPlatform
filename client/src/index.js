@@ -17,7 +17,18 @@ import {
 } from "@thirdweb-dev/react";
 import { Sepolia } from "@thirdweb-dev/chains";
 
-const muiTheme = createTheme({});
+const muiTheme = createTheme({
+  typography: {
+    fontFamily: "GongGothicMedium",
+  },
+});
+
+const sdkOptions = {
+  gasSettings: {
+    speed: "fastest",
+  },
+  // gasless: {},
+};
 // const smartWalletConfig = {
 //   factoryAddress: "",
 //   gasless: true,
@@ -31,6 +42,7 @@ root.render(
     <ThirdwebProvider
       activeChain={Sepolia}
       supportedWallets={[metamaskWallet(), coinbaseWallet(), walletConnectV1()]}
+      sdkOptions={sdkOptions}
     >
       <SnackbarProvider
         anchorOrigin={{

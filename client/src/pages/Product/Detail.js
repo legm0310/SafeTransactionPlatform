@@ -60,7 +60,7 @@ const Detail = (props) => {
     dispatch(purchase(data)).then((response) => {
       console.log(response);
       if (response.payload.updated) {
-        alert("에스크로 결제 완료");
+        alert("에스크로 결제가 진행됩니다.");
         navigate("/userinfo");
       } else {
         alert("구매 신청에 실패했습니다.");

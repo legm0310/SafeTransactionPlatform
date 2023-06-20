@@ -8,6 +8,7 @@
 
 import {
   ADD_PRODUCT,
+  PURCHASED_PRODUCTS,
   RECENT_PRODUCTS,
   GET_PRODUCTS,
   GET_PRODUCT,
@@ -25,6 +26,8 @@ export default function (state = initialState, action) {
     case ADD_PRODUCT:
       return { ...state, addProductSuccess: action.payload };
       break;
+    case PURCHASED_PRODUCTS:
+      return { ...state, purchasedProducts: action.payload };
     case RECENT_PRODUCTS:
       return { ...state, recentProductsSuccess: action.payload };
       break;
