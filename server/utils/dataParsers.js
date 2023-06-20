@@ -25,7 +25,6 @@ const generateClearCondition = (parmas) => {
 
 const generateGetProductsQuery = (params) => {
   let queryWhere, queryOffset, queryLimit;
-  generateCondition(params);
   if (Array.isArray(params)) {
     const { where } = generateClearCondition(params);
     queryWhere = where;
