@@ -44,6 +44,18 @@ const RecentProductsList = () => {
                       className={classes.prodImg}
                       alt=""
                     />
+
+                    {product.status === "RESERVED" && (
+                      <div className={classes.reserved}>
+                        <h2>구매진행중</h2>
+                      </div>
+                    )}
+
+                    {product.status == "SOLD" ? (
+                      <div className={classes.reserved}>
+                        <h2>판매완료</h2>
+                      </div>
+                    ) : null}
                   </div>
                   <div className={classes.prodInfo}>
                     <div className={classes.prodName}>{product.title}</div>
@@ -51,6 +63,7 @@ const RecentProductsList = () => {
                       {" "}
                       {product.price.toLocaleString()}
                     </div>
+                    <div className={classes.prodStatus}>{product.status}</div>
                   </div>
                 </Link>
               </div>

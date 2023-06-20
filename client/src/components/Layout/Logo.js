@@ -12,11 +12,11 @@ const Logo = () => {
         <h1 className={classes.logo}>PANDA.</h1>
       </Link> */}
 
-      <Link to='/' className={classes.logoWrap}>
+      <Link to="/" className={classes.logoWrap}>
         <Typography
-          variant='h5'
+          variant="h5"
           noWrap
-          component='a'
+          component="a"
           sx={{
             display: { xs: "flex", md: "none" },
             flexGrow: 1,
@@ -31,9 +31,9 @@ const Logo = () => {
           PANDA.
         </Typography>
         <Typography
-          variant='h4'
+          variant="h4"
           noWrap
-          component='a'
+          component="a"
           sx={{
             display: { xs: "none", md: "block" },
             flexGrow: 1,
