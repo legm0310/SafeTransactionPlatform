@@ -15,6 +15,15 @@ class ProductService {
     return product;
   }
 
+  async getPurchasedProducts(params) {
+    const query = generateGetProductsQuery(params);
+    console.log(query);
+    const products = await this.Product.findAll(query);
+    console.log(products);
+    const extractedList = extractProductsList(products);
+    return extractedList;
+  }
+
   //query에 따른 분기
   async getProducts(params) {
     const query = generateGetProductsQuery(params);

@@ -23,6 +23,17 @@ module.exports = {
     });
   }),
 
+  getPurchasedProducts: catchAsync(async (req, res) => {
+    const prodServiceInstance = await Container.get("productService");
+    const productIds = req.body.productIds;
+    console.log(productIds);
+    const products = await prodServiceInstance.getPurchasedProducts(productIds);
+    res.status(200).json({
+      getPurchasedProductsSuccess: true,
+      products: products,
+    });
+  }),
+
   getRecentProducts: catchAsync(async (req, res) => {
     const prodServiceInstance = await Container.get("productService");
     const params = req.query;
