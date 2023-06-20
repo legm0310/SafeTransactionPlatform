@@ -55,10 +55,10 @@ contract SafeTxn is ISafeTxn, IEscrow, ERC20Base {
     require(_price>=0, "price of the product is less than zero");
     increaseTotalProduct();
 
-    products[_productId] = Product(_productId, _price, _sellerId, msg.sender, State.SALE);
+    products[_productId] = Product(_productId, _price * 10**decimals(), _sellerId, msg.sender, State.SALE);
 
     require(products[_productId].sellerAddress != address(0), "Faild to register product");
-    emit ProductRegister(msg.sender, _productId, _price, block.timestamp);
+    emit ProductRegister(msg.sender, _productId, _price * 10**decimals(), block.timestamp);
     return true;
   }
 
@@ -85,7 +85,7 @@ contract SafeTxn is ISafeTxn, IEscrow, ERC20Base {
     require(products[_productId].sellerAddress != address(0), "Not found product");
     Product storage product = products[_productId];
 
-    require(balanceOf(msg.sender) >= product.price * 10**decimals(), "Not enough balance");
+    require(balanceOf(msg.sender) >= product.price, "Not enough balance");
     createEscrow(product, _buyerId);
 
     setProductStatus(product, State.RESERVED);
@@ -97,10 +97,10 @@ contract SafeTxn is ISafeTxn, IEscrow, ERC20Base {
     escrows[_product.productId] = EscrowData(_product.productId, _buyerId, msg.sender, _product.sellerId, _product.sellerAddress, _product.price, false);
     EscrowData memory escrow = escrows[_product.productId];
     require(escrow.buyerAddress != address(0), "Faild to create escrow");
-    emit EscrowCreate(msg.sender, _product.sellerAddress, _product.productId, _product.price * 10**decimals(), block.timestamp);
+    emit EscrowCreate(msg.sender, _product.sellerAddress, _product.productId, _product.price, block.timestamp);
 
-    transfer(address(this), _product.price * 10**decimals());
-    emit EscrowDeposit(escrow.productId , _product.price * 10**decimals(), block.timestamp);
+    transfer(address(this), _product.price);
+    emit EscrowDeposit(escrow.productId , _product.price, block.timestamp);
     return true;
   }
 
@@ -129,13 +129,13 @@ contract SafeTxn is ISafeTxn, IEscrow, ERC20Base {
   //예치 금액 릴리즈
   function releaseToSeller(bool _isApprove, address _sellerAddress, uint256 _amount) public virtual override returns(bool) {
     require(_isApprove == true, "Not approved to Release");
-    _transfer(address(this), _sellerAddress, _amount*10*decimals());
+    _transfer(address(this), _sellerAddress, _amount);
     return true;
   }
 
   //예치 금액 반환
   function refundsToBuyer(address _buyerAddress, uint256 _amount) public virtual override returns (bool) {
-    _transfer(address(this), _buyerAddress, _amount*10*decimals());
+    _transfer(address(this), _buyerAddress, _amount);
     return true;
   }
 
