@@ -21,6 +21,13 @@ const muiTheme = createTheme({
     fontFamily: "GongGothicMedium",
   },
 });
+
+const sdkOptions = {
+  gasSettings: {
+    speed: "fastest",
+  },
+  // gasless: {},
+};
 // const smartWalletConfig = {
 //   factoryAddress: "",
 //   gasless: true,
@@ -34,6 +41,7 @@ root.render(
     <ThirdwebProvider
       activeChain={Sepolia}
       supportedWallets={[metamaskWallet(), coinbaseWallet(), walletConnectV1()]}
+      sdkOptions={sdkOptions}
     >
       <ThemeProvider theme={muiTheme}>
         <App />

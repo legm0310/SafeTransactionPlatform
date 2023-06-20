@@ -1,5 +1,4 @@
 import { contractGetterSDK } from "./contractCall";
-import { ethers } from "ethers";
 
 export const callAddProduct = async (sdk, prodData) => {
   try {

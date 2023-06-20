@@ -5,6 +5,7 @@ import {
   GET_PRODUCT,
   PURCHASE,
   RELEASE,
+  PURCHASED_PRODUCTS,
 } from "./type";
 
 import { baseRequest, authRequest } from "../api/common";
@@ -38,6 +39,20 @@ export function addProduct(dataToSubmit) {
         payload: err.response.data,
       });
     }
+  };
+}
+
+export function getPurchasedProducts(dataToSubmit) {
+  const request = authRequest()
+    .post(`/api/products/purchased`, dataToSubmit)
+    .then((response) => response.data)
+    .catch((err) => {
+      console.log(err);
+      return err.response.data;
+    });
+  return {
+    type: PURCHASED_PRODUCTS,
+    payload: request,
   };
 }
 
