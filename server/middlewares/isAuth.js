@@ -8,6 +8,10 @@ const loginAgain = new UnauthorizedError(
 );
 
 //isAuth -> handleAccessToken -> if문 분기에 따라 handleRefreshToken 실행
+/**
+ * @TODO
+ * auth fail시 error가 아닌 false데이터 반환
+ */
 const handleAccessToken = async (req, res, next) => {
   const tokenService = Container.get("tokenService");
   passport.authenticate(

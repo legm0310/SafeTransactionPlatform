@@ -17,4 +17,5 @@ module.exports = {
   getImgUrlByKey: s3Upload.getImgUrlByKey,
   generateGetProductsQuery: dataParsers.generateGetProductsQuery,
   extractProductsList: dataParsers.extractProductsList,
+  generatePurchasedProductsQuery: dataParsers.generatePurchasedProductsQuery,
 };

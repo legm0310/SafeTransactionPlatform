@@ -14,22 +14,43 @@ const generateCondition = (params) => {
   return { where, offset, limit };
 };
 
+const generateClearCondition = (parmas) => {
+  const where = {
+    id: {
+      [Op.in]: parmas,
+    },
+  };
+  return { where };
+};
+
 const generateGetProductsQuery = (params) => {
-  const { where, offset, limit } = generateCondition(params);
+  let queryWhere, queryOffset, queryLimit;
+  if (Array.isArray(params)) {
+    const { where } = generateClearCondition(params);
+    queryWhere = where;
+  } else {
+    const { where, offset, limit } = generateCondition(params);
+    queryWhere = where;
+    queryOffset = offset;
+    queryLimit = limit;
+  }
 
   let query = {
-    where: where,
+    where: queryWhere,
     order: [
       ["created_at", "DESC"],
       ["id", "DESC"],
     ],
-    offset: offset,
-    limit: limit,
-    attributes: ["id", "title", "price", "images", "created_at"],
+    offset: queryOffset,
+    limit: queryLimit,
+    attributes: ["id", "status", "title", "price", "images", "created_at"],
   };
   return query;
 };
 
+const generatePurchasedProductsQuery = (parmas) => {
+  generateClearCondition(parmas);
+};
 const extractProductsList = (products) => {
   const productsFromDb = products.rows ?? products;
 
@@ -44,4 +65,5 @@ const extractProductsList = (products) => {
 module.exports = {
   generateGetProductsQuery,
   extractProductsList,
+  generatePurchasedProductsQuery,
 };

@@ -13,6 +13,7 @@ module.exports = (app) => {
   app.use("/products", router);
 
   router.post("/", isAuth, uploader, productController.addProduct);
+  router.post("/purchased", productController.getPurchasedProducts);
   router.get("/", productController.getProducts);
   router.get("/recent", productController.getRecentProducts);
   router.get("/:id", productController.getProduct);
