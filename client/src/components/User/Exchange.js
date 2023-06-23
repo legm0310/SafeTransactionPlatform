@@ -70,6 +70,11 @@ const Exchange = (props) => {
   };
 
   const callMintToken = () => {
+    if (!mintAmount || isNaN(parseInt(mintAmount, 10))) {
+      alert("토큰 갯수를 확인해주세요.");
+      return;
+    }
+
     dispatch(setLoadings({ isContractLoading: true }));
     mintToken({ amount: mintAmount, to: address })
       .then(() => dispatch(setLoadings({ isContractLoading: false })))
