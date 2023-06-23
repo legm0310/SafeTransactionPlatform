@@ -8,11 +8,11 @@ import { Typography } from "@mui/material";
 const Logo = () => {
   return (
     <Fragment>
-      {/* <Link to="/" className={classes.logoWrap}>
-        <h1 className={classes.logo}>PANDA.</h1>
-      </Link> */}
-
       <Link to="/" className={classes.logoWrap}>
+        <h1 className={classes.logo}>PANDA.</h1>
+      </Link>
+
+      {/* <Link to="/" className={classes.logoWrap}>
         <Typography
           variant="h5"
           noWrap
@@ -47,7 +47,7 @@ const Logo = () => {
         >
           PANDA.
         </Typography>
-      </Link>
+      </Link> */}
     </Fragment>
   );
 };
