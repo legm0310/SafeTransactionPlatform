@@ -74,9 +74,8 @@ BootstrapDialogTitle.propTypes = {
 export default function MyWallet(props) {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user.user);
-
   const [showExchange, setShowExchange] = useState(false);
-  const [blockNum, setBlockNum] = useState("");
+
   const sdk = useSDK();
   const { contract } = useContract(process.env.REACT_APP_CONTRACT_ADDRESS);
   const address = useAddress();
@@ -87,29 +86,6 @@ export default function MyWallet(props) {
     isLoading: balanceLoading,
     error: balanceError,
   } = useTokenBalance(contract, address);
-
-  // const {
-  //   data,
-  //   isLoading: eventLoading,
-  //   error: eventError,
-  // } = useContractEvents(contract, "EscrowCreate", {
-  //   queryFilter: {
-  //     filters: { buyer: address },
-  //     fromBlock: "latest",
-  //     toBlock: 1000,
-  //     order: "asc",
-  //     subscribe: true,
-  //   },
-  // });
-  // useEffect(() => {
-  //   getLatestBlocks(20000).then((data) => setBlockNum(data));
-  // }, []);
-  // console.log(blockNum);
-  // const handleTestCall = async () => {
-  //   console.log(data);
-  //   const events = await getEscrowEventsFromWeb3js(sdk);
-  //   console.log(events);
-  // };
 
   const handleClose = () => {
     props.onClose();
