@@ -5,10 +5,6 @@ import reportWebVitals from "./reportWebVitals";
 import App from "./App";
 import store from "./store/store";
 
-import "./index.css";
-import { SnackbarProvider } from "notistack";
-import { ThemeProvider, createTheme } from "@mui/material";
-
 import {
   ThirdwebProvider,
   metamaskWallet,
@@ -17,11 +13,10 @@ import {
 } from "@thirdweb-dev/react";
 import { Sepolia } from "@thirdweb-dev/chains";
 
-const muiTheme = createTheme({
-  typography: {
-    fontFamily: "GongGothicMedium",
-  },
-});
+import "./index.css";
+import { SnackbarProvider } from "notistack";
+import { ThemeProvider, createTheme } from "@mui/material";
+import customTheme from "./config/customTheme";
 
 const sdkOptions = {
   gasSettings: {
@@ -35,6 +30,17 @@ const sdkOptions = {
 //   thirdwebApiKey: process.env.REACT_APP_THIRDWEB_API_KEY,
 //   personalWallets: [metamaskWallet(), coinbaseWallet(), walletConnectV1()],
 // };
+
+const ThemedApp = () => {
+  const basicTheme = createTheme({});
+  return (
+    <ThemeProvider theme={basicTheme}>
+      <ThemeProvider theme={customTheme}>
+        <App />
+      </ThemeProvider>
+    </ThemeProvider>
+  );
+};
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -52,9 +58,7 @@ root.render(
         }}
         autoHideDuration={2500}
       >
-        <ThemeProvider theme={muiTheme}>
-          <App />
-        </ThemeProvider>
+        <ThemedApp />
       </SnackbarProvider>
     </ThirdwebProvider>
   </Provider>
