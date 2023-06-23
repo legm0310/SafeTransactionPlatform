@@ -92,6 +92,7 @@ const Exchange = (props) => {
         onClose={handleClose}
         aria-labelledby="customized-dialog-title"
         open={props.open || false}
+        disableEnforceFocus
       >
         <BootstrapDialogTitle
           id="customized-dialog-title"
