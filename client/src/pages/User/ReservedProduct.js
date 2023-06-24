@@ -8,9 +8,8 @@ import {
 } from "@thirdweb-dev/react";
 import { getPurchasedProducts, release } from "../../_actions/productAction";
 import { setLoadings } from "../../_actions/uiAction";
-import { getEscrowEventsFromWeb3js } from "../../contract/getEvents";
+import { getEventsFromWeb3js } from "../../contract/getEvents";
 import Button from "../../components/UI/Button";
-import testImg from "../../assets/mainImg.png";
 
 import classes from "../../styles/ReservedProduct.module.css";
 
@@ -28,7 +27,7 @@ const ReservedProduct = () => {
   // const { data, isLoading, error } = useContractEvents(contract, "");
 
   const handleGetEventsLog = async () => {
-    const log = await getEscrowEventsFromWeb3js(address);
+    const log = await getEventsFromWeb3js(address);
     console.log(log);
     const prodIdLog = log.map((event) =>
       parseInt(event.returnValues.productId)
@@ -61,6 +60,7 @@ const ReservedProduct = () => {
         .catch((err) => console.log(err))
     );
   }, []);
+
   return (
     <Fragment>
       <div className={classes.reservedWrap}>

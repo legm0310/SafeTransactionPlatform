@@ -12,7 +12,7 @@ export const getEscrowCreateEvents = async (sdk) => {
   return events;
 };
 
-export const getEscrowEventsFromWeb3js = async (buyerAdress) => {
+export const getEventsFromWeb3js = async (buyerAdress) => {
   const contract = web3Contract();
   try {
     const events = await contract.getPastEvents("EscrowCreate", {
