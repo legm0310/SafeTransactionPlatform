@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import PropTypes from "prop-types";
 import Exchange from "../User/Exchange";
-import { getLatestBlocks } from "../../utils/eventQuery";
 
 import {
   ConnectWallet,
@@ -12,8 +11,6 @@ import {
   useNetworkMismatch,
   useSDK,
   useTokenBalance,
-  useContractEvents,
-  getBlockNumber,
 } from "@thirdweb-dev/react";
 import { Sepolia } from "@thirdweb-dev/chains";
 
@@ -28,10 +25,6 @@ import {
   Typography,
 } from "@mui/material";
 import { Close as CloseIcon } from "@mui/icons-material";
-import {
-  getEscrowCreateEvents,
-  getEscrowEventsFromWeb3js,
-} from "../../contract/getEvents";
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   "& .MuiDialogContent-root": {
@@ -124,7 +117,6 @@ export default function MyWallet(props) {
         >
           내 지갑 관리
         </BootstrapDialogTitle>
-
         <DialogContent dividers>
           <Typography gutterBottom>
             {/* Praesent commodo cursus magna, vel scelerisque nisl consectetur et. */}
@@ -165,7 +157,6 @@ export default function MyWallet(props) {
             </div>
           )}
         </DialogContent>
-
         <DialogActions>
           <div>
             <h3>
@@ -174,9 +165,6 @@ export default function MyWallet(props) {
                 : null}
             </h3>
           </div>
-          {/* <Button autoFocus sx={{ color: "black" }}>
-            테스트호출
-          </Button> */}
         </DialogActions>
       </BootstrapDialog>
     </div>

@@ -46,7 +46,7 @@ const Home = (props) => {
         </section>
 
         <section className={classes.latesProductWrap}>
-          {/* <RecentProductsList /> */}
+          <RecentProductsList />
         </section>
       </div>
     </Fragment>
