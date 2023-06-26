@@ -48,7 +48,7 @@ const ReservedProduct = () => {
       if (response.payload.updated) {
         alert("계약의 예치된 토큰이 판매자에게 전송됩니다.");
       } else {
-        alert("구매 신청에 실패했습니다.");
+        alert("구매 확정에 실패했습니다.");
       }
     });
   };
@@ -63,6 +63,7 @@ const ReservedProduct = () => {
 
   return (
     <Fragment>
+      <h1>구매진행상품</h1>
       <div className={classes.reservedWrap}>
         {prodDetail.map((product) => (
           <div key={product?.id} className={classes.reserved}>

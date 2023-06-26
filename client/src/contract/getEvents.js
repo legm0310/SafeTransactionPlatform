@@ -1,4 +1,4 @@
-import { contractGetterSDK, web3Contract } from "./contractCall";
+import { contractGetterSDK, contractGetterWeb3 } from "./contract";
 
 export const getEscrowCreateEvents = async (sdk) => {
   const contract = await contractGetterSDK(sdk);
@@ -12,10 +12,10 @@ export const getEscrowCreateEvents = async (sdk) => {
   return events;
 };
 
-export const getEventsFromWeb3js = async (buyerAdress) => {
-  const contract = web3Contract();
+export const getEventsFromWeb3js = async (eventName, buyerAdress) => {
   try {
-    const events = await contract.getPastEvents("EscrowCreate", {
+    const contract = contractGetterWeb3();
+    const events = await contract.getPastEvents(eventName, {
       filter: { buyer: buyerAdress },
       fromBlock: 0,
       toBlock: "latest",

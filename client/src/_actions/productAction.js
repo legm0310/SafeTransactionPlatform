@@ -10,8 +10,11 @@ import {
 
 import { baseRequest, authRequest } from "../api/common";
 import { addProdRequest } from "../api/productApi";
-import { callAddProduct } from "../contract/callAddProduct";
-import { callPurchaseDeposit, callRelease } from "../contract/callPurchase";
+import {
+  callAddProduct,
+  callPurchaseDeposit,
+  callRelease,
+} from "../contract/contractWriteCall";
 import { setLoadings } from "./uiAction";
 
 export function addProduct(dataToSubmit) {

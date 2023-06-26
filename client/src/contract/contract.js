@@ -8,6 +8,15 @@ export const contractGetterSDK = async (sdk) => {
   return contract;
 };
 
+export const call = async (sdk) => {
+  try {
+    const contract = await contractGetterSDK(sdk);
+    const data = await contract.call();
+  } catch (err) {
+    console.log(err);
+  }
+};
+
 export const metadata = async (sdk) =>
   await contractGetterSDK(sdk)?.metadata.get();
 
@@ -22,7 +31,7 @@ export const getBlockNumber = async (sdk) => {
   // await contractGetterSDK(sdk)?.
 };
 
-export const web3Contract = () => {
+export const contractGetterWeb3 = () => {
   const web3 = new Web3(
     new Web3.providers.HttpProvider(process.env.REACT_APP_INFURA_API)
   );
