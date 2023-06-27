@@ -1,4 +1,5 @@
 import { Fragment } from "react";
+import { useTypewriter, Cursor } from "react-simple-typewriter";
 import Slide from "./HomeSlide";
 import RecentProductsList from "../../components/RecentProductsList";
 import mainImg from "../../assets/platformImage1.png";
@@ -7,6 +8,12 @@ import mainImg1 from "../../assets/platformImage4.png";
 import classes from "../../styles/Home.module.css";
 
 const Home = (props) => {
+  const [text] = useTypewriter({
+    words: ["안전한", "투명한"],
+    loop: {},
+    typeSpeed: 70,
+  });
+
   return (
     <Fragment>
       <div className={classes.container}>
@@ -14,10 +21,13 @@ const Home = (props) => {
           <div className={classes.mainContent}>
             <div className={classes.mainTitle}>
               <div className={classes.typingTop}>
-                <span>안전한</span>
+                <span>{text}</span>
+                <span>
+                  <Cursor style={{ fontWeight: "normal" }} />
+                </span>
               </div>
               <div className={classes.typingMiddle}>
-                <span>거래플랫폼</span>
+                <span>중고거래</span>
               </div>
               <div className={classes.typingBottom}>
                 <span>블록체인을 활용해 보다 안전하게!</span>

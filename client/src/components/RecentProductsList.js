@@ -13,15 +13,14 @@ const RecentProductsList = () => {
   const [displayMore, setDisplayMore] = useState(true);
 
   const onClickMoreProduct = () => {
-    setLastProdId(productsList[productsList.length - 1].id);
+    setLastProdId(productsList[productsList.length - 1]?.id);
   };
 
   useEffect(() => {
-    console.log("lastProdId", lastProdId);
     dispatch(getRecentProducts(lastProdId))
       .then((response) => {
         const prodListFromDb = response.payload.products ?? [];
-        console.log(prodListFromDb);
+
         setProductsList((productsList) => [...productsList, ...prodListFromDb]);
 
         if (prodListFromDb.length < 12 || prodListFromDb[0]?.id <= 12) {
@@ -30,16 +29,14 @@ const RecentProductsList = () => {
       })
       .catch((err) => err);
   }, [dispatch, lastProdId]);
-
   return (
     <Fragment>
-      <div className={classes.latestProductContainer}>
+      <div className={classes.latestProductSection}>
         <h1>판다의 최근 상품</h1>
-
-        <div className={classes.prodCardWrap}>
-          <div className={classes.prodCardContainer}>
+        <div className={classes.latestProductWrap}>
+          <div className={classes.latestProductContainer}>
             {productsList.map((product) => (
-              <div key={product.id} className={classes.prodCard}>
+              <div key={product.id} className={classes.latestProduct}>
                 <Link to={`/products/${product.id}`}>
                   <div className={classes.imgBox}>
                     <img
@@ -47,18 +44,32 @@ const RecentProductsList = () => {
                       className={classes.prodImg}
                       alt=""
                     />
-                  </div>
 
+                    {product.status === "RESERVED" && (
+                      <div className={classes.reserved}>
+                        <h2>구매진행중</h2>
+                      </div>
+                    )}
+
+                    {product.status == "SOLD" ? (
+                      <div className={classes.reserved}>
+                        <h2>판매완료</h2>
+                      </div>
+                    ) : null}
+                  </div>
                   <div className={classes.prodInfo}>
                     <div className={classes.prodName}>{product.title}</div>
-                    <div className={classes.prodPrice}> {product.price}</div>
+                    <div className={classes.prodPrice}>
+                      {" "}
+                      {product.price.toLocaleString()}
+                    </div>
+                    <div className={classes.prodStatus}>{product.status}</div>
                   </div>
                 </Link>
               </div>
             ))}
           </div>
         </div>
-
         <div className={classes.moreButtonWrap}>
           {displayMore ? (
             <Button onClick={onClickMoreProduct}>

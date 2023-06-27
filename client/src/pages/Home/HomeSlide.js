@@ -2,7 +2,6 @@ import { Fragment } from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import testImg from "../../assets/testImg.png";
 import styled from "styled-components";
 
 import classes from "../../styles/HomeSlide.module.css";
@@ -20,10 +19,11 @@ const HomeSlide = () => {
 
   return (
     <Fragment>
-      <div>
+      <div className={classes.Slide}>
         <StyledSlider {...settings}>
-          <div>
-            <img src={testImg} alt="" className={classes.slideImg} />
+          <div className={classes.firstSlide}>
+            {/* <img src={testImg} alt="" className={classes.slideImg} /> */}
+            <h3>1</h3>
           </div>
           <div>
             <h3>2</h3>
@@ -56,6 +56,7 @@ const StyledSlider = styled(Slider)`
 
   .slick-next {
     right: 60px;
+    z-index: 1;
   }
 
   .slick-prev:before,

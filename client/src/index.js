@@ -1,63 +1,45 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import "./index.css";
-import App from "./App";
-import reportWebVitals from "./reportWebVitals";
 import { Provider } from "react-redux";
-import { configureStore } from "@reduxjs/toolkit";
-import { applyMiddleware, createStore } from "redux";
-import promiseMiddleware from "redux-promise";
-import ReduxThunk from "redux-thunk";
-import Reducer from "./_reducers";
+import reportWebVitals from "./reportWebVitals";
+import App from "./App";
+import store from "./store/store";
 
+import "./index.css";
+
+import { ThirdwebProvider } from "@thirdweb-dev/react";
+import { SnackbarProvider } from "notistack";
 import { ThemeProvider, createTheme } from "@mui/material";
+import { Sepolia, supportedWallets, sdkOptions } from "./config/dappOptions";
+import customTheme from "./config/customTheme";
 
-import {
-  ThirdwebProvider,
-  metamaskWallet,
-  coinbaseWallet,
-  walletConnectV1,
-} from "@thirdweb-dev/react";
-import { Sepolia } from "@thirdweb-dev/chains";
-
-const muiTheme = createTheme();
-// const smartWalletConfig = {
-//   factoryAddress: "",
-//   gasless: true,
-//   thirdwebApiKey: process.env.REACT_APP_THIRDWEB_API_KEY,
-//   personalWallets: [metamaskWallet(), coinbaseWallet(), walletConnectV1()],
-// };
-
-// const store1 = configureStore({
-//   reducer: Reducer,
-//   devTools: process.env.NODE_ENV !== "production",
-//   middleware: (getDefaultMiddleware) =>
-//     getDefaultMiddleware().concat(promiseMiddleware),
-// });
-
-// const store = createStore(Reducer);
-
-const createStoreWithMiddleware = applyMiddleware(
-  promiseMiddleware,
-  ReduxThunk
-)(createStore);
+const ThemedApp = () => {
+  const basicTheme = createTheme({});
+  return (
+    <ThemeProvider theme={customTheme(basicTheme)}>
+      <App />
+    </ThemeProvider>
+  );
+};
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <Provider
-    store={createStoreWithMiddleware(
-      Reducer,
-      window.__REDUX_DEVTOOLS_EXTENSION__ &&
-        window.__REDUX_DEVTOOLS_EXTENSION__()
-    )}
-  >
+  <Provider store={store}>
     <ThirdwebProvider
       activeChain={Sepolia}
-      supportedWallets={[metamaskWallet(), coinbaseWallet(), walletConnectV1()]}
+      supportedWallets={supportedWallets}
+      sdkOptions={sdkOptions}
     >
-      <ThemeProvider theme={muiTheme}>
-        <App />
-      </ThemeProvider>
+      <SnackbarProvider
+        anchorOrigin={{
+          vertical: "top",
+          horizontal: "center",
+          marginTop: "70px",
+        }}
+        autoHideDuration={2500}
+      >
+        <ThemedApp />
+      </SnackbarProvider>
     </ThirdwebProvider>
   </Provider>
 );
