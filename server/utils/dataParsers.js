@@ -1,6 +1,14 @@
 const { Op } = require("sequelize");
 
-const generateCondition = (params) => {
+const genCondition = (params) => {
+  if (Array.isArray(params)) {
+    const where = {
+      id: {
+        [Op.in]: params,
+      },
+    };
+    return { where };
+  }
   const { lastId, search, status, page, sellerId } = params;
   const limit = 12;
   const offset = +page && +page > 1 ? 0 + (page - 1) * limit : null;
@@ -14,43 +22,21 @@ const generateCondition = (params) => {
   return { where, offset, limit };
 };
 
-const generateClearCondition = (parmas) => {
-  const where = {
-    id: {
-      [Op.in]: parmas,
-    },
-  };
-  return { where };
-};
-
 const generateGetProductsQuery = (params) => {
-  let queryWhere, queryOffset, queryLimit;
-  if (Array.isArray(params)) {
-    const { where } = generateClearCondition(params);
-    queryWhere = where;
-  } else {
-    const { where, offset, limit } = generateCondition(params);
-    queryWhere = where;
-    queryOffset = offset;
-    queryLimit = limit;
-  }
-
+  const { where, offset, limit } = genCondition(params);
   let query = {
-    where: queryWhere,
+    where: where,
     order: [
       ["created_at", "DESC"],
       ["id", "DESC"],
     ],
-    offset: queryOffset,
-    limit: queryLimit,
+    offset: offset,
+    limit: limit,
     attributes: ["id", "status", "title", "price", "images", "created_at"],
   };
   return query;
 };
 
-const generatePurchasedProductsQuery = (parmas) => {
-  generateClearCondition(parmas);
-};
 const extractProductsList = (products) => {
   const productsFromDb = products.rows ?? products;
 
@@ -65,5 +51,4 @@ const extractProductsList = (products) => {
 module.exports = {
   generateGetProductsQuery,
   extractProductsList,
-  generatePurchasedProductsQuery,
 };
