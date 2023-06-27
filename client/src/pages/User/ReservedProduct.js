@@ -20,14 +20,13 @@ const ReservedProduct = () => {
   const prodDetail =
     useSelector((state) => state.product.purchasedProducts?.products) ?? [];
   const [productIds, setProductIds] = useState();
-
   const sdk = useSDK();
   const { contract } = useContract(contractAddress);
   const address = useAddress();
   // const { data, isLoading, error } = useContractEvents(contract, "");
 
   const handleGetEventsLog = async () => {
-    const log = await getEventsFromWeb3js(address);
+    const log = await getEventsFromWeb3js("EscrowCreate", address);
     console.log(log);
     const prodIdLog = log.map((event) =>
       parseInt(event.returnValues.productId)
