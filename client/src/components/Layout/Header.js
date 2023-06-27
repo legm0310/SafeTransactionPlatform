@@ -1,10 +1,11 @@
 import React, { Fragment, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
 import UserAuth from "./UserAuth";
 import MobileNavMenu from "./MobileNavMenu";
 import DesktopNavMenu from "./DesktopNavMenu";
 import Logo from "./Logo";
+
 import ContractModal from "../UI/ContractModal";
 
 import classes from "../../styles/Header.module.css";
@@ -30,8 +31,15 @@ const Header = (props) => {
 
   return (
     <Fragment>
-      <AppBar position='sticky' sx={{ bgcolor: "white", width: "100vw" }}>
-        <Container maxWidth='xl'>
+      <AppBar position="sticky" sx={{ bgcolor: "white", width: "100vw" }}>
+        <Container maxWidth="xl">
+          {/* <div
+            id="test"
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+            }}
+          > */}
           <Toolbar
             disableGutters
             sx={{
@@ -46,7 +54,9 @@ const Header = (props) => {
               classes={classes}
             />
 
-            <Logo />
+            <Link to="/">
+              <Logo />
+            </Link>
 
             <DesktopNavMenu classes={classes} />
 
