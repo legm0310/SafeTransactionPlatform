@@ -16,10 +16,8 @@ import customTheme from "./config/customTheme";
 const ThemedApp = () => {
   const basicTheme = createTheme({});
   return (
-    <ThemeProvider theme={basicTheme}>
-      <ThemeProvider theme={customTheme}>
-        <App />
-      </ThemeProvider>
+    <ThemeProvider theme={customTheme(basicTheme)}>
+      <App />
     </ThemeProvider>
   );
 };
