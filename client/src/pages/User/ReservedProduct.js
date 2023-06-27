@@ -18,7 +18,7 @@ const contractAddress = process.env.REACT_APP_CONTRACT_ADDRESS;
 const ReservedProduct = () => {
   const dispatch = useDispatch();
   const prodDetail =
-    useSelector((state) => state.product.purchasedProducts?.products) ?? [];
+    useSelector((state) => state.product.depositedProducts?.products) ?? [];
   const [productIds, setProductIds] = useState();
   const sdk = useSDK();
   const { contract } = useContract(contractAddress);
