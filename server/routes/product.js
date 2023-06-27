@@ -12,13 +12,18 @@ const productController = require("../controllers").productController;
 module.exports = (app) => {
   app.use("/products", router);
 
+  //제품등록, 구매 진행중인 제품 가져오기
   router.post("/", isAuth, uploader, productController.addProduct);
-  router.post("/purchased", productController.getPurchasedProducts);
+  router.post("/deposited", productController.getDepositedProducts);
+
+  // 제품 리스트(검색 등), 최근상품 가져오기
   router.get("/", productController.getProducts);
   router.get("/recent", productController.getRecentProducts);
+
+  // 상세, 업데이트, 제품 구매(금액예치, 확정), 제품 삭제
   router.get("/:id", productController.getProduct);
   router.put("/:id", productController.updateProduct);
-  router.put("/purchase/:id", productController.escrowDeposit);
+  router.put("/deposit/:id", productController.deposit);
   router.put("/release/:id", productController.release);
   router.delete("/:id", productController.deleteProduct);
 };

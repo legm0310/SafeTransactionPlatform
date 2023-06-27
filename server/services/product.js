@@ -15,17 +15,8 @@ class ProductService {
     return product;
   }
 
-  async getPurchasedProducts(params) {
-    const query = generateGetProductsQuery(params);
-    console.log(query);
-    const products = await this.Product.findAll(query);
-    console.log(products);
-    const extractedList = extractProductsList(products);
-    return extractedList;
-  }
-
   //query에 따른 분기
-  async getProducts(params) {
+  async getProductsAndCount(params) {
     const query = generateGetProductsQuery(params);
     const { count, rows } = await this.Product.findAndCountAll(query);
     const pages = Math.ceil(count / 12);
@@ -36,9 +27,9 @@ class ProductService {
   }
 
   //infinite scrolling 방식 (lastId)
-  async getRecentProducts(params) {
+  async getProducts(params) {
     const query = generateGetProductsQuery(params);
-    // console.log("query", query);
+    console.log("query", query);
     const products = await this.Product.findAll(query);
     if (!products) throw new InternelServerError("Internel Server Error");
 

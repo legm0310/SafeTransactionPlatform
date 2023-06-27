@@ -6,7 +6,7 @@ const secure = (req, res, next) => {
     req.url.includes("/GetCmd.aspx") ||
     req.url.includes("/_profiler/phpinfo")
   ) {
-    return res.status(403).send("Forbidden");
+    return res.status(404).send("NotFound");
   }
   next();
 };

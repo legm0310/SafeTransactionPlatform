@@ -21,6 +21,7 @@
     "@babel/preset-env": "^7.21.5",
     "bcrypt": "^5.1.0",
     "celebrate": "^15.0.1",
+    "compression": "^1.7.4",
     "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
     "cross-env": "^7.0.3",

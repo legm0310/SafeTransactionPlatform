@@ -2,6 +2,7 @@ const express = require("express");
 const path = require("path");
 const cors = require("cors");
 const cookieParser = require("cookie-parser");
+const compression = require("compression");
 const passport = require("passport");
 const morgan = require("morgan");
 const config = require("../config");
@@ -9,7 +10,7 @@ const routerLoader = require("../routes");
 const { accessStrategy, refreshStrategy } = require("../config/passport");
 const { NotFoundError } = require("../utils");
 const { secure, errorConvert, globalErrorHandler } = require("../middlewares");
-
+compression;
 /** express 앱의 미들웨어들을 로드하는 함수
  * @param {object} options 미들웨어를 실행시킬 express app
  * @param {Function} options.app 미들웨어를 실행시킬 express app
@@ -25,6 +26,7 @@ module.exports = ({ app }) => {
   app.use(express.json());
   app.use(express.urlencoded({ extended: true }));
   app.use(cookieParser());
+  app.use(compression());
 
   //cors
   if (config.nodeEnv === "production") {
