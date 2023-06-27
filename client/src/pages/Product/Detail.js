@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useSDK, useAddress } from "@thirdweb-dev/react";
 import { setLoadings } from "../../_actions/uiAction";
 import { getProduct, purchase } from "../../_actions/productAction";
-import { addRoom } from "../../_actions/roomAction";
+import { addRoom } from "../../_actions/chatAction";
 
 import Slide from "./DetailSlide";
 import { FaHeart } from "react-icons/fa";

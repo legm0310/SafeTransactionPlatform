@@ -3,9 +3,9 @@ import {
   RECENT_PRODUCTS,
   GET_PRODUCTS,
   GET_PRODUCT,
-  PURCHASE,
+  DEPOSIT,
   RELEASE,
-  PURCHASED_PRODUCTS,
+  DEPOSITED_PRODUCTS,
 } from "./type";
 
 import { baseRequest, authRequest } from "../api/common";
@@ -45,16 +45,16 @@ export function addProduct(dataToSubmit) {
   };
 }
 
-export function getPurchasedProducts(dataToSubmit) {
+export function getDepositedProducts(dataToSubmit) {
   const request = authRequest()
-    .post(`/api/products/purchased`, dataToSubmit)
+    .post(`/api/products/deposited`, dataToSubmit)
     .then((response) => response.data)
     .catch((err) => {
       console.log(err);
       return err.response.data;
     });
   return {
-    type: PURCHASED_PRODUCTS,
+    type: DEPOSITED_PRODUCTS,
     payload: request,
   };
 }
@@ -111,9 +111,7 @@ export function purchase(dataToSubmit) {
   const { productId, userId, sdk } = dataToSubmit;
   return async (dispatch) => {
     try {
-      const res = await authRequest().put(
-        `/api/products/purchase/${productId}`
-      );
+      const res = await authRequest().put(`/api/products/deposit/${productId}`);
       console.log("res", res);
       dispatch(setLoadings({ isLoading: false, isContractLoading: true }));
 
@@ -123,13 +121,13 @@ export function purchase(dataToSubmit) {
       });
 
       return dispatch({
-        type: PURCHASE,
+        type: DEPOSIT,
         payload: res.data,
       });
     } catch (err) {
       console.log(err);
       return dispatch({
-        type: PURCHASE,
+        type: DEPOSIT,
         payload: err.response.data,
       });
     }

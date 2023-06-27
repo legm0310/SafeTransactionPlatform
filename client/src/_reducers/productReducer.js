@@ -8,11 +8,11 @@
 
 import {
   ADD_PRODUCT,
-  PURCHASED_PRODUCTS,
+  DEPOSITED_PRODUCTS,
   RECENT_PRODUCTS,
   GET_PRODUCTS,
   GET_PRODUCT,
-  PURCHASE,
+  DEPOSIT,
   RELEASE,
 } from "../_actions/type";
 
@@ -26,8 +26,9 @@ export default function (state = initialState, action) {
     case ADD_PRODUCT:
       return { ...state, addProductSuccess: action.payload };
       break;
-    case PURCHASED_PRODUCTS:
-      return { ...state, purchasedProducts: action.payload };
+    case DEPOSITED_PRODUCTS:
+      return { ...state, depositedProducts: action.payload };
+      break;
     case RECENT_PRODUCTS:
       return { ...state, recentProductsSuccess: action.payload };
       break;
@@ -37,8 +38,8 @@ export default function (state = initialState, action) {
     case GET_PRODUCT:
       return { ...state, productDetail: action.payload };
       break;
-    case PURCHASE:
-      return { ...state, purchaseDeposit: action.payload };
+    case DEPOSIT:
+      return { ...state, deposit: action.payload };
       break;
     case RELEASE:
       return { ...state, release: action.payload };

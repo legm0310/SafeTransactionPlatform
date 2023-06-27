@@ -6,7 +6,7 @@ import {
   useContract,
   useAddress,
 } from "@thirdweb-dev/react";
-import { getPurchasedProducts, release } from "../../_actions/productAction";
+import { getDepositedProducts, release } from "../../_actions/productAction";
 import { setLoadings } from "../../_actions/uiAction";
 import { getEventsFromWeb3js } from "../../contract/getEvents";
 import Button from "../../components/UI/Button";
@@ -54,7 +54,7 @@ const ReservedProduct = () => {
 
   useEffect(() => {
     handleGetEventsLog().then((value) =>
-      dispatch(getPurchasedProducts({ productIds: value }))
+      dispatch(getDepositedProducts({ productIds: value }))
         .then(console.log(prodDetail))
         .catch((err) => console.log(err))
     );
