@@ -9,9 +9,9 @@ import {
 import { getDepositedProducts, release } from "../../_actions/productAction";
 import { setLoadings } from "../../_actions/uiAction";
 import { getEventsFromWeb3js } from "../../contract/getEvents";
-import Button from "../../components/UI/Button";
+import Button from "../../components/common/Button";
 
-import classes from "../../styles/ReservedProduct.module.css";
+import classes from "../../styles/user/ReservedProduct.module.css";
 
 const contractAddress = process.env.REACT_APP_CONTRACT_ADDRESS;
 
