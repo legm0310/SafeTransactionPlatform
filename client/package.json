@@ -61,6 +61,7 @@
     ]
   },
   "devDependencies": {
+    "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
     "assert": "^2.0.0",
     "stream": "^0.0.2",
     "web-vitals": "^3.3.0"
