@@ -4,7 +4,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import styled from "styled-components";
 
-import classes from "../../styles/HomeSlide.module.css";
+import classes from "../../styles/home/HomeSlide.module.css";
 const HomeSlide = () => {
   const settings = {
     dots: true, // 캐러셀 밑에 ... 을 표시할지

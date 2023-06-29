@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import { useContract, useAddress, useMintToken } from "@thirdweb-dev/react";
 import { setLoadings } from "../../_actions/uiAction";
 
-import classes from "../../styles/Exchange.module.css";
+import classes from "../../styles/headers/Exchange.module.css";
 import {
   styled,
   Button,

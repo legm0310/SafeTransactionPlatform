@@ -18,13 +18,3 @@
   cursor: pointer;
   color: black;
 }
-
-.userSection {
-  color: black;
-  display: flex;
-  list-style: none;
-}
-
-.userSection li {
-  padding: 10px;
-}

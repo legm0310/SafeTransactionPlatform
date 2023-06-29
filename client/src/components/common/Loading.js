@@ -2,7 +2,7 @@ import React, { Fragment } from "react";
 import BounceLoader from "react-spinners/BounceLoader";
 import ContractLoading from "./ContractLoading";
 
-import classes from "../../styles/Loading.module.css";
+import classes from "../../styles/common/Loading.module.css";
 
 const Loading = () => {
   return (

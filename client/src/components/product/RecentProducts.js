@@ -1,10 +1,10 @@
 import { Fragment, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { getRecentProducts } from "../_actions/productAction";
-import Button from "./UI/Button";
+import { getRecentProducts } from "../../_actions/productAction";
+import Button from "../common/Button";
 
-import classes from "../styles/RecentProductsList.module.css";
+import classes from "../../styles/products/RecentProducts.module.css";
 
 const RecentProductsList = () => {
   const dispatch = useDispatch();

@@ -1,7 +1,7 @@
 import React, { useState, Fragment } from "react";
 import { Link } from "react-router-dom";
 
-import classes from "../../styles/Header.module.css";
+import classes from "../../styles/headers/Header.module.css";
 import { Box, IconButton, Menu, MenuItem } from "@mui/material";
 import { Menu as MenuIcon } from "@mui/icons-material";
 

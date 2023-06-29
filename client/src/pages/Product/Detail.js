@@ -11,11 +11,11 @@ import Slide from "./DetailSlide";
 import { FaHeart } from "react-icons/fa";
 import { TbMessageCircle2Filled } from "react-icons/tb";
 import { IoCart } from "react-icons/io5";
-import Button from "../../components/UI/Button";
+import Button from "../../components/common/Button";
 import ProductStore from "./ProductStore";
 import ProductInformation from "./ProductInformation";
 
-import classes from "../../styles/Detail.module.css";
+import classes from "../../styles/product/Detail.module.css";
 
 const Detail = (props) => {
   const [activeMenu, setActiveMenu] = useState("productInformation");
@@ -61,7 +61,7 @@ const Detail = (props) => {
       console.log(response);
       if (response.payload.updated) {
         alert("에스크로 결제가 진행됩니다.");
-        navigate("/userinfo");
+        navigate("/user");
       } else {
         alert("구매 신청에 실패했습니다.");
       }

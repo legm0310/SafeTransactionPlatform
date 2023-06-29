@@ -6,7 +6,7 @@ import { addProduct } from "../../_actions/productAction";
 import { useAddress, useSDK } from "@thirdweb-dev/react";
 import { RxCrossCircled } from "react-icons/rx";
 
-import classes from "../../styles/AddProduct.module.css";
+import classes from "../../styles/addProduct/AddProduct.module.css";
 import { useSnackbar } from "notistack";
 import {
   FormControlLabel,
