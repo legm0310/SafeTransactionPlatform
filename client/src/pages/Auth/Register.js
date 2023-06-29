@@ -7,6 +7,7 @@ import { signup } from "../../_actions/userAction";
 
 import classes from "../../styles/Register.module.css";
 import { FaArrowLeft } from "react-icons/fa";
+import { useSnackbar } from "notistack";
 
 import { Button, TextField, FormControl, Grid, Box } from "@mui/material/";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
@@ -14,6 +15,7 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 const Register = (props) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { enqueueSnackbar } = useSnackbar();
 
   const [Email, setEmail] = useState("");
   const [Name, setName] = useState("");
@@ -95,7 +97,12 @@ const Register = (props) => {
   const onSubmitHandler = (event) => {
     event.preventDefault();
 
-    // 회원가입 요청 보내기
+    if (Password !== ConfirmPassword) {
+      return enqueueSnackbar("비밀번호가 같지 않습니다.", {
+        variant: "error",
+      });
+    }
+
     let body = {
       role: 1,
       email: Email,
@@ -108,12 +115,18 @@ const Register = (props) => {
 
     dispatch(signup(body)).then((response) => {
       if (response.payload.signupSuccess) {
-        console.log("회원가입 성공");
+        enqueueSnackbar("회원 정보 입력 완료", {
+          variant: "success",
+        });
         navigate("/login");
       } else if (response.payload.code === 400) {
-        alert("존재하는 이메일입니다.");
+        enqueueSnackbar("존재하는 이메일입니다.", {
+          variant: "error",
+        });
       } else {
-        alert("회원 가입에 실패했습니다.");
+        enqueueSnackbar("회원 가입에 실패했습니다.", {
+          variant: "error",
+        });
       }
     });
   };
@@ -123,7 +136,7 @@ const Register = (props) => {
       <div className={classes.wrap}>
         <div className={classes.container}>
           <header className={classes.header}>
-            <Link to='/login' className={classes.backButton}>
+            <Link to="/login" className={classes.backButton}>
               <FaArrowLeft />
             </Link>
           </header>
@@ -138,21 +151,21 @@ const Register = (props) => {
           </div>
 
           <Box
-            component='form'
+            component="form"
             noValidate
             sx={{ px: 3 }}
             onSubmit={onSubmitHandler}
           >
-            <FormControl component='fieldset' variant='standard'>
+            <FormControl component="fieldset" variant="standard">
               <Grid container spacing={2}>
                 <Grid item xs={12}>
                   <TextField
                     required
                     autoFocus
                     fullWidth
-                    type='name'
+                    type="name"
                     value={Name}
-                    label='이름'
+                    label="이름"
                     onChange={onNameHandler}
                     error={nameError !== ""}
                     helperText={nameError}
@@ -163,9 +176,9 @@ const Register = (props) => {
                     required
                     autoFocus
                     fullWidth
-                    type='email'
+                    type="email"
                     value={Email}
-                    label='이메일 주소'
+                    label="이메일 주소"
                     onChange={onEmailHandler}
                     error={emailError !== ""}
                     helperText={emailError}
@@ -176,9 +189,9 @@ const Register = (props) => {
                     required
                     autoFocus
                     fullWidth
-                    type='text'
+                    type="text"
                     value={PhoneNumber}
-                    label='핸드폰 번호'
+                    label="핸드폰 번호"
                     onChange={onPhoneNumberHandler}
                   />
                 </Grid>
@@ -186,9 +199,9 @@ const Register = (props) => {
                   <TextField
                     required
                     fullWidth
-                    type='password'
+                    type="password"
                     value={Password}
-                    label='비밀번호 (숫자+영문자)'
+                    label="비밀번호 (숫자+영문자)"
                     onChange={onPasswordHandler}
                     error={passwordError !== ""}
                     helperText={passwordError}
@@ -198,18 +211,18 @@ const Register = (props) => {
                   <TextField
                     required
                     fullWidth
-                    type='password'
+                    type="password"
                     value={ConfirmPassword}
-                    label='비밀번호 재입력'
+                    label="비밀번호 재입력"
                     onChange={onConfirmPasswordHandler}
                     error={passwordError !== "" || false}
                   />
                 </Grid>
               </Grid>
               <Button
-                type='submit'
+                type="submit"
                 fullWidth
-                variant='contained'
+                variant="contained"
                 sx={{
                   mt: 3,
                   mb: 2,
@@ -219,7 +232,7 @@ const Register = (props) => {
                   fontSize: 18,
                   "&:hover": { backgroundColor: "#1ecfba" },
                 }}
-                size='large'
+                size="large"
               >
                 회원가입
               </Button>

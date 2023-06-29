@@ -1,6 +1,8 @@
-import { Fragment } from "react";
+import { Fragment, useState } from "react";
+import { useDispatch } from "react-redux";
 import PropTypes from "prop-types";
-import Modal from "../UI/Modal";
+import { useContract, useAddress, useMintToken } from "@thirdweb-dev/react";
+import { setLoadings } from "../../_actions/uiAction";
 
 import classes from "../../styles/Exchange.module.css";
 import {
@@ -11,10 +13,11 @@ import {
   DialogContent,
   DialogActions,
   IconButton,
-  Typography,
   Input,
 } from "@mui/material";
 import { Close as CloseIcon } from "@mui/icons-material";
+
+const contractAddress = process.env.REACT_APP_CONTRACT_ADDRESS;
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   "& .MuiDialogContent-root": {
@@ -24,7 +27,6 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
     padding: theme.spacing(1),
   },
 }));
-
 function BootstrapDialogTitle(props) {
   const { children, onClose, ...other } = props;
 
@@ -55,8 +57,33 @@ BootstrapDialogTitle.propTypes = {
 };
 
 const Exchange = (props) => {
+  const dispatch = useDispatch();
+  const [mintAmount, setMintAmount] = useState("");
+  const { contract } = useContract(contractAddress);
+  const address = useAddress();
+
+  const { mutateAsync: mintToken, isLoading: mintLoading } =
+    useMintToken(contract);
+
   const handleClose = () => {
     props.handleCloseExchange();
+  };
+
+  const callMintToken = () => {
+    if (!mintAmount || isNaN(parseInt(mintAmount, 10))) {
+      alert("토큰 갯수를 확인해주세요.");
+      return;
+    }
+
+    dispatch(setLoadings({ isContractLoading: true }));
+    mintToken({ amount: mintAmount, to: address })
+      .then(() => dispatch(setLoadings({ isContractLoading: false })))
+      .catch((err) => console.log(err));
+    props.handleCloseExchange();
+  };
+
+  const onMintAmountHandler = (event) => {
+    setMintAmount(event.currentTarget.value);
   };
 
   return (
@@ -65,25 +92,30 @@ const Exchange = (props) => {
         onClose={handleClose}
         aria-labelledby="customized-dialog-title"
         open={props.open || false}
+        disableEnforceFocus
       >
         <BootstrapDialogTitle
           id="customized-dialog-title"
           onClose={handleClose}
         >
-          환전하기
+          토큰 발급받기
         </BootstrapDialogTitle>
 
         <DialogContent dividers>
-          {/* <Typography gutterBottom></Typography>
-          <Typography gutterBottom></Typography> */}
           <div>
-            <Input placeholder="환전할 금액" />
+            <Input
+              required
+              type="number"
+              value={mintAmount}
+              onChange={onMintAmountHandler}
+              placeholder="발급할 토큰 갯수"
+            />
           </div>
         </DialogContent>
 
         <DialogActions>
-          <Button autoFocus onClick={handleClose} sx={{ color: "black" }}>
-            환전하기
+          <Button autoFocus onClick={callMintToken} sx={{ color: "black" }}>
+            발급받기
           </Button>
         </DialogActions>
       </BootstrapDialog>

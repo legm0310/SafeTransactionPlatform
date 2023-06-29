@@ -2,10 +2,11 @@ import React, { useState, Fragment } from "react";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { logout } from "../../_actions/userAction";
-import { ConnectWallet } from "@thirdweb-dev/react";
+import { useDisconnect } from "@thirdweb-dev/react";
 import MyWallet from "./MyWallet";
 
-import classes from "../../styles/UserSection.module.css";
+import classes from "../../styles/UserAuth.module.css";
+import { useSnackbar } from "notistack";
 import {
   Badge,
   Box,
@@ -29,9 +30,16 @@ import {
 const UserSection = (props) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { enqueueSnackbar } = useSnackbar();
+
+  const disconnect = useDisconnect();
+
   const onLogoutHandler = () => {
     dispatch(logout()).then((response) => {
-      alert("로그아웃 되었습니다.");
+      enqueueSnackbar("로그아웃 되었습니다.", {
+        variant: "success",
+      });
+      disconnect();
       navigate("/");
     });
   };
@@ -85,7 +93,7 @@ const UserSection = (props) => {
       open={isMenuOpen}
       onClose={onMenuClose}
     >
-      <Link to='/userinfo'>
+      <Link to="/userinfo">
         <MenuItem onClick={onMenuClose} sx={{ color: "black" }}>
           <AccountCircle sx={{ fontSize: 20, mr: "4px", color: "#1ecfba" }} />내
           정보
@@ -125,8 +133,8 @@ const UserSection = (props) => {
       onClose={onMobileMenuClose}
     >
       <MenuItem>
-        <IconButton size='large' aria-label='show 4 new mails' color='primary'>
-          <Badge badgeContent={4} color='error'>
+        <IconButton size="large" aria-label="show 4 new mails" color="primary">
+          <Badge badgeContent={4} color="error">
             <TelegramIcon />
           </Badge>
         </IconButton>
@@ -135,12 +143,12 @@ const UserSection = (props) => {
 
       <MenuItem>
         <IconButton
-          size='large'
-          aria-label='show 17 new notifications'
-          color='primary'
+          size="large"
+          aria-label="show 17 new notifications"
+          color="primary"
         >
-          <Badge badgeContent={17} color='error'>
-            <NotificationsIcon />
+          <Badge badgeContent={17} color="error">
+            <NotificationsIcon sx={{ color: "#fe4e62" }} />
           </Badge>
         </IconButton>
         <p>찜 목록</p>
@@ -148,11 +156,11 @@ const UserSection = (props) => {
 
       <MenuItem onClick={handleOpenWallet} onClose={onMobileMenuClose}>
         <IconButton
-          size='large'
-          aria-label='account of current user'
-          aria-controls='primary-search-account-menu'
-          aria-haspopup='true'
-          color='primary'
+          size="large"
+          aria-label="account of current user"
+          aria-controls="primary-search-account-menu"
+          aria-haspopup="true"
+          color="primary"
         >
           <WalletRoundedIcon sx={{ color: "#1ecfba" }} />
         </IconButton>
@@ -162,11 +170,11 @@ const UserSection = (props) => {
 
       <MenuItem onClick={onProfileMenuOpen}>
         <IconButton
-          size='large'
-          aria-label='account of current user'
-          aria-controls='primary-search-account-menu'
-          aria-haspopup='true'
-          color='primary'
+          size="large"
+          aria-label="account of current user"
+          aria-controls="primary-search-account-menu"
+          aria-haspopup="true"
+          color="primary"
         >
           <AccountCircle />
         </IconButton>
@@ -175,11 +183,11 @@ const UserSection = (props) => {
 
       <MenuItem onClick={onLogoutHandler} sx={{ borderTop: 2 }}>
         <IconButton
-          size='large'
-          aria-label='account of current user'
-          aria-controls='primary-search-account-menu'
-          aria-haspopup='true'
-          color='primary'
+          size="large"
+          aria-label="account of current user"
+          aria-controls="primary-search-account-menu"
+          aria-haspopup="true"
+          color="primary"
         >
           <AccountCircle />
         </IconButton>
@@ -191,8 +199,8 @@ const UserSection = (props) => {
     <Fragment>
       <Box sx={{ flexGrow: 1 }}>
         <Box sx={{ display: { xs: "none", md: "flex" } }}>
-          <Tooltip
-            title='현재 진행중인 대화'
+          {/* <Tooltip
+            title="현재 진행중인 대화"
             TransitionComponent={Fade}
             TransitionProps={{ timeout: 600 }}
             arrow
@@ -205,23 +213,44 @@ const UserSection = (props) => {
                   fontWeight: 700,
                   fontFamily: "GongGothicMedium",
                 }}
-                variant='text'
+                variant="text"
               >
-                <TelegramIcon
-                  sx={{ fontSize: 20, mr: "4px", color: "#CF541D" }}
-                />
+                <Badge badgeContent={4} color="error">
+                  <TelegramIcon sx={{ fontSize: 30, color: "#fe4e62" }} />
+                </Badge>
                 <Typography>판다톡</Typography>
               </Button>
             </Link>
-          </Tooltip>
+          </Tooltip> */}
 
           <Tooltip
-            title='찜 목록'
+            title="현재 진행중인 대화"
             TransitionComponent={Fade}
             TransitionProps={{ timeout: 600 }}
             arrow
           >
-            <Link to={""} className={classes.linkButton}>
+            <Link to={`/chat/`}>
+              <IconButton
+                size="large"
+                aria-label="show 4 new mails"
+                color="black"
+                sx={{ mr: 2 }}
+              >
+                <Badge badgeContent={4} color="error">
+                  <TelegramIcon sx={{ fontSize: 30, color: "#fe4e62" }} />
+                </Badge>
+                <Typography>판다톡</Typography>
+              </IconButton>
+            </Link>
+          </Tooltip>
+
+          {/* <Tooltip
+            title="찜 목록"
+            TransitionComponent={Fade}
+            TransitionProps={{ timeout: 600 }}
+            arrow
+          >
+            <Link to={""} >
               <Button
                 sx={{
                   mr: 2,
@@ -236,16 +265,30 @@ const UserSection = (props) => {
                 <Typography>찜목록</Typography>
               </Button>
             </Link>
+          </Tooltip> */}
+
+          <Tooltip
+            title="찜 목록"
+            TransitionComponent={Fade}
+            TransitionProps={{ timeout: 600 }}
+            arrow
+          >
+            <IconButton size="large" color="black" sx={{ mr: 2 }}>
+              <Badge badgeContent={17} color="error">
+                <FavoriteIcon sx={{ fontSize: 30 }} />
+              </Badge>
+              <Typography>찜목록</Typography>
+            </IconButton>
           </Tooltip>
 
-          <Button
+          {/* <Button
             sx={{
               mr: 1,
               color: "black",
               fontWeight: 700,
               fontFamily: "GongGothicMedium",
             }}
-            variant='text'
+            variant="text"
             onClick={handleOpenWallet}
           >
             <WalletRoundedIcon
@@ -253,12 +296,18 @@ const UserSection = (props) => {
             />
             <Typography>내지갑</Typography>
           </Button>
+          <MyWallet open={openWallet} onClose={handleCloseWallet} /> */}
+
+          <IconButton size="large" sx={{ mr: 2 }} onClick={handleOpenWallet}>
+            <WalletRoundedIcon sx={{ fontSize: 30, color: "#1ecfba" }} />
+            <Typography>내지갑</Typography>
+          </IconButton>
           <MyWallet open={openWallet} onClose={handleCloseWallet} />
 
-          <Button
-            edge='end'
+          {/* <Button
+            edge="end"
             aria-controls={menuId}
-            aria-haspopup='true'
+            aria-haspopup="true"
             onClick={onProfileMenuOpen}
             sx={{
               p: 0,
@@ -268,16 +317,28 @@ const UserSection = (props) => {
             }}
           >
             <AccountCircle sx={{ fontSize: 30, color: "#1ecfba" }} />
-          </Button>
+          </Button> */}
+
+          <IconButton
+            size="large"
+            edge="end"
+            aria-controls={menuId}
+            aria-haspopup="true"
+            onClick={onProfileMenuOpen}
+            color="black"
+          >
+            <AccountCircle sx={{ fontSize: 30 }} />
+            <Typography>내정보</Typography>
+          </IconButton>
         </Box>
 
         <Box sx={{ display: { xs: "flex", md: "none" } }}>
           <IconButton
-            size='large'
+            size="large"
             aria-controls={mobileMenuId}
-            aria-haspopup='true'
+            aria-haspopup="true"
             onClick={handleMobileMenuOpen}
-            color='black'
+            color="black"
           >
             <MoreIcon />
           </IconButton>

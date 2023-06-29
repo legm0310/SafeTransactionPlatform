@@ -6,34 +6,40 @@ import App from "./App";
 import store from "./store/store";
 
 import "./index.css";
+
+import { ThirdwebProvider } from "@thirdweb-dev/react";
+import { SnackbarProvider } from "notistack";
 import { ThemeProvider, createTheme } from "@mui/material";
+import { Sepolia, supportedWallets, sdkOptions } from "./config/dappOptions";
+import customTheme from "./config/customTheme";
 
-import {
-  ThirdwebProvider,
-  metamaskWallet,
-  coinbaseWallet,
-  walletConnectV1,
-} from "@thirdweb-dev/react";
-import { Sepolia } from "@thirdweb-dev/chains";
-
-const muiTheme = createTheme({});
-// const smartWalletConfig = {
-//   factoryAddress: "",
-//   gasless: true,
-//   thirdwebApiKey: process.env.REACT_APP_THIRDWEB_API_KEY,
-//   personalWallets: [metamaskWallet(), coinbaseWallet(), walletConnectV1()],
-// };
+const ThemedApp = () => {
+  const basicTheme = createTheme({});
+  return (
+    <ThemeProvider theme={customTheme(basicTheme)}>
+      <App />
+    </ThemeProvider>
+  );
+};
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <Provider store={store}>
     <ThirdwebProvider
       activeChain={Sepolia}
-      supportedWallets={[metamaskWallet(), coinbaseWallet(), walletConnectV1()]}
+      supportedWallets={supportedWallets}
+      sdkOptions={sdkOptions}
     >
-      <ThemeProvider theme={muiTheme}>
-        <App />
-      </ThemeProvider>
+      <SnackbarProvider
+        anchorOrigin={{
+          vertical: "top",
+          horizontal: "center",
+          marginTop: "70px",
+        }}
+        autoHideDuration={2500}
+      >
+        <ThemedApp />
+      </SnackbarProvider>
     </ThirdwebProvider>
   </Provider>
 );
