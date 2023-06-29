@@ -1,0 +1,15 @@
+.Slide {
+  height: 400px;
+}
+
+.firstSlide {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 375px;
+}
+
+.slideImg {
+  width: 1000px;
+  height: 300px;
+}
