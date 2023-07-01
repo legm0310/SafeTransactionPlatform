@@ -58,7 +58,8 @@ async function startApplication() {
   // ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀`);
 
   await init({ expressApp: app });
-  server = app.listen(config.port, () => {
+
+  app.get("server").listen(config.port, () => {
     console.log("############################################");
     console.log(`####🔥 Server listening on port: ${config.port} 🔥####`);
     console.log("############################################");
@@ -72,8 +73,6 @@ async function startApplication() {
         `    \\/_/  \\/__/\\/_/ \\/_/\\/_/ \\/__,_ / \\/__/\\/_/             \\/_____/ \\/____/  \\/_/   \\/__/   \\/____/  \\/_/ \n`
     );
   });
-  require("./loaders/socket").init(server);
-  require("./utils/socketHandler");
 }
 
 startApplication();
