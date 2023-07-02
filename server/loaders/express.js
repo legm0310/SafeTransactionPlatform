@@ -65,6 +65,4 @@ module.exports = async ({ app }) => {
   //error handler
   app.use(errorConvert);
   app.use(globalErrorHandler);
-
-  return { app: app };
 };

@@ -4,6 +4,7 @@ class ChatService {
   constructor() {
     this.ChatLog = Container.get("chatLogModel");
     this.ChatRoom = Container.get("chatRoomModel");
+    this.socketService = Container.get("socketService");
   }
 
   async addRoom(chatBody) {
