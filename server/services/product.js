@@ -10,8 +10,8 @@ class ProductService {
     this.Product = Container.get("productModel");
   }
 
-  async addProduct(productBody) {
-    const product = await this.Product.create(productBody);
+  async addProduct(productData) {
+    const product = await this.Product.create(productData);
     return product;
   }
 
@@ -39,9 +39,9 @@ class ProductService {
 
   async getProductById(id) {
     const product = await this.Product.findByPk(id);
-    const parsedProduct = product.toJSON();
-    parsedProduct.images = parsedProduct.images.split(",");
-    return parsedProduct;
+    const productData = product.toJSON();
+    productData.images = productData.images.split(",");
+    return productData;
   }
 
   async updateProductStatus(state, id) {
