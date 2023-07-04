@@ -3,7 +3,7 @@ module.exports = (io) => {
     const req = socket.request;
     const ip = req.headers["x-forwarded-for"] || req.connection.remoteAddress;
     console.log("✨Socket connected✨", ip, socket.id, req.ip);
-    // console.log("✨Socket connected✨");
+
     socket.on("disconnect", () => {
       clearInterval(socket.interval);
     });
@@ -14,6 +14,17 @@ module.exports = (io) => {
 
     socket.on("login", ({ userId }) => {
       socket.join(userId);
+    });
+
+    socket.on("sendMessage", (message, callback) => {
+      const user = getUser(socket.id);
+      console.log(`${user.name} : "${message}"`);
+      // console.log(typeof message, message)
+      io.to(user.room).emit("message", {
+        user: user.name,
+        text: message,
+      });
+      callback();
     });
   });
 };
