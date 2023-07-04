@@ -86,6 +86,12 @@ class User extends Sequelize.Model {
       onDelete: "cascade",
       onUpdate: "cascade",
     });
+    // db.User.belongsToMany(db.ChatRoom. {
+    //   foreignKey: {
+    //     name:,
+
+    //   }
+    // })
   }
 }
 module.exports = User;
