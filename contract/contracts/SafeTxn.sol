@@ -49,6 +49,10 @@ contract SafeTxn is ISafeTxn, IEscrow, ERC20Base {
   function increaseTotalProduct() public virtual returns(uint32) {
     return _totalProduct += 1;
   }
+  function decreaseTotalProduct() public virtual returns(uint32) {
+    return _totalProduct -= 1;
+  }
+
 
   //제품 등록
   function addProduct(uint32 _sellerId, uint32 _productId, uint256 _price) public virtual override returns (bool) {
@@ -116,6 +120,7 @@ contract SafeTxn is ISafeTxn, IEscrow, ERC20Base {
     emit CompleteTransaction(escrow.productId, block.timestamp);
     delete escrows[_productId]; 
     delete products[_productId];
+    decreaseTotalProduct();
     return true;
   }
 
