@@ -1,11 +1,11 @@
 import { Fragment } from "react";
 import { useTypewriter, Cursor } from "react-simple-typewriter";
 import Slide from "./HomeSlide";
-import RecentProductsList from "../../components/RecentProductsList";
+import RecentProductsList from "../../components/product/RecentProducts";
 import mainImg from "../../assets/platformImage1.png";
 import mainImg1 from "../../assets/platformImage4.png";
 
-import classes from "../../styles/Home.module.css";
+import classes from "../../styles/home/Home.module.css";
 
 const Home = (props) => {
   const [text] = useTypewriter({

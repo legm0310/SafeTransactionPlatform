@@ -1,8 +1,9 @@
 import React, { Fragment } from "react";
 
-import classes from "../../styles/ProductCard.module.css";
 import { useSelector } from "react-redux";
-import Paging from "../../components/UI/Paging";
+import Paging from "../../components/common/Paging";
+
+import classes from "../../styles/product/ProductCard.module.css";
 
 const ProductCard = (props) => {
   const searchedProducts = useSelector(

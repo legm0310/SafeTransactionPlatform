@@ -2,7 +2,7 @@ import { Fragment } from "react";
 import ReactDOM from "react-dom";
 import { useSelector } from "react-redux";
 import ContractLoading from "./ContractLoading";
-import classes from "../../styles/ContractModal.module.css";
+import classes from "../../styles/common/ContractModal.module.css";
 
 const ModalContent = () => {
   return (

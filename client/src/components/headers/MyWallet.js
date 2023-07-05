@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import PropTypes from "prop-types";
-import Exchange from "../User/Exchange";
+import Exchange from "./Exchange";
 
 import {
   ConnectWallet,

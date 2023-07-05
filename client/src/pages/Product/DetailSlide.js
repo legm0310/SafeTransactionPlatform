@@ -5,7 +5,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import styled from "styled-components";
 
-import classes from "../../styles/DetailSlide.module.css";
+import classes from "../../styles/product/DetailSlide.module.css";
 
 const DetailSlide = () => {
   const productDetail = useSelector(

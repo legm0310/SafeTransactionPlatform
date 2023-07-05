@@ -2,7 +2,7 @@
 import React, { Fragment } from "react";
 import { Link } from "react-router-dom";
 
-import classes from "../../styles/Logo.module.css";
+import classes from "../../styles/headers/Logo.module.css";
 import { Typography } from "@mui/material";
 
 const Logo = () => {

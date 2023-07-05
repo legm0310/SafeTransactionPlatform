@@ -5,7 +5,7 @@ import { logout } from "../../_actions/userAction";
 import { useDisconnect } from "@thirdweb-dev/react";
 import MyWallet from "./MyWallet";
 
-import classes from "../../styles/UserAuth.module.css";
+import classes from "../../styles/headers/UserMenu.module.css";
 import { useSnackbar } from "notistack";
 import {
   Badge,
@@ -93,7 +93,7 @@ const UserSection = (props) => {
       open={isMenuOpen}
       onClose={onMenuClose}
     >
-      <Link to="/userinfo">
+      <Link to="/user">
         <MenuItem onClick={onMenuClose} sx={{ color: "black" }}>
           <AccountCircle sx={{ fontSize: 20, mr: "4px", color: "#1ecfba" }} />내
           정보
