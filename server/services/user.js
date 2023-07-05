@@ -6,15 +6,15 @@ class UserService {
     this.User = Container.get("userModel");
   }
 
-  async createUser(newUserBody) {
-    if (await this.User.getUserByPhoneNumber(newUserBody.phone_number)) {
+  async createUser(newUserData) {
+    if (await this.User.getUserByPhoneNumber(newUserData.phone_number)) {
       throw new BadRequestError("Phone number already exists");
     }
-    if (await this.getUserByEmail(newUserBody.email)) {
+    if (await this.getUserByEmail(newUserData.email)) {
       throw new BadRequestError("Email already exists");
     }
 
-    return await this.User.create(newUserBody);
+    return await this.User.create(newUserData);
   }
 
   async getUserById(id) {
@@ -31,7 +31,7 @@ class UserService {
     return user;
   }
 
-  async updateUserById(userId, updateBody) {
+  async updateUserById(userId, updateData) {
     const user = await this.getUserById(userId);
     if (!user) throw new NotFoundError("User not found");
   }

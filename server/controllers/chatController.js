@@ -14,7 +14,7 @@ module.exports = {
   // }),
   addRoom: catchAsync(async (req, res) => {
     const chatServiceInstance = await Container.get("chatService");
-    const chatRoom = await chatServiceInstance.addRoom(req.body);
+    const chatRoom = await chatServiceInstance.createRoom(req.body);
     res.status(201).json({
       addRoomSuccess: true,
       room: chatRoom,

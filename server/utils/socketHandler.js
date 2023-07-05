@@ -1,27 +1,62 @@
+const config = require("../config");
+const socket = require("socket.io");
+const { InternalServerError } = require("./generalError");
+
+let io;
+
+const ioInit = (server) => {
+  const cors = {
+    ...config.cors,
+    origin:
+      config.nodeEnv === "production"
+        ? config.cors.origin
+        : "http://localhost:3000",
+  };
+
+  io = socket(server, {
+    cors: cors,
+  });
+  return io;
+};
+
+const getIo = () => {
+  if (!io) throw new InternalServerError("Socket.io is not connected!");
+  return io;
+};
+
+const roomNumMaker = (x, y) => {
+  const arr = [x, y];
+  arr.sort((a, b) => a - b);
+  let roomNum = arr[0].toString() + arr[1];
+  return roomNum;
+};
+
+module.exports = { ioInit, getIo, roomNumMaker };
+
 // socket.io 동작 코드 모음
 
-const io = require("../loaders/socket").getIo();
-// const { addUser, removeUser, getUser, getUsersInRoom } = require("../users");
-io.on("connection", (socket) => {
-  socket.on("disconnect", () => {
-    clearInterval(socket.interval);
-  });
+// const io = require("../loaders/socket").getIo();
+// // const { addUser, removeUser, getUser, getUsersInRoom } = require("../users");
+// io.on("connection", (socket) => {
+//   socket.on("disconnect", () => {
+//     clearInterval(socket.interval);
+//   });
 
-  socket.on("error", (error) => {
-    console.log(error);
-  });
+//   socket.on("error", (error) => {
+//     console.log(error);
+//   });
 
-  socket.on("login", ({ userId }) => {
-    socket.join(userId);
-  });
+//   socket.on("login", ({ userId }) => {
+//     socket.join(userId);
+//   });
 
-  const roomNumMaker = (x, y) => {
-    const arr = [x, y];
-    arr.sort((a, b) => a - b);
-    let roomNum = arr[0].toString() + arr[1];
-    return roomNum;
-  };
-});
+//   const roomNumMaker = (x, y) => {
+//     const arr = [x, y];
+//     arr.sort((a, b) => a - b);
+//     let roomNum = arr[0].toString() + arr[1];
+//     return roomNum;
+//   };
+// });
 // socket.on(EVENT.JOIN_ROOM, async ({ userId, qUserId }) => {
 //   try {
 //     const roomNum = await roomNumMaker(userId, qUserId);

@@ -10,12 +10,12 @@ const routerLoader = require("../routes");
 const { accessStrategy, refreshStrategy } = require("../config/passport");
 const { NotFoundError } = require("../utils");
 const { secure, errorConvert, globalErrorHandler } = require("../middlewares");
-compression;
+
 /** express 앱의 미들웨어들을 로드하는 함수
  * @param {object} options 미들웨어를 실행시킬 express app
  * @param {Function} options.app 미들웨어를 실행시킬 express app
  */
-module.exports = ({ app }) => {
+module.exports = async ({ app }) => {
   //Http 요청, 응답 로깅
   app.use(morgan("dev"));
 

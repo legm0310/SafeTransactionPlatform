@@ -33,13 +33,16 @@ class ChatRoom extends Sequelize.Model {
     );
   }
   static associate(db) {
-    ChatRoom.hasMany(
-      db.ChatLog,
-      { foreignKey: "room_id" },
-      { sourceKey: "id" }
-    );
-    ChatRoom.belongsTo(db.User, {
-      foreignKey: "id",
+    db.ChatRoom.hasMany(db.ChatLog, {
+      foreignKey: {
+        name: "room_id",
+        unique: false,
+        allowNull: false,
+      },
+      sourceKey: "id",
+    });
+    db.ChatRoom.belongsTo(db.User, {
+      foreignKey: { name: "id" },
       onDelete: "cascade",
     });
   }

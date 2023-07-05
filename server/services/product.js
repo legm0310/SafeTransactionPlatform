@@ -1,6 +1,6 @@
 const { Container } = require("typedi");
 const {
-  InternelServerError,
+  InternalServerError,
   generateGetProductsQuery,
   extractProductsList,
 } = require("../utils");
@@ -10,8 +10,8 @@ class ProductService {
     this.Product = Container.get("productModel");
   }
 
-  async addProduct(productBody) {
-    const product = await this.Product.create(productBody);
+  async addProduct(productData) {
+    const product = await this.Product.create(productData);
     return product;
   }
 
@@ -31,7 +31,7 @@ class ProductService {
     const query = generateGetProductsQuery(params);
     console.log("query", query);
     const products = await this.Product.findAll(query);
-    if (!products) throw new InternelServerError("Internel Server Error");
+    if (!products) throw new InternalServerError("Internal Server Error");
 
     const extractedList = extractProductsList(products);
     return extractedList;
@@ -39,9 +39,9 @@ class ProductService {
 
   async getProductById(id) {
     const product = await this.Product.findByPk(id);
-    const parsedProduct = product.toJSON();
-    parsedProduct.images = parsedProduct.images.split(",");
-    return parsedProduct;
+    const productData = product.toJSON();
+    productData.images = productData.images.split(",");
+    return productData;
   }
 
   async updateProductStatus(state, id) {
@@ -50,7 +50,7 @@ class ProductService {
       { where: { id: id } }
     );
     if (!updated) {
-      throw new InternelServerError(updated);
+      throw new InternalServerError(updated);
     }
     return updated;
   }

@@ -4,18 +4,30 @@ class ChatService {
   constructor() {
     this.ChatLog = Container.get("chatLogModel");
     this.ChatRoom = Container.get("chatRoomModel");
+    this.socketService = Container.get("socketService");
   }
 
-  async addRoom(chatBody) {
-    const chat = await this.ChatRoom.create(chatBody);
-    return chat;
+  async createRoom(roomData) {
+    const room = await this.ChatRoom.create(roomData);
+    return room;
   }
 
-  // async getChatById(id) {
-  //   const chat = await this.Chat.findByPk(id);
-  //   const parsedChat = chat.toJSON();
-  //   return parsedChat;
-  // }
+  async getRoomById(id) {
+    const room = await this.ChatRoom.findByPk(id);
+    const roomData = room.toJSON();
+    return roomData;
+  }
+
+  async getRoomByUser(id) {
+    const room = await this.ChatRoom.findByPk(id);
+    const roomData = room.toJSON();
+    return roomData;
+  }
+
+  async deleteRoom(id) {}
+
+  async sendMessage() {}
+  async getMessageByRoom() {}
 }
 
 module.exports = ChatService;
