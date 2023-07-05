@@ -1,10 +1,13 @@
 import { combineReducers } from "redux";
-import user from "./userReducer";
-import product from "./productReducer";
-
+import uiReducer from "./uiReducer";
+import userReducer from "./userReducer";
+import productReducer from "./productReducer";
+import chatReducer from "./chatReducer";
 const rootReducer = combineReducers({
-  user,
-  product,
+  ui: uiReducer,
+  user: userReducer,
+  product: productReducer,
+  chat: chatReducer,
 });
 
 export default rootReducer;

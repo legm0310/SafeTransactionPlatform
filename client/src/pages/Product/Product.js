@@ -2,12 +2,12 @@ import React, { Fragment, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { getProducts } from "../../_actions/productAction";
-import RecentProductsList from "../../components/RecentProductsList";
+import RecentProductsList from "../../components/product/RecentProducts";
 import ProductCard from "./ProductCard";
-import Paging from "../../components/UI/Paging";
+import Paging from "../../components/common/Paging";
 import { getItem } from "../../utils";
 
-import classes from "../../styles/Product.module.css";
+import classes from "../../styles/product/Product.module.css";
 
 const Product = (props) => {
   const navigate = useNavigate();

@@ -5,7 +5,7 @@
   "main": "app.js",
   "scripts": {
     "start": "cross-env NODE_ENV=production node app.js",
-    "dev": "cross-env NODE_ENV=development node app.js",
+    "dev": "cross-env NODE_ENV=development nodemon app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
@@ -21,6 +21,7 @@
     "@babel/preset-env": "^7.21.5",
     "bcrypt": "^5.1.0",
     "celebrate": "^15.0.1",
+    "compression": "^1.7.4",
     "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
     "cross-env": "^7.0.3",
@@ -36,11 +37,14 @@
     "multer-s3": "^3.0.1",
     "mysql": "^2.18.1",
     "mysql2": "^3.2.3",
+    "nodemon": "^2.0.22",
     "passport": "^0.6.0",
     "passport-jwt": "^4.0.1",
+    "pm2": "^5.3.0",
     "reflect-metadata": "^0.1.13",
     "sequelize": "^6.31.0",
     "sequelize-cli": "^6.6.0",
+    "socket.io": "^4.6.2",
     "typedi": "^0.10.0",
     "winston": "^3.8.2"
   }

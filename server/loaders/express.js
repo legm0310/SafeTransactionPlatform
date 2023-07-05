@@ -2,6 +2,7 @@ const express = require("express");
 const path = require("path");
 const cors = require("cors");
 const cookieParser = require("cookie-parser");
+const compression = require("compression");
 const passport = require("passport");
 const morgan = require("morgan");
 const config = require("../config");
@@ -14,7 +15,7 @@ const { secure, errorConvert, globalErrorHandler } = require("../middlewares");
  * @param {object} options 미들웨어를 실행시킬 express app
  * @param {Function} options.app 미들웨어를 실행시킬 express app
  */
-module.exports = ({ app }) => {
+module.exports = async ({ app }) => {
   //Http 요청, 응답 로깅
   app.use(morgan("dev"));
 
@@ -25,6 +26,7 @@ module.exports = ({ app }) => {
   app.use(express.json());
   app.use(express.urlencoded({ extended: true }));
   app.use(cookieParser());
+  app.use(compression());
 
   //cors
   if (config.nodeEnv === "production") {

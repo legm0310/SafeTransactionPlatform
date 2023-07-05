@@ -1,6 +1,14 @@
 const { Op } = require("sequelize");
 
-const generateCondition = (params) => {
+const genCondition = (params) => {
+  if (Array.isArray(params)) {
+    const where = {
+      id: {
+        [Op.in]: params,
+      },
+    };
+    return { where };
+  }
   const { lastId, search, status, page, sellerId } = params;
   const limit = 12;
   const offset = +page && +page > 1 ? 0 + (page - 1) * limit : null;
@@ -15,8 +23,7 @@ const generateCondition = (params) => {
 };
 
 const generateGetProductsQuery = (params) => {
-  const { where, offset, limit } = generateCondition(params);
-
+  const { where, offset, limit } = genCondition(params);
   let query = {
     where: where,
     order: [
@@ -25,7 +32,7 @@ const generateGetProductsQuery = (params) => {
     ],
     offset: offset,
     limit: limit,
-    attributes: ["id", "title", "price", "images", "created_at"],
+    attributes: ["id", "status", "title", "price", "images", "created_at"],
   };
   return query;
 };

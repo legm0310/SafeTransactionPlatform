@@ -20,8 +20,8 @@ const db = {};
 db.User = user;
 db.Token = token;
 db.Product = product;
-// db.ChatRoom = chatRoom;
-// db.ChatLog = chatLog;
+db.ChatRoom = chatRoom;
+db.ChatLog = chatLog;
 
 // console.log(new db.User());
 Object.keys(db).forEach(async (name) => {

@@ -8,18 +8,26 @@
 
 import {
   ADD_PRODUCT,
+  DEPOSITED_PRODUCTS,
   RECENT_PRODUCTS,
   GET_PRODUCTS,
   GET_PRODUCT,
+  DEPOSIT,
+  RELEASE,
 } from "../_actions/type";
+
+const initialState = {};
 
 // Action의 type에 따라 변화된 state 반환
 // eslint-disable-next-line import/no-anonymous-default-export
-export default function (state = {}, action) {
+export default function (state = initialState, action) {
   // 전의 state, 지금의 state
   switch (action.type) {
     case ADD_PRODUCT:
       return { ...state, addProductSuccess: action.payload };
+      break;
+    case DEPOSITED_PRODUCTS:
+      return { ...state, depositedProducts: action.payload };
       break;
     case RECENT_PRODUCTS:
       return { ...state, recentProductsSuccess: action.payload };
@@ -29,6 +37,12 @@ export default function (state = {}, action) {
       break;
     case GET_PRODUCT:
       return { ...state, productDetail: action.payload };
+      break;
+    case DEPOSIT:
+      return { ...state, deposit: action.payload };
+      break;
+    case RELEASE:
+      return { ...state, release: action.payload };
       break;
     default: // state가 들어오지 않았을 경우 전의 state를 넣어줌
       return state;

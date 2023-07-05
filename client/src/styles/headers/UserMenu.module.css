@@ -1,0 +1,15 @@
+.linkButton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.userSection {
+  color: black;
+  display: flex;
+  list-style: none;
+}
+
+.userSection li {
+  padding: 10px;
+}

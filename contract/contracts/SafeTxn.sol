@@ -7,6 +7,7 @@ import "../node_modules/@thirdweb-dev/contracts/base/ERC20Base.sol";
 // import "./PandaToken.sol";
 // import "./CommonFnWrapper.sol";
 
+//test
 contract SafeTxn is ISafeTxn, IEscrow, ERC20Base {
   uint32 private _totalProduct = 0; 
   uint256[] public registeredProducts;  
@@ -48,25 +49,37 @@ contract SafeTxn is ISafeTxn, IEscrow, ERC20Base {
   function increaseTotalProduct() public virtual returns(uint32) {
     return _totalProduct += 1;
   }
+  function decreaseTotalProduct() public virtual returns(uint32) {
+    return _totalProduct -= 1;
+  }
+
 
   //제품 등록
-  function addProduct(uint32 _sellerId, uint256 _price) public virtual override returns (bool) {
+  function addProduct(uint32 _sellerId, uint32 _productId, uint256 _price) public virtual override returns (bool) {
     require(_price>=0, "price of the product is less than zero");
-    uint32 newProductId = increaseTotalProduct();
+    increaseTotalProduct();
 
-    products[newProductId] = Product(newProductId, _price, _sellerId, msg.sender, State.SALE);
+    products[_productId] = Product(_productId, _price * 10**decimals(), _sellerId, msg.sender, State.SALE);
 
-    require(products[newProductId].sellerAddress != address(0), "Faild to register product");
+    require(products[_productId].sellerAddress != address(0), "Faild to register product");
+    emit ProductRegister(msg.sender, _productId, _price * 10**decimals(), block.timestamp);
     return true;
+  }
+
+  function getProduct(uint32 _productId) public view returns(Product memory) {
+    return products[_productId];
+  }
+
+  function getEscrow(uint32 _escrowId) public view returns(EscrowData memory) {
+    return escrows[_escrowId];
   }
 
   function setProductStatus(Product storage _product, State _status) internal returns(bool) {
     _product.status = _status;
     return true;
   }
-
-
-  //제품 삭제
+  
+  //TODO 제품 삭제
   //제품 수정
 
 
@@ -76,7 +89,7 @@ contract SafeTxn is ISafeTxn, IEscrow, ERC20Base {
     require(products[_productId].sellerAddress != address(0), "Not found product");
     Product storage product = products[_productId];
 
-    require(balanceOf(msg.sender) >= product.price * 10**decimals(), "Not enough balance");
+    require(balanceOf(msg.sender) >= product.price, "Not enough balance");
     createEscrow(product, _buyerId);
 
     setProductStatus(product, State.RESERVED);
@@ -88,10 +101,10 @@ contract SafeTxn is ISafeTxn, IEscrow, ERC20Base {
     escrows[_product.productId] = EscrowData(_product.productId, _buyerId, msg.sender, _product.sellerId, _product.sellerAddress, _product.price, false);
     EscrowData memory escrow = escrows[_product.productId];
     require(escrow.buyerAddress != address(0), "Faild to create escrow");
-    emit EscrowCreate(msg.sender, _product.sellerAddress, _product.productId, _product.price * 10**decimals(), block.timestamp);
+    emit EscrowCreate(msg.sender, _product.sellerAddress, _product.productId, _product.price, block.timestamp);
 
-    transfer(address(this), _product.price * 10**decimals());
-    emit EscrowDeposit(escrow.productId , _product.price * 10**decimals(), block.timestamp);
+    transfer(address(this), _product.price);
+    emit EscrowDeposit(escrow.productId , _product.price, block.timestamp);
     return true;
   }
 
@@ -107,6 +120,7 @@ contract SafeTxn is ISafeTxn, IEscrow, ERC20Base {
     emit CompleteTransaction(escrow.productId, block.timestamp);
     delete escrows[_productId]; 
     delete products[_productId];
+    decreaseTotalProduct();
     return true;
   }
 
@@ -120,13 +134,13 @@ contract SafeTxn is ISafeTxn, IEscrow, ERC20Base {
   //예치 금액 릴리즈
   function releaseToSeller(bool _isApprove, address _sellerAddress, uint256 _amount) public virtual override returns(bool) {
     require(_isApprove == true, "Not approved to Release");
-    _transfer(address(this), _sellerAddress, _amount*10*decimals());
+    _transfer(address(this), _sellerAddress, _amount);
     return true;
   }
 
   //예치 금액 반환
   function refundsToBuyer(address _buyerAddress, uint256 _amount) public virtual override returns (bool) {
-    _transfer(address(this), _buyerAddress, _amount*10*decimals());
+    _transfer(address(this), _buyerAddress, _amount);
     return true;
   }
 

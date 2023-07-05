@@ -5,7 +5,7 @@ module.exports = (models, services) => {
     if (modelname == "sequelize" || modelname == "Sequelize") return;
     const model = models[modelname];
     modelDependencyArr.push({
-      name: `${modelname.toLowerCase()}Model`,
+      name: `${modelname[0].toLowerCase() + modelname.slice(1)}Model`,
       model: model,
     });
   });

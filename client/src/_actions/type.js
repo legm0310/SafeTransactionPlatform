@@ -6,12 +6,21 @@
 */
 
 // action의 type들만 관리 (action의 type를 정의)
+//user
 export const SIGNUP_USER = "signup";
 export const LOGIN_USER = "login";
 export const LOGOUT_USER = "logout";
 export const AUTH_USER = "auth";
-
+//product
 export const ADD_PRODUCT = "addProduct";
+export const DEPOSITED_PRODUCTS = "depositedProducts";
 export const GET_PRODUCTS = "getProducts";
 export const RECENT_PRODUCTS = "recentProducts";
 export const GET_PRODUCT = "getProduct";
+export const DEPOSIT = "deposit";
+export const RELEASE = "release";
+//ui
+export const SET_LOADINGS = "setLoadings";
+export const SET_CONTRACT_LOADING = "setContractLoading";
+//chat
+export const ADD_ROOM = "addRoom";

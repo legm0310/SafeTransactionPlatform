@@ -1,0 +1,49 @@
+.wrap {
+  display: flex;
+  justify-content: center;
+  margin: 100px auto;
+}
+
+.container {
+  width: 640px;
+  padding: 20px 10px;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 6px 50px 0px;
+}
+
+/* 뒤로가기 버튼*/
+.header {
+  position: relative;
+  height: 56px;
+  line-height: 0;
+  border-bottom: 1px solid rgb(207, 210, 215);
+}
+
+.backButton {
+  position: absolute;
+  top: 20%;
+
+  font-size: 25px;
+  color: black;
+}
+
+.registerTitle {
+  margin-top: 20px;
+}
+
+.sectionHeader {
+  padding: 14px 24px 18px;
+}
+
+.subTitle {
+  color: rgb(122, 127, 134);
+  font-size: 15px;
+}
+
+/*회원가입 폼*/
+.registerInputWrap {
+  padding: 6px 24px;
+}
+
+form {
+  display: block;
+}
