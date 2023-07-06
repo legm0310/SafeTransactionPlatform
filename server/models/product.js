@@ -55,7 +55,15 @@ class Product extends Sequelize.Model {
     //   onDelete: "cascade",
     //   onUpdate: "cascade",
     // });
-
+    db.Product.hasMany(db.WishList, {
+      foreignKey: {
+        name: "product_id",
+        unique: false,
+        allowNull: false,
+      },
+      sourceKey: "id",
+      onDelete: "cascade",
+    });
     db.Product.belongsTo(db.User, {
       foreignKey: {
         name: "seller_id",

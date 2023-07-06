@@ -6,6 +6,8 @@ const user = require("./user");
 const token = require("./token");
 const product = require("./product");
 // const productImage = require("./productImage");
+const catagory = require("./catagory");
+const wishList = require("./wishList");
 const chatRoom = require("./chatRoom");
 const chatLog = require("./chatLog");
 
@@ -20,6 +22,8 @@ const db = {};
 db.User = user;
 db.Token = token;
 db.Product = product;
+db.Catagory = catagory;
+db.WishList = wishList;
 db.ChatRoom = chatRoom;
 db.ChatLog = chatLog;
 

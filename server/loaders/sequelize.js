@@ -1,6 +1,6 @@
 const db = require("../models");
 module.exports = async () => {
-  const force = false;
+  const force = true;
   await db.sequelize
     .sync({ force: force })
     .then(async () => {
@@ -40,6 +40,41 @@ module.exports = async () => {
           phone_number: "56756785678",
           password: "1234",
         });
+        await db.Catagory.bulkCreate([
+          {
+            name: "전체",
+          },
+          {
+            name: "남성의류",
+          },
+          {
+            name: "여성의류",
+          },
+          {
+            name: "패션잡화",
+          },
+          {
+            name: "스포츠 용품",
+          },
+          {
+            name: "신발",
+          },
+          {
+            name: "가전제품",
+          },
+          {
+            name: "컴퓨터/주변기기",
+          },
+          {
+            name: "전자제품",
+          },
+          {
+            name: "가구",
+          },
+          {
+            name: "기타",
+          },
+        ]);
         await db.Product.bulkCreate([
           {
             status: "SOLD",

@@ -10,22 +10,37 @@ class WishList extends Sequelize.Model {
           autoIncrement: true,
           allowNull: false,
         },
-        name: {
-          type: Sequelize.STRING(255),
-          allowNull: false,
-          unique: true,
-        },
       },
       {
         modelName: "wish_list",
         freezeTableName: true,
         timestamps: true,
-        createdAt: false,
+        createdAt: true,
         updatedAt: false,
         underscored: true,
         sequelize,
       }
     );
+  }
+  static associate(db) {
+    db.WishList.belongsTo(db.User, {
+      foreignKey: {
+        name: "user_id",
+        unique: false,
+        allowNull: false,
+      },
+      targetKey: "id",
+      onDelete: "cascade",
+    });
+    db.WishList.belongsTo(db.Product, {
+      foreignKey: {
+        name: "product_id",
+        unique: false,
+        allowNull: false,
+      },
+      targetKey: "id",
+      onDelete: "cascade",
+    });
   }
 }
 
