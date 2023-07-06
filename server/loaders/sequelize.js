@@ -1,6 +1,6 @@
 const db = require("../models");
 module.exports = async () => {
-  const force = true;
+  const force = false;
   await db.sequelize
     .sync({ force: force })
     .then(async () => {
