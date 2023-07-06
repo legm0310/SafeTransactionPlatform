@@ -35,7 +35,7 @@ class Token extends Sequelize.Model {
         name: "user_id",
         unique: true,
       },
-      sourceKey: "id",
+      targetKey: "id",
       onDelete: "cascade",
       onUpdate: "cascade",
     });

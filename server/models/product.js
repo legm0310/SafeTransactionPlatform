@@ -51,7 +51,7 @@ class Product extends Sequelize.Model {
     //     name: "prod_id",
     //     allowNull: false,
     //   },
-    //   sourceKey: "id",
+    //   targetKey: "id",
     //   onDelete: "cascade",
     //   onUpdate: "cascade",
     // });
@@ -62,7 +62,7 @@ class Product extends Sequelize.Model {
         unique: false,
         allowNull: false,
       },
-      sourceKey: "id",
+      targetKey: "id",
       onDelete: "cascade",
       onUpdate: "cascade",
     });
