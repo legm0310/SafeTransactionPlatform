@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const { isAuth, uploader } = require("../middlewares");
 const utils = require("../utils");
-const productController = require("../controllers").productController;
+const { productController } = require("../controllers");
 
 /** product 관련 라우팅 함수
  * @param {Function} app 라우터 설정을 위한 express.Router()
