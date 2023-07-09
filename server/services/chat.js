@@ -18,8 +18,9 @@ class ChatService {
     return roomData;
   }
 
-  async getRoomByUser(id) {
-    const room = await this.ChatRoom.findByPk(id);
+  async getAllRoomByUser(id) {
+    // const room = await this.ChatRoom.findByPk(id);
+    const room = await this.ChatRoom.findAll();
     const roomData = room.toJSON();
     return roomData;
   }
