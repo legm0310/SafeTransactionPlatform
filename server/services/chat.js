@@ -8,6 +8,7 @@ class ChatService {
   }
 
   async createRoom(roomData) {
+    const io = this.socketService.getIo();
     const room = await this.ChatRoom.create(roomData);
     return room;
   }
@@ -25,9 +26,13 @@ class ChatService {
     return roomData;
   }
 
-  async deleteRoom(id) {}
+  async deleteRoom(id) {
+    const io = this.socketService.getIo();
+  }
 
-  async sendMessage() {}
+  async sendMessage() {
+    const io = this.socketService.getIo();
+  }
   async getMessageByRoom() {}
 }
 
