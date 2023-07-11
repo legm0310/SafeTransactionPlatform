@@ -2,6 +2,7 @@ const { Container } = require("typedi");
 
 class ChatService {
   constructor() {
+    this.User = Container.get("userModel");
     this.ChatLog = Container.get("chatLogModel");
     this.ChatRoom = Container.get("chatRoomModel");
     this.socketService = Container.get("socketService");
@@ -20,10 +21,18 @@ class ChatService {
   }
 
   async getAllRoomByUser(id) {
+    const user = await this.User.findByPk(id);
     // const room = await this.ChatRoom.findByPk(id);
-    const room = await this.ChatRoom.findAll();
-    const roomData = room.toJSON();
-    return roomData;
+    const [sellingRooms, buyingRooms] = await Promise.allSettled([
+      user.getSellingRooms(),
+      user.getBuyingRooms(),
+    ]);
+
+    const allRooms = sellingRooms.concat(buyingRooms);
+    console.log(allRooms);
+    // const room = await this.ChatRoom.findAll();
+    // const roomData = room.toJSON();
+    return allRooms;
   }
 
   async deleteRoom(id) {
