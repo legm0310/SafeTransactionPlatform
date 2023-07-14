@@ -42,7 +42,10 @@ class ChatService {
   async sendMessage() {
     const io = this.socketService.getIo();
   }
-  async getMessageByRoom() {}
+
+  async getMessageByRoom() {
+    const io = this.socketService.getIo();
+  }
 }
 
 module.exports = ChatService;
