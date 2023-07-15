@@ -22,7 +22,6 @@ class ChatService {
 
   async getAllRoomByUser(id) {
     const user = await this.User.findByPk(id);
-    // const room = await this.ChatRoom.findByPk(id);
     const [sellingRooms, buyingRooms] = await Promise.allSettled([
       user.getSellingRooms(),
       user.getBuyingRooms(),
@@ -30,8 +29,7 @@ class ChatService {
 
     const allRooms = sellingRooms.concat(buyingRooms);
     console.log(allRooms);
-    // const room = await this.ChatRoom.findAll();
-    // const roomData = room.toJSON();
+
     return allRooms;
   }
 
