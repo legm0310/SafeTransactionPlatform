@@ -1,37 +1,37 @@
-const config = require("../config");
-const socket = require("socket.io");
-const { InternalServerError } = require("./generalError");
+// const config = require("../config");
+// const socket = require("socket.io");
+// const { InternalServerError } = require("./generalError");
 
-let io;
+// let io;
 
-const ioInit = (server) => {
-  const cors = {
-    ...config.cors,
-    origin:
-      config.nodeEnv === "production"
-        ? config.cors.origin
-        : "http://localhost:3000",
-  };
+// const ioInit = (server) => {
+//   const cors = {
+//     ...config.cors,
+//     origin:
+//       config.nodeEnv === "production"
+//         ? config.cors.origin
+//         : "http://localhost:3000",
+//   };
 
-  io = socket(server, {
-    cors: cors,
-  });
-  return io;
-};
+//   io = socket(server, {
+//     cors: cors,
+//   });
+//   return io;
+// };
 
-const getIo = () => {
-  if (!io) throw new InternalServerError("Socket.io is not connected!");
-  return io;
-};
+// const getIo = () => {
+//   if (!io) throw new InternalServerError("Socket.io is not connected!");
+//   return io;
+// };
 
-const roomNumMaker = (x, y) => {
-  const arr = [x, y];
-  arr.sort((a, b) => a - b);
-  let roomNum = arr[0].toString() + arr[1];
-  return roomNum;
-};
+// const roomNumMaker = (x, y) => {
+//   const arr = [x, y];
+//   arr.sort((a, b) => a - b);
+//   let roomNum = arr[0].toString() + arr[1];
+//   return roomNum;
+// };
 
-module.exports = { ioInit, getIo, roomNumMaker };
+// module.exports = { ioInit, getIo, roomNumMaker };
 
 // socket.io 동작 코드 모음
 

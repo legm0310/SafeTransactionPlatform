@@ -86,6 +86,29 @@ class User extends Sequelize.Model {
       onDelete: "cascade",
       onUpdate: "cascade",
     });
+    db.User.hasMany(db.ChatRoom, {
+      as: "SellingRooms",
+      foreignKey: {
+        name: "seller_id",
+      },
+      sourceKey: "id",
+    });
+    db.User.hasMany(db.ChatRoom, {
+      as: "BuyingRooms",
+      foreignKey: {
+        name: "buyer_id",
+      },
+      sourceKey: "id",
+    });
+    db.User.hasMany(db.WishList, {
+      foreignKey: {
+        name: "user_id",
+        unique: false,
+        allowNull: false,
+      },
+      sourceKey: "id",
+      onDelete: "cascade",
+    });
     // db.User.belongsToMany(db.ChatRoom. {
     //   foreignKey: {
     //     name:,
