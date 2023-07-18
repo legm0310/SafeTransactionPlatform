@@ -20,4 +20,8 @@ module.exports = {
       room: chatRoom,
     });
   }),
+
+  getRoom: catchAsync(async (req, res) => {
+    const chatServiceInstance = await Container.get("chatService");
+  }),
 };
