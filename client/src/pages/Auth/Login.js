@@ -3,10 +3,10 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { login } from "../../_actions/userAction";
-// import Button from "../../components/UI/Button";
-// import CustomAlert from "../../components/UI/Alert";
+// import Button from "../../components/common/Button";
+// import CustomAlert from "../../components/common/Alert";
 
-import classes from "../../styles/Login.module.css";
+import classes from "../../styles/auth/Login.module.css";
 import { FaArrowLeft } from "react-icons/fa";
 import { useSnackbar } from "notistack";
 import googleIcon from "../../assets/google.svg";

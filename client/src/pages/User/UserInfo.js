@@ -1,11 +1,11 @@
 import React, { Fragment, useState } from "react";
-import Button from "../../components/UI/Button";
+import Button from "../../components/common/Button";
 import OnSaleProduct from "./OnSaleProduct";
 import ReservedProduct from "./ReservedProduct";
 import PurchasedProduct from "./PurchasedProduct";
 import WishList from "./WishList";
 
-import classes from "../../styles/UserInfo.module.css";
+import classes from "../../styles/user/UserInfo.module.css";
 
 const UserInfo = () => {
   const [activeMenu, setActiveMenu] = useState("OnSaleProduct");

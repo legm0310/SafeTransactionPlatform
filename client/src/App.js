@@ -3,7 +3,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { auth } from "./_actions/userAction";
 
-import Header from "./components/Layout/Header";
+import Header from "./components/headers/Header";
 import Home from "./pages/Home/Home";
 import Product from "./pages/Product/Product";
 import AddProduct from "./pages/AddProduct/AddProduct";
@@ -12,8 +12,8 @@ import Login from "./pages/Auth/Login";
 import Register from "./pages/Auth/Register";
 import Detail from "./pages/Product/Detail";
 import Auth from "./hoc/auth";
-import Loading from "./components/UI/Loading";
-import ScrollTop from "./components/UI/ScrollTop";
+import Loading from "./components/common/Loading";
+import ScrollTop from "./components/common/ScrollTop";
 import UserInfo from "./pages/User/UserInfo";
 
 import { Backdrop } from "@mui/material";
@@ -52,7 +52,7 @@ function App() {
             <Route path="/login" element={<Login />}></Route>
             <Route path="/register" element={<Register />}></Route>
             <Route path="/products/:productId" element={<Detail />}></Route>
-            <Route path="/userInfo" element={<UserInfo />}></Route>
+            <Route path="/user" element={<UserInfo />}></Route>
 
             <Route path="/Loading" element={<Loading />}></Route>
           </Routes>

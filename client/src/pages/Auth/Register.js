@@ -3,9 +3,9 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { signup } from "../../_actions/userAction";
-// import Button from "../../components/UI/Button";
+// import Button from "../../components/common/Button";
 
-import classes from "../../styles/Register.module.css";
+import classes from "../../styles/auth/Register.module.css";
 import { FaArrowLeft } from "react-icons/fa";
 import { useSnackbar } from "notistack";
 

@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { getProducts } from "../../_actions/productAction";
 import { setItem } from "../../utils";
 
-import classes from "../../styles/Header.module.css";
+import classes from "../../styles/headers/Header.module.css";
 import { Box, Button, Paper, InputBase, IconButton } from "@mui/material";
 import { Search as SearchIcon } from "@mui/icons-material";
 

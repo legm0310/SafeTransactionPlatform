@@ -1,9 +1,9 @@
 import React, { Fragment } from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import UserSection from "./UserSection";
+import UserMenu from "./UserMenu";
 
-import classes from "../../styles/UserAuth.module.css";
+import classes from "../../styles/headers/UserAuth.module.css";
 import { Button } from "@mui/material";
 
 const UserAuth = (props) => {
@@ -13,11 +13,11 @@ const UserAuth = (props) => {
     <Fragment>
       <div className={classes.Authwrap}>
         {isLoggedIn ? (
-          <UserSection />
+          <UserMenu />
         ) : (
-          <Link to='/login' className={classes.loginRegister}>
+          <Link to="/login" className={classes.loginRegister}>
             <Button
-              variant='text'
+              variant="text"
               sx={{
                 color: "black",
                 fontWeight: 700,
