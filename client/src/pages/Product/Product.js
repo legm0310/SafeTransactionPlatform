@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { getProducts } from "../../_actions/productAction";
 import RecentProductsList from "../../components/product/RecentProducts";
+import CategoryBar from "./CategoryBar";
 import ProductCard from "./ProductCard";
 import Paging from "../../components/common/Paging";
 import { getItem } from "../../utils";
@@ -68,6 +69,10 @@ const Product = (props) => {
         </div>
 
         <div className={classes.productWrap}>
+          <div className={classes.categoryBar}>
+            <CategoryBar />
+          </div>
+
           {selectedCategory ? (
             ((<ProductCard />), (<Paging />))
           ) : (

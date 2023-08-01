@@ -26,6 +26,17 @@
   color: black;
 }
 
+.categoryBar {
+  margin-right: 10px;
+  position: sticky;
+  top: 100px;
+  height: 100%;
+  /* position: fixed;
+  left: 19rem;
+  top: 12rem;
+  transform: translate(1em, 12rem); */
+}
+
 .categoryBox ul {
   padding: 0;
   margin: 0;
@@ -43,9 +54,9 @@
 }
 
 .productWrap {
-  width: 1200px;
+  display: flex;
+  width: 1480px;
   margin-top: 30px;
-  border-top: 1px solid rgb(207, 210, 215);
 }
 
 .detail {
