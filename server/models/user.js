@@ -65,7 +65,7 @@ class User extends Sequelize.Model {
       }
     );
   }
-
+  //관계 설정 수정해야함
   static associate(db) {
     db.User.hasMany(db.Token, {
       foreignKey: {
