@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const utils = require("../utils");
-const chatController = require("../controllers").chatController;
+const { chatController } = require("../controllers");
 
 /** chat 관련 라우팅 함수
  * @param {Function} app 라우터 설정을 위한 express.Router()

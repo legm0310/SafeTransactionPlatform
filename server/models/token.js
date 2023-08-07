@@ -22,7 +22,7 @@ class Token extends Sequelize.Model {
         modelName: "token", // This is the name of the table in the database
         freezeTableName: true,
         timestamps: true,
-        createAt: false,
+        createdAt: false,
         updatedAt: false,
         underscored: true,
         sequelize,
@@ -35,7 +35,7 @@ class Token extends Sequelize.Model {
         name: "user_id",
         unique: true,
       },
-      sourceKey: "id",
+      targetKey: "id",
       onDelete: "cascade",
       onUpdate: "cascade",
     });

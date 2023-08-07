@@ -11,11 +11,11 @@ class ChatRoom extends Sequelize.Model {
           allowNull: false,
         },
         seller_id: {
-          allowNull: false,
+          allowNull: true,
           type: Sequelize.INTEGER,
         },
         buyer_id: {
-          allowNull: false,
+          allowNull: true,
           type: Sequelize.INTEGER,
         },
         room_name: {
@@ -42,7 +42,15 @@ class ChatRoom extends Sequelize.Model {
       sourceKey: "id",
     });
     db.ChatRoom.belongsTo(db.User, {
-      foreignKey: { name: "id" },
+      as: "Seller",
+      foreignKey: { name: "seller_id" },
+      targetKey: "id",
+      onDelete: "cascade",
+    });
+    db.ChatRoom.belongsTo(db.User, {
+      as: "Buyer",
+      foreignKey: { name: "buyer_id" },
+      targetKey: "id",
       onDelete: "cascade",
     });
   }

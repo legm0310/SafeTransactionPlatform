@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const { isAuth, validateRequest } = require("../middlewares");
-const authController = require("../controllers/").authController;
+const { authController } = require("../controllers/");
 const validSchema = require("../config/validSchema");
 
 /** auth 관련 라우팅 함수
