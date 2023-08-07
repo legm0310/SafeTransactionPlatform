@@ -29,6 +29,7 @@ function App() {
 
   const AuthHome = Auth(Home, null);
   const AuthAddProduct = Auth(AddProduct, true);
+  const AuthUserInfo = Auth(UserInfo, true);
 
   return (
     <Fragment>
@@ -52,7 +53,7 @@ function App() {
             <Route path="/login" element={<Login />}></Route>
             <Route path="/register" element={<Register />}></Route>
             <Route path="/products/:productId" element={<Detail />}></Route>
-            <Route path="/user" element={<UserInfo />}></Route>
+            <Route path="/user" element={<AuthUserInfo />}></Route>
 
             <Route path="/Loading" element={<Loading />}></Route>
           </Routes>
