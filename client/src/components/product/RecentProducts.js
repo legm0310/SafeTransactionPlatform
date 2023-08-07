@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import { getRecentProducts } from "../../_actions/productAction";
 import Button from "../common/Button";
 
-import classes from "../../styles/products/RecentProducts.module.css";
+import classes from "../../styles/product/RecentProducts.module.css";
 
 const RecentProductsList = () => {
   const dispatch = useDispatch();
