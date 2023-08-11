@@ -32,6 +32,7 @@ class ChatRoom extends Sequelize.Model {
       }
     );
   }
+  //관계 설정
   static associate(db) {
     db.ChatRoom.hasMany(db.ChatLog, {
       foreignKey: {
