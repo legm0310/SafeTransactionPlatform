@@ -16,15 +16,19 @@ module.exports = (io) => {
       socket.join(userId);
     });
 
-    socket.on("sendMessage", (message, callback) => {
-      const user = getUser(socket.id);
-      console.log(`${user.name} : "${message}"`);
-      // console.log(typeof message, message)
-      io.to(user.room).emit("message", {
-        user: user.name,
-        text: message,
-      });
-      callback();
+    // socket.on("sendMessage", (message, callback) => {
+    //   const user = getUser(socket.id);
+    //   console.log(`${user.name} : "${message}"`);
+    //   // console.log(typeof message, message)
+    //   io.to(user.room).emit("message", {
+    //     user: user.name,
+    //     text: message,
+    //   });
+    //   callback();
+    // });
+
+    socket.on("message", ({ userId, message }) => {
+      io.emit("message", { userId, message });
     });
   });
 };

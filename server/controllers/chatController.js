@@ -23,5 +23,11 @@ module.exports = {
 
   getRoom: catchAsync(async (req, res) => {
     const chatServiceInstance = await Container.get("chatService");
+    const roomId = req.params.id;
+    const room = await chatServiceInstance.getRoomById(roomId);
+    res.status(200).json({
+      getRoomSuccess: true,
+      room: room,
+    });
   }),
 };

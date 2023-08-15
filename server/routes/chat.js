@@ -11,6 +11,7 @@ const { chatController } = require("../controllers");
 module.exports = (app) => {
   app.use("/chats", router);
 
+  router.get("/:id", chatController.getRoom);
   router.post("/", chatController.addRoom);
   // router.get("/", chatController.getChats);
 };
