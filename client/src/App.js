@@ -8,6 +8,7 @@ import Home from "./pages/Home/Home";
 import Product from "./pages/Product/Product";
 import AddProduct from "./pages/AddProduct/AddProduct";
 import Chat from "./pages/Chat/Chat";
+import Room from "./pages/Chat/Room";
 import Login from "./pages/Auth/Login";
 import Register from "./pages/Auth/Register";
 import Detail from "./pages/Product/Detail";
@@ -17,6 +18,7 @@ import ScrollTop from "./components/common/ScrollTop";
 import UserInfo from "./pages/User/UserInfo";
 
 import { Backdrop } from "@mui/material";
+import { RoomPreferencesOutlined } from "@mui/icons-material";
 
 function App() {
   const dispatch = useDispatch();
@@ -48,7 +50,8 @@ function App() {
             <Route path="/" element={<AuthHome />}></Route>
             <Route path="/products/all" element={<Product />}></Route>
             <Route path="/products/add" element={<AuthAddProduct />}></Route>
-            <Route path="/chat" element={<Chat />}></Route>
+            <Route path="/chat" element={<Room />}></Route>
+            <Route path="/chat/:roomId" element={<Room />}></Route>
             <Route path="/login" element={<Login />}></Route>
             <Route path="/register" element={<Register />}></Route>
             <Route path="/products/:productId" element={<Detail />}></Route>
