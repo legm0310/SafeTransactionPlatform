@@ -1,13 +1,11 @@
-import { Fragment } from "react";
-import React, { useState, useEffect } from "react";
-import { auth } from "../../_actions/userAction";
-import { useDispatch, useSelector } from "react-redux";
-
+import React, { Fragment, useState, useEffect } from "react";
 import io from "socket.io-client";
 import { TextField } from "@mui/material";
-// import Room from "./Room";
+import Sidebar from "./Sidebar";
+import Chatroom from "./Chatroom";
 
 import classes from "../../styles/chat/Chat.module.css";
+
 const socket = io.connect("http://localhost:5000");
 
 const Chat = (props) => {
