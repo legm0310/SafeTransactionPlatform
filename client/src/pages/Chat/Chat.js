@@ -1,4 +1,5 @@
 import React, { Fragment, useState, useEffect } from "react";
+import { useSelector } from "react-redux";
 import io from "socket.io-client";
 import { TextField } from "@mui/material";
 import Sidebar from "./Sidebar";
@@ -12,15 +13,12 @@ const Chat = (props) => {
   const [state, setState] = useState({ message: "", name: "" });
   const [chat, setChat] = useState([]);
 
-  const dispatch = useDispatch();
   const userId = useSelector((state) => state.user.userId);
 
   useEffect(() => {
-    // dispatch(auth()).then((response) => console.log(response));
     console.log("User id = ", userId);
     socket.on("message", ({ userId, message }) => {
       setChat((prevChat) => [...prevChat, { userId, message }]);
-      // console.log([chat]);
     });
   }, []);
 
@@ -49,18 +47,10 @@ const Chat = (props) => {
 
   return (
     <Fragment>
-      <div className={classes.outerContainer}>
+      {/* <div className={classes.outerContainer}>
         <div className="card">
           <form onSubmit={onMessageSubmit}>
             <h1>Message</h1>
-            {/* <div className="name-field">
-              <TextField
-                name="name"
-                onChange={(e) => onTextChange(e)}
-                value={state.name}
-                label="Name"
-              />
-            </div> */}
             <div>
               <TextField
                 name="message"
@@ -77,6 +67,12 @@ const Chat = (props) => {
             <h1>Chat log</h1>
             {renderChat()}
           </div>
+        </div>
+      </div> */}
+      <div className={classes.ChatWrap}>
+        <div className={classes.container}>
+          <Sidebar />
+          <Chatroom />
         </div>
       </div>
     </Fragment>
