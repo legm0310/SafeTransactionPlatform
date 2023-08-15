@@ -23,6 +23,7 @@ class WishList extends Sequelize.Model {
     );
   }
   static associate(db) {
+    //관계 설정
     db.WishList.belongsTo(db.User, {
       foreignKey: {
         name: "user_id",
