@@ -37,11 +37,13 @@ class ChatLog extends Sequelize.Model {
         },
       },
       {
+        sequelize,
         modelName: "chat_log",
         freezeTableName: true,
         timestamps: true,
         underscored: true,
-        sequelize,
+        charset: "utf8mb4",
+        collate: "utf8mb4_general_ci",
       }
     );
   }
