@@ -36,11 +36,14 @@ class Product extends Sequelize.Model {
         },
       },
       {
+        sequelize,
         modelName: "product", // This is the name of the table in the database
         freezeTableName: true,
         timestamps: true,
         underscored: true,
-        sequelize,
+
+        charset: "utf8mb4",
+        collate: "utf8mb4_general_ci",
       }
     );
   }
