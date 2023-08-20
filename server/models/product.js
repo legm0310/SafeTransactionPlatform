@@ -57,6 +57,8 @@ class Product extends Sequelize.Model {
     //   onDelete: "cascade",
     //   onUpdate: "cascade",
     // });
+
+    // 부모에 해당하는 모델, 옵션(외래키)을 명시할 필요 없음.
     db.Product.hasMany(db.WishList, {
       foreignKey: {
         name: "product_id",
