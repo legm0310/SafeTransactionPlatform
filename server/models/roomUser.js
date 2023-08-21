@@ -1,6 +1,6 @@
 const Sequelize = require("sequelize");
 
-class RoomUsers extends Sequelize.Model {
+class RoomUser extends Sequelize.Model {
   static init(sequelize) {
     super.init(
       {
@@ -14,7 +14,7 @@ class RoomUsers extends Sequelize.Model {
       },
       {
         sequelize,
-        modelName: "room_users",
+        modelName: "room_user",
         freezeTableName: true,
         timestamps: false,
         underscored: true,
@@ -24,4 +24,4 @@ class RoomUsers extends Sequelize.Model {
   static associate(db) {}
 }
 
-module.exports = RoomUsers;
+module.exports = RoomUser;
