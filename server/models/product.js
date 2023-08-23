@@ -59,13 +59,19 @@ class Product extends Sequelize.Model {
     // });
 
     // 부모에 해당하는 모델, 옵션(외래키)을 명시할 필요 없음.
-    db.Product.hasMany(db.WishList, {
-      foreignKey: {
-        name: "product_id",
-        unique: false,
-        allowNull: false,
-      },
-      sourceKey: "id",
+    // db.Product.hasMany(db.WishList, {
+    //   foreignKey: {
+    //     name: "product_id",
+    //     unique: false,
+    //     allowNull: false,
+    //   },
+    //   sourceKey: "id",
+    //   onDelete: "cascade",
+    // });
+    db.Product.belongsToMany(db.User, {
+      through: "wish_list",
+      as: "WishList",
+      foreignKey: "productId",
       onDelete: "cascade",
     });
     db.Product.belongsTo(db.User, {

@@ -22,6 +22,7 @@ class User extends Sequelize.Model {
           type: Sequelize.INTEGER,
           primaryKey: true,
           autoIncrement: true,
+          allowNull: false,
         },
         role: {
           type: Sequelize.TINYINT,
@@ -57,25 +58,28 @@ class User extends Sequelize.Model {
             user.password = await bcrypt.hash(user.password, salt);
           },
         },
+        sequelize,
         modelName: "user", // This is the name of the table in the database
         freezeTableName: true,
         timestamps: true,
         underscored: true,
-        sequelize,
+        charset: "utf8mb4",
+        collate: "utf8mb4_general_ci",
       }
     );
   }
   //관계 설정 수정해야함 workbench 참조
   static associate(db) {
+    // 1 : N (다른 브라우저 로그인 상황 고려)
     db.User.hasMany(db.Token, {
-      // foreignKey: {
-      //   name: "user_id",
-      //   unique: true,
-      // },
-      // sourceKey: "id",
-      // onDelete: "cascade",
-      // onUpdate: "cascade",
+      onDelete: "cascade",
+      onUpdate: "cascade",
     });
+    // 1 : N (디폴트 설정 적용 시 외래키 명시하지 않아도됨)
+    db.User.hasMany(db.ChatLog, {
+      onDelete: "cascade",
+    });
+    // 1 : N
     db.User.hasMany(db.Product, {
       foreignKey: {
         name: "seller_id",
@@ -86,35 +90,33 @@ class User extends Sequelize.Model {
       onDelete: "cascade",
       onUpdate: "cascade",
     });
-    db.User.hasMany(db.ChatRoom, {
-      as: "SellingRooms",
-      foreignKey: {
-        name: "seller_id",
-      },
-      sourceKey: "id",
-    });
-    db.User.hasMany(db.ChatRoom, {
-      as: "BuyingRooms",
-      foreignKey: {
-        name: "buyer_id",
-      },
-      sourceKey: "id",
-    });
-    db.User.hasMany(db.WishList, {
-      foreignKey: {
-        name: "user_id",
-        unique: false,
-        allowNull: false,
-      },
-      sourceKey: "id",
+
+    // belongsToMany로 대체
+    // db.User.hasMany(db.WishList, {
+    //   foreignKey: {
+    //     name: "user_id",
+    //     unique: false,
+    //     allowNull: false,
+    //   },
+    //   sourceKey: "id",
+    //   onDelete: "cascade",
+    // });
+
+    // N : M
+    db.User.belongsToMany(db.Product, {
+      through: "wish_list",
+      as: "WishList",
+      foreignKey: "user_Id",
       onDelete: "cascade",
     });
-    // db.User.belongsToMany(db.ChatRoom. {
-    //   foreignKey: {
-    //     name:,
 
-    //   }
-    // })
+    // N : M
+    db.User.belongsToMany(db.ChatRoom, {
+      through: "chat_participant",
+      as: "ChatParticipant",
+      foreignKey: "user_Id",
+      onDelete: "cascade",
+    });
   }
 }
 module.exports = User;

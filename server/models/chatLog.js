@@ -10,11 +10,6 @@ class ChatLog extends Sequelize.Model {
           autoIncrement: true,
           allowNull: false,
         },
-        receiver_id: {
-          allowNull: false,
-          type: Sequelize.INTEGER,
-          comment: "메세지 수신자",
-        },
         sender_id: {
           allowNull: false,
           type: Sequelize.INTEGER,
@@ -49,6 +44,10 @@ class ChatLog extends Sequelize.Model {
   }
   static associate(db) {
     //관계 설정
+    ChatLog.belongsTo(db.User, {
+      foreignKey: "user_id",
+      onDelete: "cascade",
+    });
     ChatLog.belongsTo(db.ChatRoom, {
       foreignKey: "room_id",
       onDelete: "cascade",

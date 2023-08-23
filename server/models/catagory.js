@@ -17,13 +17,15 @@ class Catagory extends Sequelize.Model {
         },
       },
       {
+        sequelize,
         modelName: "catagory",
         freezeTableName: true,
         timestamps: true,
         createdAt: false,
         updatedAt: false,
         underscored: true,
-        sequelize,
+        charset: "utf8mb4",
+        collate: "utf8mb4_general_ci",
       }
     );
   }

@@ -10,25 +10,19 @@ class ChatRoom extends Sequelize.Model {
           autoIncrement: true,
           allowNull: false,
         },
-        seller_id: {
-          allowNull: true,
-          type: Sequelize.INTEGER,
-        },
-        buyer_id: {
-          allowNull: true,
-          type: Sequelize.INTEGER,
-        },
         room_name: {
           allowNull: false,
           type: Sequelize.STRING,
         },
       },
       {
+        sequelize,
         modelName: "chat_room", // This is the name of the table in the database
         freezeTableName: true,
         timestamps: true,
         underscored: true,
-        sequelize,
+        charset: "utf8mb4",
+        collate: "utf8mb4_general_ci",
       }
     );
   }
@@ -42,16 +36,10 @@ class ChatRoom extends Sequelize.Model {
       },
       sourceKey: "id",
     });
-    db.ChatRoom.belongsTo(db.User, {
-      as: "Seller",
-      foreignKey: { name: "seller_id" },
-      targetKey: "id",
-      onDelete: "cascade",
-    });
-    db.ChatRoom.belongsTo(db.User, {
-      as: "Buyer",
-      foreignKey: { name: "buyer_id" },
-      targetKey: "id",
+    db.ChatRoom.belongsToMany(db.User, {
+      through: "chat_participant",
+      as: "ChatParticipant",
+      foreignKey: "room_id",
       onDelete: "cascade",
     });
   }
