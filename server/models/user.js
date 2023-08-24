@@ -72,23 +72,22 @@ class User extends Sequelize.Model {
   static associate(db) {
     // 1 : N (다른 브라우저 로그인 상황 고려)
     db.User.hasMany(db.Token, {
-      onDelete: "cascade",
-      onUpdate: "cascade",
+      // onDelete: "cascade",
     });
     // 1 : N (디폴트 설정 적용 시 외래키 명시하지 않아도됨)
     db.User.hasMany(db.ChatLog, {
-      onDelete: "cascade",
+      // onDelete: "cascade",
     });
     // 1 : N
     db.User.hasMany(db.Product, {
-      foreignKey: {
-        name: "seller_id",
-        unique: false,
-        allowNull: false,
-      },
-      sourceKey: "id",
-      onDelete: "cascade",
-      onUpdate: "cascade",
+      foreignKey: "seller_id",
+      // foreignKey: {
+      //   name: "seller_id",
+      //   unique: false,
+      //   allowNull: false,
+      // },
+
+      // onDelete: "cascade",
     });
 
     // belongsToMany로 대체

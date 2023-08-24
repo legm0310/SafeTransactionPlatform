@@ -44,12 +44,20 @@ class ChatLog extends Sequelize.Model {
   }
   static associate(db) {
     //관계 설정
-    ChatLog.belongsTo(db.User, {
-      foreignKey: "user_id",
+    db.ChatLog.belongsTo(db.User, {
+      foreignKey: {
+        name: "user_id",
+        unique: false,
+        allowNull: false,
+      },
       onDelete: "cascade",
     });
-    ChatLog.belongsTo(db.ChatRoom, {
-      foreignKey: "room_id",
+    db.ChatLog.belongsTo(db.ChatRoom, {
+      foreignKey: {
+        name: "room_id",
+        unique: false,
+        allowNull: false,
+      },
       onDelete: "cascade",
     });
   }

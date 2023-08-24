@@ -68,12 +68,6 @@ class Product extends Sequelize.Model {
     //   sourceKey: "id",
     //   onDelete: "cascade",
     // });
-    db.Product.belongsToMany(db.User, {
-      through: "wish_list",
-      as: "WishList",
-      foreignKey: "productId",
-      onDelete: "cascade",
-    });
     db.Product.belongsTo(db.User, {
       foreignKey: {
         name: "seller_id",
@@ -82,7 +76,12 @@ class Product extends Sequelize.Model {
       },
       targetKey: "id",
       onDelete: "cascade",
-      onUpdate: "cascade",
+    });
+    db.Product.belongsToMany(db.User, {
+      through: "wish_list",
+      as: "WishList",
+      foreignKey: "productId",
+      onDelete: "cascade",
     });
   }
 }

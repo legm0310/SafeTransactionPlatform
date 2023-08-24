@@ -36,10 +36,10 @@ class Token extends Sequelize.Model {
       foreignKey: {
         name: "user_id",
         unique: true,
+        allowNull: false,
       },
       targetKey: "id",
       onDelete: "cascade",
-      onUpdate: "cascade",
     });
   }
 }
