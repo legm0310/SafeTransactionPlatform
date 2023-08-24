@@ -26,12 +26,15 @@ class ChatRoom extends Sequelize.Model {
       }
     );
   }
-  //관계 설정
+
   static associate(db) {
+    // 1 : N
     db.ChatRoom.hasMany(db.ChatLog, {
-      foreignKey: "room_id",
+      foreignKey: { name: "room_id", allowNull: false },
+      onDelete: "cascade",
     });
 
+    // N : M
     db.ChatRoom.belongsToMany(db.User, {
       through: "chat_participant",
       as: "ChatParticipant",

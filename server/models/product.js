@@ -46,6 +46,7 @@ class Product extends Sequelize.Model {
       }
     );
   }
+
   static associate(db) {
     // 정규화 시 이미지 테이블 분리
     // db.Product.hasMany(db.ProductImage, {
@@ -58,25 +59,13 @@ class Product extends Sequelize.Model {
     //   onUpdate: "cascade",
     // });
 
-    // 부모에 해당하는 모델, 옵션(외래키)을 명시할 필요 없음.
-    // db.Product.hasMany(db.WishList, {
-    //   foreignKey: {
-    //     name: "product_id",
-    //     unique: false,
-    //     allowNull: false,
-    //   },
-    //   sourceKey: "id",
-    //   onDelete: "cascade",
-    // });
+    // 1 : N
     db.Product.belongsTo(db.User, {
-      foreignKey: {
-        name: "seller_id",
-        unique: false,
-        allowNull: false,
-      },
-      targetKey: "id",
+      foreignKey: { name: "seller_id", allowNull: false },
       onDelete: "cascade",
     });
+
+    // N : M
     db.Product.belongsToMany(db.User, {
       through: "wish_list",
       as: "WishList",

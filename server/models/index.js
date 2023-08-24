@@ -29,8 +29,8 @@ db.ChatParticipant = chatParticipant;
 db.ChatRoom = chatRoom;
 db.ChatLog = chatLog;
 
-Object.keys(db).forEach((name) => {
-  db[name].init(sequelize);
+Object.keys(db).forEach(async (name) => {
+  await db[name].init(sequelize);
 });
 
 Object.keys(db).forEach((name) => {

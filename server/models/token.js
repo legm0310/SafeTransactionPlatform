@@ -31,14 +31,11 @@ class Token extends Sequelize.Model {
       }
     );
   }
+
   static associate(db) {
+    // 1 : N (다른 브라우저 로그인 상황 고려)
     db.Token.belongsTo(db.User, {
-      foreignKey: {
-        name: "user_id",
-        unique: true,
-        allowNull: false,
-      },
-      targetKey: "id",
+      foreignKey: { name: "user_id", unique: true, allowNull: false },
       onDelete: "cascade",
     });
   }

@@ -29,6 +29,7 @@ class Catagory extends Sequelize.Model {
       }
     );
   }
+
   static associate(db) {}
 }
 

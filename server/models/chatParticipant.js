@@ -27,6 +27,7 @@ class ChatParticipant extends Sequelize.Model {
       }
     );
   }
+
   static associate(db) {}
 }
 
