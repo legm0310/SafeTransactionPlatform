@@ -66,15 +66,15 @@
   },
   "devDependencies": {
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
-    "web-vitals": "^3.3.0",
-    "url": "latest",
-    "http": "npm:http-browserify",
-    "https": "npm:https-browserify",
-    "zlib": "npm:browserify-zlib",
-    "http-browserify": "latest",
-    "https-browserify": "latest",
-    "browserify-zlib": "latest",
     "assert": "^2.0.0",
-    "stream": "^0.0.2"
+    "browserify-zlib": "latest",
+    "http": "npm:http-browserify",
+    "http-browserify": "latest",
+    "https": "npm:https-browserify",
+    "https-browserify": "latest",
+    "stream": "^0.0.2",
+    "url": "latest",
+    "web-vitals": "^3.3.0",
+    "zlib": "npm:browserify-zlib"
   }
 }
