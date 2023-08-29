@@ -27,7 +27,7 @@ root.render(
   <Provider store={store}>
     <ThirdwebProvider
       activeChain={Sepolia}
-      clientId={process.env.REACT_APP_THIRDWEB_API_KEY}
+      clientId=""
       supportedWallets={supportedWallets}
       sdkOptions={sdkOptions}
     >

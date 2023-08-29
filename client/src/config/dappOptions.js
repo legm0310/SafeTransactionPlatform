@@ -1,8 +1,4 @@
-import {
-  metamaskWallet,
-  coinbaseWallet,
-  walletConnectV1,
-} from "@thirdweb-dev/react";
+import { metamaskWallet, coinbaseWallet } from "@thirdweb-dev/react";
 import { Sepolia } from "@thirdweb-dev/chains";
 
 const sdkOptions = {
@@ -18,10 +14,6 @@ const sdkOptions = {
 //   personalWallets: [metamaskWallet(), coinbaseWallet(), walletConnectV1()],
 // };
 
-const supportedWallets = [
-  metamaskWallet(),
-  coinbaseWallet(),
-  walletConnectV1(),
-];
+const supportedWallets = [metamaskWallet(), coinbaseWallet()];
 
 export { Sepolia, supportedWallets, sdkOptions };
