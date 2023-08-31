@@ -1,15 +1,12 @@
 module.exports = {
   apps: [
     {
-      script: "app.js",
-
-      watch: ["services", "controllers"],
-      ignore_watch: ["node_modules"],
-
-      env: {},
-
-      output: "~/logs/pm2/console.log", // 로그 출력 경로 재설정
-      error: "~/logs/pm2/onsoleError.log", // 에러 로그 출력 경로 재설정
+      // script: "app.js",
+      // watch: ["services", "controllers"],
+      // ignore_watch: ["node_modules"],
+      // env: {},
+      // output: "~/logs/pm2/console.log", // 로그 출력 경로 재설정
+      // error: "~/logs/pm2/onsoleError.log", // 에러 로그 출력 경로 재설정
     },
   ],
 
