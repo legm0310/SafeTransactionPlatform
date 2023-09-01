@@ -3,14 +3,15 @@ import { useSelector } from "react-redux";
 import classes from "../../styles/chat/Chat.module.css";
 import io from "socket.io-client";
 
-import { TextField } from "@mui/material";
 import { IoCamera } from "react-icons/io5";
+import { IoMdAttach } from "react-icons/io";
+import { IoImage } from "react-icons/io5";
 import { LuMoreHorizontal } from "react-icons/lu";
 import { IoPersonAdd } from "react-icons/io5";
-import Messages from "./Messages";
-import Input from "./Input";
 
-const socket = io.connect("http://localhost:5000");
+const socket = io.connect("localhost:5000", {
+  cors: { origin: "*" },
+});
 
 const Chatroom = () => {
   // const [state, setState] = useState({ message: "", name: "" });
@@ -96,27 +97,37 @@ const Chatroom = () => {
           type="submit"
         />
       </div> */}
-      <div className={classes.outerContainer}>
-        <div className="card">
-          <form onSubmit={onMessageSubmit}>
-            <h1>Message</h1>
-            <div>
-              <TextField
-                name="message"
-                onChange={(e) => onTextChange(e)}
-                value={state.message}
-                id="outlined-multiline-static"
-                variant="outlined"
-                label="Message"
-              />
-            </div>
-            <button>Send Message</button>
-          </form>
-          <div className="render-chat">
-            <h1>Chat log</h1>
-            {renderChat()}
+
+      <div className={classes.chatRoomWrap}>
+        <div className={classes.chatInfo}>
+          <span>abc</span>
+          <div className={classes.chatIcons}>
+            <IoCamera className={classes.icon} />
+            <LuMoreHorizontal className={classes.icon} />
+            <IoPersonAdd className={classes.icon} />
           </div>
         </div>
+
+        <div className={classes.messagesWrap}>{renderChat()}</div>
+
+        <form className={classes.inputWrap} onSubmit={onMessageSubmit}>
+          <input
+            type="text"
+            name="message"
+            placeholder="메시지를 입력해주세요"
+            onChange={(e) => onTextChange(e)}
+            value={state.message}
+          />
+
+          <div className={classes.send}>
+            <button>Send</button>
+            <IoMdAttach className={classes.inputIcon} />
+            <input type="file" style={{ display: "none" }} id="file" />
+            <label htmlFor="file">
+              <IoImage className={classes.inputIcon2} />
+            </label>
+          </div>
+        </form>
       </div>
     </Fragment>
   );
