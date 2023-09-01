@@ -10,40 +10,41 @@ import classes from "../../styles/chat/Chat.module.css";
 const socket = io.connect("http://localhost:5000");
 
 const Chat = (props) => {
-  const [state, setState] = useState({ message: "", name: "" });
-  const [chat, setChat] = useState([]);
+  // const [state, setState] = useState({ message: "", name: "" });
+  // const [chat, setChat] = useState([]);
 
-  const userId = useSelector((state) => state.user.userId);
+  // const userId = useSelector((state) => state.user.userId);
 
-  useEffect(() => {
-    console.log("User id = ", userId);
-    socket.on("message", ({ userId, message }) => {
-      setChat((prevChat) => [...prevChat, { userId, message }]);
-    });
-  }, []);
+  // useEffect(() => {
+  //   console.log("User id = ", userId);
+  //   socket.on("message", ({ userId, message }) => {
+  //     setChat((prevChat) => [...prevChat, { userId, message }]);
+  //   });
+  // }, []);
 
-  const onTextChange = (e) => {
-    setState({ ...state, [e.target.name]: e.target.value });
-  };
+  // const onTextChange = (e) => {
+  //   setState({ ...state, [e.target.name]: e.target.value });
+  // };
 
-  const onMessageSubmit = (e) => {
-    e.preventDefault();
-    const { name, message } = state;
-    console.log({ userId, message });
-    console.log(chat);
-    socket.emit("message", { userId, message });
-    setState({ message: "", userId });
-  };
+  // const onMessageSubmit = (e) => {
+  //   e.preventDefault();
 
-  const renderChat = () => {
-    return chat.map(({ userId, message }, index) => (
-      <div key={index}>
-        <h3>
-          {userId}:<span>{message}</span>
-        </h3>
-      </div>
-    ));
-  };
+  //   const { name, message } = state;
+  //   console.log({ userId, message });
+  //   console.log(chat);
+  //   socket.emit("message", { userId, message });
+  //   setState({ message: "", userId });
+  // };
+
+  // const renderChat = () => {
+  //   return chat.map(({ userId, message }, index) => (
+  //     <div key={index}>
+  //       <h3>
+  //         {userId}:<span>{message}</span>
+  //       </h3>
+  //     </div>
+  //   ));
+  // };
 
   return (
     <Fragment>
