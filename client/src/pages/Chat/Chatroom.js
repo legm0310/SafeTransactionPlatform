@@ -1,5 +1,6 @@
 import React, { Fragment, useState, useEffect } from "react";
 import { useSelector } from "react-redux";
+import classes from "../../styles/chat/Chat.module.css";
 import io from "socket.io-client";
 
 import { TextField } from "@mui/material";
@@ -9,13 +10,36 @@ import { IoPersonAdd } from "react-icons/io5";
 import Messages from "./Messages";
 import Input from "./Input";
 
-import classes from "../../styles/chat/Chat.module.css";
-
-const socket = io.connect("localhost:5000", {
-  cors: { origin: "*" },
-});
+const socket = io.connect("http://localhost:5000");
 
 const Chatroom = () => {
+  // const [state, setState] = useState({ message: "", name: "" });
+  // const [chat, setChat] = useState([]);
+  // const [value, setValue] = useState("");
+
+  // const userId = useSelector((state) => state.user.userId);
+
+  // useEffect(() => {
+  //   console.log("User id = ", userId);
+  //   socket.on("message", ({ userId, message }) => {
+  //     setChat((prevChat) => [...prevChat, { userId, message }]);
+  //   });
+  // }, []);
+
+  // const onTextChange = (e) => {
+  //   setState({ ...state, [e.target.name]: e.currentTarget.value });
+  //   setValue(e.target.value);
+  // };
+
+  // const onMessageSubmit = (e) => {
+  //   e.preventDefault();
+
+  //   const { name, message } = state;
+  //   console.log({ userId, message });
+  //   console.log(chat);
+  //   socket.emit("message", { userId, message });
+  //   setState({ message: "", userId });
+  // };
   const [state, setState] = useState({ message: "", name: "" });
   const [chat, setChat] = useState([]);
 
@@ -34,6 +58,7 @@ const Chatroom = () => {
 
   const onMessageSubmit = (e) => {
     e.preventDefault();
+
     const { name, message } = state;
     console.log({ userId, message });
     console.log(chat);
@@ -55,7 +80,7 @@ const Chatroom = () => {
     <Fragment>
       {/* <div className={classes.chatRoomWrap}>
         <div className={classes.chatInfo}>
-          <span>이승훈</span>
+          <span>abc</span>
           <div className={classes.chatIcons}>
             <IoCamera className={classes.icon} />
             <LuMoreHorizontal className={classes.icon} />
@@ -63,7 +88,13 @@ const Chatroom = () => {
           </div>
         </div>
         <Messages />
-        <Input />
+        <button onClick={(e) => onMessageSubmit(e)}>SEND</button>
+        <Input
+          onTextChange={onTextChange}
+          message={state.message}
+          onMessageSubmit={onMessageSubmit}
+          type="submit"
+        />
       </div> */}
       <div className={classes.outerContainer}>
         <div className="card">
