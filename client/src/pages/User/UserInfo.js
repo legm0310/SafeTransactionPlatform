@@ -1,9 +1,9 @@
 import React, { Fragment, useState } from "react";
 import Button from "../../components/common/Button";
-import OnSaleProduct from "./OnSaleProduct";
-import ReservedProduct from "./ReservedProduct";
-import PurchasedProduct from "./PurchasedProduct";
-import WishList from "./WishList";
+import OnSaleProduct from "../../components/user/OnSaleProduct";
+import ReservedProduct from "../../components/user/ReservedProduct";
+import PurchasedProduct from "../../components/user/PurchasedProduct";
+import WishList from "../../components/user/WishList";
 
 import classes from "../../styles/user/UserInfo.module.css";
 

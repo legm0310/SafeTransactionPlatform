@@ -9,7 +9,7 @@ import {
 import { getDepositedProducts, release } from "../../_actions/productAction";
 import { setLoadings } from "../../_actions/uiAction";
 import { getEventsFromWeb3js } from "../../contract/getEvents";
-import Button from "../../components/common/Button";
+import Button from "../common/Button";
 
 import classes from "../../styles/user/ReservedProduct.module.css";
 

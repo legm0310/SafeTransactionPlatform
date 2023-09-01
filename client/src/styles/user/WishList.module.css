@@ -1,0 +1,11 @@
+/* 찜목록 헤더 */
+.tabTitle {
+  max-width: 1280px;
+  height: 60px;
+  border-radius: 10px;
+  background: #f2f2f2;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  place-content: center;
+}
