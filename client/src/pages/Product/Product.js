@@ -48,7 +48,7 @@ const Product = (props) => {
   return (
     <Fragment>
       <div className={classes.mainBox}>
-        <div className={classes.categoryBox}>
+        {/* <div className={classes.categoryBox}>
           <div onClick={() => onCategoryClick("전체")}>전체</div>
           <ul className={classes.category1}>
             <li onClick={() => onCategoryClick("남성의류")}>남성의류</li>
@@ -66,7 +66,7 @@ const Product = (props) => {
             <li onClick={() => onCategoryClick("가구")}>가구</li>
             <li onClick={() => onCategoryClick("기타")}>기타</li>
           </ul>
-        </div>
+        </div> */}
 
         <div className={classes.productWrap}>
           <div className={classes.categoryBar}>
