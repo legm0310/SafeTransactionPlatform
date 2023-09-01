@@ -50,6 +50,7 @@ function App() {
             <Route path="/products/all" element={<Product />}></Route>
             <Route path="/products/add" element={<AuthAddProduct />}></Route>
             <Route path="/chat" element={<Chat />}></Route>
+            <Route path="/chat/:roomId" element={<Chat />}></Route>
             <Route path="/login" element={<Login />}></Route>
             <Route path="/register" element={<Register />}></Route>
             <Route path="/products/:productId" element={<Detail />}></Route>
