@@ -36,14 +36,17 @@ class Product extends Sequelize.Model {
         },
       },
       {
+        sequelize,
         modelName: "product", // This is the name of the table in the database
         freezeTableName: true,
         timestamps: true,
         underscored: true,
-        sequelize,
+        charset: "utf8mb4",
+        collate: "utf8mb4_general_ci",
       }
     );
   }
+
   static associate(db) {
     // 정규화 시 이미지 테이블 분리
     // db.Product.hasMany(db.ProductImage, {
@@ -55,24 +58,19 @@ class Product extends Sequelize.Model {
     //   onDelete: "cascade",
     //   onUpdate: "cascade",
     // });
-    db.Product.hasMany(db.WishList, {
-      foreignKey: {
-        name: "product_id",
-        unique: false,
-        allowNull: false,
-      },
-      sourceKey: "id",
+
+    // 1 : N
+    db.Product.belongsTo(db.User, {
+      foreignKey: { name: "seller_id", allowNull: false },
       onDelete: "cascade",
     });
-    db.Product.belongsTo(db.User, {
-      foreignKey: {
-        name: "seller_id",
-        unique: false,
-        allowNull: false,
-      },
-      targetKey: "id",
+
+    // N : M
+    db.Product.belongsToMany(db.User, {
+      through: "wish_list",
+      as: "WishList",
+      foreignKey: "productId",
       onDelete: "cascade",
-      onUpdate: "cascade",
     });
   }
 }

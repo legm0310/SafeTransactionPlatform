@@ -40,6 +40,12 @@ module.exports = async () => {
           phone_number: "56756785678",
           password: "1234",
         });
+        await db.ChatRoom.create({
+          room_name: "1_2",
+        });
+        await db.ChatRoom.create({
+          room_name: "1_3",
+        });
         await db.Catagory.bulkCreate([
           {
             name: "전체",

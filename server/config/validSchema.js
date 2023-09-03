@@ -1,5 +1,6 @@
 const Joi = require("joi");
 
+//리팩토링
 const validSchema = Joi.object({
   role: Joi.number().required().messages({
     "any.required": "Role을 입력해주세요.",
