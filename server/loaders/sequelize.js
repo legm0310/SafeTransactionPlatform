@@ -40,6 +40,8 @@ module.exports = async () => {
           phone_number: "56756785678",
           password: "1234",
         });
+
+        //test
         await db.ChatRoom.create({
           room_name: "1_2",
         });
