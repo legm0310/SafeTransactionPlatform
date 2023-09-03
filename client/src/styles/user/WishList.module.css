@@ -1,11 +1,50 @@
 /* 찜목록 헤더 */
 .tabTitle {
   max-width: 1280px;
-  height: 60px;
+  height: 50px;
   border-radius: 10px;
   background: #f2f2f2;
   margin: 0 auto;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   place-content: center;
+}
+
+.tabTitle input[type="checkbox"] {
+  accent-color: #1ecfba;
+}
+
+/* 찜목록 */
+.wishList {
+  position: relative;
+  height: 200px;
+  border-radius: 10px;
+  border: 1px solid #c4c4c4;
+  margin: 0 auto;
+  margin-top: 35px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  place-items: center;
+}
+
+.wishListProductWrap {
+  display: flex;
+  align-items: center;
+}
+
+.wishListProductImage {
+  width: 160px;
+  height: 160px;
+  border-radius: 10px;
+}
+
+.wishListProductImage img {
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
+}
+
+.wishListProductInfo {
+  width: 150px;
+  margin-left: 36px;
 }

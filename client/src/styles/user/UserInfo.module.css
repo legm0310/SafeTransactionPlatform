@@ -31,8 +31,9 @@
   border-bottom: 5px solid #1ecfba;
 }
 
-span {
+.MenuButton span {
   font-size: 14px;
+  color: black;
 }
 
 .UserInfoExplanation {
