@@ -9,7 +9,7 @@ import {
 import { getDepositedProducts, release } from "../../_actions/productAction";
 import { setLoadings } from "../../_actions/uiAction";
 import { getEventsFromWeb3js } from "../../contract/getEvents";
-import Button from "../../components/common/Button";
+import Button from "../common/Button";
 
 import classes from "../../styles/user/ReservedProduct.module.css";
 
@@ -18,7 +18,12 @@ const contractAddress = process.env.REACT_APP_CONTRACT_ADDRESS;
 const ReservedProduct = () => {
   const dispatch = useDispatch();
   const prodDetail =
-    useSelector((state) => state.product.depositedProducts?.products) ?? [];
+    useSelector((state) => state.product.depositedProducts?.products) || [];
+  // const prodDetail = useSelector((state) => {
+  //   const products = state.product.depositedProducts?.products;
+  //   return Array.isArray(products) ? products : [];
+  // });
+
   const [productIds, setProductIds] = useState();
   const sdk = useSDK();
   const { contract } = useContract(contractAddress);
@@ -64,29 +69,30 @@ const ReservedProduct = () => {
     <Fragment>
       <h1>구매진행상품</h1>
       <div className={classes.reservedWrap}>
-        {prodDetail.map((product) => (
-          <div key={product?.id} className={classes.reserved}>
-            <div className={classes.reservedImg}>
-              <img src={product?.image} alt="" />
-            </div>
-
-            <div className={classes.reservedDetail}>
-              <div className={classes.rservedTitle}>
-                <p>{product?.title} </p>
+        {prodDetail &&
+          prodDetail.map((product) => (
+            <div key={product?.id} className={classes.reserved}>
+              <div className={classes.reservedImg}>
+                <img src={product?.image} alt="" />
               </div>
 
-              <div className={classes.rservedPrice}>
-                <p>{`${product?.price} PDT`}</p>
+              <div className={classes.reservedDetail}>
+                <div className={classes.rservedTitle}>
+                  <p>{product?.title} </p>
+                </div>
+
+                <div className={classes.rservedPrice}>
+                  <p>{`${product?.price} PDT`}</p>
+                </div>
+              </div>
+
+              <div className={classes.reservedButtonWrap}>
+                <Button onClick={() => onReleaseHandler(product?.id)}>
+                  <div className={classes.reservedButton}>구매확정</div>
+                </Button>
               </div>
             </div>
-
-            <div className={classes.reservedButtonWrap}>
-              <Button onClick={() => onReleaseHandler(product?.id)}>
-                <div className={classes.reservedButton}>구매확정</div>
-              </Button>
-            </div>
-          </div>
-        ))}
+          ))}
       </div>
     </Fragment>
   );

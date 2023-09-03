@@ -19,25 +19,24 @@ class Token extends Sequelize.Model {
         },
       },
       {
+        sequelize,
         modelName: "token", // This is the name of the table in the database
         freezeTableName: true,
         timestamps: true,
         createdAt: false,
         updatedAt: false,
         underscored: true,
-        sequelize,
+        charset: "utf8mb4",
+        collate: "utf8mb4_general_ci",
       }
     );
   }
+
   static associate(db) {
+    // 1 : N (다른 브라우저 로그인 상황 고려)
     db.Token.belongsTo(db.User, {
-      foreignKey: {
-        name: "user_id",
-        unique: true,
-      },
-      targetKey: "id",
+      foreignKey: { name: "user_id", unique: true, allowNull: false },
       onDelete: "cascade",
-      onUpdate: "cascade",
     });
   }
 }
