@@ -46,6 +46,18 @@ module.exports = async () => {
         await db.ChatRoom.create({
           room_name: "1_3",
         });
+        await db.ChatParticipant.create({
+          user_id: 1, // 외래 키
+          room_id: 1, // 외래 키
+          role: "SELLER",
+          self_granted: 0,
+        });
+        await db.ChatParticipant.create({
+          user_id: 2, // 외래 키
+          room_id: 1, // 외래 키
+          role: "BUYER",
+          self_granted: 0,
+        });
         await db.Catagory.bulkCreate([
           {
             name: "전체",
