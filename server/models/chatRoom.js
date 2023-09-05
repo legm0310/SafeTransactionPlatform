@@ -37,7 +37,7 @@ class ChatRoom extends Sequelize.Model {
     // N : M
     db.ChatRoom.belongsToMany(db.User, {
       through: "chat_participant",
-      as: "ChatParticipant",
+      as: "RoomUser",
       foreignKey: "room_id",
       onDelete: "cascade",
     });

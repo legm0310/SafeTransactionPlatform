@@ -92,15 +92,15 @@ class User extends Sequelize.Model {
     db.User.belongsToMany(db.Product, {
       through: "wish_list",
       as: "WishList",
-      foreignKey: "user_Id",
+      foreignKey: "user_id",
       onDelete: "cascade",
     });
 
     // N : M
     db.User.belongsToMany(db.ChatRoom, {
       through: "chat_participant",
-      as: "ChatParticipant",
-      foreignKey: "user_Id",
+      as: "UserRoom",
+      foreignKey: "user_id",
       onDelete: "cascade",
     });
   }
