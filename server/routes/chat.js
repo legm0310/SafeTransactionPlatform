@@ -9,9 +9,10 @@ const { chatController } = require("../controllers");
  *
  */
 module.exports = (app) => {
-  app.use("/chats", router);
+  app.use("/chat", router);
 
   router.get("/:id", chatController.getRoom);
   router.post("/", chatController.addRoom);
+  router.post("/createTest", chatController.createTest);
   // router.get("/", chatController.getChats);
 };
