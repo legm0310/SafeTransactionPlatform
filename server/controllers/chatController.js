@@ -31,6 +31,20 @@ module.exports = {
     });
   }),
 
+  createTest: catchAsync(async (req, res) => {
+    const chatServiceInstance = await Container.get("chatService");
+    const roomName = req.body.roomName;
+    const userId = res.locals.userId;
+    const rooms = await chatServiceInstance.createTestRoom({
+      roomName,
+      userId,
+    });
+    res.status(200).json({
+      getRoomsSuccess: true,
+      rooms: rooms,
+    });
+  }),
+
   getRooms: catchAsync(async (req, res) => {
     const chatServiceInstance = await Container.get("chatService");
     const userId = res.locals.userId;
