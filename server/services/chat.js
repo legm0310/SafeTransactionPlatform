@@ -32,10 +32,11 @@ class ChatService {
           attributes: ["id", "user_name"],
         },
       ],
+      raw: true,
     });
 
     // const room = await this.ChatRoom.create(roomData);
-    console.log(isRoomExists[0]);
+    console.log(isRoomExists);
     return;
   }
 
