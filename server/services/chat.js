@@ -37,6 +37,9 @@ class ChatService {
 
     // const room = await this.ChatRoom.create(roomData);
     console.log(isRoomExists);
+    if (isRoomExists.length >= 1) {
+    } else {
+    }
     return;
   }
 
