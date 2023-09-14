@@ -54,4 +54,14 @@ module.exports = {
       rooms: rooms,
     });
   }),
+
+  getMessagesTest: catchAsync(async (req, res) => {
+    const chatServiceInstance = await Container.get("chatService");
+    // const userId = res.locals.userId;
+    const result = await chatServiceInstance.getMessageByRoom();
+    res.status(200).json({
+      getMessagesSuccess: true,
+      result: result,
+    });
+  }),
 };
