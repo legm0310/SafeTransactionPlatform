@@ -1,5 +1,6 @@
 const { Container } = require("typedi");
 const { Op } = require("sequelize");
+const { InternalServerError, NotFoundError } = require("../utils");
 
 class ChatService {
   constructor() {
@@ -11,7 +12,6 @@ class ChatService {
 
   async createTestRoom(roomData) {
     const user = await this.User.findByPk(1);
-
     //user가 속한 모든 Room을 가져옴.
     //그중 model과 RoomUser라는 별칭을 사용해서 해당 별칭으로 M:N관계 설정을 했었던 테이블을
     //가져와서 그 중 id값이 2번인 사용자의 id와 user_name을 가져옴.
@@ -37,24 +37,24 @@ class ChatService {
 
     // const room = await this.ChatRoom.create(roomData);
     console.log(isRoomExists);
-    if (isRoomExists.length >= 1) {
-      await this.ChatParticipant.update(
-        {
-          self_granted: 0,
-        },
-        {
-          where: {
-            room_id: isRoomExists[0].id,
-          },
-        }
-      );
-    } else {
-    }
+    // if (isRoomExists.length >= 1) {
+    //   await this.ChatParticipant.update(
+    //     {
+    //       self_granted: 0,
+    //     },
+    //     {
+    //       where: {
+    //         room_id: isRoomExists[0].id,
+    //       },
+    //     }
+    //   );
+    // } else {
+    // }
     return;
   }
 
   async createRoom(roomData) {
-    const user = await this.User.findByPk(1);
+    const user = await this.User.findByPk(roomData.userId);
 
     const isRoomExists = await user.getUserRoom({
       attributes: ["id"],
@@ -64,7 +64,7 @@ class ChatService {
           as: "RoomUser",
           where: {
             id: {
-              [Op.eq]: 2,
+              [Op.eq]: roomData.sellerId,
             },
           },
           attributes: ["id", "user_name"],
@@ -86,15 +86,15 @@ class ChatService {
       );
     } else {
       const createdRoom = this.ChatRoom.create({
-        room_name: roomData.roomName,
+        name: roomData.roomName,
       });
       const addSellerJoin = createdRoom.addChatParticipant({
         role: "SELLER",
-        user,
+        user: roomData.sellerId,
       });
       const addBuyerJoin = createdRoom.addChatParticipant({
         role: "BUYER",
-        user,
+        user: roomData.userId,
       });
     }
     return room;
@@ -128,7 +128,40 @@ class ChatService {
   }
 
   async getMessageByRoom() {
-    const io = this.socketService.getIo();
+    //updatedAt 이후의 메시지만 로딩
+    // const io = this.socketService.getIo();
+
+    // const user = await this.User.findByPk(roomData.userId);
+    const user = await this.User.findByPk(1);
+    const targetRoom = await this.ChatRoom.findByPk(1);
+    // const targetRoom = await this.ChatRoom.findByPk(roomData.roomId);
+
+    if (!targetRoom) {
+      throw new NotFoundError("Chatting room not found");
+    }
+
+    const room = await user.getUserRoom({
+      attributes: ["name"],
+      include: [
+        {
+          model: this.User,
+          as: "RoomUser",
+          attributes: ["id", "user_name"],
+          through: {
+            attributes: [],
+          },
+        },
+      ],
+      joinTableAttributes: [],
+      raw: true,
+    });
+
+    console.log(targetRoom);
+
+    // const chats = await targetRoom.getChatLogs();
+    console.log(room);
+    // console.log(chats);
+    return;
   }
 }
 
