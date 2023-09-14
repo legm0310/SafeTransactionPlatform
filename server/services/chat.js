@@ -38,14 +38,65 @@ class ChatService {
     // const room = await this.ChatRoom.create(roomData);
     console.log(isRoomExists);
     if (isRoomExists.length >= 1) {
+      await this.ChatParticipant.update(
+        {
+          self_granted: 0,
+        },
+        {
+          where: {
+            room_id: isRoomExists[0].id,
+          },
+        }
+      );
     } else {
     }
     return;
   }
 
   async createRoom(roomData) {
-    const user = await this.User.findByPk();
-    const room = await this.ChatRoom.create(roomData);
+    const user = await this.User.findByPk(1);
+
+    const isRoomExists = await user.getUserRoom({
+      attributes: ["id"],
+      include: [
+        {
+          model: this.User,
+          as: "RoomUser",
+          where: {
+            id: {
+              [Op.eq]: 2,
+            },
+          },
+          attributes: ["id", "user_name"],
+        },
+      ],
+      raw: true,
+    });
+
+    if (isRoomExists.length >= 1) {
+      await this.ChatParticipant.update(
+        {
+          self_granted: 0,
+        },
+        {
+          where: {
+            room_id: isRoomExists[0].id,
+          },
+        }
+      );
+    } else {
+      const createdRoom = this.ChatRoom.create({
+        room_name: roomData.roomName,
+      });
+      const addSellerJoin = createdRoom.addChatParticipant({
+        role: "SELLER",
+        user,
+      });
+      const addBuyerJoin = createdRoom.addChatParticipant({
+        role: "BUYER",
+        user,
+      });
+    }
     return room;
   }
 
