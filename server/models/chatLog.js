@@ -10,7 +10,7 @@ class ChatLog extends Sequelize.Model {
           autoIncrement: true,
           allowNull: false,
         },
-        chat_type: {
+        type: {
           allowNull: false,
           type: Sequelize.STRING,
           comment: "텍스트, 이미지 구분",

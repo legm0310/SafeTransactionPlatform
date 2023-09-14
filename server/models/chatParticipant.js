@@ -8,7 +8,7 @@ class ChatParticipant extends Sequelize.Model {
           type: Sequelize.ENUM("SELLER", "BUYER"),
           allowNull: false,
         },
-        selfGranted: {
+        self_granted: {
           type: Sequelize.INTEGER.UNSIGNED,
           allowNull: true,
           comment:

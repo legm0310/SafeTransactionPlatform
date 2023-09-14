@@ -43,10 +43,10 @@ module.exports = async () => {
 
         //test
         await db.ChatRoom.create({
-          room_name: "1_2",
+          name: "1_2",
         });
         await db.ChatRoom.create({
-          room_name: "1_3",
+          name: "1_3",
         });
         await db.ChatParticipant.create({
           user_id: 1, // 외래 키

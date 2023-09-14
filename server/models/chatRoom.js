@@ -10,7 +10,7 @@ class ChatRoom extends Sequelize.Model {
           autoIncrement: true,
           allowNull: false,
         },
-        room_name: {
+        name: {
           allowNull: false,
           type: Sequelize.STRING,
         },
