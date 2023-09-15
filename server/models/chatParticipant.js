@@ -9,11 +9,11 @@ class ChatParticipant extends Sequelize.Model {
           allowNull: false,
         },
         self_granted: {
-          type: Sequelize.INTEGER.UNSIGNED,
-          allowNull: true,
+          type: Sequelize.TINYINT,
+          allowNull: false,
           comment:
-            "채팅방 나갔는지 판단 (null or 0: 둘 다 접근 가능, 유저id: 해당 유저만 접근 가능 )",
-          defaultValue: 0,
+            "채팅방 접근 허가(1 접근 가능, 0 접근 불가(채팅방 나간 상태))",
+          defaultValue: 1,
         },
       },
       {
