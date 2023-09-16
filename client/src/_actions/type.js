@@ -25,3 +25,4 @@ export const SET_CONTRACT_LOADING = "setContractLoading";
 //chat
 export const ADD_ROOM = "addRoom";
 export const GET_ROOM = "getRoom";
+export const ADD_MESSAGE = "addMessage";
