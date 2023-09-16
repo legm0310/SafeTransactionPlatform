@@ -13,6 +13,7 @@ module.exports = (app) => {
 
   router.get("/getMessagesTest", chatController.getMessagesTest);
   router.post("/createTest", chatController.createTest);
+  router.post("/addMessage", chatController.addMessage);
   router.get("/:id", chatController.getRoom);
   router.post("/", chatController.addRoom);
   // router.get("/", chatController.getChats);

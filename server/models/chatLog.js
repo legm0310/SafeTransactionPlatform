@@ -11,9 +11,10 @@ class ChatLog extends Sequelize.Model {
           allowNull: false,
         },
         type: {
-          allowNull: false,
+          allowNull: true,
           type: Sequelize.STRING,
           comment: "텍스트, 이미지 구분",
+          defaultValue: "text",
         },
         message: {
           allowNull: false,
@@ -24,6 +25,7 @@ class ChatLog extends Sequelize.Model {
           allowNull: false,
           type: Sequelize.BOOLEAN,
           comment: "메세지 읽음 유무 (1 없애기)",
+          defaultValue: 1,
         },
       },
       {

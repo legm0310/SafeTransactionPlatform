@@ -100,6 +100,11 @@ class ChatService {
     return room;
   }
 
+  async addMessage(messageData) {
+    const message = await this.ChatLog.create(messageData);
+    return message;
+  }
+
   async getRoomById(id) {
     const room = await this.ChatRoom.findByPk(id);
     const roomData = room.toJSON();
@@ -132,11 +137,16 @@ class ChatService {
     // const io = this.socketService.getIo();
 
     // const user = await this.User.findByPk(roomData.userId);
-    const user = await this.User.findByPk(1);
+    const user = await this.User.findByPk(3);
+    console.log("#!@#!@#!@#@!!@", user);
     const targetRoom = await this.ChatRoom.findByPk(1);
     // const targetRoom = await this.ChatRoom.findByPk(roomData.roomId);
 
-    if (!targetRoom) {
+    if (!user && !targetRoom) {
+      throw new NotFoundError("Chatting room and user not found");
+    } else if (!user) {
+      throw new NotFoundError("Chat user not found");
+    } else if (!targetRoom) {
       throw new NotFoundError("Chatting room not found");
     }
 
