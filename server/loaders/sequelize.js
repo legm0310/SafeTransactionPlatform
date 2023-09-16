@@ -345,22 +345,6 @@ module.exports = async () => {
           //   seller_id: 1,
           // },
         ]);
-        await db.WishList.create({
-          user_id: "2",
-          product_id: "1",
-        });
-        await db.WishList.create({
-          user_id: "2",
-          product_id: "2",
-        });
-        await db.WishList.create({
-          user_id: "3",
-          product_id: "2",
-        });
-        await db.WishList.create({
-          user_id: "3",
-          product_id: "3",
-        });
       }
     })
     .catch((err) => {
