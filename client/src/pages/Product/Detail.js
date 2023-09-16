@@ -32,14 +32,7 @@ const Detail = (props) => {
   const sdk = useSDK();
   console.log(productDetail);
 
-  const createRoomNumber = () => {
-    const totalId = [userId, sellerId];
-    return totalId
-      .map(Number)
-      .sort((a, b) => a - b)
-      .join("_");
-  };
-  const roomName = createRoomNumber();
+  const roomName = sellerId;
   console.log(`roomName : ${roomName}`);
 
   useEffect(() => {
@@ -70,23 +63,24 @@ const Detail = (props) => {
 
   const onCreateRoomHandler = (event) => {
     event.preventDefault();
-    dispatch(setLoadings({ isLoading: true }));
+    // dispatch(setLoadings({ isLoading: true }));
 
-    let body = {
-      seller_id: sellerId,
-      buyer_id: userId,
-      room_name: roomName,
-    };
+    // let body = {
+    //   seller_id: sellerId,
+    //   buyer_id: userId,
+    //   room_name: roomName,
+    // };
 
-    dispatch(addRoom(body)).then((response) => {
-      if (response.payload.addRoomSuccess) {
-        alert("채팅방 생성 완료");
-        navigate(`/chat/${roomName}`);
-      } else {
-        dispatch(setLoadings({ isLoading: false }));
-        alert("방 생성에 실패했습니다.");
-      }
-    });
+    // dispatch(addRoom(body)).then((response) => {
+    //   if (response.payload.addRoomSuccess) {
+    //     alert("채팅방 생성 완료");
+    //     navigate(`/chat/${roomName}`);
+    //   } else {
+    //     dispatch(setLoadings({ isLoading: false }));
+    //     alert("방 생성에 실패했습니다.");
+    //   }
+    // });
+    navigate(`/chat/${roomName}`);
   };
 
   return (
