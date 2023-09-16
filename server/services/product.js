@@ -75,20 +75,20 @@ class ProductService {
     return deletedRows;
   }
 
-  // async getWishListById(id) {
-  //   const wishList = await this.WishList.findAll({
-  //     attributes: ["product_id"],
-  //     where: {
-  //       user_id: {
-  //         [Op.eq]: id,
-  //       },
-  //     },
-  //   });
-  //   const productIds = wishList.map((item) => item.product_id);
-  //   console.log(productIds);
+  async getWishListById(id) {
+    const wishList = await this.WishList.findAll({
+      attributes: ["product_id"],
+      where: {
+        user_id: {
+          [Op.eq]: id,
+        },
+      },
+    });
+    const productIds = wishList.map((item) => item.product_id);
+    console.log(productIds);
 
-  //   return wishList;
-  // }
+    return wishList;
+  }
 
   async addWishList(wishListData) {
     const wishList = await this.WishList.create(wishListData);
