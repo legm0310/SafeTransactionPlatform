@@ -35,8 +35,8 @@ class ChatService {
       raw: true,
     });
 
-    // const room = await this.ChatRoom.create(roomData);
     console.log(isRoomExists);
+
     // if (isRoomExists.length >= 1) {
     //   await this.ChatParticipant.update(
     //     {
@@ -54,7 +54,11 @@ class ChatService {
   }
 
   async createRoom(roomData) {
-    const user = await this.User.findByPk(roomData.userId);
+    const userId = roomData.userId;
+    const sellerId = roomData.sellerId;
+    let roomId = null;
+
+    const user = await this.User.findByPk(userId);
 
     const isRoomExists = await user.getUserRoom({
       attributes: ["id"],
@@ -64,7 +68,7 @@ class ChatService {
           as: "RoomUser",
           where: {
             id: {
-              [Op.eq]: roomData.sellerId,
+              [Op.eq]: sellerId,
             },
           },
           attributes: ["id", "user_name"],
@@ -74,30 +78,38 @@ class ChatService {
     });
 
     if (isRoomExists.length >= 1) {
+      roomId = isRoomExists[0].id;
+
       await this.ChatParticipant.update(
         {
-          self_granted: 0,
+          self_granted: 1,
         },
         {
           where: {
-            room_id: isRoomExists[0].id,
+            user_id: userId,
+            room_id: roomId,
           },
         }
       );
     } else {
-      const createdRoom = this.ChatRoom.create({
+      const createdRoom = await this.ChatRoom.create({
         name: roomData.roomName,
       });
       const addSellerJoin = createdRoom.addChatParticipant({
         role: "SELLER",
-        user: roomData.sellerId,
+        user_id: sellerId,
       });
       const addBuyerJoin = createdRoom.addChatParticipant({
         role: "BUYER",
-        user: roomData.userId,
+        user_id: userId,
       });
+
+      await Promise.allSettled([addSellerJoin, addBuyerJoin]);
+
+      roomId = createdRoom.id;
     }
-    return room;
+
+    return roomId;
   }
 
   async addMessage(messageData) {
@@ -105,42 +117,56 @@ class ChatService {
     return message;
   }
 
-  async getRoomById(id) {
-    const room = await this.ChatRoom.findByPk(id);
-    const roomData = room.toJSON();
-    return roomData;
-  }
+  async deleteRoom(roomData) {
+    const userId = roomData.userId;
+    const roomId = roomData.roomId;
 
-  async getAllRoomByUser(id) {
-    const user = await this.User.findByPk(id);
-    const [sellingRooms, buyingRooms] = await Promise.allSettled([
-      user.getSellingRooms(),
-      user.getBuyingRooms(),
-    ]);
+    const roomUser = await this.ChatParticipant.findAll({
+      where: {
+        room_id: roomId,
+      },
+      raw: true,
+    });
 
-    const allRooms = sellingRooms.concat(buyingRooms);
-    console.log(allRooms);
+    const targetRoomUser = roomUser.find(
+      (obj) => obj.self_granted === 1 && obj.user_id === userId
+    );
 
-    return allRooms;
-  }
+    if (!targetRoomUser)
+      throw new InternalServerError("User not exists in room");
+    else {
+      await this.ChatParticipant.update(
+        {
+          self_granted: 0,
+        },
+        {
+          where: {
+            user_id: userId,
+            room_id: roomId,
+          },
+        }
+      );
+    }
 
-  async deleteRoom(id) {
-    const io = this.socketService.getIo();
-  }
+    const joinUserExists = roomUser.filter((obj) => obj.self_granted === 1);
+    if (joinUserExists.length <= 1) {
+      await this.ChatRoom.destroy({
+        where: {
+          id: roomId,
+        },
+      });
+    }
 
-  async sendMessage() {
-    const io = this.socketService.getIo();
+    return true;
   }
 
   async getMessageByRoom() {
     //updatedAt 이후의 메시지만 로딩
-    // const io = this.socketService.getIo();
 
     // const user = await this.User.findByPk(roomData.userId);
-    const user = await this.User.findByPk(3);
-    console.log("#!@#!@#!@#@!!@", user);
-    const targetRoom = await this.ChatRoom.findByPk(1);
     // const targetRoom = await this.ChatRoom.findByPk(roomData.roomId);
+    const user = await this.User.findByPk(1);
+    const targetRoom = await this.ChatRoom.findByPk(1);
 
     if (!user && !targetRoom) {
       throw new NotFoundError("Chatting room and user not found");
@@ -172,6 +198,10 @@ class ChatService {
     console.log(room);
     // console.log(chats);
     return;
+  }
+
+  async sendMessage() {
+    const io = this.socketService.getIo();
   }
 }
 

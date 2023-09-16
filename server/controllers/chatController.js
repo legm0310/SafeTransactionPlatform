@@ -55,6 +55,18 @@ module.exports = {
     });
   }),
 
+  deleteTest: catchAsync(async (req, res) => {
+    const chatServiceInstance = await Container.get("chatService");
+    const result = await chatServiceInstance.deleteRoom({
+      userId: 1,
+      roomId: 1,
+    });
+    res.status(200).json({
+      deleteRoomsSuccess: true,
+      result: result,
+    });
+  }),
+
   getMessagesTest: catchAsync(async (req, res) => {
     const chatServiceInstance = await Container.get("chatService");
     // const userId = res.locals.userId;
