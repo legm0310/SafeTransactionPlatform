@@ -32,10 +32,27 @@
   align-items: center;
 }
 
+.wishList input[type="checkbox"] {
+  accent-color: #1ecfba;
+  width: 20px;
+  height: 20px;
+  border: 2px solid #1ecfba;
+  border-radius: 50%;
+  appearance: none;
+  cursor: pointer;
+  margin-left: 100px;
+}
+
+.wishList input[type="checkbox"]:checked {
+  background: #1ecfba;
+  border: none;
+}
+
 .wishListProductImage {
   width: 160px;
   height: 160px;
   border-radius: 10px;
+  margin-left: 100px;
 }
 
 .wishListProductImage img {
@@ -47,4 +64,60 @@
 .wishListProductInfo {
   width: 150px;
   margin-left: 36px;
+}
+
+.productCategory {
+  font-size: 12px;
+  line-height: 18px;
+  color: #767676;
+}
+
+.productPrice {
+  margin-left: 100px;
+  width: 108px;
+}
+
+.wishListProductPurchase {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.totalPrice {
+  font-size: 18px;
+  line-height: 23px;
+}
+
+.btnSubmit {
+  width: 130px;
+  height: 40px;
+  border-radius: 5px;
+  border: none;
+  line-height: 20px;
+  margin-left: 200px;
+}
+
+.wishListProductRemove {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  width: 20px;
+  height: 15px;
+  cursor: pointer;
+}
+
+.notWishList {
+  position: absolute;
+  top: 70%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.notWishList p {
+  line-height: 18px;
+  color: #767676;
+  margin: 0;
 }

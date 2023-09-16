@@ -6,14 +6,14 @@ import UserMenu from "./UserMenu";
 import classes from "../../styles/headers/UserAuth.module.css";
 import { Button } from "@mui/material";
 
-const UserAuth = (props) => {
+const UserAuth = (props, { wish }) => {
   const isLoggedIn = useSelector((state) => state.user.isLoggedIn);
 
   return (
     <Fragment>
       <div className={classes.Authwrap}>
         {isLoggedIn ? (
-          <UserMenu />
+          <UserMenu wish={wish} />
         ) : (
           <Link to="/login" className={classes.loginRegister}>
             <Button

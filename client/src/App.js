@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { auth } from "./_actions/userAction";
@@ -23,6 +23,8 @@ function App() {
   const isLoggedIn = useSelector((state) => state.user.isLoggedIn);
   const isLoading = useSelector((state) => state.ui.isLoading);
 
+  const [wish, setWish] = useState([]);
+
   useEffect(() => {
     dispatch(auth());
   }, [dispatch]);
@@ -44,7 +46,7 @@ function App() {
           >
             <Loading />
           </Backdrop>
-          <Header />
+          <Header wish={wish} />
           <Routes>
             <Route path="/" element={<AuthHome />}></Route>
             <Route path="/products/all" element={<Product />}></Route>
@@ -53,8 +55,14 @@ function App() {
             <Route path="/chat/:roomId" element={<Chat />}></Route>
             <Route path="/login" element={<Login />}></Route>
             <Route path="/register" element={<Register />}></Route>
-            <Route path="/products/:productId" element={<Detail />}></Route>
-            <Route path="/user" element={<AuthUserInfo />}></Route>
+            <Route
+              path="/products/:productId"
+              element={<Detail wish={wish} setWish={setWish} />}
+            ></Route>
+            <Route
+              path="/user"
+              element={<AuthUserInfo wish={wish} setWish={setWish} />}
+            ></Route>
 
             <Route path="/Loading" element={<Loading />}></Route>
           </Routes>

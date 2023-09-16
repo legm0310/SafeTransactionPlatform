@@ -11,7 +11,7 @@ import ContractModal from "../common/ContractModal";
 import classes from "../../styles/headers/Header.module.css";
 import { AppBar, Container, Toolbar } from "@mui/material";
 
-const Header = (props) => {
+const Header = (props, { wish }) => {
   const location = useLocation();
   // const isContactLoading = useSelector(state => state.ui.isContactLoading);
   const [anchorElNav, setAnchorElNav] = useState(null);
@@ -63,6 +63,7 @@ const Header = (props) => {
             <UserAuth
               setIsLoggedIn={props.setIsLoggedIn}
               isLoggedIn={props.isLoggedIn}
+              wish={wish}
             />
           </Toolbar>
         </Container>
