@@ -1,4 +1,4 @@
-import { ADD_ROOM, GET_ROOM } from "../_actions/type";
+import { ADD_MESSAGE, ADD_ROOM, GET_ROOM } from "../_actions/type";
 
 const initialState = {};
 
@@ -10,6 +10,9 @@ export default function (state = initialState, action) {
       break;
     case GET_ROOM:
       return { ...state, getRoomSuccess: action.payload };
+      break;
+    case ADD_MESSAGE:
+      return { ...state, addMessageSuccess: action.payload };
       break;
 
     default:
