@@ -17,7 +17,7 @@ import ProductInformation from "./ProductInformation";
 
 import classes from "../../styles/product/Detail.module.css";
 
-const Detail = (props) => {
+const Detail = ({ wish, setWish }) => {
   const [activeMenu, setActiveMenu] = useState("productInformation");
 
   const dispatch = useDispatch();
@@ -83,6 +83,18 @@ const Detail = (props) => {
     navigate(`/chat/${roomName}`);
   };
 
+  const handleWish = () => {
+    const wishItem = {
+      id: productDetail.id,
+      image: productDetail.images,
+      category: productDetail.category,
+      name: productDetail.title,
+      price: productDetail.price,
+    };
+    setWish([...wish, wishItem]);
+  };
+  console.log(wish);
+
   return (
     <Fragment>
       <section className={classes.productDetailWrap}>
@@ -104,7 +116,7 @@ const Detail = (props) => {
 
             <div className={classes.buttonWrap}>
               <div className={classes.putMessageButton}>
-                <Button>
+                <Button onClick={() => handleWish()}>
                   <div className={classes.productPutWrap}>
                     <div className={classes.productPut}>
                       <FaHeart />

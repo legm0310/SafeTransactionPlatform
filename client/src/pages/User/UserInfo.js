@@ -3,11 +3,11 @@ import Button from "../../components/common/Button";
 import OnSaleProduct from "../../components/user/OnSaleProduct";
 import ReservedProduct from "../../components/user/ReservedProduct";
 import PurchasedProduct from "../../components/user/PurchasedProduct";
-import WishList from "../../components/user/WishList";
+import Wish from "../../components/user/Wish";
 
 import classes from "../../styles/user/UserInfo.module.css";
 
-const UserInfo = () => {
+const UserInfo = ({ wish, setWish }) => {
   const [activeMenu, setActiveMenu] = useState("OnSaleProduct");
 
   const onMenuHandler = (menu) => {
@@ -54,13 +54,21 @@ const UserInfo = () => {
               </div>
             </Button>
 
-            <Button onClick={() => onMenuHandler("WishList")}>
+            <Button onClick={() => onMenuHandler("Wish")}>
               <div
                 className={`${classes.MenuButton} ${
-                  activeMenu === "WishList" ? classes.active : ""
+                  activeMenu === "Wish" ? classes.active : ""
                 }`}
               >
                 <span>찜목록</span>
+                {wish.length >= 1 ? (
+                  <div className={classes.wishListLength}>
+                    {" "}
+                    <p>{wish.length}</p>{" "}
+                  </div>
+                ) : (
+                  ""
+                )}
               </div>
             </Button>
           </div>
@@ -69,7 +77,7 @@ const UserInfo = () => {
             {activeMenu === "OnSaleProduct" && <OnSaleProduct />}
             {activeMenu === "ReservedProduct" && <ReservedProduct />}
             {activeMenu === "PurchasedProduct" && <PurchasedProduct />}
-            {activeMenu === "WishList" && <WishList />}
+            {activeMenu === "Wish" && <Wish wish={wish} setWish={setWish} />}
           </div>
         </div>
       </section>

@@ -31,9 +31,19 @@
   border-bottom: 5px solid #1ecfba;
 }
 
+.MenuButton {
+  display: flex;
+  justify-content: center;
+}
+
 .MenuButton span {
   font-size: 14px;
   color: black;
+}
+
+.wishListLength p {
+  color: black;
+  margin: 0 0 0 10px;
 }
 
 .UserInfoExplanation {
