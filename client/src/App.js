@@ -14,6 +14,7 @@ import Detail from "./pages/Product/Detail";
 import Auth from "./hoc/auth";
 import Loading from "./components/common/Loading";
 import ScrollTop from "./components/common/ScrollTop";
+import WishList from "./components/user/WishList";
 import UserInfo from "./pages/User/UserInfo";
 
 import { Backdrop } from "@mui/material";
@@ -55,6 +56,7 @@ function App() {
             <Route path="/register" element={<Register />}></Route>
             <Route path="/products/:productId" element={<Detail />}></Route>
             <Route path="/user" element={<AuthUserInfo />}></Route>
+            <Route path="/wishlist" element={<WishList />}></Route>
 
             <Route path="/Loading" element={<Loading />}></Route>
           </Routes>
