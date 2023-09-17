@@ -30,4 +30,5 @@ module.exports = (app) => {
   // 제품 찜 가져오기, 등록, 삭제
   router.get("/wishlist/:id", productController.getWishList);
   router.post("/wishlist", productController.addWishList);
+  router.delete("/wishlist", productController.deleteWishList);
 };

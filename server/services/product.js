@@ -99,6 +99,17 @@ class ProductService {
     const wishList = await user.addWishList(wishListData.product_id);
     return wishList;
   }
+
+  // WishList에 있는 모든 행이 삭제되는 오류가 있음
+  // Models에 WishList를 정의해주면 destroy 이용하여 특정 행 삭제 가능
+  async deleteWishList(wishListData) {
+    const user = await this.User.findOne({
+      where: wishListData.user_id,
+    });
+    const wishListIdToRemove = wishListData.product_id;
+    const wishList = await user.removeWishList(wishListIdToRemove);
+    return wishList;
+  }
 }
 
 
