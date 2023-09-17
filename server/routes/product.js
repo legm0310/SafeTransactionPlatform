@@ -28,6 +28,6 @@ module.exports = (app) => {
   router.delete("/:id", productController.deleteProduct);
 
   // 제품 찜 가져오기, 등록, 삭제
-  // router.get("/wishlist/:id", productController.getWishList);
+  router.get("/wishlist/:id", productController.getWishList);
   router.post("/wishlist", productController.addWishList);
 };

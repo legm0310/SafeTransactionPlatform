@@ -9,7 +9,7 @@ const {
 class ProductService {
   constructor() {
     this.Product = Container.get("productModel");
-    this.WishList = Container.get("wishListModel");
+    this.User = Container.get("userModel");
   }
 
   async addProduct(productData) {
@@ -75,23 +75,26 @@ class ProductService {
     return deletedRows;
   }
 
-  async getWishListById(id) {
-    const wishList = await this.WishList.findAll({
-      attributes: ["product_id"],
-      where: {
-        user_id: {
-          [Op.eq]: id,
-        },
-      },
-    });
-    const productIds = wishList.map((item) => item.product_id);
-    console.log(productIds);
+  // async getWishListById(id) {
+  //   const wishList = await this.WishList.findAll({
+  //     attributes: ["product_id"],
+  //     where: {
+  //       user_id: {
+  //         [Op.eq]: id,
+  //       },
+  //     },
+  //   });
+  //   const productIds = wishList.map((item) => item.product_id);
+  //   console.log(productIds);
 
-    return wishList;
-  }
+  //   return wishList;
+  // }
 
   async addWishList(wishListData) {
-    const wishList = await this.WishList.create(wishListData);
+    const user = await this.User.findOne({
+      where: wishListData.user_id
+    })
+    const wishList = await user.addWishList(wishListData.product_id);
     return wishList;
   }
 }
