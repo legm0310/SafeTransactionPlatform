@@ -92,15 +92,15 @@ module.exports = {
     });
   }),
 
-  // getWishList: catchAsync(async (req, res) => {
-  //   const prodServiceInstance = await Container.get("productService");
-  //   const userId = req.params.id;
-  //   const wishList = await prodServiceInstance.getWishListById(userId);
-  //   res.status(200).json({
-  //     getWishListSuccess: true,
-  //     wishList: wishList,
-  //   });
-  // }),
+  getWishList: catchAsync(async (req, res) => {
+    const prodServiceInstance = await Container.get("productService");
+    const userId = req.params.id;
+    const wishList = await prodServiceInstance.getWishListById(userId);
+    res.status(200).json({
+      getWishListSuccess: true,
+      wishList: wishList,
+    });
+  }),
 
   addWishList: catchAsync(async (req, res) => {
     const prodServiceInstance = await Container.get("productService");
