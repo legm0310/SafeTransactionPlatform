@@ -14,6 +14,7 @@ import Detail from "./pages/Product/Detail";
 import Auth from "./hoc/auth";
 import Loading from "./components/common/Loading";
 import ScrollTop from "./components/common/ScrollTop";
+import WishList from "./components/user/WishList";
 import UserInfo from "./pages/User/UserInfo";
 
 import { Backdrop } from "@mui/material";
