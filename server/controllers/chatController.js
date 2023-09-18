@@ -14,10 +14,11 @@ module.exports = {
   // }),
   addRoom: catchAsync(async (req, res) => {
     const chatServiceInstance = await Container.get("chatService");
-    const chatRoom = await chatServiceInstance.createRoom(req.body);
+    const roomData = req.body;
+    const roomId = await chatServiceInstance.createRoom(roomData);
     res.status(201).json({
       addRoomSuccess: true,
-      room: chatRoom,
+      roomId: roomId,
     });
   }),
 
@@ -57,10 +58,8 @@ module.exports = {
 
   deleteTest: catchAsync(async (req, res) => {
     const chatServiceInstance = await Container.get("chatService");
-    const result = await chatServiceInstance.deleteRoom({
-      userId: 1,
-      roomId: 1,
-    });
+    const roomData = req.body;
+    const result = await chatServiceInstance.deleteRoom(roomData);
     res.status(200).json({
       deleteRoomsSuccess: true,
       result: result,
