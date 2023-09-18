@@ -1,5 +1,6 @@
 const { Container } = require("typedi");
 const { Op } = require("sequelize");
+const { sequelize } = require("../models");
 const { InternalServerError, NotFoundError } = require("../utils");
 
 class ChatService {
@@ -54,8 +55,9 @@ class ChatService {
   }
 
   async createRoom(roomData) {
-    const userId = roomData.userId;
-    const sellerId = roomData.sellerId;
+    const userId = +roomData.userId;
+    const sellerId = +roomData.sellerId;
+
     let roomId = null;
 
     const user = await this.User.findByPk(userId);
@@ -79,29 +81,16 @@ class ChatService {
 
     if (isRoomExists.length >= 1) {
       roomId = isRoomExists[0].id;
-
-      await this.ChatParticipant.update(
-        {
-          self_granted: 1,
-        },
-        {
-          where: {
-            user_id: userId,
-            room_id: roomId,
-          },
-        }
-      );
+      await this.updateJoinState(null, 1, userId, roomId);
     } else {
       const createdRoom = await this.ChatRoom.create({
         name: roomData.roomName,
       });
-      const addSellerJoin = createdRoom.addChatParticipant({
-        role: "SELLER",
-        user_id: sellerId,
+      const addSellerJoin = createdRoom.addRoomUser(sellerId, {
+        through: { role: "SELLER" },
       });
-      const addBuyerJoin = createdRoom.addChatParticipant({
-        role: "BUYER",
-        user_id: userId,
+      const addBuyerJoin = createdRoom.addRoomUser(userId, {
+        through: { role: "BUYER" },
       });
 
       await Promise.allSettled([addSellerJoin, addBuyerJoin]);
@@ -113,46 +102,36 @@ class ChatService {
   }
 
   async deleteRoom(roomData) {
-    const userId = roomData.userId;
-    const roomId = roomData.roomId;
+    const txn = await sequelize.transaction();
 
-    const roomUser = await this.ChatParticipant.findAll({
-      where: {
-        room_id: roomId,
-      },
-      raw: true,
-    });
+    const userId = +roomData.userId;
+    const roomId = +roomData.roomId;
 
-    const targetRoomUser = roomUser.find(
-      (obj) => obj.self_granted === 1 && obj.user_id === userId
-    );
+    try {
+      const roomUser = await this.findAllJoinState(1, roomId, txn);
 
-    if (!targetRoomUser)
-      throw new InternalServerError("User not exists in room");
-    else {
-      await this.ChatParticipant.update(
-        {
-          self_granted: 0,
-        },
-        {
+      const targetRoomUser = roomUser.find((obj) => obj.user_id === userId);
+      if (!targetRoomUser) throw new NotFoundError("User not exists in room");
+
+      await this.updateJoinState(null, 0, userId, roomId, txn);
+
+      const recheckedJoinUser = await this.findAllJoinState(1, roomId, txn);
+      if (recheckedJoinUser.length < 1) {
+        await this.ChatRoom.destroy({
           where: {
-            user_id: userId,
-            room_id: roomId,
+            id: roomId,
           },
-        }
-      );
-    }
+          transaction: txn,
+        });
+      }
 
-    const joinUserExists = roomUser.filter((obj) => obj.self_granted === 1);
-    if (joinUserExists.length <= 1) {
-      await this.ChatRoom.destroy({
-        where: {
-          id: roomId,
-        },
-      });
-    }
+      await txn.commit();
 
-    return true;
+      return true;
+    } catch (error) {
+      await txn.rollback();
+      throw error;
+    }
   }
 
   async getMessageByRoom() {
@@ -193,6 +172,36 @@ class ChatService {
 
   async sendMessage() {
     const io = this.socketService.getIo();
+  }
+
+  async findAllJoinState(state, roomId, txnObj) {
+    const userState = await this.ChatParticipant.findAll({
+      where: {
+        self_granted: state,
+        room_id: roomId,
+      },
+      raw: true,
+      lock: true,
+      transaction: txnObj,
+    });
+    return userState;
+  }
+
+  async updateJoinState(role, state, userId, roomId, txnObj) {
+    await this.ChatParticipant.update(
+      {
+        ...(role ? { role: role } : {}),
+        self_granted: state,
+      },
+      {
+        where: {
+          user_id: userId,
+          room_id: roomId,
+        },
+        ...(txnObj ? { transaction: txnObj } : {}),
+      }
+    );
+    return;
   }
 }
 
