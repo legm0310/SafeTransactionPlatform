@@ -91,4 +91,23 @@ module.exports = {
       updated: updatedProd,
     });
   }),
+
+  // getWishList: catchAsync(async (req, res) => {
+  //   const prodServiceInstance = await Container.get("productService");
+  //   const userId = req.params.id;
+  //   const wishList = await prodServiceInstance.getWishListById(userId);
+  //   res.status(200).json({
+  //     getWishListSuccess: true,
+  //     wishList: wishList,
+  //   });
+  // }),
+
+  addWishList: catchAsync(async (req, res) => {
+    const prodServiceInstance = await Container.get("productService");
+    const wishList = await prodServiceInstance.addWishList(req.body);
+    res.status(201).json({
+      addWishListSuccess: true,
+      wishList: wishList,
+    });
+  }),
 };

@@ -15,6 +15,7 @@ module.exports = (app) => {
   router.post("/createTest", chatController.createTest);
   router.delete("/deleteTest", chatController.deleteTest);
 
+  router.post("/addMessage", chatController.addMessage);
   router.get("/:id", chatController.getRoom);
   router.post("/", chatController.addRoom);
   // router.delete("");

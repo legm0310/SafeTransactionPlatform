@@ -101,6 +101,11 @@ class ChatService {
     return roomId;
   }
 
+  async addMessage(messageData) {
+    const message = await this.ChatLog.create(messageData);
+    return message;
+  }
+
   async deleteRoom(roomData) {
     const txn = await sequelize.transaction();
 
@@ -142,7 +147,11 @@ class ChatService {
     const user = await this.User.findByPk(1);
     const targetRoom = await this.ChatRoom.findByPk(1);
 
-    if (!targetRoom) {
+    if (!user && !targetRoom) {
+      throw new NotFoundError("Chatting room and user not found");
+    } else if (!user) {
+      throw new NotFoundError("Chat user not found");
+    } else if (!targetRoom) {
       throw new NotFoundError("Chatting room not found");
     }
 

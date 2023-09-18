@@ -75,4 +75,13 @@ module.exports = {
       result: result,
     });
   }),
+
+  addMessage: catchAsync(async (req, res) => {
+    const chatServiceInstance = await Container.get("chatService");
+    const message = await chatServiceInstance.addMessage(req.body);
+    res.status(201).json({
+      addMessageSuccess: true,
+      message: message,
+    });
+  }),
 };
