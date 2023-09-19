@@ -65,7 +65,9 @@ module.exports = {
     const prodServiceInstance = await Container.get("productService");
     const productId = req.params;
     await prodServiceInstance.deleteProduct(productId);
-    res.status(200).json({});
+    res.status(200).json({
+      deleteProductSuccess: true
+    });
   }),
 
   deposit: catchAsync(async (req, res) => {
@@ -113,10 +115,15 @@ module.exports = {
 
   deleteWishList: catchAsync(async (req, res) => {
     const prodServiceInstance = await Container.get("productService");
-    await prodServiceInstance.deleteWishList(req.body);
+    const productId = req.params.id;
+    const userId = req.body.user_id;
+    const wishData = {
+      productId: productId,
+      userId: userId,
+    };
+    await prodServiceInstance.deleteWishList(wishData);
     res.status(200).json({
       deleteWishList: true,
     });
-    await prodServiceInstance.deleteWishList(wishProductId);
   }),
 };
