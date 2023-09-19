@@ -15,9 +15,10 @@ module.exports = {
   addRoom: catchAsync(async (req, res) => {
     const chatServiceInstance = await Container.get("chatService");
     const roomData = req.body;
-    const roomId = await chatServiceInstance.createRoom(roomData);
+    const { roomId, result } = await chatServiceInstance.createRoom(roomData);
     res.status(201).json({
       addRoomSuccess: true,
+      result: result,
       roomId: roomId,
     });
   }),
@@ -49,10 +50,10 @@ module.exports = {
   getRooms: catchAsync(async (req, res) => {
     const chatServiceInstance = await Container.get("chatService");
     const userId = res.locals.userId;
-    const rooms = await chatServiceInstance.getRooms(userId);
+    const roomData = await chatServiceInstance.getRooms(1);
     res.status(200).json({
       getRoomsSuccess: true,
-      rooms: rooms,
+      roomInfo: roomData,
     });
   }),
 

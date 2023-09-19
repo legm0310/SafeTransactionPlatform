@@ -1,5 +1,5 @@
 const { Container } = require("typedi");
-const { Op } = require("sequelize");
+const { where, Op, fn, col } = require("sequelize");
 const { sequelize } = require("../models");
 const { InternalServerError, NotFoundError } = require("../utils");
 
@@ -35,22 +35,7 @@ class ChatService {
       ],
       raw: true,
     });
-
     console.log(isRoomExists);
-
-    // if (isRoomExists.length >= 1) {
-    //   await this.ChatParticipant.update(
-    //     {
-    //       self_granted: 0,
-    //     },
-    //     {
-    //       where: {
-    //         room_id: isRoomExists[0].id,
-    //       },
-    //     }
-    //   );
-    // } else {
-    // }
     return;
   }
 
@@ -59,6 +44,7 @@ class ChatService {
     const sellerId = +roomData.sellerId;
 
     let roomId = null;
+    let result = "";
 
     const user = await this.User.findByPk(userId);
 
@@ -76,11 +62,11 @@ class ChatService {
           attributes: ["id", "user_name"],
         },
       ],
-      raw: true,
     });
 
     if (isRoomExists.length >= 1) {
       roomId = isRoomExists[0].id;
+      result = "Update Room";
       await this.updateJoinState(null, 1, userId, roomId);
     } else {
       const createdRoom = await this.ChatRoom.create({
@@ -96,14 +82,52 @@ class ChatService {
       await Promise.allSettled([addSellerJoin, addBuyerJoin]);
 
       roomId = createdRoom.id;
+      result = "Create New Room";
     }
 
-    return roomId;
+    return { roomId, result };
   }
 
-  async addMessage(messageData) {
-    const message = await this.ChatLog.create(messageData);
-    return message;
+  async getRooms(userId) {
+    // const user = await this.User.findByPk(+userId);
+    // const roomData = await user.getUserRoom({
+    //   include: [
+    //     {
+    //       model: this.User,
+    //       as: "RoomUser",
+    //       where: {
+    //         [Op.not]: {
+    //           id: +userId,
+    //         },
+    //       },
+    //       attributes: ["id", "user_name"],
+    //     },
+    //     {
+    //       model: this.ChatLog,
+    //       limit: 1,
+    //       order: [["createdAt", "DESC"]],
+    //       attributes: ["message", "createdAt"],
+    //     },
+    //     {
+    //       model: this.ChatLog,
+    //       attributes: [
+    //         [fn("SUM", where(col("check_read"), "=", 1)), "unreadCount"],
+    //       ],
+    //       group: ["room_id"],
+    //     },
+    //   ],
+    // });
+
+    // const filteredRooms = roomData.filter((room) =>
+    //   room.chat_participant.self_granted === 1 ? true : false
+    // );
+    // const unreadChatCount = await this.ChatLog.count({
+    //   where: {
+    //     check_read: 1,
+    //     sender_id: +userId,
+    //   },
+    // });
+    return { filteredRooms, unreadChatCount };
   }
 
   async deleteRoom(roomData) {
@@ -137,6 +161,11 @@ class ChatService {
       await txn.rollback();
       throw error;
     }
+  }
+
+  async addMessage(messageData) {
+    const message = await this.ChatLog.create(messageData);
+    return message;
   }
 
   async getMessageByRoom() {
