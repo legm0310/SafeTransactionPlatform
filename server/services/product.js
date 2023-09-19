@@ -9,7 +9,7 @@ const {
 class ProductService {
   constructor() {
     this.Product = Container.get("productModel");
-    this.WishList = Container.get("wishListModel");
+    this.User = Container.get("userModel");
   }
 
   async addProduct(productData) {
@@ -75,23 +75,36 @@ class ProductService {
     return deletedRows;
   }
 
-  async getWishListById(id) {
-    const wishList = await this.WishList.findAll({
-      attributes: ["product_id"],
-      where: {
-        user_id: {
-          [Op.eq]: id,
-        },
-      },
-    });
-    const productIds = wishList.map((item) => item.product_id);
-    console.log(productIds);
+  async getWishListById(params) {
+    // 스페셜 메소드를 사용하기 위해 user 정보를 갖고 옴
+    const user = await this.User.findByPk(params);
+    console.log(user);
+    // 특정 user의 WishList 정보를 get 해옴
+    const wishList = await user.getWishList();
+    const wishProductData = wishList.map((value) => ({
+      title: value.title,
+      price: value.price,
+      image: value.images,
+    }));
+    // extractProductsList 이용 실패
+    console.log("wishProductData", wishProductData);
 
-    return wishList;
+    return wishProductData;
   }
 
   async addWishList(wishListData) {
-    const wishList = await this.WishList.create(wishListData);
+    const user = await this.User.findOne({
+      where: wishListData.user_id,
+    });
+    const wishList = await user.addWishList(wishListData.product_id);
+    return wishList;
+  }
+
+  // 추후 user_id가 body가 아닌 local.id로 변경 예정
+  async deleteWishList(wishListData) {
+    const user = await this.User.findByPk(wishListData.userId);
+    const wishListIdToRemove = wishListData.productId;
+    const wishList = await user.removeWishList(wishListIdToRemove);
     return wishList;
   }
 }

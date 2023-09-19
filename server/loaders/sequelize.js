@@ -345,6 +345,23 @@ module.exports = async () => {
           //   seller_id: 1,
           // },
         ]);
+        const user1 = await db.User.findOne({
+          where: {
+            id: 2,
+          },
+        });
+        const user2 = await db.User.findOne({
+          where: {
+            id: 3,
+          },
+        });
+        await user1.addWishList(2);
+        await user1.addWishList(3);
+        await user1.addWishList(4);
+        await user2.addWishList(3);
+        await user2.addWishList(4);
+        await user2.addWishList(5);
+
       }
     })
     .catch((err) => {
