@@ -1,8 +1,10 @@
 import { Fragment } from "react";
+import { Link } from "react-router-dom";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import styled from "styled-components";
+import testImg from "../../assets/testImg1.png";
 
 import classes from "../../styles/home/HomeSlide.module.css";
 const HomeSlide = () => {
@@ -22,22 +24,39 @@ const HomeSlide = () => {
       <div className={classes.Slide}>
         <StyledSlider {...settings}>
           <div className={classes.firstSlide}>
-            {/* <img src={testImg} alt="" className={classes.slideImg} /> */}
+            <Link to="/notice/1">
+              <img src={testImg} alt="" className={classes.slideImg} />
+            </Link>
             <h3>1</h3>
           </div>
           <div>
+            <Link to="/notice/2">
+              <img src={testImg} alt="" className={classes.slideImg} />
+            </Link>
             <h3>2</h3>
           </div>
           <div>
+            <Link to="/notice/3">
+              <img src={testImg} alt="" className={classes.slideImg} />
+            </Link>
             <h3>3</h3>
           </div>
           <div>
+            <Link to="/notice/4">
+              <img src={testImg} alt="" className={classes.slideImg} />
+            </Link>
             <h3>4</h3>
           </div>
           <div>
+            <Link to="/notice/5">
+              <img src={testImg} alt="" className={classes.slideImg} />
+            </Link>
             <h3>5</h3>
           </div>
           <div>
+            <Link to="/notice/6">
+              <img src={testImg} alt="" className={classes.slideImg} />
+            </Link>
             <h3>6</h3>
           </div>
         </StyledSlider>

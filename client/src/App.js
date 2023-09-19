@@ -11,6 +11,7 @@ import Chat from "./pages/Chat/Chat";
 import Login from "./pages/Auth/Login";
 import Register from "./pages/Auth/Register";
 import Detail from "./pages/Product/Detail";
+import Notice from "./pages/Notice/Notice";
 import Auth from "./hoc/auth";
 import Loading from "./components/common/Loading";
 import ScrollTop from "./components/common/ScrollTop";
@@ -55,6 +56,7 @@ function App() {
             <Route path="/chat/:roomId" element={<Chat />}></Route>
             <Route path="/login" element={<Login />}></Route>
             <Route path="/register" element={<Register />}></Route>
+            <Route path="/notice/:id" element={<Notice />}></Route>
             <Route
               path="/products/:productId"
               element={<Detail wish={wish} setWish={setWish} />}
