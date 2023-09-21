@@ -1,5 +1,5 @@
 const { Container } = require("typedi");
-const { where, Op, fn, col } = require("sequelize");
+const { where, Op, fn, col, literal } = require("sequelize");
 const { sequelize } = require("../models");
 const { InternalServerError, NotFoundError } = require("../utils");
 
@@ -89,46 +89,90 @@ class ChatService {
   }
 
   async getRooms(userId) {
-    // const user = await this.User.findByPk(+userId);
-    // const roomData = await user.getUserRoom({
-    //   include: [
-    //     {
-    //       model: this.User,
-    //       as: "RoomUser",
-    //       where: {
-    //         [Op.not]: {
-    //           id: +userId,
-    //         },
-    //       },
-    //       attributes: ["id", "user_name"],
-    //     },
-    //     {
-    //       model: this.ChatLog,
-    //       limit: 1,
-    //       order: [["createdAt", "DESC"]],
-    //       attributes: ["message", "createdAt"],
-    //     },
-    //     {
-    //       model: this.ChatLog,
-    //       attributes: [
-    //         [fn("SUM", where(col("check_read"), "=", 1)), "unreadCount"],
-    //       ],
-    //       group: ["room_id"],
-    //     },
-    //   ],
-    // });
+    const user = await this.User.findByPk(+userId);
+    const roomData = await user.getUserRoom({
+      include: [
+        {
+          model: this.User,
+          as: "RoomUser",
+          where: {
+            [Op.not]: {
+              id: +userId,
+            },
+          },
+          attributes: ["id", "user_name"],
+        },
+        {
+          model: this.ChatLog,
+          limit: 1,
+          order: [["createdAt", "DESC"]],
+          attributes: [
+            "message",
+            "createdAt",
+            [
+              literal(`(
+              SELECT COUNT(*)
+              FROM chat_log as subChatLogs
+              WHERE subChatLogs.room_id = chat_log.room_id AND subChatLogs.check_read = 1
+            )`),
+              "unreadCount",
+            ],
+          ],
+        },
+      ],
+    });
 
-    // const filteredRooms = roomData.filter((room) =>
-    //   room.chat_participant.self_granted === 1 ? true : false
-    // );
-    // const unreadChatCount = await this.ChatLog.count({
-    //   where: {
-    //     check_read: 1,
-    //     sender_id: +userId,
-    //   },
-    // });
-    return { filteredRooms, unreadChatCount };
+    const filteredRooms = await roomData.filter((room) =>
+      room.chat_participant.self_granted === 1 ? true : false
+    );
+    return { filteredRooms };
   }
+  // 2단계 실행 함수 (단일쿼리 + 집계함수사용)
+  // async getRooms(userId) {
+  //   const user = await this.User.findByPk(+userId);
+  //   const roomData = await user.getUserRoom({
+  //     include: [
+  //       {
+  //         model: this.User,
+  //         as: "RoomUser",
+  //         where: {
+  //           [Op.not]: {
+  //             id: +userId,
+  //           },
+  //         },
+  //         attributes: ["id", "user_name"],
+  //       },
+  //       {
+  //         model: this.ChatLog,
+  //         limit: 1,
+  //         order: [
+  //           ["createdAt", "DESC"],
+  //           ["id", "DESC"],
+  //         ],
+  //         attributes: ["message", "createdAt"],
+  //       },
+  //     ],
+  //   });
+
+  //   const filterdRooms = [];
+  //   for (const room of roomData) {
+  //     if (room.chat_participant.self_granted === 1) {
+  //       const unreadCount = await this.ChatLog.count({
+  //         where: {
+  //           [Op.not]: { sender_id: +userId },
+  //           room_id: room.id,
+  //           check_read: 1,
+  //         },
+  //       });
+  //       const roomWithUnreadCount = room.get();
+  //       roomWithUnreadCount.unreadCount = unreadCount;
+
+  //       filterdRooms.push(roomWithUnreadCount);
+  //     }
+  //   }
+
+  //   return { filterdRooms };
+  // }
 
   async deleteRoom(roomData) {
     const txn = await sequelize.transaction();
