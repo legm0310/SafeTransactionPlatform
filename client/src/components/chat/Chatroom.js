@@ -16,7 +16,7 @@ const socket = io.connect("localhost:5000", {
   cors: { origin: "*" },
 });
 
-const Chatroom = () => {
+const ChatRoom = () => {
   const params = useParams();
   const dispatch = useDispatch();
   const { enqueueSnackbar } = useSnackbar();
@@ -121,4 +121,4 @@ const Chatroom = () => {
   );
 };
 
-export default Chatroom;
+export default ChatRoom;
