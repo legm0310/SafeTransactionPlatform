@@ -113,7 +113,7 @@ class ChatService {
               literal(`(
               SELECT COUNT(*)
               FROM chat_log as subChatLogs
-              WHERE subChatLogs.room_id = chat_log.room_id AND subChatLogs.check_read = 1
+              WHERE subChatLogs.room_id = chat_log.room_id AND subChatLogs.sender_id = chat_log.sender_id AND subChatLogs.check_read = 1
             )`),
               "unreadCount",
             ],
