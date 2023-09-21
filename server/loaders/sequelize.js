@@ -41,23 +41,96 @@ module.exports = async () => {
           password: "1234",
         });
 
+        const user1 = await db.User.findByPk(1);
+        const user2 = await db.User.findByPk(2);
+        const user3 = await db.User.findByPk(3);
+        const user4 = await db.User.findByPk(4);
+        const user5 = await db.User.findByPk(5);
+
         //test
-        await db.ChatRoom.create({
-          name: "1_2",
+        const room2_1 = await db.ChatRoom.create({
+          name: "2_1",
         });
-        await db.ChatRoom.create({
-          name: "1_3",
+        const room3_1 = await db.ChatRoom.create({
+          name: "3_1",
         });
-        await db.ChatParticipant.create({
-          user_id: 1, // 외래 키
-          room_id: 1, // 외래 키
-          role: "SELLER",
+        const room4_1 = await db.ChatRoom.create({
+          name: "4_1",
         });
-        await db.ChatParticipant.create({
-          user_id: 2, // 외래 키
-          room_id: 1, // 외래 키
-          role: "BUYER",
+        const room5_1 = await db.ChatRoom.create({
+          name: "5_1",
         });
+
+        const seller2_1 = room2_1.addRoomUser(1, {
+          through: { role: "SELLER" },
+        });
+        const buyer2_1 = room2_1.addRoomUser(2, { through: { role: "BUYER" } });
+        const seller3_1 = room3_1.addRoomUser(1, {
+          through: { role: "SELLER" },
+        });
+        const buyer3_1 = room3_1.addRoomUser(3, { through: { role: "BUYER" } });
+        const seller4_1 = room4_1.addRoomUser(1, {
+          through: { role: "SELLER" },
+        });
+        const buyer4_1 = room4_1.addRoomUser(4, { through: { role: "BUYER" } });
+        const seller5_1 = room5_1.addRoomUser(1, {
+          through: { role: "SELLER" },
+        });
+        const buyer5_1 = room5_1.addRoomUser(5, { through: { role: "BUYER" } });
+
+        await Promise.allSettled([
+          seller2_1,
+          buyer2_1,
+          seller3_1,
+          buyer3_1,
+          seller4_1,
+          buyer4_1,
+          seller5_1,
+          buyer5_1,
+        ]);
+
+        await db.ChatLog.create({
+          message: "물건 삽니다.",
+          sender_id: 2,
+          room_id: 1,
+        });
+        await db.ChatLog.create({
+          message: "얼마에 파세요? 2번입니다",
+          sender_id: 2,
+          room_id: 1,
+        });
+        await db.ChatLog.create({
+          message: "500억에 팔아요",
+          sender_id: 1,
+          room_id: 1,
+        });
+        await db.ChatLog.create({
+          message: "3번입니다",
+          sender_id: 3,
+          room_id: 2,
+        });
+        await db.ChatLog.create({
+          message: "4번입니다",
+          sender_id: 4,
+          room_id: 3,
+        });
+        await db.ChatLog.create({
+          message: "5번입니다",
+          sender_id: 5,
+          room_id: 4,
+        });
+
+        // await db.ChatParticipant.create({
+        //   user_id: 1, // 외래 키
+        //   room_id: 1, // 외래 키
+        //   role: "SELLER",
+        // });
+        // await db.ChatParticipant.create({
+        //   user_id: 2, // 외래 키
+        //   room_id: 1, // 외래 키
+        //   role: "BUYER",
+        // });
+
         await db.Catagory.bulkCreate([
           {
             name: "전체",
@@ -345,23 +418,13 @@ module.exports = async () => {
           //   seller_id: 1,
           // },
         ]);
-        const user1 = await db.User.findOne({
-          where: {
-            id: 2,
-          },
-        });
-        const user2 = await db.User.findOne({
-          where: {
-            id: 3,
-          },
-        });
-        await user1.addWishList(2);
-        await user1.addWishList(3);
-        await user1.addWishList(4);
+
+        await user2.addWishList(2);
         await user2.addWishList(3);
         await user2.addWishList(4);
-        await user2.addWishList(5);
-
+        await user3.addWishList(3);
+        await user3.addWishList(4);
+        await user3.addWishList(5);
       }
     })
     .catch((err) => {
