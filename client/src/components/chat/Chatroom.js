@@ -2,7 +2,7 @@ import React, { Fragment, useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 import classes from "../../styles/chat/Chat.module.css";
-import io from "socket.io-client";
+import { io } from "socket.io-client";
 import { addMessage } from "../../_actions/chatAction";
 
 import { useSnackbar } from "notistack";
@@ -12,26 +12,37 @@ import { IoImage } from "react-icons/io5";
 import { LuMoreHorizontal } from "react-icons/lu";
 import { IoPersonAdd } from "react-icons/io5";
 
-const socket = io.connect("localhost:5000", {
-  cors: { origin: "*" },
-});
-
 const ChatRoom = () => {
   const params = useParams();
   const dispatch = useDispatch();
+  const { chats } = useSelector((state) => state.chat);
   const { enqueueSnackbar } = useSnackbar();
 
   const [state, setState] = useState({ message: "", name: "" });
-  const [chat, setChat] = useState([]);
+  const [chat, setChat] = useState("");
+
+  const [socket, setSocket] = useState(null);
 
   const userId = useSelector((state) => state.user.userId);
   const roomId = params.roomId;
 
   useEffect(() => {
-    console.log("User id = ", userId);
-    socket.on("message", ({ userId, message }) => {
-      setChat((prevChat) => [...prevChat, { userId, message }]);
+    const curSocket = io("localhost:5000", {
+      cors: { origin: "*" },
     });
+    setSocket(curSocket);
+
+    curSocket.on("connect", () => {
+      curSocket.emit("onJoinRoom", roomId);
+    });
+
+    curSocket.on("onReceive", ({ user, chat }) => {
+      dispatch();
+    });
+    console.log("User id = ", userId);
+    // curSocket.on("message", ({ userId, message }) => {
+    //   setChat((prevChat) => [...prevChat, { userId, message }]);
+    // });
   }, []);
 
   const onTextChange = (e) => {
@@ -70,7 +81,7 @@ const ChatRoom = () => {
       }
     });
 
-    socket.emit("message", { userId, message });
+    socket?.emit("message", { userId, message });
     setState({ message: "", userId });
   };
 
