@@ -18,6 +18,7 @@ import {
 const initialState = {
   isLoggedIn: null,
   userId: "",
+  loadWishList: null,
 };
 
 // Action의 type에 따라 변화된 state 반환
@@ -62,7 +63,8 @@ export default function (state = initialState, action) {
     case GET_WISHLIST:
       return {
         ...state,
-        getWishListSuccess: action.payload,
+        loadWishList: [...action.payload.wishList],
+        getWishListSuccess: action.payload.getWishListSuccess,
       };
       break;
     default: // state가 들어오지 않았을 경우 전의 state를 넣어줌
