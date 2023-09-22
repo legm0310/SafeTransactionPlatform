@@ -9,9 +9,11 @@ import {
   LOGIN_USER,
   LOGOUT_USER,
   AUTH_USER,
-  WISHLIST,
+  ADD_WISHLIST,
+  GET_WISHLIST,
 } from "./type";
 import { authRequest, baseRequest } from "../api/common";
+import { setLoadings } from "./uiAction";
 
 export function signup(dataToSubmit) {
   const request = baseRequest()
@@ -86,16 +88,37 @@ export function connectWallet() {
   };
 }
 
-export function wishlist() {
-  const request = baseRequest()
-    .post()
+export function getWishList(dataToSubmit) {
+  const params = dataToSubmit;
+  const request = authRequest()
+    .get(`api/user/wishlist/${params}`)
     .then((response) => response.data)
     .catch((err) => {
       console.log(err.response);
       return err.response.data;
     });
   return {
-    type: WISHLIST,
+    type: GET_WISHLIST,
     payload: request,
+  };
+}
+
+export function addWishList(dataToSubmit) {
+  return async (dispatch) => {
+    try {
+      const res = await authRequest().post("/api/user/wishlist", dataToSubmit);
+      console.log("res", res);
+      // dispatch(setLoadings({ isLoading: false }));
+      return dispatch({
+        type: ADD_WISHLIST,
+        payload: res.data,
+      });
+    } catch (err) {
+      console.log(err);
+      return dispatch({
+        type: ADD_WISHLIST,
+        payload: err.response.data,
+      });
+    }
   };
 }

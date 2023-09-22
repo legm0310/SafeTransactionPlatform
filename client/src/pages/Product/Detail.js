@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useSDK, useAddress } from "@thirdweb-dev/react";
+import { addWishList } from "../../_actions/userAction";
 import { setLoadings } from "../../_actions/uiAction";
 import { getProduct, purchase } from "../../_actions/productAction";
 import { addRoom } from "../../_actions/chatAction";
@@ -16,12 +17,15 @@ import ProductStore from "./ProductStore";
 import ProductInformation from "./ProductInformation";
 
 import classes from "../../styles/product/Detail.module.css";
+import { useSnackbar } from "notistack";
 
 const Detail = ({ wish, setWish }) => {
   const [activeMenu, setActiveMenu] = useState("productInformation");
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { enqueueSnackbar } = useSnackbar();
+
   const productDetail = useSelector(
     (state) => state.product.productDetail?.product
   );
@@ -83,16 +87,54 @@ const Detail = ({ wish, setWish }) => {
     navigate(`/chat/${roomName}`);
   };
 
-  const handleWish = () => {
-    const wishItem = {
-      id: productDetail.id,
-      image: productDetail.images,
-      category: productDetail.category,
-      name: productDetail.title,
-      price: productDetail.price,
+  const addWishListHandler = () => {
+    let data = {
+      user_id: userId,
+      product_id: productId,
     };
-    setWish([...wish, wishItem]);
+
+    console.log(data);
+
+    dispatch(addWishList(data)).then((response) => {
+      console.log(response);
+      if (response.payload.addWishListSuccess) {
+        enqueueSnackbar("관심상품 등록에 성공했습니다.", {
+          variant: "success",
+        });
+      } else {
+        enqueueSnackbar("관심상품 등록에 실패했습니다.", {
+          variant: "error",
+        });
+      }
+    });
   };
+
+  // const addWishList = async () => {
+  //   try {
+  //     const data = {
+  //       id: productDetail.productId,
+  //       image: productDetail.images,
+  //       // category: productDetail.category,
+  //       name: productDetail.title,
+  //       price: productDetail.price,
+  //     };
+
+  //     const response = await dispatch(addWishList(data));
+  //     console.log(response);
+
+  //     if (response.payload.addWishList) {
+  //       enqueueSnackbar("관심상품 등록에 성공했습니다.", {
+  //         variant: "success",
+  //       });
+  //     } else {
+  //       enqueueSnackbar("관심상품 등록에 실패했습니다.", {
+  //         variant: "error",
+  //       });
+  //     }
+  //   } catch (error) {
+  //     console.log("Error:", error);
+  //   }
+  // };
   console.log(wish);
 
   return (
@@ -116,7 +158,7 @@ const Detail = ({ wish, setWish }) => {
 
             <div className={classes.buttonWrap}>
               <div className={classes.putMessageButton}>
-                <Button onClick={() => handleWish()}>
+                <Button onClick={() => addWishListHandler()}>
                   <div className={classes.productPutWrap}>
                     <div className={classes.productPut}>
                       <FaHeart />
