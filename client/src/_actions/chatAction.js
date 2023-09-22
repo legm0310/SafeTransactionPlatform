@@ -1,12 +1,12 @@
-import { ADD_ROOM, GET_ROOM, ADD_MESSAGE } from "./type";
+import { ADD_ROOM, GET_ROOMS, GET_CHATS, ADD_MESSAGE } from "./type";
 import { setLoadings } from "./uiAction";
 import { addProdRequest } from "../api/productApi";
-import { baseRequest } from "../api/common";
+import { baseRequest, authRequest } from "../api/common";
 
 export function addRoom(dataToSubmit) {
   return async (dispatch) => {
     try {
-      const res = await addProdRequest().post("/api/chats", dataToSubmit);
+      const res = await authRequest().post("/api/chats", dataToSubmit);
       console.log("res", res);
       dispatch(setLoadings({ isLoading: false }));
       return dispatch({
@@ -23,11 +23,24 @@ export function addRoom(dataToSubmit) {
   };
 }
 
-export function getRoom(dataToSubmit) {
+export function getRooms() {
+  const request = authRequest()
+    .get(`/api/chat`)
+    .then((response) => response.data)
+    .catch((err) => {
+      console.log(err);
+      return err.response.data;
+    });
+  return {
+    type: GET_ROOMS,
+    payload: request,
+  };
+}
+export function getChats(dataToSubmit) {
   const params = { ...dataToSubmit };
   console.log(params);
-  const request = baseRequest({ params })
-    .get(`/api/chats`)
+  const request = authRequest({ params })
+    .get(`/api/chat`)
     .then((response) => response.data)
     .catch((err) => {
       console.log(err);
@@ -35,7 +48,7 @@ export function getRoom(dataToSubmit) {
     });
 
   return {
-    type: GET_ROOM,
+    type: GET_CHATS,
     payload: request,
   };
 }

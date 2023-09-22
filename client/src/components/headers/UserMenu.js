@@ -1,5 +1,5 @@
 import React, { useState, Fragment } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { logout } from "../../_actions/userAction";
 import { useDisconnect } from "@thirdweb-dev/react";
@@ -50,6 +50,9 @@ const UserSection = (props) => {
 
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
+
+  const rooms = useSelector((state) => state.chat.rooms);
+  // const unreadCount = rooms.reduce((acc, value) => acc + value.unreadCount, 0);
 
   const handleOpenWallet = () => {
     setOpenWallet(true);
