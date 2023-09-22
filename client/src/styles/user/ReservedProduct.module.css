@@ -1,3 +1,19 @@
+.notReservedList {
+  position: absolute;
+  top: 70%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.notReservedList p {
+  line-height: 18px;
+  color: #767676;
+  margin: 0;
+}
+
 .reservedWrap {
   display: flex;
   flex-direction: column;
