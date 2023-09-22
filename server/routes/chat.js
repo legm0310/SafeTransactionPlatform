@@ -12,7 +12,6 @@ isAuth;
 module.exports = (app) => {
   app.use("/chat", router);
 
-  router.get("/getMessagesTest", chatController.getMessagesTest);
   router.post("/createTest", chatController.createTest);
   router.delete("/deleteTest", chatController.deleteRoom);
 
@@ -22,6 +21,4 @@ module.exports = (app) => {
   router.delete("/:id", isAuth, chatController.deleteRoom);
 
   // router.post("/addMessage", chatController.addMessage);
-  // router.delete("");
-  // router.get("/", chatController.getChats);
 };
