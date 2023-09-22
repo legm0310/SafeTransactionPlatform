@@ -4,7 +4,13 @@
   Dispatch에 inline으로 action을 넣는 것이 불편하기 때문에 action객체를 return 해주는 함수를 만들어놓는 것 (즉, Action을 return 해주는 함수)
 */
 
-import { SIGNUP_USER, LOGIN_USER, LOGOUT_USER, AUTH_USER } from "./type";
+import {
+  SIGNUP_USER,
+  LOGIN_USER,
+  LOGOUT_USER,
+  AUTH_USER,
+  WISHLIST,
+} from "./type";
 import { authRequest, baseRequest } from "../api/common";
 
 export function signup(dataToSubmit) {
@@ -76,6 +82,20 @@ export function connectWallet() {
     });
   return {
     type: "",
+    payload: request,
+  };
+}
+
+export function wishlist() {
+  const request = baseRequest()
+    .post()
+    .then((response) => response.data)
+    .catch((err) => {
+      console.log(err.response);
+      return err.response.data;
+    });
+  return {
+    type: WISHLIST,
     payload: request,
   };
 }

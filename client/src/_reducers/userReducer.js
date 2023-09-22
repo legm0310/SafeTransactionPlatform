@@ -11,6 +11,7 @@ import {
   LOGIN_USER,
   LOGOUT_USER,
   AUTH_USER,
+  WISHLIST,
 } from "../_actions/type";
 
 const initialState = {
@@ -50,6 +51,12 @@ export default function (state = initialState, action) {
         isLoggedIn: action.payload?.authCheckSuccess ? true : false,
         authCheck: action.payload,
         userId: action.payload.userData?.id,
+      };
+      break;
+    case WISHLIST:
+      return {
+        ...state,
+        wishSuccess: action.payload,
       };
       break;
     default: // state가 들어오지 않았을 경우 전의 state를 넣어줌
