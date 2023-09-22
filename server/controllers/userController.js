@@ -23,11 +23,9 @@ module.exports = {
 
   deleteWishList: catchAsync(async (req, res) => {
     const userServiceInstance = await Container.get("userService");
-    const productId = req.params.id;
-    const userId = req.body.user_id;
     const wishData = {
-      productId: productId,
-      userId: userId,
+      productId: req.params.id,
+      userId: res.locals.userId,
     };
     await userServiceInstance.deleteWishList(wishData);
     res.status(200).json({
