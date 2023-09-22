@@ -67,7 +67,10 @@ const ReservedProduct = () => {
 
   return (
     <Fragment>
-      <h1>구매진행상품</h1>
+      <div className={classes.notReservedList}>
+        <h2>구매한 상품이 없습니다.</h2>
+        <p>원하는 상품을 구매해보세요!</p>
+      </div>
       <div className={classes.reservedWrap}>
         {prodDetail &&
           prodDetail.map((product) => (

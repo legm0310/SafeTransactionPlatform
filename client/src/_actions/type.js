@@ -11,6 +11,7 @@ export const SIGNUP_USER = "signup";
 export const LOGIN_USER = "login";
 export const LOGOUT_USER = "logout";
 export const AUTH_USER = "auth";
+export const WISHLIST = "wishlist";
 //product
 export const ADD_PRODUCT = "addProduct";
 export const DEPOSITED_PRODUCTS = "depositedProducts";

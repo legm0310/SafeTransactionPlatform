@@ -97,8 +97,8 @@ const Detail = ({ wish, setWish }) => {
 
   return (
     <Fragment>
-      <section className={classes.productDetailWrap}>
-        <div className={classes.productDetail}>
+      <div className={classes.productDetailWrap}>
+        <section className={classes.productDetail}>
           <div className={classes.productImgWrap}>
             <Slide className={classes.Slide} />
           </div>
@@ -122,7 +122,6 @@ const Detail = ({ wish, setWish }) => {
                       <FaHeart />
                       <span className={classes.buttonText}>찜하기</span>
                     </div>
-                    <span className={classes.prodPutborder}></span>
                   </div>
                 </Button>
 
@@ -132,7 +131,6 @@ const Detail = ({ wish, setWish }) => {
                       <TbMessageCircle2Filled />
                       <span className={classes.buttonText}>판다톡</span>
                     </div>
-                    <span className={classes.prodMessageborder}></span>
                   </div>
                 </Button>
               </div>
@@ -143,16 +141,16 @@ const Detail = ({ wish, setWish }) => {
                     <IoCart />
                     <span className={classes.buttonText}>구매하기</span>
                   </div>
-                  <span className={classes.prodPurchaseborder}></span>
                 </div>
               </Button>
             </div>
           </div>
-        </div>
+        </section>
 
-        <div className={classes.informationWrap}>
+        <section className={classes.informationWrap}>
           <div className={classes.prodInformation}>
-            <div className={classes.prodInfoButton}>
+            <div className={classes.prodInfoHeader}></div>
+            {/* <div className={classes.prodInfoButton}>
               <Button onClick={() => onMenuHandler("productInformation")}>
                 <div
                   className={`${classes.infoButton} ${
@@ -166,27 +164,39 @@ const Detail = ({ wish, setWish }) => {
               <Button onClick={() => onMenuHandler("productStore")}>
                 <div
                   className={`${classes.storeButton} ${
-                    activeMenu === "productStore" ? classes.storeactive : ""
+                    activeMenu === "productStore" ? classes.active : ""
                   }`}
                 >
                   판매자정보
                 </div>
               </Button>
+            </div> */}
+            <div className={classes.productInfo}>
+              <div className={classes.productInfoHeader}>상품정보</div>
+              <div className={classes.ProdinfoExplanation}>
+                <ProductInformation />
+              </div>
+            </div>
+            <div className={classes.productStore}>
+              <div className={classes.productStoreHeader}>판매자정보</div>
+              <div className={classes.ProdStoreExplanation}>
+                <ProductStore />
+              </div>
             </div>
 
-            <div className={classes.ProdinfoExplanation}>
+            {/* <div className={classes.ProdinfoExplanation}>
               {activeMenu === "productStore" && <ProductStore />}
               {activeMenu === "productInformation" && <ProductInformation />}
-            </div>
+            </div> */}
           </div>
-        </div>
+        </section>
 
         <div className={classes.relationproductWrap}>
           <div className={classes.relationProduct}>
             <div className={classes.relationProductHeader}>연관 상품</div>
           </div>
         </div>
-      </section>
+      </div>
     </Fragment>
   );
 };

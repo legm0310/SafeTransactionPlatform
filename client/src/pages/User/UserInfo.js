@@ -16,17 +16,17 @@ const UserInfo = ({ wish, setWish }) => {
 
   return (
     <Fragment>
-      <section className={classes.UserInfoSection}>
-        <div className={classes.UserInfoWrap}>
+      <section className={classes.userInfoSection}>
+        <div className={classes.userInfoWrap}>
           <div></div>
           <div></div>
         </div>
 
-        <div className={classes.UserInfoMenuWrap}>
-          <div className={classes.UserInfoMenu}>
+        <div className={classes.userInfoMenuWrap}>
+          <div className={classes.userInfoMenu}>
             <Button onClick={() => onMenuHandler("OnSaleProduct")}>
               <div
-                className={`${classes.MenuButton} ${
+                className={`${classes.menuButton1} ${
                   activeMenu === "OnSaleProduct" ? classes.active : ""
                 }`}
               >
@@ -36,7 +36,7 @@ const UserInfo = ({ wish, setWish }) => {
 
             <Button onClick={() => onMenuHandler("ReservedProduct")}>
               <div
-                className={`${classes.MenuButton} ${
+                className={`${classes.menuButton} ${
                   activeMenu === "ReservedProduct" ? classes.active : ""
                 }`}
               >
@@ -46,7 +46,7 @@ const UserInfo = ({ wish, setWish }) => {
 
             <Button onClick={() => onMenuHandler("PurchasedProduct")}>
               <div
-                className={`${classes.MenuButton} ${
+                className={`${classes.menuButton} ${
                   activeMenu === "PurchasedProduct" ? classes.active : ""
                 }`}
               >
@@ -56,7 +56,7 @@ const UserInfo = ({ wish, setWish }) => {
 
             <Button onClick={() => onMenuHandler("Wish")}>
               <div
-                className={`${classes.MenuButton} ${
+                className={`${classes.menuButton} ${
                   activeMenu === "Wish" ? classes.active : ""
                 }`}
               >
@@ -73,7 +73,7 @@ const UserInfo = ({ wish, setWish }) => {
             </Button>
           </div>
 
-          <div className={classes.UserInfoExplanation}>
+          <div className={classes.userInfoExplanation}>
             {activeMenu === "OnSaleProduct" && <OnSaleProduct />}
             {activeMenu === "ReservedProduct" && <ReservedProduct />}
             {activeMenu === "PurchasedProduct" && <PurchasedProduct />}
