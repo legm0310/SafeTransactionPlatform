@@ -43,6 +43,9 @@ const ChatRoom = () => {
     // curSocket.on("message", ({ userId, message }) => {
     //   setChat((prevChat) => [...prevChat, { userId, message }]);
     // });
+    return () => {
+      curSocket.disconnect();
+    };
   }, []);
 
   const onTextChange = (e) => {
