@@ -12,6 +12,7 @@ module.exports = (io) => {
     );
 
     socket.on("disconnect", () => {
+      console.log("After Disconnected User Count : ", io.engine.clientsCount);
       clearInterval(socket.interval);
     });
 
