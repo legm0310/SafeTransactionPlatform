@@ -86,13 +86,13 @@ const ChatRoom = () => {
   };
 
   const renderChat = () => {
-    return chat.map(({ userId, message }, index) => (
-      <div key={index}>
-        <h3>
-          {userId}:<span>{message}</span>
-        </h3>
-      </div>
-    ));
+    // return chat.map(({ userId, message }, index) => (
+    //   <div key={index}>
+    //     <h3>
+    //       {userId}:<span>{message}</span>
+    //     </h3>
+    //   </div>
+    // ));
   };
 
   return (
