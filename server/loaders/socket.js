@@ -12,9 +12,9 @@ module.exports = (io) => {
       console.log(error);
     });
 
-    socket.on("login", ({ userId }) => {
-      socket.join(userId);
-    });
+    socket.on("login", ({ userId }) => socket.join(userId));
+
+    socket.on("onJoinRoom", (roomId) => socket.join(roomId));
 
     // socket.on("sendMessage", (message, callback) => {
     //   const user = getUser(socket.id);
@@ -26,7 +26,15 @@ module.exports = (io) => {
     //   });
     //   callback();
     // });
+    socket.on("onSend", async ({ user, roomId, chat }) => {
+      await db.ChatLog.create({
+        message: chat,
+        sender_id: user.id,
+        room_id: roomId,
+      });
 
+      socket.broadcast.to(roomId).emit("onReceive", { user, chat });
+    });
     socket.on("message", ({ userId, message }) => {
       io.emit("message", { userId, message });
     });
