@@ -24,6 +24,7 @@
   display: block;
   margin-right: 30px;
   margin-bottom: 30px;
+  flex-grow: 1;
 }
 
 .latestProduct:hover {
