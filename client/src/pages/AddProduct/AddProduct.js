@@ -184,7 +184,7 @@ const AddProduct = (props) => {
     dispatch(addProduct(data)).then((response) => {
       console.log(response);
       if (response.payload.addProductSuccess) {
-        enqueueSnackbar("상품 등록 완료.", {
+        enqueueSnackbar("상품 등록이 완료됐습니다.", {
           variant: "success",
         });
         navigate("/");
