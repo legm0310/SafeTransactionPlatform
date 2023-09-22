@@ -1,46 +1,44 @@
-import { Fragment } from "react";
+import { Fragment, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { getWishList } from "../../_actions/userAction";
+
+import WishItem from "./WishItem";
+
 import classes from "../../styles/user/WishList.module.css";
-import testImg from "../../assets/test.jpg";
-import deleteBtn from "../../assets/icon-delete.svg";
 
 const WishList = ({ wish }) => {
+  const dispatch = useDispatch();
+
+  const userId = useSelector((state) => state.user.userId);
+
+  const { wishList } = useSelector((state) => state.user.getWishListSuccess);
+  useEffect(() => {
+    dispatch(getWishList(userId));
+  }, []);
+
+  console.log(wishList);
+
+  console.log("User id = ", userId);
+
+  console.log(wish);
   return (
     <Fragment>
-      {/* <header className={classes.wishListWrap}>
-        <div className={classes.tabTitle}>
-          <input type="checkbox" />
-          <span>상품정보</span>
-          <span>상품금액</span>
-          <span>주문하기</span>
+      {wishList.length === 0 ? (
+        <div className={classes.notWishList}>
+          <h2>찜목록에 담긴 상품이 없습니다.</h2>
+          <p>원하는 상품을 찜목록에 담아보세요!</p>
         </div>
-      </header> */}
-
-      <section className={classes.wishList}>
-        <input type="checkbox" />
-        <div className={classes.wishListProductWrap}>
-          <div className={classes.wishListProductImage}>
-            <img src={wish?.image} alt="" />
-          </div>
-
-          <div className={classes.wishListProductInfo}>
-            <p className={classes.productCategory}>{wish?.category}</p>
-            <p className={classes.productName}>{wish?.name}</p>
-          </div>
-
-          <div className={classes.productPrice}>
-            <p>{wish?.price}PDT</p>
-          </div>
-
-          <div className={classes.wishListProductPurchase}>
-            <p className={classes.totalPrice}></p>
-            <button className={classes.btnSubmit}>구매하기</button>
-          </div>
-
-          <div className={classes.wishListProductRemove}>
-            <img src={deleteBtn} />
-          </div>
-        </div>
-      </section>
+      ) : (
+        wishList.map((wishItem) => {
+          return (
+            <WishItem
+              key={`key-${wishItem?.id}`}
+              wish={wish}
+              wishItem={wishItem}
+            />
+          );
+        })
+      )}
     </Fragment>
   );
 };
