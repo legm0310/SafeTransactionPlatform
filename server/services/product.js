@@ -22,8 +22,8 @@ class ProductService {
     const query = generateGetProductsQuery(params);
     const { count, rows } = await this.Product.findAndCountAll(query);
     const pages = Math.ceil(count / 12);
-    console.log("query", query);
-    console.log(rows);
+    // console.log("query", query);
+    // console.log(rows);
     const extractedList = extractProductsList(rows);
     return { pages, prodList: extractedList };
   }
@@ -31,7 +31,7 @@ class ProductService {
   //infinite scrolling 방식 (lastId)
   async getProducts(params) {
     const query = generateGetProductsQuery(params);
-    console.log("query", query);
+    // console.log("query", query);
     const products = await this.Product.findAll(query);
     if (!products) throw new InternalServerError("Internal Server Error");
 
@@ -108,6 +108,5 @@ class ProductService {
     return wishList;
   }
 }
-
 
 module.exports = ProductService;
