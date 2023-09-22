@@ -17,7 +17,7 @@ module.exports = (app) => {
   router.delete("/deleteTest", chatController.deleteRoom);
 
   router.get("/", isAuth, chatController.getRooms);
-  router.get("/:id", isAuth, chatController.getChats);
+  router.get("/:id", chatController.getChats);
   router.post("/room", isAuth, chatController.addRoom);
   router.delete("/:id", isAuth, chatController.deleteRoom);
 
