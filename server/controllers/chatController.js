@@ -23,10 +23,10 @@ module.exports = {
     });
   }),
 
-  getRoom: catchAsync(async (req, res) => {
+  getChats: catchAsync(async (req, res) => {
     const chatServiceInstance = await Container.get("chatService");
     const roomId = req.params.id;
-    const room = await chatServiceInstance.getRoomById(roomId);
+    const room = await chatServiceInstance.getChatsByRoom(roomId);
     res.status(200).json({
       getRoomSuccess: true,
       room: room,
@@ -50,16 +50,16 @@ module.exports = {
   getRooms: catchAsync(async (req, res) => {
     const chatServiceInstance = await Container.get("chatService");
     const userId = res.locals.userId;
-    const roomData = await chatServiceInstance.getRooms(1);
+    const rooms = await chatServiceInstance.getRooms(userId);
     res.status(200).json({
       getRoomsSuccess: true,
-      roomInfo: roomData,
+      rooms,
     });
   }),
 
-  deleteTest: catchAsync(async (req, res) => {
+  deleteRoom: catchAsync(async (req, res) => {
     const chatServiceInstance = await Container.get("chatService");
-    const roomData = req.body;
+    const roomData = { userId: res.locals.userId, roomId: req.params.id };
     const result = await chatServiceInstance.deleteRoom(roomData);
     res.status(200).json({
       deleteRoomsSuccess: true,
