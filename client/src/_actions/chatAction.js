@@ -17,7 +17,7 @@ export function addRoom(dataToSubmit) {
       console.log(err);
       return dispatch({
         type: ADD_ROOM,
-        payload: err.reponse.data,
+        payload: err.response.data,
       });
     }
   };

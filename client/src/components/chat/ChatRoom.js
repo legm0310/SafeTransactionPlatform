@@ -43,6 +43,9 @@ const ChatRoom = () => {
     // curSocket.on("message", ({ userId, message }) => {
     //   setChat((prevChat) => [...prevChat, { userId, message }]);
     // });
+    return () => {
+      curSocket.disconnect();
+    };
   }, []);
 
   const onTextChange = (e) => {
@@ -86,13 +89,13 @@ const ChatRoom = () => {
   };
 
   const renderChat = () => {
-    return chat.map(({ userId, message }, index) => (
-      <div key={index}>
-        <h3>
-          {userId}:<span>{message}</span>
-        </h3>
-      </div>
-    ));
+    // return chat.map(({ userId, message }, index) => (
+    //   <div key={index}>
+    //     <h3>
+    //       {userId}:<span>{message}</span>
+    //     </h3>
+    //   </div>
+    // ));
   };
 
   return (
