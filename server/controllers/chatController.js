@@ -26,7 +26,7 @@ module.exports = {
   getChats: catchAsync(async (req, res) => {
     const chatServiceInstance = await Container.get("chatService");
     const roomId = req.params.id;
-    const room = await chatServiceInstance.getChatsByRoom(roomId);
+    const room = await chatServiceInstance.getChatsByRoom(-1, 15);
     res.status(200).json({
       getRoomSuccess: true,
       room: room,
@@ -50,10 +50,10 @@ module.exports = {
   getRooms: catchAsync(async (req, res) => {
     const chatServiceInstance = await Container.get("chatService");
     const userId = res.locals.userId;
-    const rooms = await chatServiceInstance.getRooms(userId);
+    const result = await chatServiceInstance.getRooms(userId);
     res.status(200).json({
-      getRoomsSuccess: true,
-      rooms,
+      getChatsSuccess: true,
+      result,
     });
   }),
 
@@ -70,7 +70,7 @@ module.exports = {
   getMessagesTest: catchAsync(async (req, res) => {
     const chatServiceInstance = await Container.get("chatService");
     // const userId = res.locals.userId;
-    const result = await chatServiceInstance.getMessageByRoom();
+    const result = await chatServiceInstance.getChatsByRoom();
     res.status(200).json({
       getMessagesSuccess: true,
       result: result,
