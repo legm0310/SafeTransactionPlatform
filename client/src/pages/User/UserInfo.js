@@ -1,9 +1,10 @@
 import React, { Fragment, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import Button from "../../components/common/Button";
 import OnSaleProduct from "../../components/user/OnSaleProduct";
 import ReservedProduct from "../../components/user/ReservedProduct";
 import PurchasedProduct from "../../components/user/PurchasedProduct";
-import Wish from "../../components/user/Wish";
+import WishList from "../../components/user/WishList";
 
 import classes from "../../styles/user/UserInfo.module.css";
 
@@ -77,7 +78,9 @@ const UserInfo = ({ wish, setWish }) => {
             {activeMenu === "OnSaleProduct" && <OnSaleProduct />}
             {activeMenu === "ReservedProduct" && <ReservedProduct />}
             {activeMenu === "PurchasedProduct" && <PurchasedProduct />}
-            {activeMenu === "Wish" && <Wish wish={wish} setWish={setWish} />}
+            {activeMenu === "Wish" && (
+              <WishList wish={wish} setWish={setWish} />
+            )}
           </div>
         </div>
       </section>

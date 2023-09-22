@@ -11,7 +11,8 @@ import {
   LOGIN_USER,
   LOGOUT_USER,
   AUTH_USER,
-  WISHLIST,
+  ADD_WISHLIST,
+  GET_WISHLIST,
 } from "../_actions/type";
 
 const initialState = {
@@ -53,10 +54,15 @@ export default function (state = initialState, action) {
         userId: action.payload.userData?.id,
       };
       break;
-    case WISHLIST:
+    case ADD_WISHLIST:
       return {
         ...state,
-        wishSuccess: action.payload,
+        addWishListSuccess: action.payload,
+      };
+    case GET_WISHLIST:
+      return {
+        ...state,
+        getWishListSuccess: action.payload,
       };
       break;
     default: // state가 들어오지 않았을 경우 전의 state를 넣어줌
