@@ -1,5 +1,6 @@
 const { Container } = require("typedi");
 const { BadRequestError, NotFoundError } = require("../utils/generalError");
+const { extractProductsList } = require("../utils");
 
 class UserService {
   constructor() {
@@ -70,13 +71,12 @@ class UserService {
   async getWishListById(userId) {
     // 스페셜 메소드를 사용하기 위해 user 정보를 갖고 옴
     const user = await this.User.findByPk(+userId);
-    // 특정 user의 WishList 정보를 get 해옴
-    const wishList = await user.getWishList();
-    const wishProductData = wishList.map((value) => ({
-      title: value.title,
-      price: value.price,
-      image: value.images,
-    }));
+    // 특정 user의 WishList product 정보를 get 해옴
+    const wishList = await user.getWishList({
+      attributes: ["title", "price", "images"],
+      joinTableAttributes: [],
+    });
+    const wishProductData = extractProductsList(wishList);
     return wishProductData;
   }
 
