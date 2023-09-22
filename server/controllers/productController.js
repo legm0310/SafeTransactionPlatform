@@ -66,7 +66,7 @@ module.exports = {
     const productId = req.params;
     await prodServiceInstance.deleteProduct(productId);
     res.status(200).json({
-      deleteProductSuccess: true
+      deleteProductSuccess: true,
     });
   }),
 
@@ -91,39 +91,6 @@ module.exports = {
     );
     res.status(200).json({
       updated: updatedProd,
-    });
-  }),
-
-  getWishList: catchAsync(async (req, res) => {
-    const prodServiceInstance = await Container.get("productService");
-    const userId = req.params.id;
-    const wishList = await prodServiceInstance.getWishListById(userId);
-    res.status(200).json({
-      getWishListSuccess: true,
-      wishList: wishList,
-    });
-  }),
-
-  addWishList: catchAsync(async (req, res) => {
-    const prodServiceInstance = await Container.get("productService");
-    const wishList = await prodServiceInstance.addWishList(req.body);
-    res.status(201).json({
-      addWishListSuccess: true,
-      wishList: wishList,
-    });
-  }),
-
-  deleteWishList: catchAsync(async (req, res) => {
-    const prodServiceInstance = await Container.get("productService");
-    const productId = req.params.id;
-    const userId = req.body.user_id;
-    const wishData = {
-      productId: productId,
-      userId: userId,
-    };
-    await prodServiceInstance.deleteWishList(wishData);
-    res.status(200).json({
-      deleteWishList: true,
     });
   }),
 };

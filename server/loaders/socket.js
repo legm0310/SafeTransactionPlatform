@@ -2,7 +2,14 @@ module.exports = (io) => {
   io.on("connection", (socket) => {
     const req = socket.request;
     const ip = req.headers["x-forwarded-for"] || req.connection.remoteAddress;
-    console.log("✨Socket connected✨", ip, socket.id, req.ip);
+    console.log(
+      "✨Socket connected✨",
+      ip,
+      socket.id,
+      req.ip,
+      "Current User : ",
+      io.engine.clientsCount
+    );
 
     socket.on("disconnect", () => {
       clearInterval(socket.interval);
