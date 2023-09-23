@@ -27,9 +27,9 @@ module.exports = {
       productId: req.params.id,
       userId: res.locals.userId,
     };
-    await userServiceInstance.deleteWishList(wishData);
-    res.status(200).json({
-      deleteWishList: true,
+    const result = await userServiceInstance.deleteWishList(wishData);
+    res.status(204).json({
+      deleteWishListSuccess: !!result,
     });
   }),
 };

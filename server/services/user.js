@@ -53,14 +53,17 @@ class UserService {
   /** 위시리스트 추가 메소드
    * @description 위시리스트 추가 로직
    * @param {object} wishListData - db에 저장할 위시리스트 데이터, req.body
-   * @param {integer} wishListData.user_id - 사용자 ID
-   * @param {integer} wishListData.product_id - 제품 ID
+   * @param {integer} wishListData.userId - 사용자 ID
+   * @param {integer} wishListData.productId - 제품 ID
    */
   async addWishList(wishListData) {
-    const user = await this.User.findOne({
-      where: wishListData.user_id,
-    });
-    const wishList = await user.addWishList(wishListData.product_id);
+    const user = await this.User.findByPk(+wishListData.userId);
+
+    const hasWishList = await user.getWishList({ id: +wishListData.productId });
+    if (hasWishList.length > 0) {
+      throw new BadRequestError("Wishlist already exists");
+    }
+    const wishList = await user.addWishList(+wishListData.productId);
     return wishList;
   }
 
@@ -73,7 +76,7 @@ class UserService {
     const user = await this.User.findByPk(+userId);
     // 특정 user의 WishList product 정보를 get 해옴
     const wishList = await user.getWishList({
-      attributes: ["title", "price", "images"],
+      attributes: ["id", "title", "price", "images"],
       joinTableAttributes: [],
     });
     const wishProductData = extractProductsList(wishList);
@@ -82,14 +85,19 @@ class UserService {
 
   /** 위시리스트 DELETE 메소드
    * @description 위시리스트 DELETE 로직
-   * @param {object} wishData - db에서 삭제할 위시리스트 데이터
-   * @param {integer} wishData.userId - 사용자 ID
-   * @param {integer} wishData.productId - 제품 ID
+   * @param {object} wishListData - db에서 삭제할 위시리스트 데이터
+   * @param {integer} wishListData.userId - 사용자 ID
+   * @param {integer} wishListData.productId - 제품 ID
    * */
-  async deleteWishList(wishData) {
-    const user = await this.User.findByPk(+wishData.userId);
-    const wishList = await user.removeWishList(+wishData.productId);
-    return wishList;
+  async deleteWishList(wishListData) {
+    const user = await this.User.findByPk(+wishListData.userId);
+
+    const hasWishList = await user.getWishList({ id: +wishListData.productId });
+    if (hasWishList.length === 0) {
+      throw new NotFoundError("Wishlist not found");
+    }
+    const result = await user.removeWishList(+wishListData.productId);
+    return result;
   }
 }
 

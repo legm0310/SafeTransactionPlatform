@@ -7,11 +7,12 @@ module.exports = (io) => {
       ip,
       socket.id,
       req.ip,
-      "Current User : ",
+      "Current User Count : ",
       io.engine.clientsCount
     );
 
     socket.on("disconnect", () => {
+      console.log("After Disconnected User Count : ", io.engine.clientsCount);
       clearInterval(socket.interval);
     });
 

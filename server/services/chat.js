@@ -220,23 +220,27 @@ class ChatService {
     return message;
   }
 
-  async getChatsByRoom() {
+  async getChatsByRoom(lastId, limit) {
     //updatedAt 이후의 메시지만 로딩
 
     // const user = await this.User.findByPk(roomData.userId);
     // const targetRoom = await this.ChatRoom.findByPk(roomData.roomId);
-    const user = await this.User.findByPk(1);
-    const targetRoom = await this.ChatRoom.findByPk(1);
+    const targetRoomPromise = await this.ChatRoom.findByPk(1);
+    const userPromise = await this.User.findByPk(1);
 
-    if (!user && !targetRoom) {
-      throw new NotFoundError("Chatting room and user not found");
-    } else if (!user) {
-      throw new NotFoundError("Chat user not found");
-    } else if (!targetRoom) {
-      throw new NotFoundError("Chatting room not found");
-    }
+    const [{ value: targetRoom }, { value: user }] = await Promise.allSettled([
+      targetRoomPromise,
+      userPromise,
+    ]);
 
-    const room = await user.getUserRoom({
+    console.log(targetRoom, user);
+    if (!targetRoom) throw new NotFoundError("Chatting room not found");
+
+    const where = {
+      id: lastId === -1 ? { [Op.gt]: +lastId } : { [Op.lt]: +lastId },
+    };
+
+    const roomsPromise = user.getUserRoom({
       attributes: ["name"],
       include: [
         {
@@ -248,16 +252,65 @@ class ChatService {
           },
         },
       ],
-      joinTableAttributes: [],
-      raw: true,
+      joinTableAttributes: ["updatedAt"],
     });
 
-    console.log(targetRoom);
+    // const 내소신 = user.getUserRoom({
+    //   where: { id: 1 },
+    //   attributes: ["name"],
+    //   include: [
+    //     {
+    //       model: this.User,
+    //       as: "RoomUser",
+    //       attributes: ["id", "user_name"],
+    //       through: {
+    //         attributes: [],
+    //       },
+    //     },
+    //     {
+    //       model: this.ChatLog,
+    //       where,
+    //       limit: 15,
+    //       order: [
+    //         ["createdAt", "DESC"],
+    //         ["id", "DESC"],
+    //       ],
+    //     },
+    //   ],
+    // });
 
-    // const chats = await targetRoom.getChatLogs();
-    console.log(room);
+    const chatsPromise = targetRoom.getChat_logs({
+      where,
+      limit: 15,
+      order: [
+        ["createdAt", "DESC"],
+        ["id", "DESC"],
+      ],
+      include: [
+        {
+          model: this.User,
+          attributes: ["id", "user_name"],
+        },
+        {
+          model: this.ChatParticipant,
+          require: true,
+          where: {
+            updatedAt: {
+              [Op.gt]: roomsPromise[0]?.chat_room.chat_participant.updatedAt, // 여기에 필요한 날짜나 조건을 넣습니다.
+            },
+          },
+        },
+      ],
+    });
+    console.log(roomsPromise);
+    const [{ value: rooms }, { value: chats }, { value: 힝, status, reason }] =
+      await Promise.allSettled([roomsPromise, chatsPromise, 내소신]);
+    console.log(rooms);
+    console.log(chats);
+    console.log(status, "힝", 힝, reason);
+    // console.log(room);
     // console.log(chats);
-    return;
+    return { roomData: rooms, chats, 힝 };
   }
 
   async sendMessage() {
