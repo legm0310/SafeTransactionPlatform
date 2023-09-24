@@ -62,6 +62,14 @@ const UserSection = (props) => {
     setOpenWallet(false);
   };
 
+  const onWishListOpen = () => {
+    navigate("/user", {
+      state: {
+        activeMenu: "Wish",
+      },
+    });
+  };
+
   const onProfileMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -74,6 +82,11 @@ const UserSection = (props) => {
     setAnchorEl(null);
     onMobileMenuClose();
   };
+
+  // const handleWishListClick = () => {
+  //   // Call onMenuHandler with "Wish" to change the active menu
+  //   onMenuHandler("Wish");
+  // };
 
   const handleMobileMenuOpen = (event) => {
     setMobileMoreAnchorEl(event.currentTarget);
@@ -276,7 +289,12 @@ const UserSection = (props) => {
             TransitionProps={{ timeout: 600 }}
             arrow
           >
-            <IconButton size="large" color="black" sx={{ mr: 2 }}>
+            <IconButton
+              size="large"
+              color="black"
+              sx={{ mr: 2 }}
+              onClick={onWishListOpen}
+            >
               <Badge badgeContent={17} color="error">
                 <FavoriteIcon sx={{ fontSize: 30 }} />
               </Badge>
