@@ -13,6 +13,7 @@ export const LOGOUT_USER = "logout";
 export const AUTH_USER = "auth";
 export const ADD_WISHLIST = "addWishList";
 export const GET_WISHLIST = "getWishList";
+export const DELETE_WISHLIST = "deleteWishList";
 //product
 export const ADD_PRODUCT = "addProduct";
 export const DEPOSITED_PRODUCTS = "depositedProducts";
