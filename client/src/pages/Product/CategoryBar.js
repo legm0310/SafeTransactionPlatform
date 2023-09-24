@@ -11,7 +11,7 @@ const Bar = styled.div`
   width: 12rem;
 `;
 
-const CategoryBar = () => {
+const CategoryBar = ({ onCategoryClick }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -41,92 +41,51 @@ const CategoryBar = () => {
     <Fragment>
       <Bar>
         <Navigation
-          // onSelect={({ itemId }) => {
-          //     if (user && itemId !== '/tags') {
-          //       setType(itemId);
-          //     }
-          //     if (!user && itemId.item !== 'main') {
-          //       navigate('/signin');
-          //     }
-          //   }}
-
+          onSelect={({ itemId }) => onCategoryClick({ category: itemId })}
           items={[
             {
               title: "전체 카테고리",
-              itemId: { item: "", title: "전체 카테고리" },
-              //   elemBefore: () => (
-              //     <Icon name="th large" style={{ fontSize: "1.2rem" }} />
-              //   ),
+              itemId: "%",
             },
             {
               title: "남성의류",
-              itemId: { item: "", title: "남성의류" },
-              //   elemBefore: () => (
-              //     <Icon name="th large" style={{ fontSize: "1.2rem" }} />
-              //   ),
+              itemId: "남성의류",
             },
             {
               title: "여성의류",
-              itemId: { item: "", title: "패션잡화" },
-              //   elemBefore: () => (
-              //     <Icon name="th large" style={{ fontSize: "1.2rem" }} />
-              //   ),
+              itemId: "여성의류",
             },
             {
               title: "패션잡화",
-              itemId: { item: "", title: "패션잡화" },
-              //   elemBefore: () => (
-              //     <Icon name="th large" style={{ fontSize: "1.2rem" }} />
-              //   ),
+              itemId: "패션잡화",
             },
             {
               title: "신발",
-              itemId: { item: "", title: "신발" },
-              //   elemBefore: () => (
-              //     <Icon name="th large" style={{ fontSize: "1.2rem" }} />
-              //   ),
+              itemId: "신발",
             },
             {
               title: "스포츠 용품",
-              itemId: { item: "", title: "스포츠용품" },
-              //   elemBefore: () => (
-              //     <Icon name="th large" style={{ fontSize: "1.2rem" }} />
-              //   ),
+              itemId: "스포츠 용품",
             },
             {
               title: "가전제품",
-              itemId: { item: "", title: "가전제품" },
-              //   elemBefore: () => (
-              //     <Icon name="th large" style={{ fontSize: "1.2rem" }} />
-              //   ),
+              itemId: "가전제품",
             },
             {
               title: "컴퓨터/주변기기",
-              itemId: { item: "", title: "컴퓨터/주변기기" },
-              //   elemBefore: () => (
-              //     <Icon name="th large" style={{ fontSize: "1.2rem" }} />
-              //   ),
+              itemId: "컴퓨터/주변기기",
             },
             {
-              title: "전자제품",
-              itemId: { item: "", title: "전자제품" },
-              //   elemBefore: () => (
-              //     <Icon name="th large" style={{ fontSize: "1.2rem" }} />
-              //   ),
+              title: "전자기기",
+              itemId: "전자기기",
             },
             {
               title: "가구",
-              itemId: { item: "", title: "가구" },
-              //   elemBefore: () => (
-              //     <Icon name="th large" style={{ fontSize: "1.2rem" }} />
-              //   ),
+              itemId: "가구",
             },
             {
               title: "기타",
-              itemId: { item: "", title: "기타" },
-              //   elemBefore: () => (
-              //     <Icon name="th large" style={{ fontSize: "1.2rem" }} />
-              //   ),
+              itemId: "기타",
             },
           ]}
         />
