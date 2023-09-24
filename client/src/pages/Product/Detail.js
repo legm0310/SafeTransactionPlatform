@@ -89,8 +89,8 @@ const Detail = ({ wish, setWish }) => {
 
   const addWishListHandler = () => {
     let data = {
-      user_id: userId,
-      product_id: productId,
+      userId,
+      productId,
     };
 
     console.log(data);
@@ -108,34 +108,6 @@ const Detail = ({ wish, setWish }) => {
       }
     });
   };
-
-  // const addWishList = async () => {
-  //   try {
-  //     const data = {
-  //       id: productDetail.productId,
-  //       image: productDetail.images,
-  //       // category: productDetail.category,
-  //       name: productDetail.title,
-  //       price: productDetail.price,
-  //     };
-
-  //     const response = await dispatch(addWishList(data));
-  //     console.log(response);
-
-  //     if (response.payload.addWishList) {
-  //       enqueueSnackbar("관심상품 등록에 성공했습니다.", {
-  //         variant: "success",
-  //       });
-  //     } else {
-  //       enqueueSnackbar("관심상품 등록에 실패했습니다.", {
-  //         variant: "error",
-  //       });
-  //     }
-  //   } catch (error) {
-  //     console.log("Error:", error);
-  //   }
-  // };
-  console.log(wish);
 
   return (
     <Fragment>
