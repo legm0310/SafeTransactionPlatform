@@ -1,5 +1,6 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { useLocation } from "react-router-dom";
 import Button from "../../components/common/Button";
 import OnSaleProduct from "../../components/user/OnSaleProduct";
 import ReservedProduct from "../../components/user/ReservedProduct";
@@ -10,6 +11,12 @@ import classes from "../../styles/user/UserInfo.module.css";
 
 const UserInfo = ({ wish, setWish }) => {
   const [activeMenu, setActiveMenu] = useState("OnSaleProduct");
+
+  const location = useLocation();
+  useEffect(() => {
+    if (location.state && location.state.activeMenu)
+      setActiveMenu(location.state.activeMenu);
+  }, [location.state]);
 
   const onMenuHandler = (menu) => {
     setActiveMenu(menu);

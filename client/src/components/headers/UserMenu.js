@@ -62,6 +62,18 @@ const UserSection = (props) => {
     setOpenWallet(false);
   };
 
+  const onWishListOpen = () => {
+    navigate("/user", {
+      state: {
+        activeMenu: "Wish",
+      },
+    });
+  };
+
+  const onChattingOpen = () => {
+    navigate("/chat");
+  };
+
   const onProfileMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -74,6 +86,11 @@ const UserSection = (props) => {
     setAnchorEl(null);
     onMobileMenuClose();
   };
+
+  // const handleWishListClick = () => {
+  //   // Call onMenuHandler with "Wish" to change the active menu
+  //   onMenuHandler("Wish");
+  // };
 
   const handleMobileMenuOpen = (event) => {
     setMobileMoreAnchorEl(event.currentTarget);
@@ -103,7 +120,7 @@ const UserSection = (props) => {
         </MenuItem>
       </Link>
 
-      <MenuItem sx={{ color: "black" }}>
+      <MenuItem sx={{ color: "black" }} onClick={onWishListOpen}>
         <FavoriteIcon sx={{ fontSize: 20, mr: "4px", color: "#1ecfba" }} />
         <Typography>찜목록</Typography>
       </MenuItem>
@@ -136,15 +153,20 @@ const UserSection = (props) => {
       onClose={onMobileMenuClose}
     >
       <MenuItem>
-        <IconButton size="large" aria-label="show 4 new mails" color="primary">
+        <IconButton
+          size="large"
+          aria-label="show 4 new mails"
+          color="primary"
+          onClick={onChattingOpen}
+        >
           <Badge badgeContent={4} color="error">
             <TelegramIcon />
           </Badge>
         </IconButton>
-        <p>채팅</p>
+        <p>판다톡</p>
       </MenuItem>
 
-      <MenuItem>
+      <MenuItem onClick={onWishListOpen}>
         <IconButton
           size="large"
           aria-label="show 17 new notifications"
@@ -232,19 +254,18 @@ const UserSection = (props) => {
             TransitionProps={{ timeout: 600 }}
             arrow
           >
-            <Link to={`/chat/`}>
-              <IconButton
-                size="large"
-                aria-label="show 4 new mails"
-                color="black"
-                sx={{ mr: 2 }}
-              >
-                <Badge badgeContent={4} color="error">
-                  <TelegramIcon sx={{ fontSize: 30, color: "#fe4e62" }} />
-                </Badge>
-                <Typography>판다톡</Typography>
-              </IconButton>
-            </Link>
+            <IconButton
+              size="large"
+              aria-label="show 4 new mails"
+              color="black"
+              sx={{ mr: 2 }}
+              onClick={onChattingOpen}
+            >
+              <Badge badgeContent={4} color="error">
+                <TelegramIcon sx={{ fontSize: 30, color: "#fe4e62" }} />
+              </Badge>
+              <Typography>판다톡</Typography>
+            </IconButton>
           </Tooltip>
 
           {/* <Tooltip
@@ -276,7 +297,12 @@ const UserSection = (props) => {
             TransitionProps={{ timeout: 600 }}
             arrow
           >
-            <IconButton size="large" color="black" sx={{ mr: 2 }}>
+            <IconButton
+              size="large"
+              color="black"
+              sx={{ mr: 2 }}
+              onClick={onWishListOpen}
+            >
               <Badge badgeContent={17} color="error">
                 <FavoriteIcon sx={{ fontSize: 30 }} />
               </Badge>
