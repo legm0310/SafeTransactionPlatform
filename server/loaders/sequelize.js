@@ -131,7 +131,7 @@ module.exports = async () => {
         //   role: "BUYER",
         // });
 
-        await db.Catagory.bulkCreate([
+        await db.Category.bulkCreate([
           {
             name: "전체",
           },
