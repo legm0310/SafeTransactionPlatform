@@ -22,6 +22,7 @@ export const RECENT_PRODUCTS = "recentProducts";
 export const GET_PRODUCT = "getProduct";
 export const DEPOSIT = "deposit";
 export const RELEASE = "release";
+export const SEARCH_RECENT_PRODUCTS = "getSearchRecentProducts";
 //ui
 export const SET_LOADINGS = "setLoadings";
 export const SET_CONTRACT_LOADING = "setContractLoading";

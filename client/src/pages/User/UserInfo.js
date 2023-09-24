@@ -2,7 +2,7 @@ import React, { Fragment, useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useLocation } from "react-router-dom";
 import Button from "../../components/common/Button";
-import OnSaleProduct from "../../components/user/OnSaleProduct";
+import SaleList from "../../components/user/SaleList";
 import ReservedProduct from "../../components/user/ReservedProduct";
 import PurchasedProduct from "../../components/user/PurchasedProduct";
 import WishList from "../../components/user/WishList";
@@ -82,7 +82,7 @@ const UserInfo = ({ wish, setWish }) => {
           </div>
 
           <div className={classes.userInfoExplanation}>
-            {activeMenu === "OnSaleProduct" && <OnSaleProduct />}
+            {activeMenu === "OnSaleProduct" && <SaleList />}
             {activeMenu === "ReservedProduct" && <ReservedProduct />}
             {activeMenu === "PurchasedProduct" && <PurchasedProduct />}
             {activeMenu === "Wish" && (

@@ -5,16 +5,16 @@ import Paging from "../../components/common/Paging";
 
 import classes from "../../styles/product/ProductCard.module.css";
 
-const ProductCard = (props) => {
-  const searchedProducts = useSelector(
-    (state) => state.product.searchProducts?.products
-  );
-  console.log(searchedProducts);
+const ProductCard = ({ filteredProducts }) => {
+  // const searchedProducts = useSelector(
+  //   (state) => state.product.searchProducts?.products
+  // );
+  console.log(filteredProducts);
   return (
     <Fragment>
       <div className={classes.prodCardWrap}>
         <div className={classes.prodCardContainer}>
-          {searchedProducts?.map((product) => (
+          {filteredProducts?.map((product) => (
             <div className={classes.prodCard}>
               <div className={classes.imgBox}>
                 <img src={product.image} className={classes.prodImg} alt="" />

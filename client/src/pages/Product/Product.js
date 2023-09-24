@@ -1,7 +1,9 @@
 import React, { Fragment, useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { getProducts } from "../../_actions/productAction";
+import {
+  getSearchRecentProducts,
+} from "../../_actions/productAction";
 import RecentProductsList from "../../components/product/RecentProducts";
 import CategoryBar from "./CategoryBar";
 import ProductCard from "./ProductCard";
@@ -15,19 +17,41 @@ const Product = (props) => {
   const dispatch = useDispatch();
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [filteredProducts, setFilteredProducts] = useState([]);
+  const [searchParams, setSearchParams] = useSearchParams();
 
   // 선택 카테고리 값 변경
-  const onCategoryClick = (productCategory) => {
+  // const onCategoryClick = (productCategory) => {
+  //   const filter = {};
+  //   setSelectedCategory(productCategory);
+  //   const searchWord = getItem("searchWord") ?? "";
+  //   filter.search = searchWord;
+  //   filter.category = selectedCategory ?? "";
+  //   // filter.page = page ?? "";
+  //   filter.status = "";
+  //   dispatch(getProducts(filter)).then((response) => {
+  //     console.log(response);
+  //     setFilteredProducts(response.payload?.products);
+  //   });
+  // };
+
+  const onCategoryClick = async (e) => {
     const filter = {};
-    setSelectedCategory(productCategory);
-    const searchWord = getItem("searchWord") ?? "";
-    filter.search = searchWord;
-    filter.category = selectedCategory ?? "";
-    // filter.page = page ?? "";
-    filter.status = "";
-    dispatch(getProducts(filter)).then((response) => {
-      console.log(response);
-      setFilteredProducts(response.payload?.products);
+    setSearchParams({ category: e.category });
+    setSelectedCategory(e.category);
+    const category = searchParams.get("category");
+    console.log("카테고리 : ", category);
+    filter.category = category;
+    filter.status = "SALE";
+    console.log("filter", filter);
+    await dispatch(
+      getSearchRecentProducts({
+        status: filter.status,
+        category: filter.category,
+      })
+    ).then((response) => {
+      console.log("response", response);
+      setFilteredProducts(response.payload?.products ?? []);
+      console.log("prod :", response.payload?.products);
     });
   };
 
@@ -70,13 +94,14 @@ const Product = (props) => {
 
         <div className={classes.productWrap}>
           <div className={classes.categoryBar}>
-            <CategoryBar />
+            <CategoryBar onCategoryClick={onCategoryClick} />
           </div>
 
           {selectedCategory ? (
-            ((<ProductCard />), (<Paging />))
-          ) : (
             <RecentProductsList />
+          ) : (
+            ((<ProductCard filteredProducts={filteredProducts} />),
+            (<Paging />))
           )}
         </div>
       </div>
