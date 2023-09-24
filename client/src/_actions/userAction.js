@@ -11,6 +11,7 @@ import {
   AUTH_USER,
   ADD_WISHLIST,
   GET_WISHLIST,
+  DELETE_WISHLIST,
 } from "./type";
 import { authRequest, baseRequest } from "../api/common";
 import { setLoadings } from "./uiAction";
@@ -88,21 +89,6 @@ export function connectWallet() {
   };
 }
 
-export function getWishList(dataToSubmit) {
-  const params = dataToSubmit;
-  const request = authRequest()
-    .get(`api/user/wishlist/${params}`)
-    .then((response) => response.data)
-    .catch((err) => {
-      console.log(err.response);
-      return err.response.data;
-    });
-  return {
-    type: GET_WISHLIST,
-    payload: request,
-  };
-}
-
 export function addWishList(dataToSubmit) {
   return async (dispatch) => {
     try {
@@ -120,5 +106,35 @@ export function addWishList(dataToSubmit) {
         payload: err.response.data,
       });
     }
+  };
+}
+
+export function getWishList(dataToSubmit) {
+  const params = dataToSubmit;
+  const request = authRequest()
+    .get(`api/user/wishlist/${params}`)
+    .then((response) => response.data)
+    .catch((err) => {
+      console.log(err.response);
+      return err.response.data;
+    });
+  return {
+    type: GET_WISHLIST,
+    payload: request,
+  };
+}
+
+export function deleteWishList(dataToSubmit) {
+  const params = dataToSubmit;
+  const request = authRequest()
+    .delete(`api/user/wishlist/${params}`)
+    .then((response) => response.data)
+    .catch((err) => {
+      console.log(err.response);
+      return err.response.data;
+    });
+  return {
+    type: DELETE_WISHLIST,
+    payload: request,
   };
 }
