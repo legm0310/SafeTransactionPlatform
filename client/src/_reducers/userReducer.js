@@ -13,6 +13,7 @@ import {
   AUTH_USER,
   ADD_WISHLIST,
   GET_WISHLIST,
+  DELETE_WISHLIST,
 } from "../_actions/type";
 
 const initialState = {
@@ -67,6 +68,24 @@ export default function (state = initialState, action) {
         getWishListSuccess: action.payload.getWishListSuccess,
       };
       break;
+    case DELETE_WISHLIST: {
+      console.log(
+        "늑음",
+        state.loadWishList.map((item) => {
+          console.log(typeof item.id, typeof action.payload.deletedProductId);
+          return item.id === action.payload.deletedProductId;
+        }),
+        action.payload
+      );
+      state.loadWishList = state.loadWishList.filter((item) =>
+        item.id === +action.payload.deletedProductId ? false : true
+      );
+      return {
+        ...state,
+        deleteWishListSuccess: action.payload.deleteWishListSuccess,
+      };
+      break;
+    }
     default: // state가 들어오지 않았을 경우 전의 state를 넣어줌
       return state;
   }
