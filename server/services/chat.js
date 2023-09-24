@@ -225,22 +225,27 @@ class ChatService {
 
     // const user = await this.User.findByPk(roomData.userId);
     // const targetRoom = await this.ChatRoom.findByPk(roomData.roomId);
-    const targetRoomPromise = await this.ChatRoom.findByPk(1);
-    const userPromise = await this.User.findByPk(1);
+    const userId = 3;
+    const roomId = 2;
+    const targetRoomPromise = await this.ChatRoom.findByPk(roomId);
+    const userPromise = await this.User.findByPk(userId);
+    const lastJoin = await this.ChatParticipant.findOne({
+      where: {
+        user_id: userId,
+        room_id: roomId,
+      },
+      attributes: ["updatedAt"],
+    });
 
     const [{ value: targetRoom }, { value: user }] = await Promise.allSettled([
       targetRoomPromise,
       userPromise,
     ]);
 
-    console.log(targetRoom, user);
     if (!targetRoom) throw new NotFoundError("Chatting room not found");
 
-    const where = {
-      id: lastId === -1 ? { [Op.gt]: +lastId } : { [Op.lt]: +lastId },
-    };
-
     const roomsPromise = user.getUserRoom({
+      where: { id: roomId },
       attributes: ["name"],
       include: [
         {
@@ -252,35 +257,16 @@ class ChatService {
           },
         },
       ],
-      joinTableAttributes: ["updatedAt"],
+      joinTableAttributes: [],
     });
 
-    // const 내소신 = user.getUserRoom({
-    //   where: { id: 1 },
-    //   attributes: ["name"],
-    //   include: [
-    //     {
-    //       model: this.User,
-    //       as: "RoomUser",
-    //       attributes: ["id", "user_name"],
-    //       through: {
-    //         attributes: [],
-    //       },
-    //     },
-    //     {
-    //       model: this.ChatLog,
-    //       where,
-    //       limit: 15,
-    //       order: [
-    //         ["createdAt", "DESC"],
-    //         ["id", "DESC"],
-    //       ],
-    //     },
-    //   ],
-    // });
-
     const chatsPromise = targetRoom.getChat_logs({
-      where,
+      where: {
+        id: lastId === -1 ? { [Op.gt]: +lastId } : { [Op.lt]: +lastId },
+        createdAt: {
+          [Op.gt]: lastJoin.updatedAt,
+        },
+      },
       limit: 15,
       order: [
         ["createdAt", "DESC"],
@@ -291,30 +277,15 @@ class ChatService {
           model: this.User,
           attributes: ["id", "user_name"],
         },
-        {
-          model: this.ChatParticipant,
-          require: true,
-          where: {
-            updatedAt: {
-              [Op.gt]: roomsPromise[0]?.chat_room.chat_participant.updatedAt, // 여기에 필요한 날짜나 조건을 넣습니다.
-            },
-          },
-        },
       ],
     });
-    console.log(roomsPromise);
-    const [{ value: rooms }, { value: chats }, { value: 힝, status, reason }] =
-      await Promise.allSettled([roomsPromise, chatsPromise, 내소신]);
-    console.log(rooms);
-    console.log(chats);
-    console.log(status, "힝", 힝, reason);
-    // console.log(room);
-    // console.log(chats);
-    return { roomData: rooms, chats, 힝 };
-  }
 
-  async sendMessage() {
-    const io = this.socketService.getIo();
+    const [{ value: rooms }, { value: chats }] = await Promise.allSettled([
+      roomsPromise,
+      chatsPromise,
+    ]);
+
+    return { roomData: rooms, chats };
   }
 
   async findAllJoinState(state, roomId, txnObj) {
