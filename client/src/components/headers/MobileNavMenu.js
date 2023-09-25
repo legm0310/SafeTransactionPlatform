@@ -53,7 +53,7 @@ const MobileNavMenu = () => {
         >
           <MenuItem onClick={handleCloseNavMenu}>
             <Link
-              to="/products/all?category=%25&search=%25"
+              to="/products/all?category=%&search=%"
               className={classes.purchaseLink}
             >
               구매하기
