@@ -18,35 +18,40 @@ const Product = (props) => {
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [searchParams, setSearchParams] = useSearchParams();
-  const initCategory = searchParams.get("category");
-  console.log(initCategory);
 
   const onCategoryClick = async (e) => {
     updateSearchParams(e);
   };
 
   const updateSearchParams = (e) => {
-    setSearchParams(e);
+    searchParams.set("category", e.category);
+    setSearchParams(searchParams);
+  };
+
+  const handleResetFilter = (e) => {
+    searchParams.set("category", "");
+    searchParams.set("search", "");
+    setSearchParams(searchParams);
   };
 
   useEffect(() => {
     const filter = {};
     const category = searchParams.get("category");
+    const search = searchParams.get("search");
     setSelectedCategory(category);
     filter.category = category;
     filter.status = "SALE";
+    filter.search = search;
     dispatch(
       getSearchRecentProducts({
         status: filter.status,
         category: filter.category,
+        search: filter.search,
       })
     ).then((response) => {
-      console.log("response", response);
       setFilteredProducts(response.payload?.products ?? []);
-      console.log("prod :", response.payload?.products);
-      console.log("filtered", filteredProducts);
     });
-  }, [searchParams.get("category")]);
+  }, [searchParams.get("category"), searchParams.get("search")]);
 
   return (
     <Fragment>
@@ -54,6 +59,7 @@ const Product = (props) => {
         <div className={classes.productWrap}>
           <div className={classes.categoryBar}>
             <CategoryBar onCategoryClick={onCategoryClick} />
+            <button onClick={handleResetFilter}>필터링 초기화</button>
           </div>
 
           {selectedCategory ? (

@@ -77,7 +77,6 @@ export function getRecentProducts(dataToSubmit) {
 
 export function getSearchRecentProducts(dataToSubmit) {
   const params = { ...dataToSubmit };
-  console.log("datatosubmit", dataToSubmit);
   const request = baseRequest({ params })
     .get(`/api/products/recent`)
     .then((response) => response.data)

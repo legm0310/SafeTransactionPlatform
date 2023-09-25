@@ -27,10 +27,7 @@ const DesktopNavMenu = () => {
     const filter = {};
     setItem("searchWord", searchTerm);
     filter.search = searchTerm;
-    navigate(`/products/all?category=%25&search=${searchTerm}`);
-    // dispatch(getProducts(filter)).then((response) =>
-    //   console.log(response.payload)
-    // );
+    navigate(`/products/all?category=%&search=${searchTerm}`);
   };
   return (
     <Fragment>
@@ -42,7 +39,7 @@ const DesktopNavMenu = () => {
         }}
       >
         <Link
-          to="/products/all?category=%25&search=%25"
+          to="/products/all?category=%&search=%"
           className={classes.purchaseLink}
         >
           <Button
