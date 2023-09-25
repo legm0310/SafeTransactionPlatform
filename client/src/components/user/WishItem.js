@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { deleteWishList } from "../../_actions/userAction";
 
 import classes from "../../styles/user/WishList.module.css";
-
 import testImg from "../../assets/test.jpg";
 import deleteBtn from "../../assets/icon-delete.svg";
 import { useSnackbar } from "notistack";

@@ -1,10 +1,13 @@
 import React, { Fragment, useEffect } from "react";
-import classes from "../../styles/chat/Chat.module.css";
-import test from "../../assets/test.jpg";
+import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { getRooms } from "../../_actions/chatAction";
 
+import classes from "../../styles/chat/Chat.module.css";
+import test from "../../assets/test.jpg";
+
 const Chats = () => {
+  Link;
   const dispatch = useDispatch();
   const { rooms } = useSelector((state) => state.chat);
   useEffect(() => {
