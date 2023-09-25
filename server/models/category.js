@@ -1,6 +1,6 @@
 const Sequelize = require("sequelize");
 
-class Catagory extends Sequelize.Model {
+class Category extends Sequelize.Model {
   static init(sequelize) {
     super.init(
       {
@@ -18,7 +18,7 @@ class Catagory extends Sequelize.Model {
       },
       {
         sequelize,
-        modelName: "catagory",
+        modelName: "category",
         freezeTableName: true,
         timestamps: true,
         createdAt: false,
@@ -33,4 +33,4 @@ class Catagory extends Sequelize.Model {
   static associate(db) {}
 }
 
-module.exports = Catagory;
+module.exports = Category;
