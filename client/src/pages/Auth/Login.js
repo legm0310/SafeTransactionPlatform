@@ -7,12 +7,12 @@ import { login } from "../../_actions/userAction";
 // import CustomAlert from "../../components/common/Alert";
 
 import classes from "../../styles/auth/Login.module.css";
-import { FaArrowLeft } from "react-icons/fa";
 import { useSnackbar } from "notistack";
 import googleIcon from "../../assets/google.svg";
 import kakaoIcon from "../../assets/kakao.svg";
-
+import { FaArrowLeft } from "react-icons/fa";
 import { Button, TextField, FormControl, Grid, Box } from "@mui/material/";
+
 const Login = (props) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
