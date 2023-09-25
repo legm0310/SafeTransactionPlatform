@@ -115,7 +115,7 @@ class ChatService {
   //           ["id", "DESC"],
   //         ],
   //         attributes: [
-  //           "message",
+  //           "content",
   //           "createdAt",
   //           [
   //             literal(`(
@@ -157,7 +157,7 @@ class ChatService {
             ["createdAt", "DESC"],
             ["id", "DESC"],
           ],
-          attributes: ["message", "createdAt"],
+          attributes: ["content", "createdAt"],
         },
       ],
     });
@@ -215,18 +215,14 @@ class ChatService {
     }
   }
 
-  async addMessage(messageData) {
-    const message = await this.ChatLog.create(messageData);
-    return message;
-  }
-
-  async getChatsByRoom(lastId, limit) {
+  async getChatsByRoom(chatRoomData) {
     //updatedAt 이후의 메시지만 로딩
+    const convertData = Object.fromEntries(
+      Object.entries(chatRoomData).map(([key, value]) => [key, Number(value)])
+    );
+    console.log(convertData);
+    const { lastId, userId, roomId } = convertData;
 
-    // const user = await this.User.findByPk(roomData.userId);
-    // const targetRoom = await this.ChatRoom.findByPk(roomData.roomId);
-    const userId = 3;
-    const roomId = 2;
     const targetRoomPromise = await this.ChatRoom.findByPk(roomId);
     const userPromise = await this.User.findByPk(userId);
     const lastJoin = await this.ChatParticipant.findOne({
@@ -262,7 +258,7 @@ class ChatService {
 
     const chatsPromise = targetRoom.getChat_logs({
       where: {
-        id: lastId === -1 ? { [Op.gt]: +lastId } : { [Op.lt]: +lastId },
+        id: +lastId === -1 ? { [Op.gt]: +lastId } : { [Op.lt]: +lastId },
         createdAt: {
           [Op.gt]: lastJoin.updatedAt,
         },
@@ -280,12 +276,21 @@ class ChatService {
       ],
     });
 
-    const [{ value: rooms }, { value: chats }] = await Promise.allSettled([
-      roomsPromise,
-      chatsPromise,
-    ]);
+    const [{ value: rooms }, { reason, value: chats }] =
+      await Promise.allSettled([roomsPromise, chatsPromise]);
 
-    return { roomData: rooms, chats };
+    if (reason) {
+      throw new InternalServerError("Database query error at chatServices");
+    }
+
+    return {
+      roomInfo: {
+        roomId: roomId,
+        roomName: rooms[0].name,
+        users: rooms[0].RoomUser.map((user) => user),
+      },
+      chats: chats?.reverse(),
+    };
   }
 
   async findAllJoinState(state, roomId, txnObj) {

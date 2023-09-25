@@ -88,34 +88,55 @@ module.exports = async () => {
           seller5_1,
           buyer5_1,
         ]);
+        await new Promise((resolve) => setTimeout(resolve, 1500));
 
         await db.ChatLog.create({
-          message: "물건 삽니다.",
+          content: "물건 삽니다.",
           sender_id: 2,
           room_id: 1,
         });
         await db.ChatLog.create({
-          message: "얼마에 파세요? 2번입니다",
+          content: "얼마에 파세요? 2번입니다",
           sender_id: 2,
           room_id: 1,
         });
         await db.ChatLog.create({
-          message: "500억에 팔아요",
+          content: "500억에 팔아요",
           sender_id: 1,
           room_id: 1,
         });
         await db.ChatLog.create({
-          message: "3번입니다",
+          content: "테스트 용입니다",
+          sender_id: 1,
+          room_id: 1,
+        });
+        await db.ChatLog.create({
+          content: "저요 테스트 중 입니다",
+          sender_id: 2,
+          room_id: 1,
+        });
+        await db.ChatLog.create({
+          content: "테스트 중이세요?",
+          sender_id: 1,
+          room_id: 1,
+        });
+        await db.ChatLog.create({
+          content: "그런데요?",
+          sender_id: 2,
+          room_id: 1,
+        });
+        await db.ChatLog.create({
+          content: "3번입니다",
           sender_id: 3,
           room_id: 2,
         });
         await db.ChatLog.create({
-          message: "4번입니다",
+          content: "4번입니다",
           sender_id: 4,
           room_id: 3,
         });
         await db.ChatLog.create({
-          message: "5번입니다",
+          content: "5번입니다",
           sender_id: 5,
           room_id: 4,
         });
