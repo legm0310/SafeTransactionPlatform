@@ -2,16 +2,20 @@ const { Container } = require("typedi");
 const { catchAsync } = require("../utils");
 
 module.exports = {
-  // getChats: catchAsync(async (req, res) => {
+  // createTest: catchAsync(async (req, res) => {
   //   const chatServiceInstance = await Container.get("chatService");
-  //   const params = req.query;
-  //   const { pages, chatList } = await chatServiceInstance.getChats(params);
-  //   res.status(200).json({
-  //     getChatsSuccess: true,
-  //     totalPage: pages,
-  //     chats: chatList,
+  //   const roomName = req.body.roomName;
+  //   const userId = res.locals.userId;
+  //   const rooms = await chatServiceInstance.createTestRoom({
+  //     roomName,
+  //     userId,
+  //   });
+  //   res.status(201).json({
+  //     getRoomsSuccess: true,
+  //     rooms: rooms,
   //   });
   // }),
+
   addRoom: catchAsync(async (req, res) => {
     const chatServiceInstance = await Container.get("chatService");
     const roomData = req.body;
@@ -23,28 +27,20 @@ module.exports = {
     });
   }),
 
-  //test
   getChats: catchAsync(async (req, res) => {
     const chatServiceInstance = await Container.get("chatService");
-    const roomId = req.params.id;
-    const room = await chatServiceInstance.getChatsByRoom(-1, 15);
+    const chatRoomData = {
+      userId: res.locals.userId,
+      roomId: req.params.id,
+      lastId: req.query.lastId,
+    };
+    const { roomInfo, chats } = await chatServiceInstance.getChatsByRoom(
+      chatRoomData
+    );
     res.status(200).json({
       getChatsSuccess: true,
-      room: room,
-    });
-  }),
-
-  createTest: catchAsync(async (req, res) => {
-    const chatServiceInstance = await Container.get("chatService");
-    const roomName = req.body.roomName;
-    const userId = res.locals.userId;
-    const rooms = await chatServiceInstance.createTestRoom({
-      roomName,
-      userId,
-    });
-    res.status(201).json({
-      getRoomsSuccess: true,
-      rooms: rooms,
+      roomInfo,
+      chats,
     });
   }),
 
@@ -65,15 +61,6 @@ module.exports = {
     res.status(204).json({
       deleteRoomSuccess: true,
       result: result,
-    });
-  }),
-
-  addMessage: catchAsync(async (req, res) => {
-    const chatServiceInstance = await Container.get("chatService");
-    const message = await chatServiceInstance.addMessage(req.body);
-    res.status(201).json({
-      addMessageSuccess: true,
-      message: message,
     });
   }),
 };
