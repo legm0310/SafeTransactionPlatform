@@ -1,9 +1,7 @@
 import React, { Fragment, useState, useEffect } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import {
-  getSearchRecentProducts,
-} from "../../_actions/productAction";
+import { getSearchRecentProducts } from "../../_actions/productAction";
 import RecentProductsList from "../../components/product/RecentProducts";
 import CategoryBar from "./CategoryBar";
 import ProductCard from "./ProductCard";
