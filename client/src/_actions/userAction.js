@@ -5,6 +5,7 @@
 */
 
 import {
+  RESET_STORE_USER,
   SIGNUP_USER,
   LOGIN_USER,
   LOGOUT_USER,
@@ -15,6 +16,12 @@ import {
 } from "./type";
 import { authRequest, baseRequest } from "../api/common";
 import { setLoadings } from "./uiAction";
+
+export function resetStoreUser() {
+  return {
+    type: RESET_STORE_USER,
+  };
+}
 
 export function signup(dataToSubmit) {
   const request = baseRequest()

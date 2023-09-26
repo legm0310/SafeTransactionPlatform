@@ -7,6 +7,7 @@
 */
 
 import {
+  RESET_STORE_PRODUCT,
   ADD_PRODUCT,
   DEPOSITED_PRODUCTS,
   RECENT_PRODUCTS,
@@ -23,6 +24,9 @@ const initialState = {};
 export default function (state = initialState, action) {
   // 전의 state, 지금의 state
   switch (action.type) {
+    case RESET_STORE_PRODUCT:
+      return initialState;
+      break;
     case ADD_PRODUCT:
       return { ...state, addProductSuccess: action.payload };
       break;
