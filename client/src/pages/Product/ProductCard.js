@@ -13,8 +13,8 @@ const ProductCard = ({ filteredProducts }) => {
       <div className={classes.prodCardWrap}>
         <div className={classes.prodCardContainer}>
           {filteredProducts?.map((product) => (
-            <Link to={`/products/${product.id}`}>
-              <div className={classes.prodCard}>
+            <div key={product.id} className={classes.prodCard}>
+              <Link to={`/products/${product.id}`}>
                 <div className={classes.imgBox}>
                   <img src={product.image} className={classes.prodImg} alt="" />
                 </div>
@@ -22,8 +22,8 @@ const ProductCard = ({ filteredProducts }) => {
                   <div className={classes.prodName}>{product.title}</div>
                   <div className={classes.prodPrice}> {product.price}</div>
                 </div>
-              </div>
-            </Link>
+              </Link>
+            </div>
           ))}
         </div>
       </div>
