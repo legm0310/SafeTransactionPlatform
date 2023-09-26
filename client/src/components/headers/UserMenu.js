@@ -39,10 +39,10 @@ const UserSection = (props) => {
 
   const onLogoutHandler = () => {
     dispatch(logout()).then((response) => {
+      dispatch(resetStoreUi());
       dispatch(resetStoreUser());
       dispatch(resetStoreProduct());
       dispatch(resetStoreChat());
-      dispatch(resetStoreUi());
       enqueueSnackbar("로그아웃 되었습니다.", {
         variant: "success",
       });
