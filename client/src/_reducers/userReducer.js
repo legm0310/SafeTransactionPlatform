@@ -20,6 +20,7 @@ import {
 const initialState = {
   isLoggedIn: null,
   userId: "",
+  authCheck: null,
   loadWishList: null,
   signupSuccess: null,
   loginSuccess: null,
@@ -46,6 +47,10 @@ export default function (state = initialState, action) {
         isLoggedIn: action.payload?.loginSuccess ? true : false,
         userId: action.payload.user?.id,
         loginSuccess: action.payload,
+        authCheck: {
+          userData: action.payload.user,
+          authCheckSuccess: true,
+        },
       };
       break;
     case LOGOUT_USER:
