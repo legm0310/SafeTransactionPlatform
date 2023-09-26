@@ -35,7 +35,7 @@ export default function (state = initialState, action) {
   // 전의 state, 지금의 state
   switch (action.type) {
     case RESET_STORE_USER:
-      return initialState;
+      return { ...initialState, isLoggedIn: false };
       break;
     case SIGNUP_USER:
       return { ...state, signupSuccess: action.payload };
