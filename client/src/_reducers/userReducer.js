@@ -7,6 +7,7 @@
 */
 
 import {
+  RESET_STORE_USER,
   SIGNUP_USER,
   LOGIN_USER,
   LOGOUT_USER,
@@ -20,6 +21,12 @@ const initialState = {
   isLoggedIn: null,
   userId: "",
   loadWishList: null,
+  signupSuccess: null,
+  loginSuccess: null,
+  logoutSuccess: null,
+  addWishListSuccess: null,
+  getWishListSuccess: null,
+  deleteWishListSuccess: null,
 };
 
 // Action의 type에 따라 변화된 state 반환
@@ -27,6 +34,9 @@ const initialState = {
 export default function (state = initialState, action) {
   // 전의 state, 지금의 state
   switch (action.type) {
+    case RESET_STORE_USER:
+      return initialState;
+      break;
     case SIGNUP_USER:
       return { ...state, signupSuccess: action.payload };
       break;

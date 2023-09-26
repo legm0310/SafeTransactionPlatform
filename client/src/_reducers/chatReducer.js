@@ -1,4 +1,10 @@
-import { ADD_CHAT, ADD_ROOM, GET_ROOMS, GET_CHATS } from "../_actions/type";
+import {
+  RESET_STORE_CHAT,
+  ADD_CHAT,
+  ADD_ROOM,
+  GET_ROOMS,
+  GET_CHATS,
+} from "../_actions/type";
 
 const initialState = {
   rooms: [],
@@ -9,6 +15,9 @@ const initialState = {
 // eslint-disable-next-line import/no-anonymous-default-export
 export default function (state = initialState, action) {
   switch (action.type) {
+    case RESET_STORE_CHAT:
+      return initialState;
+      break;
     case ADD_ROOM:
       return { ...state, addRoomSuccess: action.payload };
       break;
@@ -26,7 +35,7 @@ export default function (state = initialState, action) {
     case GET_CHATS:
       return {
         ...state,
-        getChatsSuccess: action.payload,
+        getChatsSuccess: action.payload.getChatsSuccess,
         roomInfo: action.payload.roomInfo,
         chats: action.payload.chats,
       };

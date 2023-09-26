@@ -5,6 +5,12 @@
   type을 직접 처럼 선언하거나, 모듈로 저장
 */
 
+// 각 reducer의 리셋타입
+export const RESET_STORE_USER = "resetStoreUser";
+export const RESET_STORE_PRODUCT = "resetStoreProduct";
+export const RESET_STORE_CHAT = "resetStoreChat";
+export const RESET_STORE_UI = "resetStoreUi";
+
 // action의 type들만 관리 (action의 type를 정의)
 //user
 export const SIGNUP_USER = "signup";

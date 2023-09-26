@@ -1,4 +1,5 @@
 import {
+  RESET_STORE_PRODUCT,
   ADD_PRODUCT,
   RECENT_PRODUCTS,
   GET_PRODUCTS,
@@ -18,10 +19,16 @@ import {
 } from "../contract/contractWriteCall";
 import { setLoadings } from "./uiAction";
 
+export function resetStoreProduct() {
+  return {
+    type: RESET_STORE_PRODUCT,
+  };
+}
+
 export function addProduct(dataToSubmit) {
   const { formData, sdk } = dataToSubmit;
-
   return async (dispatch) => {
+    dispatch(setLoadings({ isLoading: true }));
     try {
       const res = await addProdRequest().post("/api/products", formData);
       console.log("res", res);
@@ -109,23 +116,28 @@ export function getProducts(dataToSubmit) {
 
 export function getProduct(dataToSubmit) {
   const params = dataToSubmit;
-  const request = baseRequest()
-    .get(`/api/products/${params}`)
-    .then((response) => response.data)
-    .catch((err) => {
+  return async (dispatch) => {
+    dispatch(setLoadings({ isLoading: true }));
+    try {
+      const res = await baseRequest().get(`/api/products/${params}`);
+      return dispatch({
+        type: GET_PRODUCT,
+        payload: res.data,
+      });
+    } catch (err) {
       console.log(err);
-      return err.response.data;
-    });
-
-  return {
-    type: GET_PRODUCT,
-    payload: request,
+      return dispatch({
+        type: GET_PRODUCT,
+        payload: err.response.data,
+      });
+    }
   };
 }
 
 export function purchase(dataToSubmit) {
   const { productId, userId, sdk } = dataToSubmit;
   return async (dispatch) => {
+    dispatch(setLoadings({ isLoading: true }));
     try {
       const res = await authRequest().put(`/api/products/deposit/${productId}`);
       console.log("res", res);
@@ -153,6 +165,7 @@ export function purchase(dataToSubmit) {
 export function release(dataToSubmit) {
   const { productId, sdk } = dataToSubmit;
   return async (dispatch) => {
+    dispatch(setLoadings({ isLoading: true }));
     try {
       const res = await authRequest().put(`/api/products/release/${productId}`);
       console.log("res", res);

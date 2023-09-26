@@ -1,8 +1,19 @@
-import { ADD_ROOM, GET_ROOMS, GET_CHATS, ADD_CHAT } from "./type";
+import {
+  RESET_STORE_CHAT,
+  ADD_ROOM,
+  GET_ROOMS,
+  GET_CHATS,
+  ADD_CHAT,
+} from "./type";
 import { setLoadings } from "./uiAction";
 import { addProdRequest } from "../api/productApi";
 import { baseRequest, authRequest } from "../api/common";
 
+export function resetStoreChat() {
+  return {
+    type: RESET_STORE_CHAT,
+  };
+}
 export function addRoom(dataToSubmit) {
   return async (dispatch) => {
     try {
