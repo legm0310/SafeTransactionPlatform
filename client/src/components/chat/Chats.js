@@ -18,8 +18,8 @@ const Chats = () => {
     <Fragment>
       <div className={classes.chatsWrap}>
         {rooms?.map((room) => (
-          <Link to={`/chat/${room.id}`}>
-            <div key={room.id} className={classes.userChat}>
+          <Link key={room.id} to={`/chat/${room.id}`}>
+            <div className={classes.userChat}>
               <img src={defaultProfile} alt="" className={classes.testImg} />
               <div className={classes.userChatInfo}>
                 <span>{room.RoomUser[0].user_name}</span>
