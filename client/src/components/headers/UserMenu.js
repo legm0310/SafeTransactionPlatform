@@ -1,7 +1,10 @@
 import React, { useState, Fragment } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import { logout } from "../../_actions/userAction";
+import { logout, resetStoreUser } from "../../_actions/userAction";
+import { resetStoreProduct } from "../../_actions/productAction";
+import { resetStoreChat } from "../../_actions/chatAction";
+import { resetStoreUi } from "../../_actions/uiAction";
 import { useDisconnect } from "@thirdweb-dev/react";
 import MyWallet from "./MyWallet";
 
@@ -36,6 +39,10 @@ const UserSection = (props) => {
 
   const onLogoutHandler = () => {
     dispatch(logout()).then((response) => {
+      dispatch(resetStoreUser());
+      dispatch(resetStoreProduct());
+      dispatch(resetStoreChat());
+      dispatch(resetStoreUi());
       enqueueSnackbar("로그아웃 되었습니다.", {
         variant: "success",
       });
@@ -51,7 +58,6 @@ const UserSection = (props) => {
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
-  const rooms = useSelector((state) => state.chat.rooms);
   // const unreadCount = rooms.reduce((acc, value) => acc + value.unreadCount, 0);
 
   const handleOpenWallet = () => {
