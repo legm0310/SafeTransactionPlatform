@@ -288,6 +288,7 @@ class ChatService {
         roomId: roomId,
         roomName: rooms[0].name,
         users: rooms[0].RoomUser.map((user) => user),
+        partner: rooms[0].RoomUser.find((user) => user.id != userId),
       },
       chats: chats?.reverse(),
     };
