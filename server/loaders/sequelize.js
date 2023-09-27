@@ -126,6 +126,56 @@ module.exports = async () => {
           room_id: 1,
         });
         await db.ChatLog.create({
+          content: "도배좀 하겠습니다. 테스트 해야해서?",
+          sender_id: 2,
+          room_id: 1,
+        });
+        await db.ChatLog.create({
+          content: "~.~",
+          sender_id: 2,
+          room_id: 1,
+        });
+        await db.ChatLog.create({
+          content: "~.~",
+          sender_id: 2,
+          room_id: 1,
+        });
+        await db.ChatLog.create({
+          content: "~.~",
+          sender_id: 2,
+          room_id: 1,
+        });
+        await db.ChatLog.create({
+          content: "~.~",
+          sender_id: 2,
+          room_id: 1,
+        });
+        await db.ChatLog.create({
+          content: "~.~",
+          sender_id: 2,
+          room_id: 1,
+        });
+        await db.ChatLog.create({
+          content: "~.~",
+          sender_id: 2,
+          room_id: 1,
+        });
+        await db.ChatLog.create({
+          content: "~.~",
+          sender_id: 2,
+          room_id: 1,
+        });
+        await db.ChatLog.create({
+          content: "~.~",
+          sender_id: 2,
+          room_id: 1,
+        });
+        await db.ChatLog.create({
+          content: "~.~",
+          sender_id: 2,
+          room_id: 1,
+        });
+        await db.ChatLog.create({
           content: "3번입니다",
           sender_id: 3,
           room_id: 2,
