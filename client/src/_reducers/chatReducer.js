@@ -9,7 +9,7 @@ import {
 const initialState = {
   rooms: [],
   chats: [],
-  roomInfo: null,
+  roomInfo: {},
 };
 
 // eslint-disable-next-line import/no-anonymous-default-export
@@ -25,7 +25,6 @@ export default function (state = initialState, action) {
       return { ...state, addChatSuccess: action.payload };
       break;
     case GET_ROOMS:
-      // state.rooms = action.payload.rooms;
       return {
         ...state,
         getRoomsSuccess: action.payload.getRoomsSuccess,

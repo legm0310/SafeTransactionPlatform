@@ -2,6 +2,8 @@ import { RESET_STORE_UI, SET_LOADINGS } from "../_actions/type";
 
 const initialState = {
   isLoading: false,
+  isChatLoading: false,
+  isChatPageLoading: false,
   isContractLoading: false,
 };
 
