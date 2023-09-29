@@ -99,3 +99,25 @@ export function addMessage(dataToSubmit) {
     }
   };
 }
+// export function addChat(dataToSubmit) {
+//   return async (dispatch) => {
+//     try {
+//       const res = await addProdRequest().post(
+//         "/api/chat/addMessage",
+//         dataToSubmit
+//       );
+//       console.log("res", res);
+//       dispatch(setLoadings({ isLoading: false }));
+//       return dispatch({
+//         type: ADD_MESSAGE,
+//         payload: res.data,
+//       });
+//     } catch (err) {
+//       console.log(err);
+//       return dispatch({
+//         type: ADD_MESSAGE,
+//         payload: err.response.data,
+//       });
+//     }
+//   };
+// }

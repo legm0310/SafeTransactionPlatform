@@ -95,6 +95,9 @@ export default function (state = initialState, action) {
         return {
           ...state,
           deleteWishListSuccess: action.payload.deleteWishListSuccess,
+          loadWishList: state.loadWishList.filter((item) =>
+            item.id === +action.payload.deletedProductId ? false : true
+          ),
         };
       }
       break;
