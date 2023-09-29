@@ -1,6 +1,6 @@
 import { Fragment } from "react";
 import { useTypewriter, Cursor } from "react-simple-typewriter";
-import Slide from "./HomeSlide";
+import Slide from "../../components/Home/HomeSlide";
 import RecentProductsList from "../../components/product/RecentProducts";
 import mainImg from "../../assets/platformImage1.png";
 import mainImg1 from "../../assets/platformImage4.png";
