@@ -1,4 +1,10 @@
-import { ADD_MESSAGE, ADD_ROOM, GET_ROOMS, GET_CHATS } from "../_actions/type";
+import {
+  ADD_MESSAGE,
+  ADD_ROOM,
+  GET_ROOMS,
+  GET_CHATS,
+  DELETE_ROOM,
+} from "../_actions/type";
 
 const initialState = {
   rooms: [],
@@ -18,6 +24,9 @@ export default function (state = initialState, action) {
     }
     case GET_CHATS:
       return { ...state, getChatsSuccess: action.payload };
+      break;
+    case DELETE_ROOM:
+      return { ...state, DeleteRoomSuccess: action.payload };
       break;
     case ADD_MESSAGE:
       return { ...state, addMessageSuccess: action.payload };

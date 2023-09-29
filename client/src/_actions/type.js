@@ -29,5 +29,6 @@ export const SET_CONTRACT_LOADING = "setContractLoading";
 export const ADD_ROOM = "addRoom";
 export const GET_ROOMS = "getRooms";
 export const GET_CHATS = "getChats";
+export const DELETE_ROOM = "deleteRoom";
 // export const GET_UNREAD_CHATS = "getUnreadChats";
 export const ADD_MESSAGE = "addMessage";

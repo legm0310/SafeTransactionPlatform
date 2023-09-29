@@ -1,4 +1,10 @@
-import { ADD_ROOM, GET_ROOMS, GET_CHATS, ADD_MESSAGE } from "./type";
+import {
+  ADD_ROOM,
+  GET_ROOMS,
+  GET_CHATS,
+  ADD_MESSAGE,
+  DELETE_ROOM,
+} from "./type";
 import { setLoadings } from "./uiAction";
 import { addProdRequest } from "../api/productApi";
 import { baseRequest, authRequest } from "../api/common";
@@ -49,6 +55,20 @@ export function getChats(dataToSubmit) {
 
   return {
     type: GET_CHATS,
+    payload: request,
+  };
+}
+
+export function deleteRoom() {
+  const request = authRequest()
+    .delete(`/api/chat/:id`)
+    .then((response) => response.data)
+    .catch((err) => {
+      console.log(err);
+      return err.response.data;
+    });
+  return {
+    type: DELETE_ROOM,
     payload: request,
   };
 }
