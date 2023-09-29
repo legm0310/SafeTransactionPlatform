@@ -1,9 +1,9 @@
 import {
-  RESET_STORE_CHAT,
   ADD_ROOM,
   GET_ROOMS,
   GET_CHATS,
-  ADD_CHAT,
+  ADD_MESSAGE,
+  DELETE_ROOM,
 } from "./type";
 import { setLoadings } from "./uiAction";
 import { addProdRequest } from "../api/productApi";
@@ -63,31 +63,39 @@ export function getChats(dataToSubmit) {
   };
 }
 
-export function addChat(dataToSubmit) {
+export function deleteRoom() {
+  const request = authRequest()
+    .delete(`/api/chat/:id`)
+    .then((response) => response.data)
+    .catch((err) => {
+      console.log(err);
+      return err.response.data;
+    });
   return {
-    type: ADD_CHAT,
-    payload: dataToSubmit,
+    type: DELETE_ROOM,
+    payload: request,
   };
 }
-// export function addChat(dataToSubmit) {
-//   return async (dispatch) => {
-//     try {
-//       const res = await addProdRequest().post(
-//         "/api/chat/addMessage",
-//         dataToSubmit
-//       );
-//       console.log("res", res);
-//       dispatch(setLoadings({ isLoading: false }));
-//       return dispatch({
-//         type: ADD_MESSAGE,
-//         payload: res.data,
-//       });
-//     } catch (err) {
-//       console.log(err);
-//       return dispatch({
-//         type: ADD_MESSAGE,
-//         payload: err.response.data,
-//       });
-//     }
-//   };
-// }
+
+export function addMessage(dataToSubmit) {
+  return async (dispatch) => {
+    try {
+      const res = await addProdRequest().post(
+        "/api/chat/addMessage",
+        dataToSubmit
+      );
+      console.log("res", res);
+      dispatch(setLoadings({ isLoading: false }));
+      return dispatch({
+        type: ADD_MESSAGE,
+        payload: res.data,
+      });
+    } catch (err) {
+      console.log(err);
+      return dispatch({
+        type: ADD_MESSAGE,
+        payload: err.response.data,
+      });
+    }
+  };
+}
