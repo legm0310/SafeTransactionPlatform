@@ -31,7 +31,6 @@ export default function (state = initialState, action) {
       return { ...state, signupSuccess: action.payload };
       break;
     case LOGIN_USER:
-      // 원본, 서버에서 넘어온 정보를 여기에 넣어준 것
       return {
         ...state,
         isLoggedIn: action.payload?.loginSuccess ? true : false,
@@ -69,20 +68,24 @@ export default function (state = initialState, action) {
     case GET_WISHLIST:
       return {
         ...state,
-        loadWishList: [...action.payload.wishList],
         getWishListSuccess: action.payload.getWishListSuccess,
+        loadWishList: [...action.payload.wishList],
       };
       break;
-    case DELETE_WISHLIST: {
-      state.loadWishList = state.loadWishList.filter((item) =>
-        item.id === +action.payload.deletedProductId ? false : true
-      );
-      return {
-        ...state,
-        deleteWishListSuccess: action.payload.deleteWishListSuccess,
-      };
+    case DELETE_WISHLIST:
+      {
+        state.loadWishList = state.loadWishList.filter((item) =>
+          item.id === +action.payload.deletedProductId ? false : true
+        );
+        return {
+          ...state,
+          deleteWishListSuccess: action.payload.deleteWishListSuccess,
+          loadWishList: state.loadWishList.filter((item) =>
+            item.id === +action.payload.deletedProductId ? false : true
+          ),
+        };
+      }
       break;
-    }
     default: // state가 들어오지 않았을 경우 전의 state를 넣어줌
       return state;
   }

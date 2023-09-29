@@ -6,6 +6,7 @@ import {
   DEPOSIT,
   RELEASE,
   DEPOSITED_PRODUCTS,
+  SEARCH_RECENT_PRODUCTS,
 } from "./type";
 
 import { baseRequest, authRequest } from "../api/common";
@@ -70,6 +71,21 @@ export function getRecentProducts(dataToSubmit) {
     });
   return {
     type: RECENT_PRODUCTS,
+    payload: request,
+  };
+}
+
+export function getSearchRecentProducts(dataToSubmit) {
+  const params = { ...dataToSubmit };
+  const request = baseRequest({ params })
+    .get(`/api/products/recent`)
+    .then((response) => response.data)
+    .catch((err) => {
+      console.log(err);
+      return err.response.data;
+    });
+  return {
+    type: SEARCH_RECENT_PRODUCTS,
     payload: request,
   };
 }

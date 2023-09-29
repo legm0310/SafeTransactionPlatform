@@ -43,16 +43,15 @@ export function getRooms() {
   };
 }
 export function getChats(dataToSubmit) {
-  const params = { ...dataToSubmit };
-  console.log(params);
+  const { roomId, lastId, limit } = dataToSubmit;
+  const params = { lastId, limit };
   const request = authRequest({ params })
-    .get(`/api/chat`)
+    .get(`/api/chat/${roomId}`)
     .then((response) => response.data)
     .catch((err) => {
       console.log(err);
       return err.response.data;
     });
-
   return {
     type: GET_CHATS,
     payload: request,
@@ -95,3 +94,25 @@ export function addMessage(dataToSubmit) {
     }
   };
 }
+// export function addChat(dataToSubmit) {
+//   return async (dispatch) => {
+//     try {
+//       const res = await addProdRequest().post(
+//         "/api/chat/addMessage",
+//         dataToSubmit
+//       );
+//       console.log("res", res);
+//       dispatch(setLoadings({ isLoading: false }));
+//       return dispatch({
+//         type: ADD_MESSAGE,
+//         payload: res.data,
+//       });
+//     } catch (err) {
+//       console.log(err);
+//       return dispatch({
+//         type: ADD_MESSAGE,
+//         payload: err.response.data,
+//       });
+//     }
+//   };
+// }
