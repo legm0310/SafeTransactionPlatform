@@ -1,7 +1,8 @@
 import React, { Fragment } from "react";
-import classes from "../../styles/chat/Chat.module.css";
 import Search from "./Search";
 import Chats from "./Chats";
+
+import classes from "../../styles/chat/Chat.module.css";
 
 const Sidebar = () => {
   return (

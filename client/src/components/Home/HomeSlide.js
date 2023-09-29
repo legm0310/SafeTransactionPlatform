@@ -1,12 +1,13 @@
 import { Fragment } from "react";
 import { Link } from "react-router-dom";
+
+import classes from "../../styles/home/HomeSlide.module.css";
+import testImg from "../../assets/testImg1.png";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import styled from "styled-components";
-import testImg from "../../assets/testImg1.png";
 
-import classes from "../../styles/home/HomeSlide.module.css";
 const HomeSlide = () => {
   const settings = {
     dots: true, // 캐러셀 밑에 ... 을 표시할지

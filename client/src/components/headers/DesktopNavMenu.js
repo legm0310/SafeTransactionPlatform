@@ -1,6 +1,6 @@
 import React, { Fragment, useState } from "react";
 import { useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { getProducts } from "../../_actions/productAction";
 import { setItem } from "../../utils";
 
@@ -10,6 +10,7 @@ import { Search as SearchIcon } from "@mui/icons-material";
 
 const DesktopNavMenu = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState("");
   const [anchorElNav, setAnchorElNav] = useState(null);
 
@@ -22,13 +23,11 @@ const DesktopNavMenu = () => {
   };
 
   const onSearchProducts = (event) => {
+    event.preventDefault();
     const filter = {};
     setItem("searchWord", searchTerm);
     filter.search = searchTerm;
-    dispatch(getProducts(filter)).then((response) =>
-      console.log(response.payload)
-    );
-    event.preventDefault();
+    navigate(`/products/all?category=%&search=${searchTerm}`);
   };
   return (
     <Fragment>
@@ -39,7 +38,10 @@ const DesktopNavMenu = () => {
           alignItems: "center",
         }}
       >
-        <Link to="/products/all" className={classes.purchaseLink}>
+        <Link
+          to="/products/all?category=%&search=%"
+          className={classes.purchaseLink}
+        >
           <Button
             onClick={handleCloseNavMenu}
             sx={{

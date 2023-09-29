@@ -1,32 +1,30 @@
-import React, { Fragment, useState, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import React, { Fragment, useState, useEffect, useRef } from "react";
 import { useParams } from "react-router-dom";
-import classes from "../../styles/chat/Chat.module.css";
+import { useSelector, useDispatch } from "react-redux";
 import { io } from "socket.io-client";
-import { addMessage } from "../../_actions/chatAction";
+import { addChat, getChats } from "../../_actions/chatAction";
 
+import classes from "../../styles/chat/Chat.module.css";
 import { useSnackbar } from "notistack";
-import { IoCamera } from "react-icons/io5";
+import { IoCamera, IoImage, IoPersonAdd } from "react-icons/io5";
 import { IoMdAttach } from "react-icons/io";
-import { IoImage } from "react-icons/io5";
 import { LuMoreHorizontal } from "react-icons/lu";
-import { IoPersonAdd } from "react-icons/io5";
 
 const ChatRoom = () => {
-  const params = useParams();
-  const dispatch = useDispatch();
-  const { chats } = useSelector((state) => state.chat);
   const { enqueueSnackbar } = useSnackbar();
+
+  const dispatch = useDispatch();
+  const { roomId } = useParams();
+  const { userData } = useSelector((state) => state.user.authCheck);
+  const { chats } = useSelector((state) => state.chat);
 
   const [state, setState] = useState({ message: "", name: "" });
   const [chat, setChat] = useState("");
-
   const [socket, setSocket] = useState(null);
 
-  const userId = useSelector((state) => state.user.userId);
-  const roomId = params.roomId;
-
   useEffect(() => {
+    if (!userData) return;
+
     const curSocket = io("localhost:5000", {
       cors: { origin: "*" },
     });
@@ -35,68 +33,32 @@ const ChatRoom = () => {
     curSocket.on("connect", () => {
       curSocket.emit("onJoinRoom", roomId);
     });
-
+    curSocket.on("onRead", () => {});
     curSocket.on("onReceive", ({ user, chat }) => {
-      dispatch();
+      dispatch(
+        addChat({
+          id: Date.now(),
+        })
+      );
     });
-    console.log("User id = ", userId);
-    // curSocket.on("message", ({ userId, message }) => {
-    //   setChat((prevChat) => [...prevChat, { userId, message }]);
-    // });
+    // console.log(chatWrapRef.current.scrollTop);
+    console.log("before", roomId);
+    if (roomId) {
+      const body = {
+        roomId: roomId,
+        lastId: -1,
+        limit: 20,
+      };
+      dispatch(getChats(body)).then(() => console.log(roomId, chats));
+    }
+    // console.log(roomId, chats);
+
     return () => {
       curSocket.disconnect();
     };
-  }, []);
+  }, [dispatch, roomId]);
 
-  const onTextChange = (e) => {
-    setState({ ...state, [e.target.name]: e.target.value });
-  };
-
-  let body = {
-    message: state.message,
-    check_read: 1,
-    sender_id: userId,
-    room_id: roomId,
-  };
-
-  const onMessageSubmit = (e) => {
-    e.preventDefault();
-
-    if (state.message.trim() === "") {
-      enqueueSnackbar("메세지를 입력해주세요.", {
-        variant: "error",
-      });
-      return;
-    }
-
-    const { name, message } = state;
-    console.log({ userId, message });
-
-    dispatch(addMessage(body)).then((response) => {
-      console.log(response);
-      if (response.payload.addMessageSuccess) {
-        console.log({ userId, message });
-      } else {
-        enqueueSnackbar("메세지 전송에 실패했습니다.", {
-          variant: "error",
-        });
-        return;
-      }
-    });
-
-    socket?.emit("message", { userId, message });
-    setState({ message: "", userId });
-  };
-
-  const renderChat = () => {
-    // return chat.map(({ userId, message }, index) => (
-    //   <div key={index}>
-    //     <h3>
-    //       {userId}:<span>{message}</span>
-    //     </h3>
-    //   </div>
-    // ));
-  };
+  const chatWrapRef = useRef();
 
   return (
     <Fragment>
@@ -110,15 +72,18 @@ const ChatRoom = () => {
           </div>
         </div>
 
-        <div className={classes.messagesWrap}>{renderChat()}</div>
+        <div ref={chatWrapRef} className={classes.messagesWrap}></div>
 
-        <form className={classes.inputWrap} onSubmit={onMessageSubmit}>
+        {/* <form className={classes.inputWrap} onSubmit={onMessageSubmit}> */}
+        <form className={classes.inputWrap}>
           <input
             type="text"
             name="message"
             placeholder="메시지를 입력해주세요"
-            onChange={(e) => onTextChange(e)}
-            value={state.message}
+            // onChange={(e) => onTextChange(e)}
+            onChange={null}
+            // value={state.message}
+            value={null}
           />
 
           <div className={classes.send}>
@@ -136,3 +101,53 @@ const ChatRoom = () => {
 };
 
 export default ChatRoom;
+
+// const onTextChange = (e) => {
+//   setState({ ...state, [e.target.name]: e.target.value });
+// };
+
+// let body = {
+//   content: state.message,
+//   check_read: 1,
+//   sender_id: userId,
+//   room_id: roomId,
+// };
+
+// const onMessageSubmit = (e) => {
+//   e.preventDefault();
+
+//   if (state.message.trim() === "") {
+//     enqueueSnackbar("메세지를 입력해주세요.", {
+//       variant: "error",
+//     });
+//     return;
+//   }
+
+//   const { name, message } = state;
+//   console.log({ userId, message });
+
+//   dispatch(addChat(body)).then((response) => {
+//     console.log(response);
+//     if (response.payload.addMessageSuccess) {
+//       console.log({ userId, message });
+//     } else {
+//       enqueueSnackbar("메세지 전송에 실패했습니다.", {
+//         variant: "error",
+//       });
+//       return;
+//     }
+//   });
+
+//   socket?.emit("message", { userId, message });
+//   setState({ message: "", userId });
+// };
+
+// const renderChat = () => {
+//   // return chat.map(({ userId, message }, index) => (
+//   //   <div key={index}>
+//   //     <h3>
+//   //       {userId}:<span>{message}</span>
+//   //     </h3>
+//   //   </div>
+//   // ));
+// };
