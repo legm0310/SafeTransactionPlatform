@@ -56,11 +56,16 @@ export default function (state = initialState, action) {
         userId: action.payload.userData?.id,
       };
       break;
-    case ADD_WISHLIST:
+    case ADD_WISHLIST: {
+      console.log(action.payload.wishList);
+      state.loadWishList = action.payload.addWishListSuccess
+        ? [action.payload.wishList[0], ...state.loadWishList]
+        : state.loadWishList;
       return {
         ...state,
         addWishListSuccess: action.payload,
       };
+    }
     case GET_WISHLIST:
       return {
         ...state,
@@ -69,14 +74,6 @@ export default function (state = initialState, action) {
       };
       break;
     case DELETE_WISHLIST: {
-      console.log(
-        "늑음",
-        state.loadWishList.map((item) => {
-          console.log(typeof item.id, typeof action.payload.deletedProductId);
-          return item.id === action.payload.deletedProductId;
-        }),
-        action.payload
-      );
       state.loadWishList = state.loadWishList.filter((item) =>
         item.id === +action.payload.deletedProductId ? false : true
       );
