@@ -8,13 +8,13 @@ import { setLoadings } from "../../_actions/uiAction";
 import { getProduct, purchase } from "../../_actions/productAction";
 import { addRoom } from "../../_actions/chatAction";
 
-import Slide from "./DetailSlide";
+import DetailSlide from "../../components/detailProduct/DetailSlide";
 import { FaHeart } from "react-icons/fa";
 import { TbMessageCircle2Filled } from "react-icons/tb";
 import { IoCart } from "react-icons/io5";
 import Button from "../../components/common/Button";
-import ProductStore from "./ProductStore";
-import ProductInformation from "./ProductInformation";
+import ProductStore from "../../components/detailProduct/ProductStore";
+import ProductInformation from "../../components/detailProduct/ProductInformation";
 
 import classes from "../../styles/product/Detail.module.css";
 import { useSnackbar } from "notistack";
@@ -29,6 +29,7 @@ const Detail = ({ wish, setWish }) => {
   const productDetail = useSelector(
     (state) => state.product.productDetail?.product
   );
+  const { loadWishList } = useSelector((state) => state.user);
   const userId = useSelector((state) => state.user.userId);
   const sellerId = productDetail?.seller_id;
   const { productId } = useParams();
@@ -96,7 +97,7 @@ const Detail = ({ wish, setWish }) => {
     console.log(data);
 
     dispatch(addWishList(data)).then((response) => {
-      console.log(response);
+      console.log(loadWishList);
       if (response.payload.addWishListSuccess) {
         enqueueSnackbar("관심상품 등록에 성공했습니다.", {
           variant: "success",
@@ -114,7 +115,7 @@ const Detail = ({ wish, setWish }) => {
       <div className={classes.productDetailWrap}>
         <section className={classes.productDetail}>
           <div className={classes.productImgWrap}>
-            <Slide className={classes.Slide} />
+            <DetailSlide className={classes.Slide} />
           </div>
 
           <div className={classes.producContentWrap}>

@@ -2,7 +2,7 @@ import React, { Fragment } from "react";
 import { Link } from "react-router-dom";
 
 import { useSelector } from "react-redux";
-import Paging from "../../components/common/Paging";
+import Paging from "../common/Paging";
 
 import classes from "../../styles/product/ProductCard.module.css";
 

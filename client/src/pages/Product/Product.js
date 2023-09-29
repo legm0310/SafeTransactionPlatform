@@ -5,8 +5,8 @@ import {
   getSearchRecentProducts,
 } from "../../_actions/productAction";
 import RecentProductsList from "../../components/product/RecentProducts";
-import CategoryBar from "./CategoryBar";
-import ProductCard from "./ProductCard";
+import CategoryBar from "../../components/product/CategoryBar";
+import ProductCard from "../../components/product/ProductCard";
 import Paging from "../../components/common/Paging";
 import { getItem } from "../../utils";
 
