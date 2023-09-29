@@ -10,7 +10,7 @@ import AddProduct from "./pages/AddProduct/AddProduct";
 import Chat from "./pages/Chat/Chat";
 import Login from "./pages/Auth/Login";
 import Register from "./pages/Auth/Register";
-import Detail from "./pages/Product/Detail";
+import Detail from "./pages/DetailProduct/Detail";
 import Notice from "./pages/Notice/Notice";
 import Auth from "./hoc/auth";
 import Loading from "./components/common/Loading";
@@ -23,8 +23,6 @@ function App() {
   const dispatch = useDispatch();
   const isLoggedIn = useSelector((state) => state.user.isLoggedIn);
   const isLoading = useSelector((state) => state.ui.isLoading);
-
-  const [wish, setWish] = useState([]);
 
   useEffect(() => {
     dispatch(auth());
@@ -48,7 +46,7 @@ function App() {
           >
             <Loading />
           </Backdrop>
-          <Header wish={wish} />
+          <Header />
           <Routes>
             <Route path="/" element={<AuthHome />}></Route>
             <Route path="/products/all" element={<Product />}></Route>
@@ -58,14 +56,8 @@ function App() {
             <Route path="/login" element={<Login />}></Route>
             <Route path="/register" element={<Register />}></Route>
             <Route path="/notice/:id" element={<Notice />}></Route>
-            <Route
-              path="/products/:productId"
-              element={<Detail wish={wish} setWish={setWish} />}
-            ></Route>
-            <Route
-              path="/user"
-              element={<AuthUserInfo wish={wish} setWish={setWish} />}
-            ></Route>
+            <Route path="/products/:productId" element={<Detail />}></Route>
+            <Route path="/user" element={<AuthUserInfo />}></Route>
 
             <Route path="/Loading" element={<Loading />}></Route>
           </Routes>

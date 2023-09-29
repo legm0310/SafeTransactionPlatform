@@ -1,5 +1,6 @@
 import { Fragment } from "react";
-import Slide from "./HomeSlide";
+import { useTypewriter, Cursor } from "react-simple-typewriter";
+import Slide from "../../components/Home/HomeSlide";
 import RecentProductsList from "../../components/product/RecentProducts";
 
 import classes from "../../styles/home/Home.module.css";
