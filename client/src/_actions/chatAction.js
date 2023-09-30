@@ -1,10 +1,4 @@
-import {
-  ADD_ROOM,
-  GET_ROOMS,
-  GET_CHATS,
-  ADD_MESSAGE,
-  DELETE_ROOM,
-} from "./type";
+import { ADD_ROOM, GET_ROOMS, GET_CHATS, ADD_CHAT, DELETE_ROOM } from "./type";
 import { setLoadings } from "./uiAction";
 import { addProdRequest } from "../api/productApi";
 import { baseRequest, authRequest } from "../api/common";
@@ -77,7 +71,29 @@ export function deleteRoom() {
   };
 }
 
-export function addMessage(dataToSubmit) {
+// export function addChat(dataToSubmit) {
+//   return async (dispatch) => {
+//     try {
+//       const res = await addProdRequest().post(
+//         "/api/chat/addChat",
+//         dataToSubmit
+//       );
+//       console.log("res", res);
+//       dispatch(setLoadings({ isLoading: false }));
+//       return dispatch({
+//         type: ADD_CHAT,
+//         payload: res.data,
+//       });
+//     } catch (err) {
+//       console.log(err);
+//       return dispatch({
+//         type: ADD_CHAT,
+//         payload: err.response.data,
+//       });
+//     }
+//   };
+// }
+export function addChat(dataToSubmit) {
   return async (dispatch) => {
     try {
       const res = await addProdRequest().post(
@@ -87,37 +103,15 @@ export function addMessage(dataToSubmit) {
       console.log("res", res);
       dispatch(setLoadings({ isLoading: false }));
       return dispatch({
-        type: ADD_MESSAGE,
+        type: ADD_CHAT,
         payload: res.data,
       });
     } catch (err) {
       console.log(err);
       return dispatch({
-        type: ADD_MESSAGE,
+        type: ADD_CHAT,
         payload: err.response.data,
       });
     }
   };
 }
-// export function addChat(dataToSubmit) {
-//   return async (dispatch) => {
-//     try {
-//       const res = await addProdRequest().post(
-//         "/api/chat/addMessage",
-//         dataToSubmit
-//       );
-//       console.log("res", res);
-//       dispatch(setLoadings({ isLoading: false }));
-//       return dispatch({
-//         type: ADD_MESSAGE,
-//         payload: res.data,
-//       });
-//     } catch (err) {
-//       console.log(err);
-//       return dispatch({
-//         type: ADD_MESSAGE,
-//         payload: err.response.data,
-//       });
-//     }
-//   };
-// }

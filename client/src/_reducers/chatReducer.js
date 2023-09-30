@@ -1,5 +1,5 @@
 import {
-  ADD_MESSAGE,
+  ADD_CHAT,
   ADD_ROOM,
   GET_ROOMS,
   GET_CHATS,
@@ -37,8 +37,8 @@ export default function (state = initialState, action) {
     case DELETE_ROOM:
       return { ...state, DeleteRoomSuccess: action.payload };
       break;
-    case ADD_MESSAGE:
-      return { ...state, addMessageSuccess: action.payload };
+    case ADD_CHAT:
+      return { ...state, addChatSuccess: action.payload };
       break;
     default:
       return state;

@@ -3,7 +3,6 @@ import { useSelector, useDispatch } from "react-redux";
 import { useLocation } from "react-router-dom";
 import Button from "../../components/common/Button";
 import SaleList from "../../components/user/SaleList";
-import SaleList from "../../components/user/SaleList";
 import ReservedProduct from "../../components/user/ReservedProduct";
 import PurchasedProduct from "../../components/user/PurchasedProduct";
 import WishList from "../../components/user/WishList";
