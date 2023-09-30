@@ -24,27 +24,14 @@ module.exports = (io) => {
 
     socket.on("onJoinRoom", (roomId) => socket.join(roomId));
 
-    // socket.on("sendMessage", (message, callback) => {
-    //   const user = getUser(socket.id);
-    //   console.log(`${user.name} : "${message}"`);
-    //   // console.log(typeof message, message)
-    //   io.to(user.room).emit("message", {
-    //     user: user.name,
-    //     text: message,
-    //   });
-    //   callback();
-    // });
     socket.on("onSend", async ({ user, roomId, chat }) => {
       await db.ChatLog.create({
-        message: chat,
+        content: chat,
         sender_id: user.id,
         room_id: roomId,
       });
 
       socket.broadcast.to(roomId).emit("onReceive", { user, chat });
-    });
-    socket.on("message", ({ userId, message }) => {
-      io.emit("message", { userId, message });
     });
   });
 };

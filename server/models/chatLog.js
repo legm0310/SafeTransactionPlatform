@@ -16,10 +16,10 @@ class ChatLog extends Sequelize.Model {
           comment: "텍스트, 이미지 구분",
           defaultValue: "text",
         },
-        message: {
+        content: {
           allowNull: false,
           type: Sequelize.STRING,
-          comment: "메세지 내용",
+          comment: "채팅 내용",
         },
         check_read: {
           allowNull: false,

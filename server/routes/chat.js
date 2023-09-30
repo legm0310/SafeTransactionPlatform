@@ -12,11 +12,11 @@ isAuth;
 module.exports = (app) => {
   app.use("/chat", router);
 
-  router.post("/createTest", chatController.createTest);
+  // router.post("/createTest", chatController.createTest);
   router.delete("/deleteTest", chatController.deleteRoom);
 
   router.get("/", isAuth, chatController.getRooms);
-  router.get("/:id", chatController.getChats);
+  router.get("/:id", isAuth, chatController.getChats);
   router.post("/room", isAuth, chatController.addRoom);
   router.delete("/:id", isAuth, chatController.deleteRoom);
 
