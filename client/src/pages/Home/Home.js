@@ -6,7 +6,6 @@ import RecentProductsList from "../../components/product/RecentProducts";
 import classes from "../../styles/home/Home.module.css";
 import mainImg from "../../assets/platformImage1.png";
 import mainImg1 from "../../assets/platformImage4.png";
-import { useTypewriter, Cursor } from "react-simple-typewriter";
 
 const Home = (props) => {
   const [text] = useTypewriter({
