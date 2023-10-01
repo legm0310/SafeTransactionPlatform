@@ -169,7 +169,7 @@ class ChatService {
           where: {
             [Op.not]: { sender_id: +userId },
             room_id: room.id,
-            check_read: 1,
+            check_read: 0,
           },
         });
         const roomWithUnreadCount = room.get();
@@ -221,7 +221,7 @@ class ChatService {
       Object.entries(chatRoomData).map(([key, value]) => [key, Number(value)])
     );
     console.log(convertData);
-    const { lastId, userId, roomId } = convertData;
+    const { lastId, userId, roomId, limit } = convertData;
 
     const targetRoomPromise = await this.ChatRoom.findByPk(roomId);
     const userPromise = await this.User.findByPk(userId);
@@ -258,12 +258,12 @@ class ChatService {
 
     const chatsPromise = targetRoom.getChat_logs({
       where: {
-        id: +lastId === -1 ? { [Op.gt]: +lastId } : { [Op.lt]: +lastId },
+        id: lastId === -1 ? { [Op.gt]: lastId } : { [Op.lt]: lastId },
         createdAt: {
           [Op.gt]: lastJoin.updatedAt,
         },
       },
-      limit: 15,
+      limit: limit,
       order: [
         ["createdAt", "DESC"],
         ["id", "DESC"],
