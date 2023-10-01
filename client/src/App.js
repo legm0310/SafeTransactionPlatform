@@ -1,6 +1,6 @@
 import React, { Fragment, useEffect, useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector, shallowEqual } from "react-redux";
 import { auth } from "./_actions/userAction";
 
 import Header from "./components/headers/Header";
@@ -21,8 +21,12 @@ import { Backdrop } from "@mui/material";
 
 function App() {
   const dispatch = useDispatch();
-  const isLoggedIn = useSelector((state) => state.user.isLoggedIn);
-  const isLoading = useSelector((state) => state.ui.isLoading);
+  const isLoggedIn = useSelector(
+    (state) => state.user.isLoggedIn,
+    shallowEqual
+  );
+  const isLoading = useSelector((state) => state.ui.isLoading, shallowEqual);
+  const [wish, setWish] = useState([]);
 
   useEffect(() => {
     dispatch(auth());
