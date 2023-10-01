@@ -1,4 +1,5 @@
 module.exports = (io) => {
+  const db = require("../models");
   io.on("connection", (socket) => {
     const req = socket.request;
     const ip = req.headers["x-forwarded-for"] || req.connection.remoteAddress;
@@ -31,7 +32,15 @@ module.exports = (io) => {
         room_id: roomId,
       });
 
-      socket.broadcast.to(roomId).emit("onReceive", { user, chat });
+      socket.broadcast.to(roomId).emit("onReceiveSend", { user, chat });
+    });
+
+    socket.on("onRead", async ({ user, roomId, chat }) => {
+      await db.ChatLog.update(
+        { check_read: true },
+        { where: { check_read: false } }
+      );
+      socket.broadcast.to(roomId).emit("onReceiveRead", { user, chat });
     });
   });
 };
