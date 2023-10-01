@@ -2,6 +2,13 @@ const { Container } = require("typedi");
 const { catchAsync } = require("../utils");
 
 module.exports = {
+  getUser: catchAsync(async (req, res) => {
+    const userServiceInstance = await Container.get("userService");
+    res.status(200).json({
+      getUser: true,
+    });
+  }),
+
   getWishList: catchAsync(async (req, res) => {
     const userServiceInstance = await Container.get("userService");
     const userId = req.params.id;
