@@ -176,6 +176,36 @@ module.exports = async () => {
           room_id: 1,
         });
         await db.ChatLog.create({
+          content: "그만하세욧!",
+          sender_id: 1,
+          room_id: 1,
+        });
+        await db.ChatLog.create({
+          content: "제발 그만하세욧",
+          sender_id: 1,
+          room_id: 1,
+        });
+        await db.ChatLog.create({
+          content: "도배하지마세요",
+          sender_id: 1,
+          room_id: 1,
+        });
+        await db.ChatLog.create({
+          content: "싫은데요?",
+          sender_id: 2,
+          room_id: 1,
+        });
+        await db.ChatLog.create({
+          content: "왜요 ?",
+          sender_id: 1,
+          room_id: 1,
+        });
+        await db.ChatLog.create({
+          content: "제 맘인데요",
+          sender_id: 2,
+          room_id: 1,
+        });
+        await db.ChatLog.create({
           content: "3번입니다",
           sender_id: 3,
           room_id: 2,
