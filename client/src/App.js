@@ -42,14 +42,14 @@ function App() {
       {isLoggedIn !== null ? (
         <BrowserRouter>
           <ScrollTop />
-          <Backdrop
+          {/* <Backdrop
             open={isLoading}
             sx={{
               zIndex: "tooltip",
             }}
           >
             <Loading />
-          </Backdrop>
+          </Backdrop> */}
           <Header />
           <Routes>
             <Route path="/" element={<AuthHome />}></Route>
