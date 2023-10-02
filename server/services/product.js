@@ -9,6 +9,7 @@ const {
 class ProductService {
   constructor() {
     this.Product = Container.get("productModel");
+    this.User = Container.get("userModel");
   }
 
   async addProduct(productData) {
@@ -42,6 +43,15 @@ class ProductService {
     const product = await this.Product.findByPk(id);
     const productData = product.toJSON();
     productData.images = productData.images.split(",");
+    const user = await this.User.findOne({
+      attributes: ["user_name"],
+      where: {
+        id: productData.seller_id,
+      },
+      raw: true,
+    });
+    productData.seller_name = user.user_name;
+    console.log(productData);
     return productData;
   }
 

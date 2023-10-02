@@ -35,7 +35,7 @@ module.exports = {
       userId: res.locals.userId,
     };
     const result = await userServiceInstance.deleteWishList(wishData);
-    res.status(204).json({
+    res.status(200).json({
       deleteWishListSuccess: !!result,
       deletedProductId: wishData.productId,
     });
