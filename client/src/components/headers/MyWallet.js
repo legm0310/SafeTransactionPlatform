@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import PropTypes from "prop-types";
 import Exchange from "./Exchange";
+// import Modal from "../common/Modal";
+import classes from "../../styles/headers/MyWallet.module.css";
 
 import {
   ConnectWallet,
@@ -23,15 +25,20 @@ import {
   DialogActions,
   IconButton,
   Typography,
+  Modal,
 } from "@mui/material";
 import { Close as CloseIcon } from "@mui/icons-material";
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
-  "& .MuiDialogContent-root": {
-    padding: theme.spacing(2),
-  },
-  "& .MuiDialogActions-root": {
-    padding: theme.spacing(1),
+  // "& .MuiDialogContent-root": {
+  //   padding: theme.spacing(2),
+  // },
+  // "& .MuiDialogActions-root": {
+  //   padding: theme.spacing(1),
+  // },
+  "& .MuiDialog-paper": {
+    borderRadius: "13px",
+    width: "500px",
   },
 }));
 
@@ -104,12 +111,20 @@ export default function MyWallet(props) {
   };
 
   return (
+    // <Modal>
+    //   <button onClick={handleClose} open={props.open || false}>
+    //     x
+    //   </button>
+    // </Modal>
     <div>
       <BootstrapDialog
         onClose={handleClose}
         aria-labelledby="customized-dialog-title"
         open={props.open || false}
         disableEnforceFocus
+        sx={{
+          borderRadius: "10px",
+        }}
       >
         <BootstrapDialogTitle
           id="customized-dialog-title"
@@ -117,7 +132,16 @@ export default function MyWallet(props) {
         >
           내 지갑 관리
         </BootstrapDialogTitle>
-        <DialogContent dividers>
+        <DialogActions>
+          <div>
+            <h3>
+              {address && !isMismatched
+                ? `${tokenData?.displayValue || 0} ${tokenData?.symbol || ""}`
+                : null}
+            </h3>
+          </div>
+        </DialogActions>
+        <DialogContent>
           <Typography gutterBottom>
             {/* Praesent commodo cursus magna, vel scelerisque nisl consectetur et. */}
           </Typography>
@@ -137,19 +161,26 @@ export default function MyWallet(props) {
               </Button>
             </div>
           ) : (
-            <div>
+            <div className={classes.conncecWallet}>
+              <Button
+                onClick={handleOpenExchange}
+                sx={{
+                  color: "white",
+                  background: "black",
+                  ":hover": { backgroundColor: "black" },
+                }}
+              >
+                <p>토큰 발급받기</p>
+              </Button>
               <ConnectWallet
                 type="submit"
-                theme="white"
+                theme="black"
                 btnTitle="지갑 연결"
                 dropdownPosition={{
                   align: "center",
                   side: "bottom",
                 }}
               />
-              <Button onClick={handleOpenExchange} sx={{ color: "black" }}>
-                <p>토큰 발급받기</p>
-              </Button>
               <Exchange
                 open={showExchange}
                 handleCloseExchange={handleCloseExchange}
@@ -157,15 +188,6 @@ export default function MyWallet(props) {
             </div>
           )}
         </DialogContent>
-        <DialogActions>
-          <div>
-            <h3>
-              {address && !isMismatched
-                ? `${tokenData?.displayValue || 0} ${tokenData?.symbol || ""}`
-                : null}
-            </h3>
-          </div>
-        </DialogActions>
       </BootstrapDialog>
     </div>
   );
