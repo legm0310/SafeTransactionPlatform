@@ -1,5 +1,5 @@
 import React, { Fragment, useState, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
 import Button from "../../components/common/Button";
 import SaleList from "../../components/user/SaleList";
@@ -9,10 +9,11 @@ import WishList from "../../components/user/WishList";
 
 import classes from "../../styles/user/UserInfo.module.css";
 
-const UserInfo = ({ wish, setWish }) => {
-  const [activeMenu, setActiveMenu] = useState("OnSaleProduct");
-
+const UserInfo = () => {
+  const [activeMenu, setActiveMenu] = useState("SaleList");
   const location = useLocation();
+  const { loadWishList } = useSelector((state) => state.user);
+
   useEffect(() => {
     if (location.state && location.state.activeMenu)
       setActiveMenu(location.state.activeMenu);
@@ -32,10 +33,10 @@ const UserInfo = ({ wish, setWish }) => {
 
         <div className={classes.userInfoMenuWrap}>
           <div className={classes.userInfoMenu}>
-            <Button onClick={() => onMenuHandler("OnSaleProduct")}>
+            <Button onClick={() => onMenuHandler("SaleList")}>
               <div
                 className={`${classes.menuButton1} ${
-                  activeMenu === "OnSaleProduct" ? classes.active : ""
+                  activeMenu === "SaleList" ? classes.active : ""
                 }`}
               >
                 <span>판매상품</span>
@@ -62,17 +63,17 @@ const UserInfo = ({ wish, setWish }) => {
               </div>
             </Button>
 
-            <Button onClick={() => onMenuHandler("Wish")}>
+            <Button onClick={() => onMenuHandler("WishList")}>
               <div
                 className={`${classes.menuButton} ${
-                  activeMenu === "Wish" ? classes.active : ""
+                  activeMenu === "WishList" ? classes.active : ""
                 }`}
               >
                 <span>찜목록</span>
-                {wish.length >= 1 ? (
+                {loadWishList?.length >= 1 ? (
                   <div className={classes.wishListLength}>
                     {" "}
-                    <p>{wish.length}</p>{" "}
+                    <p>{loadWishList?.length}</p>{" "}
                   </div>
                 ) : (
                   ""
@@ -82,12 +83,10 @@ const UserInfo = ({ wish, setWish }) => {
           </div>
 
           <div className={classes.userInfoExplanation}>
-            {activeMenu === "OnSaleProduct" && <SaleList />}
+            {activeMenu === "SaleList" && <SaleList />}
             {activeMenu === "ReservedProduct" && <ReservedProduct />}
             {activeMenu === "PurchasedProduct" && <PurchasedProduct />}
-            {activeMenu === "Wish" && (
-              <WishList wish={wish} setWish={setWish} />
-            )}
+            {activeMenu === "WishList" && <WishList />}
           </div>
         </div>
       </section>

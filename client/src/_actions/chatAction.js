@@ -66,13 +66,34 @@ export function getRooms() {
     }
   };
 }
+// export function deleteRoom() {
+//   const request = authRequest()
+//     .delete(`/api/chat/:id`)
+//     .then((response) => response.data)
+//     .catch((err) => {
+//       console.log(err);
+//       return err.response.data;
+//     });
+//   return {
+//     type: DELETE_ROOM,
+//     payload: request,
+//   };
+// }
 
-export function deleteRoom() {
-  return async (dispatch) => {
-    try {
-    } catch {
-    } finally {
-    }
+// export function deleteRoom() {
+//   return async (dispatch) => {
+//     try {
+//     } catch {
+//     } finally {
+//     }
+//   };
+// }
+
+export function addChat(dataToSubmit) {
+  console.log(dataToSubmit);
+  return {
+    type: ADD_CHAT,
+    payload: dataToSubmit,
   };
 }
 

@@ -70,11 +70,16 @@ export default function (state = initialState, action) {
         userId: action.payload.userData?.id,
       };
       break;
-    case ADD_WISHLIST:
+    case ADD_WISHLIST: {
+      console.log(action.payload.wishList);
+      state.loadWishList = action.payload.addWishListSuccess
+        ? [action.payload.wishList[0], ...state.loadWishList]
+        : state.loadWishList;
       return {
         ...state,
         addWishListSuccess: action.payload,
       };
+    }
     case GET_WISHLIST:
       return {
         ...state,
@@ -83,13 +88,18 @@ export default function (state = initialState, action) {
       };
       break;
     case DELETE_WISHLIST:
-      return {
-        ...state,
-        deleteWishListSuccess: action.payload.deleteWishListSuccess,
-        loadWishList: state.loadWishList.filter((item) =>
+      {
+        state.loadWishList = state.loadWishList.filter((item) =>
           item.id === +action.payload.deletedProductId ? false : true
-        ),
-      };
+        );
+        return {
+          ...state,
+          deleteWishListSuccess: action.payload.deleteWishListSuccess,
+          loadWishList: state.loadWishList.filter((item) =>
+            item.id === +action.payload.deletedProductId ? false : true
+          ),
+        };
+      }
       break;
     default: // state가 들어오지 않았을 경우 전의 state를 넣어줌
       return state;
