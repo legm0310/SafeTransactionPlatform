@@ -59,20 +59,26 @@ export default function (state = initialState, action) {
       };
       break;
     case UPDATE_RECENT_CHATS: {
+      state.rooms = state.rooms.map((room) =>
+        room.id == action.payload.roomId
+          ? {
+              ...room,
+              unreadCount: room.unreadCount + 1,
+              chat_logs: [
+                { content: action.payload.chat, createdAt: new Date() },
+              ],
+            }
+          : room
+      );
+      state.rooms?.sort((a, b) => {
+        if (a.chat_logs.length === 0 || b.chat_logs.length === 0) return 1;
+        return (
+          new Date(b.chat_logs[0].createdAt).getTime() -
+          new Date(a.chat_logs[0].createdAt).getTime()
+        );
+      });
       return {
         ...state,
-        rooms: state.rooms.map((room) =>
-          room.id == action.payload.roomId
-            ? {
-                ...room,
-                unreadCount: room.unreadCount + 1,
-                chat_logs: [
-                  ...room.chat_logs,
-                  { content: action.payload.chat },
-                ],
-              }
-            : room
-        ),
       };
     }
     case LOAD_MORE_CHATS:
