@@ -25,7 +25,7 @@ export const dateFormat = (value, format) => {
   dateArray.push(minuteFormat(date, format));
   dateArray.push(secondFormat(date, format));
 
-  dateArray.forEach((v) => {
+  dateArray.forEach((v, index) => {
     if (!v) return;
 
     const decoration = decorationArray[decorationIndex]
@@ -33,7 +33,8 @@ export const dateFormat = (value, format) => {
       : "";
     decorationIndex += 1;
 
-    result += `${v}${decoration}`;
+    result += `${v}`;
+    result += dateArray[index + 1] ? `${decoration}` : "";
   });
 
   return result;
@@ -45,6 +46,10 @@ export const timeFormat = (value) => {
 
   const temp = new Date().getTime() - date.getTime();
 
+  // 방금
+  if (temp / 1000 < 15) {
+    return `방금`;
+  }
   // 1분이하
   if (temp / 1000 < 60) {
     return `${Math.floor(temp / 1000)}초전`;
@@ -178,7 +183,7 @@ const minuteFormat = (date, format) => {
 
 // 초 포멧
 const secondFormat = (date, format) => {
-  const secondRegexp = /m/g;
+  const secondRegexp = /s/g;
   let second = null;
   const secondRegexpResult = format.match(secondRegexp);
 
@@ -194,5 +199,3 @@ const secondFormat = (date, format) => {
 
   return second;
 };
-
-console.log(dateOrTimeFormat(new Date(), "YYYY-MM-DD-HH-MM-SS"));
