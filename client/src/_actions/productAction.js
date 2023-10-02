@@ -130,6 +130,8 @@ export function getProduct(dataToSubmit) {
         type: GET_PRODUCT,
         payload: err.response.data,
       });
+    } finally {
+      dispatch(setLoadings({ isLoading: false }));
     }
   };
 }
