@@ -33,6 +33,7 @@ module.exports = {
       userId: res.locals.userId,
       roomId: req.params.id,
       lastId: req.query.lastId,
+      limit: req.query.limit,
     };
     const { roomInfo, chats } = await chatServiceInstance.getChatsByRoom(
       chatRoomData

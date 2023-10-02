@@ -12,7 +12,10 @@ module.exports = (app) => {
   app.use("/user", router);
 
   // 제품 찜 가져오기, 등록, 삭제
+
   router.get("/wishlist/:id", isAuth, userController.getWishList);
   router.post("/wishlist", isAuth, userController.addWishList);
   router.delete("/wishlist/:id", isAuth, userController.deleteWishList);
+
+  router.get("/:id", isAuth, userController.getUser);
 };
