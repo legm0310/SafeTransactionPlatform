@@ -137,6 +137,7 @@ const ChatRoom = () => {
           user: { id: userId, user_name: authCheck?.userData.user_name },
         })
       );
+      dispatch(updateRecentChats({ roomId: roomId, chat: chat }));
       // socketRef.current?.emit("test", chat);
       // dispatch(addChat({
       //   id:
