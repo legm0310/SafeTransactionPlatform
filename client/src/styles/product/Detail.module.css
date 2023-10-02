@@ -154,7 +154,7 @@
   margin-left: 5px;
 }
 
-/* 상품정보 및 상점정보 */
+/* 상품정보 및 판매자정보 */
 .informationWrap {
   display: flex;
   width: 100%;
@@ -162,6 +162,7 @@
   margin-bottom: 50px;
 }
 
+/* 상품 정보 */
 .prodInformation {
   display: flex;
   width: 100%;
@@ -172,9 +173,50 @@
   border: 1px solid red;
 }
 
+.productInfoHeader,
+.productStoreHeader {
+  font-size: 20px;
+}
+
+.ProdinfoExplanation {
+  margin-top: 30px;
+  color: rgb(136, 136, 136);
+  border: 1px solid green;
+  height: 450px;
+  font-size: 16px;
+}
+/* 판매자 정보 */
 .productStore {
   width: 40%;
   border: 1px solid blue;
+}
+
+.testImg {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.ProdStoreExplanation {
+  display: flex;
+  margin-top: 30px;
+  color: rgb(136, 136, 136);
+  border: 1px solid green;
+  height: 450px;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+}
+
+.sellerName {
+  align-items: center;
+  font-size: 30px;
+}
+
+.userInfoLink {
+  text-decoration: none;
+  color: black;
 }
 
 /* .prodInfoButton {
@@ -199,21 +241,6 @@
 
 /* .active {
 } */
-
-.ProdinfoExplanation {
-  margin-top: 30px;
-  color: rgb(136, 136, 136);
-  border: 1px solid green;
-  height: 450px;
-  font-size: 14px;
-}
-
-.ProdStoreExplanation {
-  margin-top: 30px;
-  color: rgb(136, 136, 136);
-  border: 1px solid green;
-  height: 450px;
-}
 
 /* 연관상품 */
 .relationproductWrap {
