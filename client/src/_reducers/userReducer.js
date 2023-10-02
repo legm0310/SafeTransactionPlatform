@@ -21,7 +21,7 @@ const initialState = {
   isLoggedIn: null,
   userId: "",
   authCheck: null,
-  loadWishList: null,
+  loadWishList: [],
   signupSuccess: null,
   loginSuccess: null,
   logoutSuccess: null,
