@@ -8,31 +8,45 @@ module.exports = (io) => {
       ip,
       socket.id,
       req.ip,
+      socket.rooms,
       "Current User Count : ",
       io.engine.clientsCount
     );
 
     socket.on("disconnect", () => {
-      console.log("After Disconnected User Count : ", io.engine.clientsCount);
-      clearInterval(socket.interval);
+      setTimeout(() => {
+        console.log(io.engine.clientsCount);
+      }, 1000);
     });
 
     socket.on("error", (error) => {
-      console.log(error);
+      throw error;
     });
-
+    socket.on("test", (text) => {
+      console.log("통신내용:", text);
+      console.log("방번호:", socket.rooms);
+    });
     socket.on("login", ({ userId }) => socket.join(userId));
 
-    socket.on("onJoinRoom", (roomId) => socket.join(roomId));
+    socket.on("onJoinRoom", (roomId) => {
+      socket.join(roomId);
+      console.log(socket.rooms);
+    });
 
     socket.on("onSend", async ({ user, roomId, chat }) => {
+      console.log(user, roomId, chat);
       await db.ChatLog.create({
         content: chat,
         sender_id: user.id,
         room_id: roomId,
       });
-
-      socket.broadcast.to(roomId).emit("onReceiveSend", { user, chat });
+      console.log(socket.rooms, socket.connected, roomId);
+      socket.broadcast
+        .to(+roomId)
+        .emit("onReceiveSend", { user: user, chat: chat, roomId: roomId });
+      // socket.broadcast
+      //   .to(+roomId)
+      //   .emit("onUpdateRecentChat", { roomId: roomId, chat: chat });
     });
 
     socket.on("onRead", async ({ user, roomId, chat }) => {
@@ -44,67 +58,3 @@ module.exports = (io) => {
     });
   });
 };
-
-// socket.on(EVENT.JOIN_ROOM, async ({ userId, qUserId }) => {
-//   try {
-//     const roomNum = await roomNumMaker(userId, qUserId);
-//     await chatService.createChatRoom({ userId, qUserId, roomNum });
-//     socket.join(roomNum);
-//     socket.leave(userId);
-//   } catch (error) {
-//     console.log(error);
-//   }
-// });
-
-// socket.io 동작
-// io.on("connection", (socket) => {
-//   const roomNumMaker = (x, y) => {
-//     const arr = [x, y];
-//     arr.sort((a, b) => a - b);
-//     let roomNum = arr[0].toString() + arr[1];
-//     return roomNum;
-//   };
-
-//   socket.on("join", ({ name, room }, callback) => {
-//     const { error, user } = addUser({ id: socket.id, name, room });
-//     console.log("유저이름 : " + user?.["id"]);
-
-//     if (error) callback({ error: "에러가 발생했습니다." });
-
-//     socket.emit("message", {
-//       user: "admin",
-//       text: `${user?.name}, ${user?.room}에 오신 것을 환영합니다.`,
-//     });
-//     io.to(user.room).emit("roomData", {
-//       room: user.room,
-//       users: getUsersInRoom(user.room),
-//     });
-//     socket.join(user.room);
-//     callback();
-//   });
-
-//   socket.on("sendMessage", (message, callback) => {
-//     const user = getUser(socket.id);
-//     console.log(`${user.name} : "${message}"`);
-//     // console.log(typeof message, message)
-//     io.to(user.room).emit("message", {
-//       user: user.name,
-//       text: message,
-//     });
-//     callback();
-//   });
-//   socket.on("disconnect", () => {
-//     const user = removeUser(socket.id);
-//     if (user) {
-//       io.to(user.room).emit("message", {
-//         user: "admin",
-//         text: `${user.name}님이 퇴장하셨습니다.`,
-//       });
-//       io.to(user.room).emit("roomData", {
-//         room: user.room,
-//         users: getUsersInRoom(user.room),
-//       });
-//     }
-//     console.log("유저가 나갔습니다.");
-//   });
-// });
