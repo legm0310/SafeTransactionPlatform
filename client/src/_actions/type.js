@@ -33,9 +33,12 @@ export const SEARCH_RECENT_PRODUCTS = "getSearchRecentProducts";
 export const SET_LOADINGS = "setLoadings";
 export const SET_CONTRACT_LOADING = "setContractLoading";
 //chat
-export const ADD_CHAT = "addChat";
-export const GET_ROOMS = "getRooms";
+export const SOCKET_INIT = "socketInit";
 export const ADD_ROOM = "addRoom";
+export const GET_ROOMS = "getRooms";
+export const ADD_CHAT = "addChat";
 export const GET_CHATS = "getChats";
-export const DELETE_ROOM = "deleteRoom";
+export const UPDATE_RECENT_CHATS = "updateRecentChats";
+export const LOAD_MORE_CHATS = "loadMoreChat";
+export const RESET_CURRENT_CHATS = "resetCurrentChats";
 // export const GET_UNREAD_CHATS = "getUnreadChats";
