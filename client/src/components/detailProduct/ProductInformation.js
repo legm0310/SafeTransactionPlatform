@@ -5,10 +5,9 @@ const ProductInformation = () => {
   const productDetail = useSelector(
     (state) => state.product.productDetail?.product
   );
-
   return (
     <Fragment>
-      <div>{productDetail?.detail}</div>
+      <div style={{ whiteSpace: "pre-line" }}>{productDetail?.detail}</div>
     </Fragment>
   );
 };
