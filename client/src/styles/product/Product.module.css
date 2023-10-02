@@ -10,7 +10,6 @@
   background-color: #fff;
   margin-top: 30px;
   width: 880px;
-  height: 120px;
   border: 1px solid rgb(207, 210, 215);
   padding: 0.5rem 20px;
   display: flex;
@@ -27,13 +26,14 @@
 
 .categoryBar {
   margin-right: 10px;
-  position: sticky;
+  position: fixed;
   top: 100px;
   height: 100%;
   /* position: fixed;
   left: 19rem;
   top: 12rem;
   transform: translate(1em, 12rem); */
+  z-index: 10;
 }
 
 .categoryBox ul {
@@ -60,4 +60,8 @@
 
 .detail {
   text-decoration: none;
+}
+
+.prdouctCardWrap {
+  margin-left: 200px;
 }

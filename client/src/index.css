@@ -17,6 +17,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
   background: #fff;
   font-family: "GongGothicMedium", "Noto Sans KR", sans-serif;
+  overflow-y: scroll;
 }
 
 code {
