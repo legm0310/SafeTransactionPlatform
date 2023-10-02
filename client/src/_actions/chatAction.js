@@ -25,6 +25,7 @@ export function resetStoreChat() {
     type: RESET_STORE_CHAT,
   };
 }
+
 export function addRoom(dataToSubmit) {
   return async (dispatch) => {
     try {
@@ -94,14 +95,6 @@ export function addChat(dataToSubmit) {
   return {
     type: ADD_CHAT,
     payload: dataToSubmit,
-  };
-}
-
-export function addChat(dataToSubmit) {
-  console.log(dataToSubmit);
-  return {
-    type: DELETE_ROOM,
-    payload: request,
   };
 }
 
