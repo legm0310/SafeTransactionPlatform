@@ -33,6 +33,7 @@ import {
 const UserSection = (props) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { loadWishList } = useSelector((state) => state.user);
   const { enqueueSnackbar } = useSnackbar();
 
   const disconnect = useDisconnect();
@@ -71,7 +72,7 @@ const UserSection = (props) => {
   const onWishListOpen = () => {
     navigate("/user", {
       state: {
-        activeMenu: "Wish",
+        activeMenu: "WishList",
       },
     });
   };
@@ -178,7 +179,7 @@ const UserSection = (props) => {
           aria-label="show 17 new notifications"
           color="primary"
         >
-          <Badge badgeContent={17} color="error">
+          <Badge badgeContent={loadWishList?.length} color="error">
             <NotificationsIcon sx={{ color: "#fe4e62" }} />
           </Badge>
         </IconButton>
@@ -309,7 +310,7 @@ const UserSection = (props) => {
               sx={{ mr: 2 }}
               onClick={onWishListOpen}
             >
-              <Badge badgeContent={17} color="error">
+              <Badge badgeContent={loadWishList?.length} color="error">
                 <FavoriteIcon sx={{ fontSize: 30 }} />
               </Badge>
               <Typography>찜목록</Typography>

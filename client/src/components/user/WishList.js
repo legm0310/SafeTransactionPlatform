@@ -6,14 +6,14 @@ import WishItem from "./WishItem";
 
 import classes from "../../styles/user/WishList.module.css";
 
-const WishList = ({ wish }) => {
+const WishList = () => {
   const dispatch = useDispatch();
   const userId = useSelector((state) => state.user.userId);
   const { loadWishList } = useSelector((state) => state.user);
 
   useEffect(() => {
     dispatch(getWishList(userId));
-  }, []);
+  }, [dispatch]);
 
   console.log(loadWishList);
 
@@ -29,13 +29,7 @@ const WishList = ({ wish }) => {
       ) : (
         loadWishList?.map((wishItem) => {
           console.log(wishItem.id);
-          return (
-            <WishItem
-              key={`key-${wishItem?.id}`}
-              wish={wish}
-              wishItem={wishItem}
-            />
-          );
+          return <WishItem key={`key-${wishItem?.id}`} wishItem={wishItem} />;
         })
       )}
     </Fragment>
