@@ -28,8 +28,11 @@ const WishList = () => {
         </div>
       ) : (
         loadWishList?.map((wishItem) => {
-          console.log(wishItem.id);
-          return <WishItem key={`key-${wishItem?.id}`} wishItem={wishItem} />;
+          return (
+            <div key={`key-${wishItem.id}`}>
+              <WishItem wishItem={wishItem} />
+            </div>
+          );
         })
       )}
     </Fragment>
