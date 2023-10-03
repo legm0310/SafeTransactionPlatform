@@ -63,7 +63,9 @@ export default function (state = initialState, action) {
         room.id == action.payload.roomId
           ? {
               ...room,
-              unreadCount: room.unreadCount + 1,
+              unreadCount: action.payload.checkRead
+                ? room.unreadCount
+                : room.unreadCount + 1,
               chat_logs: [
                 { content: action.payload.chat, createdAt: new Date() },
               ],

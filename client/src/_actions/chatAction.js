@@ -91,7 +91,6 @@ export function getRooms() {
 // }
 
 export function addChat(dataToSubmit) {
-  console.log(dataToSubmit);
   return {
     type: ADD_CHAT,
     payload: dataToSubmit,
@@ -123,11 +122,11 @@ export function getChats(dataToSubmit) {
 }
 
 export function updateRecentChats(dataToSubmit) {
-  const { roomId, chat } = dataToSubmit;
+  const { roomId, chat, checkRead } = dataToSubmit;
   return async (dispatch) => {
     dispatch({
       type: UPDATE_RECENT_CHATS,
-      payload: { roomId, chat },
+      payload: { roomId, chat, checkRead },
     });
   };
 }
