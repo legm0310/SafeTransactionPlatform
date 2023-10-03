@@ -25,17 +25,37 @@ export const dateFormat = (value, format) => {
   dateArray.push(minuteFormat(date, format));
   dateArray.push(secondFormat(date, format));
 
-  dateArray.forEach((v, index) => {
-    if (!v) return;
+  const rules = {
+    YYYY: yearFormat(date, format),
+    MM: monthFormat(date, format),
+    DD: dayFormat(date, format),
+    hh: hourFormat(date, format),
+    mm: minuteFormat(date, format),
+    ss: secondFormat(date, format),
+  };
 
-    const decoration = decorationArray[decorationIndex]
-      ? decorationArray[decorationIndex]
-      : "";
-    decorationIndex += 1;
+  result = format;
+  for (const key in rules) {
+    result = result.replace(key, rules[key]);
+  }
+  // dateArray.forEach((v, index) => {
+  //   if (!v) return;
 
-    result += `${v}`;
-    result += dateArray[index + 1] ? `${decoration}` : "";
-  });
+  //   const decoration =
+  //     decorationArray[decorationIndex] ||
+  //     decorationArray[decorationIndex] == " "
+  //       ? decorationArray[decorationIndex]
+  //       : "";
+
+  //   if (decoration === " ") {
+  //     result += " ";
+  //     return;
+  //   }
+  //   decorationIndex += 1;
+  //   result += `${v}${decoration}`;
+  //   // result += dateArray[index + 1] ? `${decoration}` : "";
+  //   console.log(decoration);
+  // });
 
   return result;
 };
@@ -47,7 +67,7 @@ export const timeFormat = (value) => {
   const temp = new Date().getTime() - date.getTime();
 
   // 방금
-  if (temp / 1000 < 15) {
+  if (temp / 1000 < 30) {
     return `방금`;
   }
   // 1분이하
@@ -78,6 +98,13 @@ export const timeFormat = (value) => {
 export const dateOrTimeFormat = (value, format) => {
   // 일주일 이후
   if (Date.now() - new Date(value).getTime() > 1000 * 60 * 60 * 24 * 7)
+    return dateFormat(value, format);
+  else return timeFormat(value);
+};
+
+export const dateOrTimeFormatForChat = (value, format) => {
+  // 1분 이후
+  if (Date.now() - new Date(value).getTime() > 1000 * 60 * 60)
     return dateFormat(value, format);
   else return timeFormat(value);
 };
@@ -155,8 +182,13 @@ const hourFormat = (date, format) => {
   hour = date.getHours();
 
   // mm일 때 ( 06 )
-  if (hourRegexpResult?.length === 2 && hour < 10) {
-    hour = `0${hour}`;
+  // if (hourRegexpResult?.length === 2 && hour < 10) {
+  //   hour = `0${hour}`;
+  // }
+  if (hour > 11) {
+    hour = `오후 ${hour - 12 == 0 ? 12 : hour - 12}`;
+  } else {
+    hour = `오전 ${hour}`;
   }
 
   return hour;
