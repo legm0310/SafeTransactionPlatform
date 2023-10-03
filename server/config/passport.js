@@ -39,8 +39,8 @@ const refreshVerify = async (payload, done) => {
       Date.parse(tokenValues.reissue_timeout)
     ).getTime();
 
-    console.log("재생성 만료기간", reissueTimeout / 1000);
-    console.log("현재 타임스탬프", Math.floor(Date.now() / 1000));
+    console.log("exp", reissueTimeout / 1000);
+    console.log("now", Math.floor(Date.now() / 1000));
 
     if (!reissueTimeout || reissueTimeout < Date.now()) {
       throw new UnauthorizedError("Please authenticate");
