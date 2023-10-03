@@ -51,7 +51,7 @@ class ProductService {
       raw: true,
     });
     productData.seller_name = user.user_name;
-    console.log(productData);
+    // console.log(productData);
     return productData;
   }
 

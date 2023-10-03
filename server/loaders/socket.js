@@ -44,9 +44,6 @@ module.exports = (io) => {
       socket.broadcast
         .to(+roomId)
         .emit("onReceiveSend", { user: user, chat: chat, roomId: roomId });
-      // socket.broadcast
-      //   .to(+roomId)
-      //   .emit("onUpdateRecentChat", { roomId: roomId, chat: chat });
     });
 
     socket.on("onRead", async ({ user, roomId, chat }) => {
