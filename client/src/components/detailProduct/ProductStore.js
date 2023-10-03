@@ -17,9 +17,9 @@ const ProductStore = () => {
         <div className={classes.sellerName}>
           <Link
             className={classes.userInfoLink}
-            to={`/user/${productDetail.seller_id}`}
+            to={`/user/${productDetail?.seller_id}`}
           >
-            {productDetail.seller_name}
+            {productDetail?.seller_name}
           </Link>
         </div>
       </div>
