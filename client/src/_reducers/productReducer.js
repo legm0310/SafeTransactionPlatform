@@ -17,7 +17,9 @@ import {
   RELEASE,
 } from "../_actions/type";
 
-const initialState = {};
+const initialState = {
+  productDetail: {},
+};
 
 // Action의 type에 따라 변화된 state 반환
 // eslint-disable-next-line import/no-anonymous-default-export
