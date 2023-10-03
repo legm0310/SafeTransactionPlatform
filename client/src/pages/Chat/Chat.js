@@ -31,9 +31,11 @@ const Chat = () => {
 
   useEffect(() => {
     if (!userId || !rooms || rooms.length === 0) return;
-    console.log(roomsRef.current, rooms, !isEqual(roomsRef.current, rooms));
-    if (socketRef.current && !isEqual(roomsRef.current, rooms))
-      socketRef.current.disconnect();
+    // console.log(roomsRef.current, rooms, !isEqual(roomsRef.current, rooms));
+    // if (socketRef.current && !isEqual(roomsRef.current, rooms)) {
+    //   socketRef.current.disconnect();
+    //   socketRef.current = null;
+    // }
     if (socketRef.current) return;
     const curSocket = io("localhost:5000", {
       cors: { origin: "*" },
@@ -52,14 +54,16 @@ const Chat = () => {
           type: "text",
           id: Date.now(),
           room_id: roomId,
-          sender_id: roomInfo.partner.id,
+          sender_id: user.id,
           user: {
-            id: roomInfo.partner.id,
-            user_name: roomInfo.partner.user_name,
+            id: user.id,
+            user_name: user.name,
           },
         })
       );
-      dispatch(updateRecentChats({ roomId: roomId, chat: chat }));
+      dispatch(
+        updateRecentChats({ roomId: roomId, chat: chat, checkRead: false })
+      );
     });
     curSocket.on("onReceiveRead", ({ user, chat }) => {});
     socketRef.current = curSocket;
