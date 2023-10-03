@@ -25,25 +25,19 @@ const Detail = ({ wish, setWish }) => {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const sdk = useSDK();
   const { enqueueSnackbar } = useSnackbar();
 
-  const productDetail = useSelector(
-    (state) => state.product.productDetail?.product
+  const prodDetail = useSelector(
+    (state) => state.product.productDetail.product
   );
-  const { loadWishList } = useSelector((state) => state.user);
+  const { userId, loadWishList } = useSelector((state) => state.user);
   const isLoading = useSelector((state) => state.ui.isLoading);
-  const userId = useSelector((state) => state.user.userId);
-  const sellerId = productDetail?.seller_id;
   const { productId } = useParams();
-
-  const sdk = useSDK();
-  console.log(productDetail);
-
-  const roomName = sellerId;
-  console.log(`roomName : ${roomName}`);
+  const sellerId = prodDetail?.seller_id;
 
   useEffect(() => {
-    dispatch(getProduct(productId)).then((response) => console.log(response));
+    dispatch(getProduct(productId));
   }, [dispatch, productId]);
 
   const onMenuHandler = (menu) => {
@@ -87,7 +81,7 @@ const Detail = ({ wish, setWish }) => {
     //     alert("방 생성에 실패했습니다.");
     //   }
     // });
-    navigate(`/chat/${roomName}`);
+    // navigate(`/chat/${roomName}`);
   };
 
   const addWishListHandler = () => {
@@ -95,9 +89,6 @@ const Detail = ({ wish, setWish }) => {
       userId,
       productId,
     };
-
-    console.log(data);
-
     dispatch(addWishList(data)).then((response) => {
       console.log(loadWishList);
       if (response.payload.addWishListSuccess) {
@@ -127,15 +118,13 @@ const Detail = ({ wish, setWish }) => {
 
             <div className={classes.producContentWrap}>
               <div>
-                <div className={classes.category}>
-                  {productDetail?.category}
-                </div>
-                <div className={classes.title}>{productDetail?.title}</div>
+                <div className={classes.category}>{prodDetail?.category}</div>
+                <div className={classes.title}>{prodDetail?.title}</div>
                 <div className={classes.price}>
                   {" "}
-                  {productDetail?.price.toLocaleString()}
+                  {prodDetail?.price.toLocaleString()}
                 </div>
-                <div className={classes.time}>{productDetail?.createdAt}</div>
+                <div className={classes.time}>{prodDetail?.createdAt}</div>
               </div>
 
               <div className={classes.buttonWrap}>

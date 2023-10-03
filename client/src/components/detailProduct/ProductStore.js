@@ -5,9 +5,10 @@ import classes from "../../styles/product/Detail.module.css";
 import defaultProfile from "../../assets/defaultProfile.png";
 
 const ProductStore = () => {
-  const productDetail = useSelector(
+  const prodDetail = useSelector(
     (state) => state.product.productDetail?.product
   );
+  console.log(prodDetail);
   return (
     <Fragment>
       <div className={classes.prodStoreWrap}>
@@ -17,9 +18,9 @@ const ProductStore = () => {
         <div className={classes.sellerName}>
           <Link
             className={classes.userInfoLink}
-            to={`/user/${productDetail?.seller_id}`}
+            to={`/user/${prodDetail?.seller_id}`}
           >
-            {productDetail?.seller_name}
+            {prodDetail?.seller_name}
           </Link>
         </div>
       </div>
