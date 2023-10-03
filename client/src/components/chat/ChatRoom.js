@@ -15,7 +15,7 @@ import {
   updateRecentChats,
 } from "../../_actions/chatAction";
 import { setLoadings } from "../../_actions/uiAction";
-import { dateOrTimeFormat } from "../../utils/dataParse";
+import { dateOrTimeFormatForChat, dateFormat } from "../../utils/dataParse";
 
 import classes from "../../styles/chat/Chat.module.css";
 import { useSnackbar } from "notistack";
@@ -36,49 +36,6 @@ const ChatRoom = () => {
 
   const [chat, setChat] = useState("");
   // const socketRef = useRef(null);
-
-  //소켓연결, 해제
-  // useEffect(() => {
-  //   console.log("ChatRoom mounted");
-  //   if (!userId || !roomId) return;
-  //   if (!socketRef.current) {
-  //     const curSocket = io("localhost:5000", {
-  //       cors: { origin: "*" },
-  //     });
-  //     curSocket.on("connect", () => {
-  //       curSocket.emit("onJoinRoom", roomId);
-  //     });
-  //     curSocket.on("onReceiveSend", ({ user, chat }) => {
-  //       dispatch(
-  //         addChat({
-  //           check_read: false,
-  //           content: chat,
-  //           createdAt: new Date(),
-  //           updatedAt: new Date(),
-  //           type: "text",
-  //           id: Date.now(),
-  //           room_id: roomId,
-  //           sender_id: user.id,
-  //           user: { id: user.id, user_name: user.name },
-  //         })
-  //       );
-  //       // dispatch(updateRecentChats(roomId, chat));
-  //     });
-  //     curSocket.on("onReceiveRead", ({ user, chat }) => { });
-  //     curSocket.on("onUpdateRecentChat", ({ roomId, chat }) => {
-  //       dispatch(updateRecentChats(roomId, chat));
-  //     })
-  //     socketRef.current = curSocket;
-  //   }
-  // }, [dispatch, roomId]);
-
-  // useEffect(() => {
-  //   return () => {
-  //     console.log("ChatRoom unmounted");
-  //     socketRef.current?.disconnect();
-  //     socketRef.current = null;
-  //   };
-  // }, [dispatch, roomId]);
 
   //채팅방 입장 시 로딩
   useEffect(() => {
@@ -115,7 +72,6 @@ const ChatRoom = () => {
             variant: "error",
           }
         );
-
       socket?.emit("onSend", {
         user: {
           id: userId,
@@ -137,11 +93,9 @@ const ChatRoom = () => {
           user: { id: userId, user_name: authCheck?.userData.user_name },
         })
       );
-      dispatch(updateRecentChats({ roomId: roomId, chat: chat }));
-      // socketRef.current?.emit("test", chat);
-      // dispatch(addChat({
-      //   id:
-      // }))
+      dispatch(
+        updateRecentChats({ roomId: roomId, chat: chat, checkRead: true })
+      );
       setChat("");
     },
     [userId, chat, socket, dispatch, setChat]
@@ -201,11 +155,16 @@ const ChatRoom = () => {
                   : classes.positionForOther
               }
             >
+              <br></br>
               {chat.sender_id != userId ? `${chat.user?.user_name} : ` : null}
               <span>{chat.content}</span>
               <br></br>
               <time>
-                {dateOrTimeFormat(chat.createdAt, "YYYY-MM-DD-HH-MM-SS")}
+                {new Date(chats[index - 1]?.createdAt).getDate() !=
+                new Date(chat.createdAt).getDate()
+                  ? `${dateFormat(chat.createdAt, "YYYY년 MM월 DD일")} `
+                  : null}
+                {dateOrTimeFormatForChat(chat.createdAt, "hh:mm")}
               </time>
             </h3>
           </div>
