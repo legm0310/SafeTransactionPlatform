@@ -87,6 +87,7 @@ export default function (state = initialState, action) {
       return {
         ...state,
         chats: [...action.payload.chats, ...state.chats],
+        hasMoreChatLoad: action.payload.chats.length === 20 ? true : false,
       };
       break;
     case GET_CHATS:
@@ -95,6 +96,7 @@ export default function (state = initialState, action) {
         getChatsSuccess: action.payload.getChatsSuccess,
         roomInfo: action.payload.roomInfo,
         chats: action.payload.chats,
+        hasMoreChatLoad: action.payload.chats.length == 20 ? true : false,
       };
       break;
     case RESET_CURRENT_CHATS:
