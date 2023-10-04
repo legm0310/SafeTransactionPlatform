@@ -72,7 +72,7 @@ const Chat = () => {
   }, [rooms]);
   useEffect(() => {
     return () => {
-      // if (!socketRef.current) return;
+      if (!socketRef.current) return;
       socketRef.current?.disconnect();
       socketRef.current = null;
     };
