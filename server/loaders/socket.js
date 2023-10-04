@@ -14,6 +14,7 @@ module.exports = (io) => {
     );
 
     socket.on("disconnect", () => {
+      console.log("disconnected", socket.id);
       setTimeout(() => {
         console.log(io.engine.clientsCount);
       }, 1000);
