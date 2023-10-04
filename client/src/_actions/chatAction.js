@@ -120,6 +120,29 @@ export function getChats(dataToSubmit) {
     }
   };
 }
+export function loadMoreChats(dataToSubmit) {
+  const { roomId, lastId, limit } = dataToSubmit;
+  const params = { lastId, limit };
+  return async (dispatch) => {
+    dispatch(setLoadings({ isChatLoading: true }));
+    try {
+      const res = await authRequest({ params }).get(`/api/chat/${roomId}`);
+      console.log("res", res);
+      return dispatch({
+        type: LOAD_MORE_CHATS,
+        payload: res.data,
+      });
+    } catch (err) {
+      console.log(err);
+      return dispatch({
+        type: LOAD_MORE_CHATS,
+        payload: err.response ? err.response.data : err,
+      });
+    } finally {
+      dispatch(setLoadings({ isChatLoading: false }));
+    }
+  };
+}
 
 export function updateRecentChats(dataToSubmit) {
   const { roomId, chat, checkRead } = dataToSubmit;
