@@ -27,13 +27,18 @@ export default function (state = initialState, action) {
       break;
     case SOCKET_INIT:
       return { ...state, socket: action.payload };
-    case ADD_ROOM:
+    case ADD_ROOM: {
+      state.rooms =
+        action.payload.results == "createdRoom" ||
+        action.payload.results == "updatedRoom"
+          ? [action.payload.room, ...state.rooms]
+          : [...state.rooms];
       return {
         ...state,
-        addRoomSuccess: action.payload,
-        rooms: [...state.rooms],
+        addRoomSuccess: action.payload.addRoomSuccess,
       };
       break;
+    }
     case ADD_CHAT:
       return {
         ...state,
@@ -45,7 +50,7 @@ export default function (state = initialState, action) {
       {
         state.rooms = action.payload.rooms;
         state.rooms?.sort((a, b) => {
-          if (a.chat_logs.length === 0 || b.chat_logs.length === 0) return 1;
+          if (a.chat_logs?.length === 0 || b.chat_logs?.length === 0) return 1;
           return (
             new Date(b.chat_logs[0].createdAt).getTime() -
             new Date(a.chat_logs[0].createdAt).getTime()
@@ -63,9 +68,11 @@ export default function (state = initialState, action) {
         room.id == action.payload.roomId
           ? {
               ...room,
-              unreadCount: action.payload.checkRead
-                ? room.unreadCount
-                : room.unreadCount + 1,
+              unreadCount:
+                action.payload.checkRead == false &&
+                action.payload.oneSelf == false
+                  ? room.unreadCount + 1
+                  : room.unreadCount,
               chat_logs: [
                 { content: action.payload.chat, createdAt: new Date() },
               ],
@@ -95,8 +102,8 @@ export default function (state = initialState, action) {
         ...state,
         getChatsSuccess: action.payload.getChatsSuccess,
         roomInfo: action.payload.roomInfo,
-        chats: action.payload.chats,
-        hasMoreChatLoad: action.payload.chats.length == 20 ? true : false,
+        chats: Array.isArray(action.payload.chats) ? action.payload.chats : [],
+        hasMoreChatLoad: action.payload.chats?.length == 20 ? true : false,
       };
       break;
     case RESET_CURRENT_CHATS:
