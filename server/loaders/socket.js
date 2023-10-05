@@ -1,5 +1,7 @@
 module.exports = (io) => {
   const db = require("../models");
+  const { Container } = require("typedi");
+
   io.on("connection", (socket) => {
     const req = socket.request;
     const ip = req.headers["x-forwarded-for"] || req.connection.remoteAddress;
@@ -33,6 +35,33 @@ module.exports = (io) => {
       socket.join(roomId);
       console.log(socket.rooms);
     });
+    socket.on("getMyRooms", (callback) => {
+      const rooms = Object.keys(socket.rooms);
+      console.log(rooms);
+      callback(rooms);
+    });
+    socket.on(
+      "onAddRoomAndSend",
+      async ({ userId, sellerId, roomName, chat }, callback) => {
+        const chatServiceInstance = await Container.get("chatService");
+        try {
+          const { room, result } = await chatServiceInstance.createRoom({
+            userId,
+            sellerId,
+            roomName,
+          });
+
+          await db.ChatLog.create({
+            content: chat,
+            sender_id: userId,
+            room_id: room.id,
+          });
+          callback({ result: result, roomId: room.id });
+        } catch (err) {
+          callback({ result: "error", error: err.message });
+        }
+      }
+    );
 
     socket.on("onSend", async ({ user, roomId, chat }) => {
       console.log(user, roomId, chat);
