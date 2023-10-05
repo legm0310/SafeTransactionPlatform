@@ -10,7 +10,7 @@
   height: 300px;
   border: 1px solid rgb(238, 238, 238);
   border-radius: 4px;
-  margin-top: 20px;
+  margin-top: 30px;
 }
 
 .userInfoMenuWrap {
@@ -68,7 +68,7 @@
 }
 
 .userInfoExplanation {
-  margin-top: 30px;
+  margin-bottom: 50px;
 }
 
 .active {

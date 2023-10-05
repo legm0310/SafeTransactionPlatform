@@ -20,9 +20,9 @@ import { dateOrTimeFormatForChat, dateFormat } from "../../utils/dataParse";
 
 import classes from "../../styles/chat/Chat.module.css";
 import { useSnackbar } from "notistack";
-import { IoCamera, IoImage, IoPersonAdd } from "react-icons/io5";
+import { IoImage } from "react-icons/io5";
 import { IoMdAttach } from "react-icons/io";
-import { LuMoreHorizontal } from "react-icons/lu";
+import { TbLogout } from "react-icons/tb";
 
 const ChatRoom = () => {
   const { enqueueSnackbar } = useSnackbar();
@@ -230,9 +230,7 @@ const ChatRoom = () => {
               : null}
           </span>
           <div className={classes.chatIcons}>
-            <IoCamera className={classes.icon} />
-            <LuMoreHorizontal className={classes.icon} />
-            <IoPersonAdd className={classes.icon} />
+            <TbLogout className={classes.icon} />
           </div>
         </div>
         <div ref={chatWrapRef} className={classes.messagesWrap}>
@@ -262,10 +260,10 @@ const ChatRoom = () => {
             <button type="submit" ref={buttonRef}>
               Send
             </button>
-            <IoMdAttach className={classes.inputIcon} />
+            {/* <IoMdAttach className={classes.inputIcon} /> */}
             <input type="file" style={{ display: "none" }} id="file" />
             <label htmlFor="file">
-              <IoImage className={classes.inputIcon2} />
+              {/* <IoImage className={classes.inputIcon2} /> */}
             </label>
           </div>
         </form>

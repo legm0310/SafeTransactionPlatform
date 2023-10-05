@@ -3,29 +3,10 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-}
-
-.categoryBox {
-  background-color: #fff;
-  margin-top: 30px;
-  width: 880px;
-  border: 1px solid rgb(207, 210, 215);
-  padding: 0.5rem 20px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-}
-
-.categoryBox div {
-  border-bottom: 1px solid rgb(207, 210, 215);
-  padding-bottom: 10px;
-  cursor: pointer;
-  color: black;
+  min-height: 100vh;
 }
 
 .categoryBar {
-  margin-right: 10px;
   position: fixed;
   top: 100px;
   height: 100%;
@@ -33,23 +14,6 @@
   left: 19rem;
   top: 12rem;
   transform: translate(1em, 12rem); */
-  z-index: 10;
-}
-
-.categoryBox ul {
-  padding: 0;
-  margin: 0;
-  list-style: none;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  width: 100%;
-}
-
-.categoryBox ul li {
-  width: 120px;
-  cursor: pointer;
-  color: black;
 }
 
 .productWrap {

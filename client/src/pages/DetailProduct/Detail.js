@@ -13,7 +13,7 @@ import { FaHeart } from "react-icons/fa";
 import { TbMessageCircle2Filled } from "react-icons/tb";
 import { IoCart } from "react-icons/io5";
 import Button from "../../components/common/Button";
-import ProductStore from "../../components/detailProduct/ProductStore";
+import ProductSellor from "../../components/detailProduct/ProductSellor";
 import ProductInformation from "../../components/detailProduct/ProductInformation";
 import Loading from "../../components/common/Loading";
 
@@ -41,9 +41,88 @@ const Detail = ({ wish, setWish }) => {
     dispatch(getProduct(productId));
   }, [dispatch, productId]);
 
+  // 스낵바
+  const action = (snackbarId) => (
+    <>
+      <button
+        onClick={() => {
+          alert(`I belong to snackbar with id ${snackbarId}`);
+        }}
+      >
+        구매하기
+      </button>
+      <button
+        onClick={() => {
+          // closeSnackbar(snackbarId);
+        }}
+      >
+        취소
+      </button>
+    </>
+  );
+
+  enqueueSnackbar("해당 상품 구매를 진행하시겠습니까?", {
+    action,
+  });
+
   const onMenuHandler = (menu) => {
     setActiveMenu(menu);
   };
+
+  dispatch(setLoadings({ isLoading: true }));
+  const data = {
+    productId,
+    userId,
+    sdk,
+  };
+  dispatch(purchase(data)).then((response) => {
+    console.log(response);
+    if (response.payload.updated) {
+      alert("에스크로 결제가 진행됩니다.");
+      navigate("/user");
+    } else {
+      alert("구매 신청에 실패했습니다.");
+    }
+  });
+
+  // const onPurchaseHandler = () => {
+  //   const action = (snackbarId) => (
+  //     <>
+  //       <button
+  //         onClick={() => {
+  //           dispatch(setLoadings({ isLoading: true }));
+  //           const data = {
+  //             productId,
+  //             userId,
+  //             sdk,
+  //           };
+  //           dispatch(purchase(data)).then((response) => {
+  //             console.log(response);
+  //             if (response.payload.updated) {
+  //               alert("에스크로 결제가 진행됩니다.");
+  //               navigate("/user");
+  //             } else {
+  //               alert("구매 신청에 실패했습니다.");
+  //             }
+  //           });
+  //         }}
+  //       >
+  //         구매하기
+  //       </button>
+  //       <button
+  //         onClick={() => {
+  //           // closeSnackbar(snackbarId);
+  //         }}
+  //       >
+  //         취소
+  //       </button>
+  //     </>
+  //   );
+
+  //   enqueueSnackbar("해당 상품 구매를 진행하시겠습니까?", {
+  //     action,
+  //   });
+  // };
 
   const onPurchaseHandler = () => {
     dispatch(setLoadings({ isLoading: true }));
@@ -214,10 +293,10 @@ const Detail = ({ wish, setWish }) => {
                   <ProductInformation />
                 </div>
               </div>
-              <div className={classes.productStore}>
+              <div className={classes.productSellor}>
                 <div className={classes.productStoreHeader}>판매자정보</div>
-                <div className={classes.ProdStoreExplanation}>
-                  <ProductStore />
+                <div className={classes.prodSellorExplanation}>
+                  <ProductSellor />
                 </div>
               </div>
 

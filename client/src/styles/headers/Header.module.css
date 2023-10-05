@@ -1,32 +1,3 @@
-.header {
-  background-color: black;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  position: sticky;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 99;
-}
-
-/* .headerTop {
-  width: 1200px;
-  display: flex;
-  align-items: center;
-  padding: 10px;
-  justify-content: space-between;
-}
-
-.headerBottom {
-  width: 1200px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 20px;
-} */
-
 /* logo*/
 .logoWrap {
   text-decoration: none;

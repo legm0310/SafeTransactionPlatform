@@ -1,0 +1,57 @@
+.footerWrap {
+  border-top: 1px solid rgb(238, 238, 238);
+}
+
+.footerContent {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 1.5rem;
+  margin-top: 50px;
+  padding: 0 150px 0 150px;
+}
+
+.footerContent h2,
+h3 {
+  margin: 0;
+}
+
+.companyInfo h2 {
+  font-size: 35px;
+}
+
+.companyInfo p {
+  font-size: 14px;
+  line-height: 1.5rem;
+  color: rgb(136, 136, 136);
+}
+
+.socialList {
+  list-style: none;
+  padding: 0;
+  line-height: 1.7rem;
+  color: rgb(136, 136, 136);
+}
+
+.listContent {
+  display: flex;
+  align-items: center;
+}
+
+.instagramImg {
+  font-size: 15px;
+  margin-right: 5px;
+}
+
+.footerBottom {
+  border-top: 1px solid rgb(238, 238, 238);
+  padding: 0 150px 0 150px;
+}
+
+.footerBottom p {
+  color: rgb(136, 136, 136);
+  font-size: 15px;
+}
+
+.footerBottom span {
+  color: black;
+}

@@ -63,7 +63,7 @@ const RecentProductsList = () => {
                       {" "}
                       {product.price.toLocaleString()}
                     </div>
-                    <div className={classes.prodStatus}>{product.status}</div>
+                    {/* <div className={classes.prodStatus}>{product.status}</div> */}
                   </div>
                 </Link>
               </div>
