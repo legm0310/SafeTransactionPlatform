@@ -8,14 +8,13 @@ import testImg from "../../assets/test.jpg";
 import deleteBtn from "../../assets/icon-delete.svg";
 import { useSnackbar } from "notistack";
 
-const WishItem = ({ wishItem }) => {
+const WishItem = () => {
   const dispatch = useDispatch();
-  const userId = useSelector((state) => state.user.userId);
-
+  const { userId, loadWishList } = useSelector((state) => state.user);
   const { enqueueSnackbar } = useSnackbar();
-
-  const onDeleteWishListHandler = () => {
-    dispatch(deleteWishList(wishItem.id)).then((response) => {
+  console.log(loadWishList);
+  const onDeleteWishListHandler = (wishItemId) => {
+    dispatch(deleteWishList(wishItemId)).then((response) => {
       enqueueSnackbar("상품이 찜목록에서 삭제되었습니다", {
         variant: "success",
       });
@@ -23,32 +22,49 @@ const WishItem = ({ wishItem }) => {
   };
   return (
     <Fragment>
-      <section className={classes.wishList}>
-        <input type="checkbox" />
-        <div className={classes.wishListProductWrap}>
-          <div className={classes.wishListProductImage}>
-            <img src={wishItem?.image} alt="" />
-          </div>
-
-          <div className={classes.wishListProductInfo}>
-            <p className={classes.productCategory}>{wishItem?.category}</p>
-            <p className={classes.productName}>{wishItem?.title}</p>
-          </div>
-
-          <div className={classes.productPrice}>
-            <p>{wishItem?.price}PDT</p>
-          </div>
-
-          <div className={classes.wishListProductPurchase}>
-            <p className={classes.totalPrice}></p>
-            <button className={classes.btnSubmit}>구매하기</button>
-          </div>
-
-          <div className={classes.wishListProductRemove}>
-            <img src={deleteBtn} onClick={onDeleteWishListHandler} />
-          </div>
+      {loadWishList?.length === 0 ? (
+        <div className={classes.notWishList}>
+          <h2>찜목록에 담긴 상품이 없습니다.</h2>
+          <p>원하는 상품을 찜목록에 담아보세요!</p>
         </div>
-      </section>
+      ) : (
+        loadWishList.map((item) => {
+          {
+            console.log(item);
+          }
+          return (
+            <section className={classes.wishList}>
+              <input type="checkbox" />
+              <div className={classes.wishListProductWrap}>
+                <div className={classes.wishListProductImage}>
+                  <img src={item?.image} alt="" />
+                </div>
+
+                <div className={classes.wishListProductInfo}>
+                  <p className={classes.productCategory}>{item?.category}</p>
+                  <p className={classes.productName}>{item?.title}</p>
+                </div>
+
+                <div className={classes.productPrice}>
+                  <p>{item?.price}PDT</p>
+                </div>
+
+                <div className={classes.wishListProductPurchase}>
+                  <p className={classes.totalPrice}></p>
+                  <button className={classes.btnSubmit}>구매하기</button>
+                </div>
+
+                <div className={classes.wishListProductRemove}>
+                  <img
+                    src={deleteBtn}
+                    onClick={() => onDeleteWishListHandler(item.id)}
+                  />
+                </div>
+              </div>
+            </section>
+          );
+        })
+      )}
     </Fragment>
   );
 };
