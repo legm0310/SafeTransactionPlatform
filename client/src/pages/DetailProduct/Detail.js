@@ -18,9 +18,9 @@ import ProductInformation from "../../components/detailProduct/ProductInformatio
 import Loading from "../../components/common/Loading";
 
 import classes from "../../styles/product/Detail.module.css";
-import { useSnackbar } from "notistack";
+import { closeSnackbar, useSnackbar } from "notistack";
 
-const Detail = ({ wish, setWish }) => {
+const Detail = () => {
   const [activeMenu, setActiveMenu] = useState("productInformation");
   const { enqueueSnackbar } = useSnackbar();
   const sdk = useSDK();
@@ -40,50 +40,6 @@ const Detail = ({ wish, setWish }) => {
   useEffect(() => {
     dispatch(getProduct(productId));
   }, [dispatch, productId]);
-
-  // 스낵바
-  const action = (snackbarId) => (
-    <>
-      <button
-        onClick={() => {
-          alert(`I belong to snackbar with id ${snackbarId}`);
-        }}
-      >
-        구매하기
-      </button>
-      <button
-        onClick={() => {
-          // closeSnackbar(snackbarId);
-        }}
-      >
-        취소
-      </button>
-    </>
-  );
-
-  enqueueSnackbar("해당 상품 구매를 진행하시겠습니까?", {
-    action,
-  });
-
-  const onMenuHandler = (menu) => {
-    setActiveMenu(menu);
-  };
-
-  dispatch(setLoadings({ isLoading: true }));
-  const data = {
-    productId,
-    userId,
-    sdk,
-  };
-  dispatch(purchase(data)).then((response) => {
-    console.log(response);
-    if (response.payload.updated) {
-      alert("에스크로 결제가 진행됩니다.");
-      navigate("/user");
-    } else {
-      alert("구매 신청에 실패했습니다.");
-    }
-  });
 
   // const onPurchaseHandler = () => {
   //   const action = (snackbarId) => (
@@ -124,18 +80,44 @@ const Detail = ({ wish, setWish }) => {
   //   });
   // };
 
-  const onPurchaseHandler = () => {
+  const handleClick = (func, comment) => {
+    enqueueSnackbar(comment, {
+      variant: "info",
+      persist: true, // 자동으로 스낵바를 닫지 않음
+      action: (key) => (
+        <>
+          <button onClick={() => func(key)}>구매하기</button>
+          <button
+            onClick={() => {
+              closeSnackbar(key);
+            }}
+          >
+            뒤로가기
+          </button>
+        </>
+      ),
+    });
+  };
+
+  const onPurchaseHandler = (key) => {
+    if (sellerId == userId) {
+      return enqueueSnackbar("판매자와 구매자가 같습니다.", {
+        variant: "error",
+      });
+    }
+    closeSnackbar(key);
     dispatch(setLoadings({ isLoading: true }));
     const data = {
       productId,
       userId,
       sdk,
     };
+
     dispatch(purchase(data)).then((response) => {
       console.log(response);
       if (response.payload.updated) {
         enqueueSnackbar("에스크로 결제가 진행됩니다", {
-          variant: "info",
+          variant: "success",
         });
         navigate("/user");
       } else {
@@ -250,8 +232,14 @@ const Detail = ({ wish, setWish }) => {
                     </div>
                   </Button>
                 </div>
-
-                <Button onClick={onPurchaseHandler}>
+                <Button
+                  onClick={(e) =>
+                    handleClick(
+                      onPurchaseHandler,
+                      "해당 상품 구매하시겠습니까?"
+                    )
+                  }
+                >
                   <div className={classes.productPurchaseWrap}>
                     <div className={classes.productPurchase}>
                       <IoCart />
@@ -319,3 +307,27 @@ const Detail = ({ wish, setWish }) => {
 };
 
 export default Detail;
+
+// 스낵바
+// const action = (snackbarId) => (
+//   <>
+//     <button
+//       onClick={() => {
+//         alert(`I belong to snackbar with id ${snackbarId}`);
+//       }}
+//     >
+//       구매하기
+//     </button>
+//     <button
+//       onClick={() => {
+//         // closeSnackbar(snackbarId);
+//       }}
+//     >
+//       취소
+//     </button>
+//   </>
+// );
+
+// const onMenuHandler = (menu) => {
+//   setActiveMenu(menu);
+// };
