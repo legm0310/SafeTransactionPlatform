@@ -27,9 +27,11 @@ export function resetStoreChat() {
 }
 
 export function addRoom(dataToSubmit) {
+  const body = dataToSubmit;
   return async (dispatch) => {
+    dispatch(setLoadings({ isLoading: true }));
     try {
-      const res = await authRequest().post("/api/chats", dataToSubmit);
+      const res = await authRequest().post("/api/chat/room", body);
       console.log("res", res);
       dispatch(setLoadings({ isLoading: false }));
       return dispatch({
@@ -42,6 +44,8 @@ export function addRoom(dataToSubmit) {
         type: ADD_ROOM,
         payload: err.response.data,
       });
+    } finally {
+      dispatch(setLoadings({ isLoading: false }));
     }
   };
 }
@@ -145,11 +149,11 @@ export function loadMoreChats(dataToSubmit) {
 }
 
 export function updateRecentChats(dataToSubmit) {
-  const { roomId, chat, checkRead } = dataToSubmit;
+  const { oneSelf, roomId, chat, checkRead } = dataToSubmit;
   return async (dispatch) => {
     dispatch({
       type: UPDATE_RECENT_CHATS,
-      payload: { roomId, chat, checkRead },
+      payload: { oneSelf, roomId, chat, checkRead },
     });
   };
 }

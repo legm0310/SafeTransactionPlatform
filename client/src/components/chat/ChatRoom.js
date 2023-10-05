@@ -5,11 +5,12 @@ import React, {
   useRef,
   useCallback,
 } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, useSearchParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import useInfiniteScroll from "../../hooks/useInfiniteScroll";
 import {
   addChat,
+  addRoom,
   getChats,
   loadMoreChats,
   updateRecentChats,
@@ -26,8 +27,10 @@ import { LuMoreHorizontal } from "react-icons/lu";
 const ChatRoom = () => {
   const { enqueueSnackbar } = useSnackbar();
 
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const { roomId } = useParams() ?? { roomId: 0 };
+  const [searchParams, setSearchParams] = useSearchParams();
   const { userId, authCheck } = useSelector((state) => state.user);
   const { chats, roomInfo, socket, hasMoreChatLoad } = useSelector(
     (state) => state.chat
@@ -55,25 +58,25 @@ const ChatRoom = () => {
     //   totalHeight != 0
     // )
     //   return;
-    chatWrapRef.current.scrollTop = chatWrapRef.current.scrollHeight;
+    chatWrapRef.current.scrollTop = chatWrapRef.current?.scrollHeight;
   }, [dispatch]);
 
   useEffect(() => {
-    if (roomId && roomId != roomInfo?.roomId) {
+    if (roomId && roomId != 0 && roomId != roomInfo?.roomId) {
       const body = {
         roomId: roomId,
         lastId: -1,
         limit: 20,
       };
-      dispatch(getChats(body)).then(
-        () => (chatWrapRef.current.scrollTop = chatWrapRef.current.scrollHeight)
-      );
+      dispatch(getChats(body)).then(() => {
+        chatWrapRef.current.scrollTop = chatWrapRef.current?.scrollHeight;
+      });
     }
-  }, [dispatch, roomId]);
+  }, [roomId]);
 
   //무한 스크롤
   const target = useInfiniteScroll(async (entry, observer) => {
-    if (isChatLoading) return;
+    if (isChatLoading || roomId == 0) return;
     //   dispatch(loadMoreChats({ roomId: roomId, lastId: -1, limit: 20 }));
     // } else {
     dispatch(loadMoreChats({ roomId: roomId, lastId: chats[0].id, limit: 20 }));
@@ -83,7 +86,7 @@ const ChatRoom = () => {
 
   // 채팅 전송
   const onSubmitHandler = useCallback(
-    (e) => {
+    async (e) => {
       e.preventDefault();
       if (!userId) return;
       if (chat.trim() === "")
@@ -97,36 +100,93 @@ const ChatRoom = () => {
             variant: "error",
           }
         );
-      socket?.emit("onSend", {
-        user: {
-          id: userId,
-          name: authCheck.userData?.user_name,
-        },
-        roomId: roomId,
-        chat,
-      });
-      dispatch(
-        addChat({
-          check_read: true,
-          content: chat,
-          createdAt: new Date().toString(),
-          updatedAt: new Date().toString(),
-          type: "text",
-          id: Date.now(),
-          room_id: roomId,
-          sender_id: userId,
-          user: { id: userId, user_name: authCheck?.userData.user_name },
-        })
-      );
-      dispatch(
-        updateRecentChats({ roomId: roomId, chat: chat, checkRead: true })
-      ).then(
-        () => (chatWrapRef.current.scrollTop = chatWrapRef.current.scrollHeight)
-      );
-      setChat("");
+      if (roomId == 0) {
+        const newRoomId = await onAddRoomAndSend();
+        if (!newRoomId)
+          enqueueSnackbar(`채팅방 생성 실패`, {
+            variant: "error",
+          });
+        return navigate(`/chat/${newRoomId}`);
+      }
+      return onSendChat(roomId, chat);
     },
     [userId, socket, dispatch, chat, setChat]
   );
+
+  const onAddRoomAndSend = async () => {
+    const body = {
+      sellerId: searchParams.get("seller"),
+      userId: searchParams.get("user"),
+      roomName: `${searchParams.get("user")}_${searchParams.get("seller")}`,
+      chat: chat,
+    };
+    return new Promise((resolve, reject) => {
+      socket?.emit("onAddRoomAndSend", body, (res) => {
+        if (res.result === "createdRoom" || res.result === "updatedRoom") {
+          dispatch(
+            addChat({
+              check_read: false,
+              content: chat,
+              createdAt: new Date().toString(),
+              updatedAt: new Date().toString(),
+              type: "text",
+              id: Date.now(),
+              room_id: res.roomId,
+              sender_id: userId,
+              user: { id: userId, user_name: authCheck?.userData.user_name },
+            })
+          );
+          dispatch(
+            updateRecentChats({
+              oneSelf: true,
+              roomId: res.roomId,
+              chat: chat,
+              checkRead: false,
+            })
+          ).then(() => {
+            setChat("");
+
+            // chatWrapRef.current.scrollTop = chatWrapRef.current.scrollHeight
+          });
+          navigate(`/chat/${res.roomId}`);
+          resolve(res.roomId);
+        } else {
+          console.log(res);
+          reject(res.error);
+        }
+      });
+    });
+  };
+
+  const onSendChat = (roomId, chat) => {
+    socket?.emit("onSend", {
+      user: {
+        id: userId,
+        name: authCheck.userData?.user_name,
+      },
+      roomId: roomId,
+      chat,
+    });
+    dispatch(
+      addChat({
+        check_read: false,
+        content: chat,
+        createdAt: new Date().toString(),
+        updatedAt: new Date().toString(),
+        type: "text",
+        id: Date.now(),
+        room_id: roomId,
+        sender_id: userId,
+        user: { id: userId, user_name: authCheck?.userData.user_name },
+      })
+    );
+    dispatch(
+      updateRecentChats({ roomId: roomId, chat: chat, checkRead: false })
+    ).then(
+      () => (chatWrapRef.current.scrollTop = chatWrapRef.current.scrollHeight)
+    );
+    setChat("");
+  };
 
   const renderChat = () => {
     return chats?.map((chat, index) => {
@@ -179,7 +239,8 @@ const ChatRoom = () => {
           {hasMoreChatLoad && chats.length !== 0 ? (
             <div
               ref={target}
-              style={{ height: "50px", backgroundColor: "red" }}
+              // style={{ height: "50px", backgroundColor: "red" }}
+              style={{ height: "50px" }}
             ></div>
           ) : null}
           {renderChat()}

@@ -6,7 +6,7 @@ import { useSDK, useAddress } from "@thirdweb-dev/react";
 import { addWishList } from "../../_actions/userAction";
 import { setLoadings } from "../../_actions/uiAction";
 import { getProduct, purchase } from "../../_actions/productAction";
-import { addRoom } from "../../_actions/chatAction";
+import { addRoom, getRooms } from "../../_actions/chatAction";
 
 import DetailSlide from "../../components/detailProduct/DetailSlide";
 import { FaHeart } from "react-icons/fa";
@@ -22,18 +22,19 @@ import { useSnackbar } from "notistack";
 
 const Detail = ({ wish, setWish }) => {
   const [activeMenu, setActiveMenu] = useState("productInformation");
+  const { enqueueSnackbar } = useSnackbar();
+  const sdk = useSDK();
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const sdk = useSDK();
-  const { enqueueSnackbar } = useSnackbar();
+  const { productId } = useParams();
 
   const prodDetail = useSelector(
     (state) => state.product.productDetail.product
   );
-  const { userId, loadWishList } = useSelector((state) => state.user);
   const isLoading = useSelector((state) => state.ui.isLoading);
-  const { productId } = useParams();
+  const { userId, loadWishList } = useSelector((state) => state.user);
+  const { rooms } = useSelector((state) => state.chat);
   const sellerId = prodDetail?.seller_id;
 
   useEffect(() => {
@@ -54,34 +55,57 @@ const Detail = ({ wish, setWish }) => {
     dispatch(purchase(data)).then((response) => {
       console.log(response);
       if (response.payload.updated) {
-        alert("에스크로 결제가 진행됩니다.");
+        enqueueSnackbar("에스크로 결제가 진행됩니다", {
+          variant: "info",
+        });
         navigate("/user");
       } else {
-        alert("구매 신청에 실패했습니다.");
+        return enqueueSnackbar("구매 요청에 실패했습니다.", {
+          variant: "error",
+        });
       }
     });
   };
 
-  const onCreateRoomHandler = (event) => {
+  const startChatHandler = (event) => {
     event.preventDefault();
-    // dispatch(setLoadings({ isLoading: true }));
-
-    // let body = {
-    //   seller_id: sellerId,
-    //   buyer_id: userId,
-    //   room_name: roomName,
-    // };
-
-    // dispatch(addRoom(body)).then((response) => {
-    //   if (response.payload.addRoomSuccess) {
-    //     alert("채팅방 생성 완료");
-    //     navigate(`/chat/${roomName}`);
-    //   } else {
-    //     dispatch(setLoadings({ isLoading: false }));
-    //     alert("방 생성에 실패했습니다.");
-    //   }
-    // });
-    // navigate(`/chat/${roomName}`);
+    if (sellerId === userId) {
+      return enqueueSnackbar("판매자와 구매자가 같습니다.", {
+        variant: "error",
+      });
+    }
+    const body = {
+      sellerId: sellerId,
+      userId: userId,
+      roomName: `${userId}_${sellerId}`,
+    };
+    dispatch(getRooms())
+      .then((data) => {
+        const roomExists = data.payload?.rooms?.find(
+          (room) => room.RoomUser[0].id === sellerId
+        );
+        console.log(roomExists);
+        if (!roomExists) {
+          return navigate(
+            `/chat/0?exists=false&user=${userId}&seller=${sellerId}&sellerName=${prodDetail?.seller_name}&prod=${productId}`
+          );
+        } else {
+          dispatch(addRoom(body)).then((res) => {
+            if (res.payload.result == "updatedRoom") {
+              enqueueSnackbar("채팅방 생성에 성공했습니다.", {
+                variant: "success",
+              });
+              return navigate(`/chat/${res.payload.room}`);
+            }
+          });
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+        return enqueueSnackbar("채팅방 생성 실패", {
+          variant: "error",
+        });
+      });
   };
 
   const addWishListHandler = () => {
@@ -138,7 +162,7 @@ const Detail = ({ wish, setWish }) => {
                     </div>
                   </Button>
 
-                  <Button onClick={onCreateRoomHandler}>
+                  <Button onClick={startChatHandler}>
                     <div className={classes.productMessageWrap}>
                       <div className={classes.productMessage}>
                         <TbMessageCircle2Filled />
