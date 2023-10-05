@@ -7,7 +7,7 @@
   grid-template-columns: 2fr 1fr 1fr 1fr;
   gap: 1.5rem;
   margin-top: 50px;
-  padding: 0 150px 0 150px;
+  padding: 0 13%;
 }
 
 .footerContent h2,
@@ -37,6 +37,17 @@ h3 {
   align-items: center;
 }
 
+.infoBox {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.infoBox li {
+  margin-top: 15px;
+  color: gray;
+}
+
 .instagramImg {
   font-size: 15px;
   margin-right: 5px;
@@ -44,7 +55,7 @@ h3 {
 
 .footerBottom {
   border-top: 1px solid rgb(238, 238, 238);
-  padding: 0 150px 0 150px;
+  padding: 0 13%;
 }
 
 .footerBottom p {
