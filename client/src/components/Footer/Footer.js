@@ -52,11 +52,6 @@ const Footer = () => {
             </div>
             <div>
               <h3>Information</h3>
-              <ul className={classes.infoBox}>
-                <li>사업 소개</li>
-                <li>대표: 이귀민</li>
-                <li>tel: 010-7763-7514</li>
-              </ul>
             </div>
             <div>
               <h3>Contact</h3>
