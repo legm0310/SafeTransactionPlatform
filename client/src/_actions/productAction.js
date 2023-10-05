@@ -145,9 +145,8 @@ export function purchase(dataToSubmit) {
       console.log("res", res);
       dispatch(setLoadings({ isLoading: false, isContractLoading: true }));
 
-      callPurchaseDeposit(sdk, productId, userId).then((data) => {
+      await callPurchaseDeposit(sdk, productId, userId).then((data) => {
         console.log("contractRes", data);
-        dispatch(setLoadings({ isContractLoading: false }));
       });
 
       return dispatch({
@@ -160,6 +159,8 @@ export function purchase(dataToSubmit) {
         type: DEPOSIT,
         payload: err.response.data,
       });
+    } finally {
+      dispatch(setLoadings({ isContractLoading: false }));
     }
   };
 }
