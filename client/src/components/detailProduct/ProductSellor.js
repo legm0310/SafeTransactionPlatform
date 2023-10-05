@@ -4,14 +4,14 @@ import { Link } from "react-router-dom";
 import classes from "../../styles/product/Detail.module.css";
 import defaultProfile from "../../assets/defaultProfile.png";
 
-const ProductStore = () => {
+const ProductSellor = () => {
   const prodDetail = useSelector(
     (state) => state.product.productDetail?.product
   );
   console.log(prodDetail);
   return (
     <Fragment>
-      <div className={classes.prodStoreWrap}>
+      <div className={classes.ProductSellorWrap}>
         <div>
           <img src={defaultProfile} alt="" className={classes.testImg} />
         </div>
@@ -28,4 +28,4 @@ const ProductStore = () => {
   );
 };
 
-export default ProductStore;
+export default ProductSellor;

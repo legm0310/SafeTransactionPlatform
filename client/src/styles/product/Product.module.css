@@ -3,32 +3,17 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  min-height: 100vh;
 }
 
 .categoryBar {
-  margin-right: 10px;
+  position: fixed;
+  top: 100px;
+  height: 100%;
   /* position: fixed;
   left: 19rem;
   top: 12rem;
   transform: translate(1em, 12rem); */
-  z-index: 10;
-  background: #fff;
-  width: 100px;
-}
-
-.categoryBox ul {
-  padding: 0;
-  margin: 0;
-  list-style: none;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-}
-
-.categoryBox ul li {
-  cursor: pointer;
-  color: black;
 }
 
 .productWrap {
@@ -42,5 +27,5 @@
 }
 
 .prdouctCardWrap {
-  margin-left: 90px;
+  margin-left: 200px;
 }
