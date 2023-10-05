@@ -31,8 +31,8 @@ const Header = (props, { wish }) => {
 
   return (
     <Fragment>
-      <AppBar position="sticky" sx={{ bgcolor: "white", width: "100vw" }}>
-        <Container maxWidth="xl">
+      <AppBar position='sticky' sx={{ bgcolor: "white", width: "100%" }}>
+        <Container maxWidth='xl'>
           {/* <div
             id="test"
             style={{
@@ -54,7 +54,7 @@ const Header = (props, { wish }) => {
               classes={classes}
             />
 
-            <Link to="/">
+            <Link to='/'>
               <Logo />
             </Link>
 
