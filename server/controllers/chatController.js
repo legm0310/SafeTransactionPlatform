@@ -2,28 +2,14 @@ const { Container } = require("typedi");
 const { catchAsync } = require("../utils");
 
 module.exports = {
-  // createTest: catchAsync(async (req, res) => {
-  //   const chatServiceInstance = await Container.get("chatService");
-  //   const roomName = req.body.roomName;
-  //   const userId = res.locals.userId;
-  //   const rooms = await chatServiceInstance.createTestRoom({
-  //     roomName,
-  //     userId,
-  //   });
-  //   res.status(201).json({
-  //     getRoomsSuccess: true,
-  //     rooms: rooms,
-  //   });
-  // }),
-
   addRoom: catchAsync(async (req, res) => {
     const chatServiceInstance = await Container.get("chatService");
     const roomData = req.body;
-    const { roomId, result } = await chatServiceInstance.createRoom(roomData);
+    const { room, result } = await chatServiceInstance.createRoom(roomData);
     res.status(201).json({
       addRoomSuccess: true,
       result: result,
-      roomId: roomId,
+      room: room,
     });
   }),
 
