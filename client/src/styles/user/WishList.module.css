@@ -1,3 +1,21 @@
+.notWishList {
+  /* position: absolute;
+  top: 70%;
+  left: 50%;
+  transform: translate(-50%, -50%); */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 100px;
+  margin-bottom: 100px;
+}
+
+.notWishList p {
+  line-height: 18px;
+  color: rgb(136, 136, 136);
+  margin: 0;
+}
+
 /* 찜목록 헤더 */
 .tabTitle {
   max-width: 1280px;
@@ -14,7 +32,7 @@
   accent-color: #1ecfba;
 }
 
-/* 찜목록 */
+/* WishItem.js */
 .wishList {
   position: relative;
   height: 200px;
@@ -104,20 +122,4 @@
   width: 20px;
   height: 15px;
   cursor: pointer;
-}
-
-.notWishList {
-  position: absolute;
-  top: 70%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.notWishList p {
-  line-height: 18px;
-  color: #767676;
-  margin: 0;
 }
