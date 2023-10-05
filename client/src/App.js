@@ -16,6 +16,7 @@ import Auth from "./hoc/auth";
 import Loading from "./components/common/Loading";
 import ScrollTop from "./components/common/ScrollTop";
 import UserInfo from "./pages/User/UserInfo";
+import Footer from "./components/Footer/Footer";
 
 import { Backdrop } from "@mui/material";
 
@@ -65,6 +66,7 @@ function App() {
 
             <Route path="/Loading" element={<Loading />}></Route>
           </Routes>
+          <Footer />
         </BrowserRouter>
       ) : (
         <div>

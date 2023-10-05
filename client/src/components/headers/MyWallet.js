@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import PropTypes from "prop-types";
 import Exchange from "./Exchange";
-// import Modal from "../common/Modal";
 import classes from "../../styles/headers/MyWallet.module.css";
 
 import {
@@ -111,34 +110,28 @@ export default function MyWallet(props) {
   };
 
   return (
-    // <Modal>
-    //   <button onClick={handleClose} open={props.open || false}>
-    //     x
-    //   </button>
-    // </Modal>
     <div>
       <BootstrapDialog
         onClose={handleClose}
         aria-labelledby="customized-dialog-title"
         open={props.open || false}
         disableEnforceFocus
-        sx={{
-          borderRadius: "10px",
-        }}
       >
         <BootstrapDialogTitle
           id="customized-dialog-title"
           onClose={handleClose}
+          className={classes["walletHeader"]}
         >
-          내 지갑 관리
+          지갑 관리
         </BootstrapDialogTitle>
         <DialogActions>
-          <div>
-            <h3>
+          <div className={classes.pdtOnHand}>
+            <h4>
+              잔여토큰:{" "}
               {address && !isMismatched
                 ? `${tokenData?.displayValue || 0} ${tokenData?.symbol || ""}`
-                : null}
-            </h3>
+                : "-"}
+            </h4>
           </div>
         </DialogActions>
         <DialogContent>
@@ -151,24 +144,22 @@ export default function MyWallet(props) {
 
           {address && isMismatched ? (
             <div>
-              <div>
-                판다에서는 Sepolia 네트워크만 사용할 수 있습니다. <br />
-                네트워크를 전환해주세요.
-              </div>
+              <p>판다에서는 Sepolia 네트워크만 사용할 수 있습니다.</p>
+              <p>네트워크를 전환해주세요.</p>
+
               <br />
-              <Button onClick={handleSwitchNetwork} sx={{ color: "black" }}>
+              <Button
+                onClick={handleSwitchNetwork}
+                className={classes["networkSwitchButton"]}
+              >
                 네트워크 전환하기
               </Button>
             </div>
           ) : (
-            <div className={classes.conncecWallet}>
+            <div className={classes.wallet}>
               <Button
                 onClick={handleOpenExchange}
-                sx={{
-                  color: "white",
-                  background: "black",
-                  ":hover": { backgroundColor: "black" },
-                }}
+                className={classes["tokenIssuanceButton"]}
               >
                 <p>토큰 발급받기</p>
               </Button>
@@ -180,6 +171,7 @@ export default function MyWallet(props) {
                   align: "center",
                   side: "bottom",
                 }}
+                className={classes["connectWallet"]}
               />
               <Exchange
                 open={showExchange}

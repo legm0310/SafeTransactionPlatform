@@ -1,4 +1,50 @@
-.conncecWallet {
+.wallet {
   display: flex;
   flex-direction: column;
+}
+
+.walletHeader {
+  padding: 16px 24px 16px 24px;
+}
+
+.pdtOnHand {
+  margin: 0 auto;
+}
+
+.tokenIssuanceButton {
+  color: white !important;
+  background: #fe4e62 !important;
+  height: 38px !important;
+  border-radius: 5px !important;
+  font-size: 14px;
+}
+
+.tokenIssuanceButton:hover {
+  background: #fe4e62 !important;
+}
+
+.connectWallet {
+  background: #1ecfba !important;
+  margin-top: 10px !important;
+  border-radius: 5px !important;
+  font-size: 14px !important;
+  border: none !important;
+}
+
+.connectWallet span {
+  color: white;
+}
+
+.connectWallet:hover {
+  background: #1ecfba;
+}
+
+.networkSwitchButton {
+  background: #1ecfba;
+  color: white;
+  width: 100%;
+}
+
+.networkSwitchButton:hover {
+  background: #1ecfba;
 }
