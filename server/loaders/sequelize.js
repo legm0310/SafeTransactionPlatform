@@ -40,6 +40,20 @@ module.exports = async () => {
           phone_number: "56756785678",
           password: "1234",
         });
+        // await db.User.create({
+        //   role: 0,
+        //   user_name: "더미A",
+        //   email: "q@q.com",
+        //   phone_number: "87687677879",
+        //   password: "1234",
+        // });
+        // await db.User.create({
+        //   role: 0,
+        //   user_name: "더미B",
+        //   email: "w@w.com",
+        //   phone_number: "98798799879",
+        //   password: "1234",
+        // });
 
         const user1 = await db.User.findByPk(1);
         const user2 = await db.User.findByPk(2);
@@ -96,8 +110,13 @@ module.exports = async () => {
           room_id: 1,
         });
         await db.ChatLog.create({
-          content: "얼마에 파세요? 2번입니다",
+          content: "얼마에 파세요?",
           sender_id: 2,
+          room_id: 1,
+        });
+        await db.ChatLog.create({
+          content: "누구세요?",
+          sender_id: 1,
           room_id: 1,
         });
         await db.ChatLog.create({
@@ -371,7 +390,7 @@ module.exports = async () => {
             detail: "애플워치",
             images:
               "https://product-test-01.s3.ap-northeast-2.amazonaws.com/product/21.jpg",
-            seller_id: 1,
+            seller_id: 2,
           },
           {
             status: "SALE",
@@ -381,7 +400,7 @@ module.exports = async () => {
             detail: "온도계",
             images:
               "https://product-test-01.s3.ap-northeast-2.amazonaws.com/product/22.jpg",
-            seller_id: 1,
+            seller_id: 2,
           },
           {
             status: "SALE",
@@ -391,7 +410,7 @@ module.exports = async () => {
             detail: "배터리",
             images:
               "https://product-test-01.s3.ap-northeast-2.amazonaws.com/product/23.jpg",
-            seller_id: 1,
+            seller_id: 2,
           },
           {
             status: "SALE",
@@ -401,7 +420,7 @@ module.exports = async () => {
             detail: "맥북",
             images:
               "https://product-test-01.s3.ap-northeast-2.amazonaws.com/product/24.jpg",
-            seller_id: 1,
+            seller_id: 2,
           },
           // {
           //   status: "SALE",
