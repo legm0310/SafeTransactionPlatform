@@ -37,7 +37,6 @@ const Chat = () => {
         cors: { origin: "*" },
       });
       curSocket.on("connect", () => {
-        console.log(fetchRoom);
         rooms?.forEach((room) => curSocket?.emit("onJoinRoom", room.id));
       });
       curSocket.on("onReceiveSend", ({ user, chat, roomId }) => {
