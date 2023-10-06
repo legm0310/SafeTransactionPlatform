@@ -10,7 +10,8 @@
 .title {
   font-size: 26px;
   border-bottom: 3px solid black;
-  padding: 0 0 24px 0;
+  padding: 24px 0;
+  white-space: nowrap;
 }
 
 /*사진등록 및 설명 라벨*/
