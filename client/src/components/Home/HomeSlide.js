@@ -25,7 +25,7 @@ const HomeSlide = () => {
       <div className={classes.Slide}>
         <StyledSlider {...settings}>
           <div className={classes.firstSlide}>
-            <Link to="/notice/1">
+            <Link to="/banner">
               <img src={testImg} alt="" className={classes.slideImg} />
             </Link>
             <h3>1</h3>
@@ -81,7 +81,7 @@ const StyledSlider = styled(Slider)`
 
   .slick-prev:before,
   .slick-next:before {
-    font-size: 50px;
+    font-size: 30px;
     opacity: 1;
     color: #1ecfba;
   }
@@ -89,15 +89,15 @@ const StyledSlider = styled(Slider)`
   .slick-dots {
     display: flex;
     justify-content: center;
-    bottom: 30px;
-    color: white;
+
+    color: red;
 
     li button:before {
-      color: white;
+      color: red;
     }
 
     li.slick-active button:before {
-      color: white;
+      color: red;
     }
   }
 `;
