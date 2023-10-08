@@ -17,6 +17,7 @@ import Loading from "./components/common/Loading";
 import ScrollTop from "./components/common/ScrollTop";
 import UserInfo from "./pages/User/UserInfo";
 import Footer from "./components/Footer/Footer";
+import Banner from "./components/Banner/Banner";
 
 import { Backdrop } from "@mui/material";
 
@@ -62,9 +63,10 @@ function App() {
             <Route path="/register" element={<Register />}></Route>
             <Route path="/notice/:id" element={<Notice />}></Route>
             <Route path="/products/:productId" element={<Detail />}></Route>
-            <Route path="/user/:id" element={<UserInfo />}></Route>
+            <Route path="/user" element={<AuthUserInfo />}></Route>
+            <Route path="/user" element={<AuthUserInfo />}></Route>
 
-            <Route path="/Loading" element={<Loading />}></Route>
+            <Route path="/banner" element={<Banner />}></Route>
           </Routes>
           <Footer />
         </BrowserRouter>
