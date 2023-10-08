@@ -9,6 +9,7 @@ import { useSelector, useDispatch, shallowEqual } from "react-redux";
 
 import classes from "../../styles/chat/Chat.module.css";
 import defaultProfile from "../../assets/defaultProfile.png";
+import { IoChatbubbleEllipsesSharp } from "react-icons/io5";
 
 const Chats = () => {
   const { roomId } = useParams() ?? { roomId: 0 };
@@ -24,7 +25,15 @@ const Chats = () => {
   return (
     <Fragment>
       {rooms?.length === 0 && exists != "false" ? (
-        <div>대화중인 방이 없습니다</div>
+        <div className={classes.noneChatRoom}>
+          <div className={classes.noneChatRoomImg}>
+            <IoChatbubbleEllipsesSharp />
+          </div>
+          <div className={classes.noneChatRoomText}>
+            <p>대화중인 방이 없습니다.</p>
+            <p>상품판매자와 대화를 시작해보세요.</p>
+          </div>
+        </div>
       ) : (
         <div className={classes.chatsWrap}>
           {exists == "false" ? (

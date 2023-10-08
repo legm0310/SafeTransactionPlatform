@@ -232,8 +232,8 @@ const ChatRoom = () => {
       if (chat.room_id == roomId) {
         //나와 상대방 채팅 양쪽으로 나눠서 렌더링
         return (
-          <div key={index} ref={chatRef} className={classes.positionForOther}>
-            <h3
+          <div key={index} ref={chatRef} className={classes.message}>
+            <div
               className={
                 chat.sender_id == userId
                   ? classes.positionForMe
@@ -241,17 +241,27 @@ const ChatRoom = () => {
               }
             >
               <br></br>
-              {chat.sender_id != userId ? `${chat.user?.user_name} : ` : null}
-              <span>{chat.content}</span>
+              <div>
+                <div className={classes.name}>
+                  {chat.sender_id != userId
+                    ? `${chat.user?.user_name}  `
+                    : null}
+                </div>
+
+                <div className={classes.text}>
+                  <span>{chat.content}</span>
+                </div>
+              </div>
+
               <br></br>
-              <time>
+              <time className={classes.time}>
                 {new Date(chats[index - 1]?.createdAt).getDate() !=
                 new Date(chat.createdAt).getDate()
                   ? `${dateFormat(chat.createdAt, "YYYY년 MM월 DD일")} `
                   : null}
                 {dateOrTimeFormatForChat(chat.createdAt, "hh:mm")}
               </time>
-            </h3>
+            </div>
           </div>
         );
       } else return;

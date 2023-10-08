@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
 import UserAuth from "./UserAuth";
@@ -15,6 +15,28 @@ const Header = (props, { wish }) => {
   const location = useLocation();
   // const isContactLoading = useSelector(state => state.ui.isContactLoading);
   const [anchorElNav, setAnchorElNav] = useState(null);
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  const handleScroll = () => {
+    if (window.scrollY > 200) {
+      setIsScrolled(true);
+    } else {
+      setIsScrolled(false);
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
+  const appBarStyle = {
+    position: "sticky",
+    width: "100%",
+    boxShadow: isScrolled ? "0px 2px 4px rgba(0, 0, 0, 0.1)" : "none",
+  };
 
   // 현재 경로가 로그인 페이지인 경우 Header를 렌더링하지 않음
   if (location.pathname === "/login" || location.pathname === "/register") {
@@ -31,8 +53,15 @@ const Header = (props, { wish }) => {
 
   return (
     <Fragment>
-      <AppBar position='sticky' sx={{ bgcolor: "white", width: "100%" }}>
-        <Container maxWidth='xl'>
+      <AppBar
+        position="sticky"
+        // sx={{ bgcolor: "white", width: "100%", boxShadow: "none" }}
+        sx={{
+          bgcolor: "white",
+          ...appBarStyle,
+        }}
+      >
+        <Container maxWidth="xl">
           {/* <div
             id="test"
             style={{
@@ -54,7 +83,7 @@ const Header = (props, { wish }) => {
               classes={classes}
             />
 
-            <Link to='/'>
+            <Link to="/">
               <Logo />
             </Link>
 

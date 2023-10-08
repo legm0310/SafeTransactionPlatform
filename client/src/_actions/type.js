@@ -13,6 +13,7 @@ export const RESET_STORE_UI = "resetStoreUi";
 
 // action의 type들만 관리 (action의 type를 정의)
 //user
+export const GET_USER = "getUser";
 export const SIGNUP_USER = "signup";
 export const LOGIN_USER = "login";
 export const LOGOUT_USER = "logout";
