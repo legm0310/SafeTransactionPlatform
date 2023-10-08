@@ -63,8 +63,7 @@ function App() {
             <Route path="/register" element={<Register />}></Route>
             <Route path="/notice/:id" element={<Notice />}></Route>
             <Route path="/products/:productId" element={<Detail />}></Route>
-            <Route path="/user" element={<AuthUserInfo />}></Route>
-            <Route path="/user" element={<AuthUserInfo />}></Route>
+            <Route path="/user/:id" element={<UserInfo />}></Route>
 
             <Route path="/banner" element={<Banner />}></Route>
           </Routes>

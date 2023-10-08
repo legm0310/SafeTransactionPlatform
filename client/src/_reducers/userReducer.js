@@ -7,6 +7,7 @@
 */
 
 import {
+  GET_USER,
   RESET_STORE_USER,
   SIGNUP_USER,
   LOGIN_USER,
@@ -35,6 +36,9 @@ const initialState = {
 export default function (state = initialState, action) {
   // 전의 state, 지금의 state
   switch (action.type) {
+    case GET_USER:
+      return { ...state, userDetail: action.payload };
+      break;
     case RESET_STORE_USER:
       return { ...initialState, isLoggedIn: false };
       break;
