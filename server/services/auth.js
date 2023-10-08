@@ -3,6 +3,7 @@ const { UnauthorizedError, NotFoundError } = require("../utils");
 
 class AuthService {
   constructor() {
+    this.User = Container.get("userModel");
     this.userService = Container.get("userService");
     this.jwt = Container.get("tokenService");
   }
@@ -55,7 +56,7 @@ class AuthService {
   }
 
   async check(userId) {
-    const userData = await this.userService.getUserById(userId);
+    const userData = await this.User.findByPk(userId);
     if (!userData) throw new UnauthorizedError("Please authenticate");
     const user = userData.dataValues;
     Reflect.deleteProperty(user, "password");

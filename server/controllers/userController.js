@@ -4,8 +4,11 @@ const { catchAsync } = require("../utils");
 module.exports = {
   getUser: catchAsync(async (req, res) => {
     const userServiceInstance = await Container.get("userService");
+    const userId = req.params.id;
+    const userData = await userServiceInstance.getUserById(userId);
     res.status(200).json({
       getUser: true,
+      userData: userData,
     });
   }),
 

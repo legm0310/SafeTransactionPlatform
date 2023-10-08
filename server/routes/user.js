@@ -16,5 +16,5 @@ module.exports = (app) => {
   router.post("/wishlist", isAuth, userController.addWishList);
   router.delete("/wishlist/:id", isAuth, userController.deleteWishList);
 
-  router.get("/:id", isAuth, userController.getUser);
+  router.get("/:id", userController.getUser);
 };

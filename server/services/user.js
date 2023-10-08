@@ -19,7 +19,9 @@ class UserService {
   }
 
   async getUserById(id) {
-    const user = await this.User.findByPk(+id);
+    const user = await this.User.findOne({
+      attributes: ["user_name", "created_at"],
+    });
     return user;
   }
 
