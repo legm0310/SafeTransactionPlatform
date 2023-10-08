@@ -35,6 +35,7 @@ const Chat = () => {
     if (!socketRef.current) {
       const curSocket = io("localhost:5000", {
         cors: { origin: "*" },
+        transports: ["websocket"],
       });
       curSocket.on("connect", () => {
         rooms?.forEach((room) => curSocket?.emit("onJoinRoom", room.id));
