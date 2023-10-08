@@ -117,11 +117,56 @@
 }
 
 /* test용 알아서 수정해도 됨, 메시지 양쪽 렌더링 (이규민)*/
-.positionForMe {
-  text-align: right;
+.time {
+  font-size: 10px;
 }
 .positionForOther {
+  display: flex;
+  align-items: end;
   text-align: left;
+  margin-bottom: 10px;
+}
+
+.positionForOther .time {
+  margin-left: 10px;
+  color: rgb(136, 136, 136);
+}
+
+.positionForOther .text {
+  margin-top: 5px;
+  border: 1px solid rgb(238, 238, 238);
+  border-radius: 4px;
+  padding: 10px;
+  font-size: 15px;
+  box-shadow: 1px 1px rgb(220, 220, 220);
+}
+
+.positionForMe {
+  display: flex;
+  flex-direction: row-reverse;
+  text-align: right;
+  align-items: end;
+  margin-bottom: 10px;
+}
+
+.positionForMe .time {
+  margin-right: 10px;
+  color: rgb(136, 136, 136);
+}
+
+.positionForMe .text {
+  margin-top: 5px;
+  border: 1px solid rgb(238, 238, 238);
+  background: rgb(238, 238, 238);
+  border-radius: 4px;
+  padding: 10px;
+  font-size: 15px;
+  box-shadow: 1px 1px rgb(220, 220, 220);
+}
+
+.name {
+  font-size: 17px;
+  color: rgb(136, 136, 136);
 }
 
 /* Input.js */
