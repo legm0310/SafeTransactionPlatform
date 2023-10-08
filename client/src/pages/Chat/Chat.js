@@ -14,6 +14,7 @@ import classes from "../../styles/chat/Chat.module.css";
 import { useLocation, useParams } from "react-router-dom";
 import {
   addChat,
+  deleteRoom,
   getRooms,
   socketInit,
   updateRecentChats,
@@ -35,9 +36,7 @@ const Chat = () => {
     // if (isEqual(rooms, roomsRef.current)) return;
     if (roomId != 0) dispatch(getRooms());
     if (!socketRef.current) {
-      //localhost:
       const curSocket = io("localhost:5000", {
-        cors: { origin: domain },
         withCredentials: true,
         transports: ["websocket"],
       });
@@ -70,7 +69,7 @@ const Chat = () => {
           })
         );
       });
-      curSocket.on("onReceiveRead", ({ user, chat }) => {});
+      // curSocket.on("onReceiveRead", ({ user, chat }) => {});
       socketRef.current = curSocket;
       roomsRef.current = rooms;
       dispatch(socketInit(curSocket));

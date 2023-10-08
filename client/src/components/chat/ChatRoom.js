@@ -5,17 +5,22 @@ import React, {
   useRef,
   useCallback,
 } from "react";
-import { useParams, useNavigate, useSearchParams } from "react-router-dom";
+import {
+  useParams,
+  useNavigate,
+  useLocation,
+  useSearchParams,
+} from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import useInfiniteScroll from "../../hooks/useInfiniteScroll";
 import {
   addChat,
   addRoom,
+  deleteRoom,
   getChats,
   loadMoreChats,
   updateRecentChats,
 } from "../../_actions/chatAction";
-import { setLoadings } from "../../_actions/uiAction";
 import { dateOrTimeFormatForChat, dateFormat } from "../../utils/dataParse";
 
 import classes from "../../styles/chat/Chat.module.css";
@@ -25,8 +30,8 @@ import { IoMdAttach } from "react-icons/io";
 import { TbLogout } from "react-icons/tb";
 
 const ChatRoom = () => {
-  const { enqueueSnackbar } = useSnackbar();
-
+  const { closeSnackbar, enqueueSnackbar } = useSnackbar();
+  const location = useLocation();
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { roomId } = useParams() ?? { roomId: 0 };
@@ -46,45 +51,29 @@ const ChatRoom = () => {
     setChat(e.currentTarget.value);
   };
 
-  //채팅방 입장 시 스크롤 하단 조정
+  //채팅방 입장 시 초기 데이터 로드
   useEffect(() => {
-    if (!chatWrapRef.current) return;
-    // const totalHeight = chatWrapRef.current.scrollHeight;
-    // const scrolledTop = chatWrapRef.current.scrollTop;
-    // const viewportHeight = chatWrapRef.current.clientHeight;
-    // if (
-    //   totalHeight - (scrolledTop + viewportHeight) >
-    //     Math.floor(totalHeight / 4) &&
-    //   totalHeight != 0
-    // )
-    //   return;
-    chatWrapRef.current.scrollTop = chatWrapRef.current?.scrollHeight;
-  }, [dispatch]);
-
-  useEffect(() => {
-    if (roomId && roomId != 0 && roomId != roomInfo?.roomId) {
+    if (roomId && roomId != 0) {
       const body = {
         roomId: roomId,
         lastId: -1,
         limit: 20,
       };
       dispatch(getChats(body)).then(() => {
+        if (!chatWrapRef.current) return;
         chatWrapRef.current.scrollTop = chatWrapRef.current?.scrollHeight;
       });
     }
-  }, [roomId]);
+  }, [location.pathname, roomId]);
 
   //무한 스크롤
   const target = useInfiniteScroll(async (entry, observer) => {
     if (isChatLoading || roomId == 0) return;
-    //   dispatch(loadMoreChats({ roomId: roomId, lastId: -1, limit: 20 }));
-    // } else {
     dispatch(loadMoreChats({ roomId: roomId, lastId: chats[0].id, limit: 20 }));
     chatWrapRef.current.scrollTop = 1200;
-    // }
   });
 
-  // 채팅 전송
+  // 채팅 전송 핸들러
   const onSubmitHandler = useCallback(
     async (e) => {
       e.preventDefault();
@@ -103,16 +92,17 @@ const ChatRoom = () => {
       if (roomId == 0) {
         const newRoomId = await onAddRoomAndSend();
         if (!newRoomId)
-          enqueueSnackbar(`채팅방 생성 실패`, {
+          enqueueSnackbar(`관리자에게 문의하세요`, {
             variant: "error",
           });
-        return navigate(`/chat/${newRoomId}`);
+        return navigate(`/`);
       }
       return onSendChat(roomId, chat);
     },
     [userId, socket, dispatch, chat, setChat]
   );
 
+  // 첫 채팅 전송 시 채팅방 생성 및 채팅 전송
   const onAddRoomAndSend = async () => {
     const body = {
       sellerId: searchParams.get("seller"),
@@ -145,8 +135,6 @@ const ChatRoom = () => {
             })
           ).then(() => {
             setChat("");
-
-            // chatWrapRef.current.scrollTop = chatWrapRef.current.scrollHeight
           });
           navigate(`/chat/${res.roomId}`);
           resolve(res.roomId);
@@ -158,6 +146,7 @@ const ChatRoom = () => {
     });
   };
 
+  // 채팅 전송 함수
   const onSendChat = (roomId, chat) => {
     socket?.emit("onSend", {
       user: {
@@ -181,11 +170,60 @@ const ChatRoom = () => {
       })
     );
     dispatch(
-      updateRecentChats({ roomId: roomId, chat: chat, checkRead: false })
+      updateRecentChats({
+        oneSelf: true,
+        roomId: roomId,
+        chat: chat,
+        checkRead: false,
+      })
     ).then(
       () => (chatWrapRef.current.scrollTop = chatWrapRef.current.scrollHeight)
     );
     setChat("");
+  };
+
+  //채팅방 삭제 함수
+  const exitRoom = (key) => {
+    closeSnackbar(key);
+    if (!roomId) {
+      return enqueueSnackbar("관리자에게 문의하세요.", {
+        variant: "error",
+      });
+    }
+    socket?.emit("onLeftRoom", { userId, roomId }, (res) => {
+      if (res) {
+        dispatch(deleteRoom(roomId)).then(() => {
+          enqueueSnackbar("채팅방이 삭제되었습니다.", {
+            variant: "success",
+          });
+          return navigate(`/chat`);
+        });
+      }
+    });
+  };
+
+  //채팅방 삭제 핸들러
+  const onExitRoomHandler = useCallback(() => {
+    handleClick(exitRoom, "정말로 채팅방에서 나가시겠습니까?", "나가기");
+  }, [exitRoom]);
+
+  const handleClick = (func, comment, buttonText) => {
+    enqueueSnackbar(comment, {
+      variant: "info",
+      persist: true, // 자동으로 스낵바를 닫지 않음
+      action: (key) => (
+        <>
+          <button onClick={() => func(key)}>{buttonText}</button>
+          <button
+            onClick={() => {
+              closeSnackbar(key);
+            }}
+          >
+            뒤로가기
+          </button>
+        </>
+      ),
+    });
   };
 
   const renderChat = () => {
@@ -240,7 +278,7 @@ const ChatRoom = () => {
               : null}
           </span>
           <div className={classes.chatIcons}>
-            <TbLogout className={classes.icon} />
+            <TbLogout onClick={onExitRoomHandler} className={classes.icon} />
           </div>
         </div>
         <div ref={chatWrapRef} className={classes.messagesWrap}>
@@ -283,35 +321,3 @@ const ChatRoom = () => {
 };
 
 export default ChatRoom;
-
-// shift enter입력시 줄바꿈 (미완성)
-// const onLineChange = (e) => {
-//   console.log(e.shiftKey);
-//   if (e.shiftKey && e.code === "Enter") {
-//     e.preventDefault();
-//     console.log(e.code);
-//     const currentValue = e.target.value;
-//     setChat(`${currentValue}\n`);
-//   }
-// };
-
-// //메시지박스 사이즈 조절
-// const resizeTextareaHeight = useCallback(() => {
-//   if (!chatRef.current) return;
-
-//   chatRef.current.style.height = "auto";
-//   chatRef.current.style.height = chatRef.current?.scrollHeight + "px";
-// }, [chatRef]);
-
-//무한 스크롤 이벤트
-// const scrollEvent = useCallback(() => {
-
-// }, [dispatch, roomId, chats, hasMoreChatLoad, isChatLoading]);
-
-// 무한 스크롤 이벤트 등록, 해제
-// useEffect(() => {
-//   // chatWrapRef.current.scrollTop = -500;
-//   chatWrapRef.current?.addEventListener("scroll", scrollEvent);
-//   return () =>
-//     chatWrapRef.current?.removeEventListener("scroll", scrollEvent);
-// }, [scrollEvent]);

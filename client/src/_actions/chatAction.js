@@ -5,6 +5,7 @@ import {
   ADD_CHAT,
   GET_ROOMS,
   GET_CHATS,
+  DELETE_ROOM,
   UPDATE_RECENT_CHATS,
   LOAD_MORE_CHATS,
   RESET_CURRENT_CHATS,
@@ -71,28 +72,26 @@ export function getRooms() {
     }
   };
 }
-// export function deleteRoom() {
-//   const request = authRequest()
-//     .delete(`/api/chat/:id`)
-//     .then((response) => response.data)
-//     .catch((err) => {
-//       console.log(err);
-//       return err.response.data;
-//     });
-//   return {
-//     type: DELETE_ROOM,
-//     payload: request,
-//   };
-// }
 
-// export function deleteRoom() {
-//   return async (dispatch) => {
-//     try {
-//     } catch {
-//     } finally {
-//     }
-//   };
-// }
+export function deleteRoom(dataToSubmit) {
+  const roomId = dataToSubmit;
+  return async (dispatch) => {
+    dispatch(setLoadings({ isChatLoading: true }));
+    try {
+      return dispatch({
+        type: DELETE_ROOM,
+        payload: roomId,
+      });
+    } catch (err) {
+      return dispatch({
+        type: DELETE_ROOM,
+        payload: err.response ? err.response.data : err,
+      });
+    } finally {
+      dispatch(setLoadings({ isChatLoading: false }));
+    }
+  };
+}
 
 export function addChat(dataToSubmit) {
   return {
@@ -154,14 +153,6 @@ export function updateRecentChats(dataToSubmit) {
     dispatch({
       type: UPDATE_RECENT_CHATS,
       payload: { oneSelf, roomId, chat, checkRead },
-    });
-  };
-}
-
-export function resetCurrentChats() {
-  return async (dispatch) => {
-    return dispatch({
-      type: RESET_CURRENT_CHATS,
     });
   };
 }
