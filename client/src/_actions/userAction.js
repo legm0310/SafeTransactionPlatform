@@ -13,6 +13,7 @@ import {
   ADD_WISHLIST,
   GET_WISHLIST,
   DELETE_WISHLIST,
+  GET_USER,
 } from "./type";
 import { authRequest, baseRequest } from "../api/common";
 import { setLoadings } from "./uiAction";
@@ -20,6 +21,21 @@ import { setLoadings } from "./uiAction";
 export function resetStoreUser() {
   return {
     type: RESET_STORE_USER,
+  };
+}
+
+export function getUser(dataToSubmit) {
+  const params = dataToSubmit;
+  const request = authRequest()
+    .get(`/api/user/${params}`)
+    .then((response) => response.data)
+    .catch((err) => {
+      console.log(err.response);
+      return err.response.data;
+    });
+  return {
+    type: GET_USER,
+    payload: request,
   };
 }
 
@@ -120,7 +136,7 @@ export function addWishList(dataToSubmit) {
 export function getWishList(dataToSubmit) {
   const params = dataToSubmit;
   const request = authRequest()
-    .get(`api/user/wishlist/${params}`)
+    .get(`/api/user/wishlist/${params}`)
     .then((response) => response.data)
     .catch((err) => {
       console.log(err.response);
@@ -135,7 +151,7 @@ export function getWishList(dataToSubmit) {
 export function deleteWishList(dataToSubmit) {
   const params = dataToSubmit;
   const request = authRequest()
-    .delete(`api/user/wishlist/${params}`)
+    .delete(`/api/user/wishlist/${params}`)
     .then((response) => response.data)
     .catch((err) => {
       console.log(err.response);
