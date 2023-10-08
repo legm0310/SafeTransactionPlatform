@@ -35,7 +35,7 @@ function App() {
 
   const AuthHome = Auth(Home, null);
   const AuthAddProduct = Auth(AddProduct, true);
-  const AuthUserInfo = Auth(UserInfo, true);
+  // const AuthUserInfo = Auth(UserInfo, true);
   const AuthChat = Auth(Chat, true);
 
   return (
@@ -53,18 +53,18 @@ function App() {
           </Backdrop> */}
           <Header />
           <Routes>
-            <Route path='/' element={<AuthHome />}></Route>
-            <Route path='/products/all' element={<Product />}></Route>
-            <Route path='/products/add' element={<AuthAddProduct />}></Route>
-            <Route path='/chat' element={<AuthChat />}></Route>
-            <Route path='/chat/:roomId' element={<AuthChat />}></Route>
-            <Route path='/login' element={<Login />}></Route>
-            <Route path='/register' element={<Register />}></Route>
-            <Route path='/notice/:id' element={<Notice />}></Route>
-            <Route path='/products/:productId' element={<Detail />}></Route>
-            <Route path='/user' element={<AuthUserInfo />}></Route>
+            <Route path="/" element={<AuthHome />}></Route>
+            <Route path="/products/all" element={<Product />}></Route>
+            <Route path="/products/add" element={<AuthAddProduct />}></Route>
+            <Route path="/chat" element={<AuthChat />}></Route>
+            <Route path="/chat/:roomId" element={<AuthChat />}></Route>
+            <Route path="/login" element={<Login />}></Route>
+            <Route path="/register" element={<Register />}></Route>
+            <Route path="/notice/:id" element={<Notice />}></Route>
+            <Route path="/products/:productId" element={<Detail />}></Route>
+            <Route path="/user/:id" element={<UserInfo />}></Route>
 
-            <Route path='/Loading' element={<Loading />}></Route>
+            <Route path="/Loading" element={<Loading />}></Route>
           </Routes>
           <Footer />
         </BrowserRouter>
