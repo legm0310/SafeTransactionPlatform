@@ -27,6 +27,9 @@
   border-radius: 4px;
   background-color: rgb(200, 200, 200);
 }
+.updateNameInput {
+  width: 60%;
+}
 
 /* userDetailProfile */
 .userDetailProfile {
@@ -50,8 +53,12 @@
 
 .userIntroWrap {
   padding: 5px 0px;
-  height: 50%;
+  height: 120px;
   align-items: center;
+}
+
+.updateIntroInput {
+  height: 120px;
 }
 
 .userIntroUpdateWrap {
