@@ -22,24 +22,25 @@ module.exports = (io) => {
       }, 1000);
     });
 
+    socket.on("connect_error", (error) => {
+      console.log("Connection error:", error);
+    });
+
     socket.on("error", (error) => {
       throw error;
     });
-    socket.on("test", (text) => {
-      console.log("통신내용:", text);
-      console.log("방번호:", socket.rooms);
-    });
-    socket.on("login", ({ userId }) => socket.join(userId));
 
     socket.on("onJoinRoom", (roomId) => {
       socket.join(roomId);
       console.log(socket.rooms);
     });
+
     socket.on("getMyRooms", (callback) => {
       const rooms = Object.keys(socket.rooms);
       console.log(rooms);
       callback(rooms);
     });
+
     socket.on(
       "onAddRoomAndSend",
       async ({ userId, sellerId, roomName, chat }, callback) => {
