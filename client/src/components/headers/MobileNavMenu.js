@@ -18,19 +18,19 @@ const MobileNavMenu = () => {
 
   return (
     <Fragment>
-      <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
+      <Box sx={{ display: { xs: "flex", md: "none" } }}>
         <IconButton
-          size="large"
-          aria-label="account of current user"
-          aria-controls="menu-appbar"
-          aria-haspopup="true"
+          size='large'
+          aria-label='account of current user'
+          aria-controls='menu-appbar'
+          aria-haspopup='true'
           onClick={handleOpenNavMenu}
-          color="black"
+          color='black'
         >
           <MenuIcon />
         </IconButton>
         <Menu
-          id="menu-appbar"
+          id='menu-appbar'
           anchorEl={anchorElNav}
           anchorOrigin={{
             vertical: "bottom",
@@ -53,14 +53,14 @@ const MobileNavMenu = () => {
         >
           <MenuItem onClick={handleCloseNavMenu}>
             <Link
-              to="/products/all?category=%&search=%"
+              to='/products/all?category=%&search=%'
               className={classes.purchaseLink}
             >
               구매하기
             </Link>
           </MenuItem>
           <MenuItem onClick={handleCloseNavMenu}>
-            <Link to="/products/add" className={classes.purchaseLink}>
+            <Link to='/products/add' className={classes.purchaseLink}>
               판매하기
             </Link>
           </MenuItem>

@@ -39,7 +39,7 @@ const DesktopNavMenu = () => {
         }}
       >
         <Link
-          to="/products/all?category=%&search=%"
+          to='/products/all?category=%&search=%'
           className={classes.purchaseLink}
         >
           <Button
@@ -49,13 +49,14 @@ const DesktopNavMenu = () => {
               color: "black",
               fontWeight: 700,
               fontFamily: "GongGothicMedium",
+              whiteSpace: "nowrap",
             }}
           >
             구매하기
           </Button>
         </Link>
 
-        <Link to="/products/add" className={classes.purchaseLink}>
+        <Link to='/products/add' className={classes.purchaseLink}>
           <Button
             onClick={handleCloseNavMenu}
             sx={{
@@ -63,6 +64,7 @@ const DesktopNavMenu = () => {
               color: "black",
               fontWeight: 700,
               fontFamily: "GongGothicMedium",
+              whiteSpace: "nowrap",
             }}
           >
             판매하기
@@ -84,7 +86,7 @@ const DesktopNavMenu = () => {
         </Link> */}
 
         <Paper
-          component="form"
+          component='form'
           sx={{
             p: "2px 4px",
             ml: 3,
@@ -100,15 +102,15 @@ const DesktopNavMenu = () => {
         >
           <InputBase
             sx={{ ml: 2, flex: 1 }}
-            placeholder="검색어를 입력하세요..."
+            placeholder='검색어를 입력하세요...'
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
           <IconButton
-            type="submit"
+            type='submit'
             onClick={onSearchProducts}
             sx={{ p: "10px" }}
-            aria-label="search"
+            aria-label='search'
           >
             <SearchIcon />
           </IconButton>
