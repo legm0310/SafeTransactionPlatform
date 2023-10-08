@@ -20,6 +20,8 @@ import {
 } from "../../_actions/chatAction";
 import { io } from "socket.io-client";
 const Chat = () => {
+  const apiBaseUrl = process.env.REACT_APP_API_BASE_URL;
+  const domain = process.env.REACT_APP_DOMAIN;
   const location = useLocation();
   const dispatch = useDispatch();
   const { roomId } = useParams() ?? { roomId: 0 };
@@ -33,8 +35,11 @@ const Chat = () => {
     // if (isEqual(rooms, roomsRef.current)) return;
     if (roomId != 0) dispatch(getRooms());
     if (!socketRef.current) {
+      //localhost:
       const curSocket = io("localhost:5000", {
-        cors: { origin: "*" },
+        cors: { origin: domain },
+        withCredentials: true,
+        transports: ["websocket"],
       });
       curSocket.on("connect", () => {
         rooms?.forEach((room) => curSocket?.emit("onJoinRoom", room.id));
@@ -72,7 +77,9 @@ const Chat = () => {
     }
     return () => {
       if (!socketRef.current) return;
-      socketRef.current?.disconnect();
+      socketRef.current.off("onReceiveSend");
+      socketRef.current.off("onReceiveRead");
+      socketRef.current.disconnect();
       socketRef.current = null;
     };
   }, [location.pathname]);
