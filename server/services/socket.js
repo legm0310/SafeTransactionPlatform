@@ -13,6 +13,7 @@ class SocketService {
   ioInit(server) {
     if (this.isClusterMode) {
       this.io = new Server(server, config.socketOption);
+
       this.io.adapter(createAdapter());
       setupWorker(this.io);
     } else {

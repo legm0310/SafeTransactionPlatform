@@ -77,7 +77,8 @@ module.exports = {
 
   //cookie 발급 옵션
   cookieSet: {
-    domain: process.env.DOMAIN,
+    domain:
+      process.env.NODE_ENV === "production" ? process.env.DOMAIN : ".localhost",
     path: "/",
     maxAge: 24 * 6 * 60 * 10000,
     sameSite: "none",
@@ -85,6 +86,7 @@ module.exports = {
     secure: true,
   },
 
+  //socket 옵션
   socketOption: {
     cors: {
       origin: process.env.CORS_ORIGIN.split(","),
@@ -92,5 +94,12 @@ module.exports = {
       credentials: true,
     },
     transports: ["websocket"],
+  },
+
+  //https 인증서
+  certOption: {
+    ca: process.env.CA_PATH,
+    key: process.env.KEY_PATH,
+    cert: process.env.CERT_PATH,
   },
 };
