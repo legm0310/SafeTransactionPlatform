@@ -83,4 +83,13 @@ module.exports = {
     httpOnly: true,
     secure: true,
   },
+
+  socketOption: {
+    cors: {
+      origin: process.env.CORS_ORIGIN.split(","),
+      allowedHeaders: ["Authorization"],
+      credentials: true,
+    },
+    transports: ["websocket"],
+  },
 };
