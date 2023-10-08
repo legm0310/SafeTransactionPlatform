@@ -17,6 +17,7 @@ import Loading from "./components/common/Loading";
 import ScrollTop from "./components/common/ScrollTop";
 import UserInfo from "./pages/User/UserInfo";
 import Footer from "./components/Footer/Footer";
+import Banner from "./components/Banner/Banner";
 
 import { Backdrop } from "@mui/material";
 
@@ -35,7 +36,7 @@ function App() {
 
   const AuthHome = Auth(Home, null);
   const AuthAddProduct = Auth(AddProduct, true);
-  // const AuthUserInfo = Auth(UserInfo, true);
+  const AuthUserInfo = Auth(UserInfo, true);
   const AuthChat = Auth(Chat, true);
 
   return (
@@ -64,7 +65,7 @@ function App() {
             <Route path="/products/:productId" element={<Detail />}></Route>
             <Route path="/user/:id" element={<UserInfo />}></Route>
 
-            <Route path="/Loading" element={<Loading />}></Route>
+            <Route path="/banner" element={<Banner />}></Route>
           </Routes>
           <Footer />
         </BrowserRouter>
