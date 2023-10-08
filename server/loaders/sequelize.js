@@ -1,6 +1,10 @@
+const config = require("../config");
 const db = require("../models");
 module.exports = async () => {
-  const force = true;
+  const force = false;
+  if (config.mode === "clusterMode" && process.env.NODE_APP_INSTANCE !== "0") {
+    return;
+  }
   await db.sequelize
     .sync({ force: force })
     .then(async () => {

@@ -1,24 +1,24 @@
 const socket = require("socket.io");
+const { Server } = require("socket.io");
+const { createAdapter } = require("@socket.io/cluster-adapter");
+const { setupWorker } = require("@socket.io/sticky");
 const { InternalServerError } = require("../utils");
 const config = require("../config");
 
 class SocketService {
   constructor() {
     this.io = null;
+    this.isClusterMode = config.mode === "clusterMode";
   }
 
   ioInit(server) {
-    const cors = {
-      ...config.cors,
-      origin:
-        config.nodeEnv === "production"
-          ? config.cors.origin
-          : "http://localhost:3000",
-    };
-
-    this.io = socket(server, {
-      cors: cors,
-    });
+    if (this.isClusterMode) {
+      this.io = new Server(server, config.socketOption);
+      this.io.adapter(createAdapter());
+      setupWorker(this.io);
+    } else {
+      this.io = socket(server, config.socketOption);
+    }
     return this.io;
   }
 

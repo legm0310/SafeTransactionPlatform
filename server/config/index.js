@@ -18,6 +18,7 @@ if (envFound.error) {
 module.exports = {
   //server 구동 환경
   nodeEnv: process.env.NODE_ENV,
+  mode: process.env.MODE,
   port: parseInt(process.env.PORT, 10),
 
   //db 설정 (development, production)
