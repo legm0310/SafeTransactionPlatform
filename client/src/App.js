@@ -17,6 +17,7 @@ import Loading from "./components/common/Loading";
 import ScrollTop from "./components/common/ScrollTop";
 import UserInfo from "./pages/User/UserInfo";
 import Footer from "./components/Footer/Footer";
+import Banner from "./components/Banner/Banner";
 
 import { Backdrop } from "@mui/material";
 
@@ -53,18 +54,19 @@ function App() {
           </Backdrop> */}
           <Header />
           <Routes>
-            <Route path='/' element={<AuthHome />}></Route>
-            <Route path='/products/all' element={<Product />}></Route>
-            <Route path='/products/add' element={<AuthAddProduct />}></Route>
-            <Route path='/chat' element={<AuthChat />}></Route>
-            <Route path='/chat/:roomId' element={<AuthChat />}></Route>
-            <Route path='/login' element={<Login />}></Route>
-            <Route path='/register' element={<Register />}></Route>
-            <Route path='/notice/:id' element={<Notice />}></Route>
-            <Route path='/products/:productId' element={<Detail />}></Route>
-            <Route path='/user' element={<AuthUserInfo />}></Route>
+            <Route path="/" element={<AuthHome />}></Route>
+            <Route path="/products/all" element={<Product />}></Route>
+            <Route path="/products/add" element={<AuthAddProduct />}></Route>
+            <Route path="/chat" element={<AuthChat />}></Route>
+            <Route path="/chat/:roomId" element={<AuthChat />}></Route>
+            <Route path="/login" element={<Login />}></Route>
+            <Route path="/register" element={<Register />}></Route>
+            <Route path="/notice/:id" element={<Notice />}></Route>
+            <Route path="/products/:productId" element={<Detail />}></Route>
+            <Route path="/user" element={<AuthUserInfo />}></Route>
+            <Route path="/user" element={<AuthUserInfo />}></Route>
 
-            <Route path='/Loading' element={<Loading />}></Route>
+            <Route path="/banner" element={<Banner />}></Route>
           </Routes>
           <Footer />
         </BrowserRouter>
