@@ -41,45 +41,6 @@ const Detail = () => {
     dispatch(getProduct(productId));
   }, [dispatch, productId]);
 
-  // const onPurchaseHandler = () => {
-  //   const action = (snackbarId) => (
-  //     <>
-  //       <button
-  //         onClick={() => {
-  //           dispatch(setLoadings({ isLoading: true }));
-  //           const data = {
-  //             productId,
-  //             userId,
-  //             sdk,
-  //           };
-  //           dispatch(purchase(data)).then((response) => {
-  //             console.log(response);
-  //             if (response.payload.updated) {
-  //               alert("에스크로 결제가 진행됩니다.");
-  //               navigate("/user");
-  //             } else {
-  //               alert("구매 신청에 실패했습니다.");
-  //             }
-  //           });
-  //         }}
-  //       >
-  //         구매하기
-  //       </button>
-  //       <button
-  //         onClick={() => {
-  //           // closeSnackbar(snackbarId);
-  //         }}
-  //       >
-  //         취소
-  //       </button>
-  //     </>
-  //   );
-
-  //   enqueueSnackbar("해당 상품 구매를 진행하시겠습니까?", {
-  //     action,
-  //   });
-  // };
-
   const handleClick = (func, comment) => {
     enqueueSnackbar(comment, {
       variant: "info",
@@ -307,27 +268,3 @@ const Detail = () => {
 };
 
 export default Detail;
-
-// 스낵바
-// const action = (snackbarId) => (
-//   <>
-//     <button
-//       onClick={() => {
-//         alert(`I belong to snackbar with id ${snackbarId}`);
-//       }}
-//     >
-//       구매하기
-//     </button>
-//     <button
-//       onClick={() => {
-//         // closeSnackbar(snackbarId);
-//       }}
-//     >
-//       취소
-//     </button>
-//   </>
-// );
-
-// const onMenuHandler = (menu) => {
-//   setActiveMenu(menu);
-// };
