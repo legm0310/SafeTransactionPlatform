@@ -39,25 +39,32 @@ const Chats = () => {
               </div>
             </Link>
           ) : null}
-          {rooms?.map((room) => (
-            <Link
-              key={room.id}
-              to={roomId == room.id ? `/chat` : `/chat/${room.id}`}
-            >
-              <div className={classes.userChat}>
-                <img src={defaultProfile} alt="" className={classes.testImg} />
-                <div className={classes.userChatInfo}>
-                  <span>{room.RoomUser[0]?.user_name}</span>
-                  <p>
-                    {room.chat_logs[0]?.content?.length > 14
-                      ? `${room.chat_logs[0]?.content?.substr(0, 15)} ...`
-                      : room.chat_logs[0]?.content}
-                  </p>
-                  <p>읽지 않은 메시지: {room.unreadCount}</p>
+          {rooms?.map((room) => {
+            if (room.chat_participant.self_granted === 0) return;
+            return (
+              <Link
+                key={room.id}
+                to={roomId == room.id ? `/chat` : `/chat/${room.id}`}
+              >
+                <div className={classes.userChat}>
+                  <img
+                    src={defaultProfile}
+                    alt=""
+                    className={classes.testImg}
+                  />
+                  <div className={classes.userChatInfo}>
+                    <span>{room.RoomUser[0]?.user_name}</span>
+                    <p>
+                      {room.chat_logs[0]?.content?.length > 14
+                        ? `${room.chat_logs[0]?.content?.substr(0, 15)} ...`
+                        : room.chat_logs[0]?.content}
+                    </p>
+                    <p>읽지 않은 메시지: {room.unreadCount}</p>
+                  </div>
                 </div>
-              </div>
-            </Link>
-          ))}
+              </Link>
+            );
+          })}
         </div>
       )}
     </Fragment>

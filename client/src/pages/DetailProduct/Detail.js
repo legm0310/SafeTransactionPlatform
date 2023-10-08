@@ -41,45 +41,6 @@ const Detail = () => {
     dispatch(getProduct(productId));
   }, [dispatch, productId]);
 
-  // const onPurchaseHandler = () => {
-  //   const action = (snackbarId) => (
-  //     <>
-  //       <button
-  //         onClick={() => {
-  //           dispatch(setLoadings({ isLoading: true }));
-  //           const data = {
-  //             productId,
-  //             userId,
-  //             sdk,
-  //           };
-  //           dispatch(purchase(data)).then((response) => {
-  //             console.log(response);
-  //             if (response.payload.updated) {
-  //               alert("에스크로 결제가 진행됩니다.");
-  //               navigate("/user");
-  //             } else {
-  //               alert("구매 신청에 실패했습니다.");
-  //             }
-  //           });
-  //         }}
-  //       >
-  //         구매하기
-  //       </button>
-  //       <button
-  //         onClick={() => {
-  //           // closeSnackbar(snackbarId);
-  //         }}
-  //       >
-  //         취소
-  //       </button>
-  //     </>
-  //   );
-
-  //   enqueueSnackbar("해당 상품 구매를 진행하시겠습니까?", {
-  //     action,
-  //   });
-  // };
-
   const handleClick = (func, comment) => {
     enqueueSnackbar(comment, {
       variant: "info",
@@ -99,13 +60,17 @@ const Detail = () => {
     });
   };
 
-  const onPurchaseHandler = (key) => {
+  const onPurchaseHandler = () => {
+    handleClick(purchase, "해당 상품 구매하시겠습니까?");
+  };
+
+  const purchase = (key) => {
+    closeSnackbar(key);
     if (sellerId == userId) {
       return enqueueSnackbar("판매자와 구매자가 같습니다.", {
         variant: "error",
       });
     }
-    closeSnackbar(key);
     dispatch(setLoadings({ isLoading: true }));
     const data = {
       productId,
@@ -128,7 +93,7 @@ const Detail = () => {
     });
   };
 
-  const startChatHandler = (event) => {
+  const startChatHandler = async (event) => {
     event.preventDefault();
     if (sellerId === userId) {
       return enqueueSnackbar("판매자와 구매자가 같습니다.", {
@@ -140,33 +105,36 @@ const Detail = () => {
       userId: userId,
       roomName: `${userId}_${sellerId}`,
     };
-    dispatch(getRooms())
-      .then((data) => {
-        const roomExists = data.payload?.rooms?.find(
-          (room) => room.RoomUser[0].id === sellerId
+    try {
+      const roomData = await dispatch(getRooms());
+      const roomExists = roomData.payload.rooms?.find(
+        (room) => room.RoomUser[0].id === sellerId
+      );
+      if (!roomExists) {
+        return navigate(
+          `/chat/0?exists=false&user=${userId}&seller=${sellerId}&sellerName=${prodDetail?.seller_name}&prod=${productId}`
         );
-        console.log(roomExists);
-        if (!roomExists) {
-          return navigate(
-            `/chat/0?exists=false&user=${userId}&seller=${sellerId}&sellerName=${prodDetail?.seller_name}&prod=${productId}`
-          );
-        } else {
-          dispatch(addRoom(body)).then((res) => {
-            if (res.payload.result == "updatedRoom") {
-              enqueueSnackbar("채팅방 생성에 성공했습니다.", {
-                variant: "success",
-              });
-              return navigate(`/chat/${res.payload.room}`);
-            }
-          });
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-        return enqueueSnackbar("채팅방 생성 실패", {
-          variant: "error",
+      }
+      if (roomExists.chat_participant?.self_granted === 1) {
+        enqueueSnackbar("채팅방 생성에 성공했습니다.", {
+          variant: "success",
         });
+        return navigate(`/chat/${roomExists.id}`);
+      }
+
+      const addResult = await dispatch(addRoom(body));
+      if (addResult.payload.result == "updatedRoom") {
+        enqueueSnackbar("채팅방 생성에 성공했습니다.", {
+          variant: "success",
+        });
+        return navigate(`/chat/${addResult.payload.room}`);
+      }
+    } catch (err) {
+      console.log(err);
+      return enqueueSnackbar("채팅방 생성 실패", {
+        variant: "error",
       });
+    }
   };
 
   const addWishListHandler = () => {
@@ -307,27 +275,3 @@ const Detail = () => {
 };
 
 export default Detail;
-
-// 스낵바
-// const action = (snackbarId) => (
-//   <>
-//     <button
-//       onClick={() => {
-//         alert(`I belong to snackbar with id ${snackbarId}`);
-//       }}
-//     >
-//       구매하기
-//     </button>
-//     <button
-//       onClick={() => {
-//         // closeSnackbar(snackbarId);
-//       }}
-//     >
-//       취소
-//     </button>
-//   </>
-// );
-
-// const onMenuHandler = (menu) => {
-//   setActiveMenu(menu);
-// };

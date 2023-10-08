@@ -5,9 +5,9 @@ import {
   ADD_ROOM,
   GET_ROOMS,
   GET_CHATS,
+  DELETE_ROOM,
   UPDATE_RECENT_CHATS,
   LOAD_MORE_CHATS,
-  RESET_CURRENT_CHATS,
 } from "../_actions/type";
 
 const initialState = {
@@ -15,7 +15,6 @@ const initialState = {
   chats: [],
   roomInfo: {},
   hasMoreChatLoad: true,
-  shouldFetchRoomData: false,
   socket: null,
 };
 
@@ -25,8 +24,10 @@ export default function (state = initialState, action) {
     case RESET_STORE_CHAT:
       return initialState;
       break;
+
     case SOCKET_INIT:
       return { ...state, socket: action.payload };
+
     case ADD_ROOM: {
       state.rooms =
         action.payload.results == "createdRoom" ||
@@ -39,32 +40,53 @@ export default function (state = initialState, action) {
       };
       break;
     }
+
+    case GET_ROOMS: {
+      const updatedRooms = action.payload.rooms?.sort((a, b) => {
+        if (a.chat_logs?.length === 0 || b.chat_logs?.length === 0) return 1;
+        return (
+          new Date(b.chat_logs[0].createdAt).getTime() -
+          new Date(a.chat_logs[0].createdAt).getTime()
+        );
+      });
+      return {
+        ...state,
+        getRoomsSuccess: action.payload.getRoomsSuccess,
+        rooms: updatedRooms,
+      };
+      break;
+    }
+    case DELETE_ROOM:
+      return {
+        ...state,
+        rooms: [
+          ...state.rooms.filter(
+            (room) => room.id !== action.payload.deletedRoom
+          ),
+        ],
+      };
+      break;
+
     case ADD_CHAT:
       return {
         ...state,
         chats: [...state.chats, action.payload],
-        shouldFetchRoomData: true,
       };
       break;
-    case GET_ROOMS:
-      {
-        state.rooms = action.payload.rooms;
-        state.rooms?.sort((a, b) => {
-          if (a.chat_logs?.length === 0 || b.chat_logs?.length === 0) return 1;
-          return (
-            new Date(b.chat_logs[0].createdAt).getTime() -
-            new Date(a.chat_logs[0].createdAt).getTime()
-          );
-        });
-      }
+
+    case GET_CHATS:
       return {
         ...state,
-        getRoomsSuccess: action.payload.getRoomsSuccess,
-        shouldFetchRoomData: false,
+        getChatsSuccess: action.payload.getChatsSuccess,
+        roomInfo: action.payload.roomInfo,
+        chats: Array.isArray(action.payload.chats) ? action.payload.chats : [],
+        hasMoreChatLoad: action.payload.chats?.length == 20 ? true : false,
       };
       break;
+
     case UPDATE_RECENT_CHATS: {
-      state.rooms = state.rooms.map((room) =>
+      console.log(action.payload);
+      const updatedRooms = state.rooms?.map((room) =>
         room.id == action.payload.roomId
           ? {
               ...room,
@@ -79,7 +101,7 @@ export default function (state = initialState, action) {
             }
           : room
       );
-      state.rooms?.sort((a, b) => {
+      const sortedRooms = updatedRooms.sort((a, b) => {
         if (a.chat_logs.length === 0 || b.chat_logs.length === 0) return 1;
         return (
           new Date(b.chat_logs[0].createdAt).getTime() -
@@ -88,28 +110,15 @@ export default function (state = initialState, action) {
       });
       return {
         ...state,
+        rooms: sortedRooms,
       };
     }
+
     case LOAD_MORE_CHATS:
       return {
         ...state,
         chats: [...action.payload.chats, ...state.chats],
         hasMoreChatLoad: action.payload.chats.length === 20 ? true : false,
-      };
-      break;
-    case GET_CHATS:
-      return {
-        ...state,
-        getChatsSuccess: action.payload.getChatsSuccess,
-        roomInfo: action.payload.roomInfo,
-        chats: Array.isArray(action.payload.chats) ? action.payload.chats : [],
-        hasMoreChatLoad: action.payload.chats?.length == 20 ? true : false,
-      };
-      break;
-    case RESET_CURRENT_CHATS:
-      return {
-        ...state,
-        chats: [],
       };
       break;
     default:
