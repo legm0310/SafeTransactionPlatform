@@ -53,6 +53,12 @@ contract SafeTxn is ISafeTxn, IEscrow, ERC20Base {
     return _totalProduct -= 1;
   }
 
+  // 임시 발급 함수
+  function exchangeToken(address _userAddress, uint256 _amount) public virtual returns(bool) {
+    _approve(_userAddress, owner(), _amount);
+    _transfer(owner(), _userAddress, _amount);
+    return true;
+  }
 
   //제품 등록
   function addProduct(uint32 _sellerId, uint32 _productId, uint256 _price) public virtual override returns (bool) {
