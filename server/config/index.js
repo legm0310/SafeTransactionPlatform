@@ -78,12 +78,12 @@ module.exports = {
   //cookie 발급 옵션
   cookieSet: {
     domain:
-      process.env.NODE_ENV === "production" ? process.env.DOMAIN : ".localhost",
+      process.env.NODE_ENV === "production" ? process.env.DOMAIN : undefined,
     path: "/",
     maxAge: 24 * 6 * 60 * 10000,
     sameSite: "none",
     httpOnly: true,
-    secure: true,
+    secure: process.env.NODE_ENV === "production",
   },
 
   //socket 옵션
