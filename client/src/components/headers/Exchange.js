@@ -1,7 +1,12 @@
 import { Fragment, useState } from "react";
 import { useDispatch } from "react-redux";
 import PropTypes from "prop-types";
-import { useContract, useAddress, useMintToken } from "@thirdweb-dev/react";
+import {
+  useContract,
+  useAddress,
+  useMintToken,
+  useContractWrite,
+} from "@thirdweb-dev/react";
 import { setLoadings } from "../../_actions/uiAction";
 
 import classes from "../../styles/headers/Exchange.module.css";
@@ -62,11 +67,22 @@ const Exchange = (props) => {
   const { contract } = useContract(contractAddress);
   const address = useAddress();
 
-  const { mutateAsync: mintToken, isLoading: mintLoading } =
-    useMintToken(contract);
+  // const { mutateAsync: mintToken, isLoading: mintLoading } =
+  //   useMintToken(contract);
+  const { mutateAsync: exchangeToken, isLoading: mintLoading } =
+    useContractWrite(contract, "exchangeToken");
 
   const handleClose = () => {
     props.handleCloseExchange();
+  };
+
+  const exchangeCall = async () => {
+    try {
+      const data = await exchangeToken({ args: [address, mintAmount] });
+      console.info("contract call successs", data);
+    } catch (err) {
+      console.error("contract call failure", err);
+    }
   };
 
   const callMintToken = () => {
@@ -76,7 +92,7 @@ const Exchange = (props) => {
     }
 
     dispatch(setLoadings({ isContractLoading: true }));
-    mintToken({ amount: mintAmount, to: address })
+    exchangeCall()
       .then(() => dispatch(setLoadings({ isContractLoading: false })))
       .catch((err) => console.log(err));
     props.handleCloseExchange();
