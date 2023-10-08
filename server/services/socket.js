@@ -1,4 +1,3 @@
-const socket = require("socket.io");
 const { Server } = require("socket.io");
 const { createAdapter } = require("@socket.io/cluster-adapter");
 const { setupWorker } = require("@socket.io/sticky");
@@ -17,7 +16,7 @@ class SocketService {
       this.io.adapter(createAdapter());
       setupWorker(this.io);
     } else {
-      this.io = socket(server, config.socketOption);
+      this.io = new Server(server, config.socketOption);
     }
     return this.io;
   }
