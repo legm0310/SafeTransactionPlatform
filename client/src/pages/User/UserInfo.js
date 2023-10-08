@@ -11,11 +11,14 @@ import { dateFormat } from "../../utils/dataParse";
 
 import classes from "../../styles/user/UserInfo.module.css";
 
+import { TextField } from "@mui/material";
 import defaultProfile from "../../assets/defaultProfile.png";
-import { encodeConstructorParamsForImplementation } from "@thirdweb-dev/sdk";
 
 const UserInfo = () => {
   const [activeMenu, setActiveMenu] = useState("SaleList");
+  const [updateName, setUpdateName] = useState(false);
+  const [updateIntro, setUpdateIntro] = useState(false);
+
   const location = useLocation();
   const dispatch = useDispatch();
   const { loadWishList } = useSelector((state) => state.user);
@@ -44,6 +47,26 @@ const UserInfo = () => {
     setActiveMenu(menu);
   };
 
+  const onShowNameUpdateHandler = (event) => {
+    event.preventDefault();
+    setUpdateName(true);
+  };
+
+  const onNameUpdateHandler = (event) => {
+    event.preventDefault();
+    setUpdateName(false);
+  };
+
+  const onShowIntroUpdateHandler = (event) => {
+    event.preventDefault();
+    setUpdateIntro(true);
+  };
+
+  const onIntroUpdateHandler = (event) => {
+    event.preventDefault();
+    setUpdateIntro(false);
+  };
+
   return (
     <Fragment>
       <section className={classes.userInfoSection}>
@@ -53,7 +76,28 @@ const UserInfo = () => {
             <div>{userName}</div>
           </div>
           <div className={classes.userDetailProfile}>
-            <div className={classes.userNameWrap}>{userName}</div>
+            <div className={classes.userNameWrap}>
+              {updateName ? (
+                <div className={classes.test}>
+                  <TextField
+                    sx={{
+                      padding: "0px",
+                    }}
+                    rows={1}
+                    InputProps={{
+                      style: { padding: 0 },
+                    }}
+                    defaultValue={userName}
+                  />
+                  <button onClick={onNameUpdateHandler}>확인</button>
+                </div>
+              ) : (
+                <div>
+                  {userName}
+                  <button onClick={onShowNameUpdateHandler}>이름 수정</button>
+                </div>
+              )}
+            </div>
             <div className={classes.userStateWrap}>
               <time>
                 {`가입 날짜 : ${dateFormat(
@@ -63,10 +107,30 @@ const UserInfo = () => {
               </time>
               {/* <div>상품 판매 개수</div> */}
             </div>
-            <div className={classes.userIntroWrap}>{introduce}</div>
-            <div className={classes.userIntroUpdateWrap}>
-              <button>소개글 수정</button>
-            </div>
+            {updateIntro ? (
+              <div>
+                <TextField
+                  sx={{
+                    padding: "0",
+                    width: "100%",
+                  }}
+                  InputProps={{
+                    style: { padding: 0 }, // padding을 0으로 설정
+                  }}
+                  id="outlined-multiline-static"
+                  multiline
+                  rows={3.5}
+                  defaultValue={introduce}
+                  className={classes.updateIntroInput}
+                />
+                <button onClick={onIntroUpdateHandler}>확인</button>
+              </div>
+            ) : (
+              <div>
+                <div className={classes.userIntroWrap}>{introduce}</div>
+                <button onClick={onShowIntroUpdateHandler}>소개글 수정</button>
+              </div>
+            )}
           </div>
         </div>
 
