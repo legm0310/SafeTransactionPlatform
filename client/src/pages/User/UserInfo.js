@@ -78,7 +78,7 @@ const UserInfo = () => {
           <div className={classes.userDetailProfile}>
             <div className={classes.userNameWrap}>
               {updateName ? (
-                <div className={classes.test}>
+                <div className={classes.userNameInput}>
                   <TextField
                     sx={{
                       padding: "0px",
@@ -88,13 +88,24 @@ const UserInfo = () => {
                       style: { padding: 0 },
                     }}
                     defaultValue={userName}
+                    className={classes["test"]}
                   />
-                  <button onClick={onNameUpdateHandler}>확인</button>
+                  <button
+                    className={classes.userNameButton}
+                    onClick={onNameUpdateHandler}
+                  >
+                    확인
+                  </button>
                 </div>
               ) : (
                 <div>
                   {userName}
-                  <button onClick={onShowNameUpdateHandler}>이름 수정</button>
+                  <button
+                    className={classes.userNameModifyButton}
+                    onClick={onShowNameUpdateHandler}
+                  >
+                    이름 수정
+                  </button>
                 </div>
               )}
             </div>
@@ -123,12 +134,22 @@ const UserInfo = () => {
                   defaultValue={introduce}
                   className={classes.updateIntroInput}
                 />
-                <button onClick={onIntroUpdateHandler}>확인</button>
+                <button
+                  className={classes.userIntroButton}
+                  onClick={onIntroUpdateHandler}
+                >
+                  확인
+                </button>
               </div>
             ) : (
               <div>
                 <div className={classes.userIntroWrap}>{introduce}</div>
-                <button onClick={onShowIntroUpdateHandler}>소개글 수정</button>
+                <button
+                  className={classes.userIntroModifyButton}
+                  onClick={onShowIntroUpdateHandler}
+                >
+                  소개글 수정
+                </button>
               </div>
             )}
           </div>
