@@ -45,20 +45,48 @@ module.exports = async () => {
           phone_number: "56756785678",
           password: "1234",
         });
-        // await db.User.create({
-        //   role: 0,
-        //   user_name: "더미A",
-        //   email: "q@q.com",
-        //   phone_number: "87687677879",
-        //   password: "1234",
-        // });
-        // await db.User.create({
-        //   role: 0,
-        //   user_name: "더미B",
-        //   email: "w@w.com",
-        //   phone_number: "98798799879",
-        //   password: "1234",
-        // });
+        await db.User.create({
+          role: 0,
+          user_name: "최병준",
+          email: "q@q.com",
+          phone_number: "01068301232",
+          password: "1234",
+        });
+        await db.User.create({
+          role: 0,
+          user_name: "성우상",
+          email: "w@w.com",
+          phone_number: "01020596571",
+          password: "1234",
+        });
+        await db.User.create({
+          role: 0,
+          user_name: "이규민",
+          email: "g@g.com",
+          phone_number: "01077637514",
+          password: "1234",
+        });
+        await db.User.create({
+          role: 0,
+          user_name: "이승훈",
+          email: "s@s.com",
+          phone_number: "01093507390",
+          password: "1234",
+        });
+        await db.User.create({
+          role: 0,
+          user_name: "전준영",
+          email: "j@j.com",
+          phone_number: "01066211085",
+          password: "1234",
+        });
+        await db.User.create({
+          role: 0,
+          user_name: "김준현",
+          email: "k@k.com",
+          phone_number: "01034111327",
+          password: "1234",
+        });
 
         const user1 = await db.User.findByPk(1);
         const user2 = await db.User.findByPk(2);
