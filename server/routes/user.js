@@ -2,7 +2,6 @@ const express = require("express");
 const router = express.Router();
 const { userController } = require("../controllers");
 const { isAuth } = require("../middlewares");
-isAuth;
 /** user 관련 라우팅 함수
  * @param {Function} app 라우터 설정을 위한 express.Router()
  * @todo 유효성 검증 추가
