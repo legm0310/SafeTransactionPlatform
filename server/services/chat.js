@@ -62,53 +62,6 @@ class ChatService {
     return { room, result };
   }
 
-  // async getRooms(userId) {
-  //   const user = await this.User.findByPk(+userId);
-  //   const roomData = await user.getUserRoom({
-  //     include: [
-  //       {
-  //         model: this.User,
-  //         as: "RoomUser",
-  //         where: {
-  //           [Op.not]: {
-  //             id: +userId,
-  //           },
-  //         },
-  //         attributes: ["id", "user_name"],
-  //       },
-  //       {
-  //         model: this.ChatLog,
-  //         // where: {
-  //         //   [Op.not]: {
-  //         //     id: +userId,
-  //         //   },
-  //         // },
-  //         limit: 1,
-  //         order: [
-  //           ["createdAt", "DESC"],
-  //           ["id", "DESC"],
-  //         ],
-  //         attributes: [
-  //           "content",
-  //           "createdAt",
-  //           [
-  //             literal(`(
-  //             SELECT COUNT(*)
-  //             FROM chat_log as subChatLogs
-  //             WHERE subChatLogs.room_id = chat_log.room_id AND subChatLogs.sender_id = chat_log.sender_id AND subChatLogs.check_read = 1
-  //           )`),
-  //             "unreadCount",
-  //           ],
-  //         ],
-  //       },
-  //     ],
-  //   });
-
-  //   const filteredRooms = await roomData.filter((room) =>
-  //     room.chat_participant.self_granted === 1 ? true : false
-  //   );
-  //   return filteredRooms;
-  // }
   // 2단계 실행 함수 (단일쿼리 + 집계함수사용)
   async getRooms(userId) {
     const user = await this.User.findByPk(+userId);
@@ -138,19 +91,19 @@ class ChatService {
 
     const filterdRooms = [];
     for (const room of roomData) {
-      if (room.chat_participant.self_granted === 1) {
-        const unreadCount = await this.ChatLog.count({
-          where: {
-            [Op.not]: { sender_id: +userId },
-            room_id: room.id,
-            check_read: 0,
-          },
-        });
-        const roomWithUnreadCount = room.get();
-        roomWithUnreadCount.unreadCount = unreadCount;
+      // if (room.chat_participant.self_granted === 1) {
+      const unreadCount = await this.ChatLog.count({
+        where: {
+          [Op.not]: { sender_id: +userId },
+          room_id: room.id,
+          check_read: 0,
+        },
+      });
+      const roomWithUnreadCount = room.get();
+      roomWithUnreadCount.unreadCount = unreadCount;
 
-        filterdRooms.push(roomWithUnreadCount);
-      }
+      filterdRooms.push(roomWithUnreadCount);
+      // }
     }
 
     return filterdRooms;
