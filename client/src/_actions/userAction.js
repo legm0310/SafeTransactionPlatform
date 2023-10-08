@@ -38,8 +38,9 @@ export function signup(dataToSubmit) {
 }
 
 export function login(dataToSubmit) {
+  const options = { withCredentials: true };
   const request = baseRequest()
-    .post("/api/auth/login", dataToSubmit)
+    .post("/api/auth/login", dataToSubmit, options)
     .then((response) => response.data)
     .catch((err) => {
       console.log(err.response.data);
