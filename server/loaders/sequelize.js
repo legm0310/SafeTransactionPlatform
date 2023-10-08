@@ -16,6 +16,7 @@ module.exports = async () => {
           email: "t@t.com",
           phone_number: "12312341234",
           password: "1234",
+          introduce: "안녕하세요.",
         });
         await db.User.create({
           role: 0,
@@ -23,6 +24,7 @@ module.exports = async () => {
           email: "a@a.com",
           phone_number: "23423452345",
           password: "1234",
+          introduce: "안녕하세요.1",
         });
         await db.User.create({
           role: 0,
@@ -30,6 +32,7 @@ module.exports = async () => {
           email: "b@b.com",
           phone_number: "34534563456",
           password: "1234",
+          introduce: "안녕하세요.2",
         });
         await db.User.create({
           role: 0,
@@ -37,6 +40,7 @@ module.exports = async () => {
           email: "c@c.com",
           phone_number: "45645674567",
           password: "1234",
+          introduce: "안녕하세요.3",
         });
         await db.User.create({
           role: 0,
@@ -44,6 +48,7 @@ module.exports = async () => {
           email: "d@d.com",
           phone_number: "56756785678",
           password: "1234",
+          introduce: "안녕하세요.4",
         });
         await db.User.create({
           role: 0,
@@ -51,6 +56,7 @@ module.exports = async () => {
           email: "q@q.com",
           phone_number: "01068301232",
           password: "1234",
+          introduce: "안녕하세요. 병준입니다",
         });
         await db.User.create({
           role: 0,
@@ -58,6 +64,7 @@ module.exports = async () => {
           email: "w@w.com",
           phone_number: "01020596571",
           password: "1234",
+          introduce: "안녕하세요. 우상입니다",
         });
         await db.User.create({
           role: 0,
@@ -65,6 +72,7 @@ module.exports = async () => {
           email: "g@g.com",
           phone_number: "01077637514",
           password: "1234",
+          introduce: "안녕하세요. 규민입니다",
         });
         await db.User.create({
           role: 0,
@@ -72,6 +80,7 @@ module.exports = async () => {
           email: "s@s.com",
           phone_number: "01093507390",
           password: "1234",
+          introduce: "안녕하세요. 승훈입니다",
         });
         await db.User.create({
           role: 0,
@@ -79,6 +88,7 @@ module.exports = async () => {
           email: "j@j.com",
           phone_number: "01066211085",
           password: "1234",
+          introduce: "안녕하세요. 준영입니다",
         });
         await db.User.create({
           role: 0,
@@ -86,6 +96,7 @@ module.exports = async () => {
           email: "k@k.com",
           phone_number: "01034111327",
           password: "1234",
+          introduce: "안녕하세요. 준현입니다",
         });
 
         const user1 = await db.User.findByPk(1);

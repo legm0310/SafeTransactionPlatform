@@ -20,7 +20,10 @@ class UserService {
 
   async getUserById(id) {
     const user = await this.User.findOne({
-      attributes: ["user_name", "created_at"],
+      where: {
+        id: id,
+      },
+      attributes: ["user_name", "created_at", "introduce"],
     });
     return user;
   }
