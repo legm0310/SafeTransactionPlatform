@@ -68,8 +68,8 @@
   margin-bottom: 10px;
   text-overflow: ellipsis;
   white-space: nowrap;
-  overflow: hidden;
-  color: black;
+  color: rgb(136, 136, 136);
+  font-size: 18px;
 }
 
 .prodPrice {
