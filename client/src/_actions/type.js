@@ -21,6 +21,8 @@ export const AUTH_USER = "auth";
 export const ADD_WISHLIST = "addWishList";
 export const GET_WISHLIST = "getWishList";
 export const DELETE_WISHLIST = "deleteWishList";
+export const UPDATE_USERNAME = "updateUserName";
+export const UPDATE_INTRODUCE = "updateIntroduce";
 //product
 export const ADD_PRODUCT = "addProduct";
 export const DEPOSITED_PRODUCTS = "depositedProducts";
