@@ -84,5 +84,11 @@ module.exports = (io) => {
       );
       socket.broadcast.to(roomId).emit("onReceiveRead", { user, chat });
     });
+
+    socket.on("onLeftRoom", async ({ userId, roomId }, callback) => {
+      const chatServiceInstance = await Container.get("chatService");
+      const result = await chatServiceInstance.deleteRoom({ userId, roomId });
+      callback(result);
+    });
   });
 };

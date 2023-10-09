@@ -76,9 +76,9 @@ module.exports = {
   },
 
   //cookie 발급 옵션
+  //쿠키 건드리면 안됨
   cookieSet: {
-    domain:
-      process.env.NODE_ENV === "production" ? process.env.DOMAIN : ".localhost",
+    domain: process.env.DOMAIN,
     path: "/",
     maxAge: 24 * 6 * 60 * 10000,
     sameSite: "none",

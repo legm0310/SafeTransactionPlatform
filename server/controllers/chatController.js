@@ -45,9 +45,9 @@ module.exports = {
     const chatServiceInstance = await Container.get("chatService");
     const roomData = { userId: res.locals.userId, roomId: req.params.id };
     const result = await chatServiceInstance.deleteRoom(roomData);
-    res.status(204).json({
-      deleteRoomSuccess: true,
-      result: result,
+    res.status(200).json({
+      deleteRoomSuccess: result,
+      deletedRoom: req.params.id,
     });
   }),
 };
