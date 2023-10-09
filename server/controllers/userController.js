@@ -43,4 +43,29 @@ module.exports = {
       deletedProductId: wishData.productId,
     });
   }),
+
+  updateUserName: catchAsync(async (req, res) => {
+    const userServiceInstance = await Container.get("userService");
+    const userId = req.params.id;
+    const newName = req.body.new_name;
+    const updated = await userServiceInstance.updateUserName(userId, newName);
+    res.status(200).json({
+      updateUserName: true,
+      updated: updated,
+    });
+  }),
+
+  updateIntroduce: catchAsync(async (req, res) => {
+    const userServiceInstance = await Container.get("userService");
+    const userId = req.params.id;
+    const newIntroduce = req.body.new_introduce;
+    const updated = await userServiceInstance.updateIntroduce(
+      userId,
+      newIntroduce
+    );
+    res.status(200).json({
+      updateIntroduce: true,
+      updated: updated,
+    });
+  }),
 };
