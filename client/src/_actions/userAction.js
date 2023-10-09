@@ -5,15 +5,17 @@
 */
 
 import {
+  GET_USER,
   RESET_STORE_USER,
   SIGNUP_USER,
   LOGIN_USER,
   LOGOUT_USER,
   AUTH_USER,
+  UPDATE_USERNAME,
+  UPDATE_INTRODUCE,
   ADD_WISHLIST,
   GET_WISHLIST,
   DELETE_WISHLIST,
-  GET_USER,
 } from "./type";
 import { authRequest, baseRequest } from "../api/common";
 import { setLoadings } from "./uiAction";
@@ -110,6 +112,47 @@ export function connectWallet() {
   return {
     type: "",
     payload: request,
+  };
+}
+
+export function updateUserName(id, newName) {
+  return async (dispatch) => {
+    try {
+      const res = await authRequest().put(`/api/user/userName/${id}`, newName);
+      console.log("res", res);
+      return dispatch({
+        type: UPDATE_USERNAME,
+        payload: res.data,
+      });
+    } catch (err) {
+      console.log(err);
+      return dispatch({
+        type: UPDATE_USERNAME,
+        payload: err.response.data,
+      });
+    }
+  };
+}
+
+export function updateIntroduce(id, newIntroduce) {
+  return async (dispatch) => {
+    try {
+      const res = await authRequest().put(
+        `/api/user/introduce/${id}`,
+        newIntroduce
+      );
+      console.log("res", res);
+      return dispatch({
+        type: UPDATE_INTRODUCE,
+        payload: res.data,
+      });
+    } catch (err) {
+      console.log(err);
+      return dispatch({
+        type: UPDATE_INTRODUCE,
+        payload: err.response.data,
+      });
+    }
   };
 }
 
