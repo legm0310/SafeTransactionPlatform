@@ -46,6 +46,10 @@ class User extends Sequelize.Model {
           allowNull: false,
           unique: true,
         },
+        introduce: {
+          type: Sequelize.STRING(255),
+          allowNull: true,
+        },
         wallet_address: {
           type: Sequelize.STRING(170),
           allowNull: true,

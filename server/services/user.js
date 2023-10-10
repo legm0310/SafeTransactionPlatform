@@ -20,7 +20,10 @@ class UserService {
 
   async getUserById(id) {
     const user = await this.User.findOne({
-      attributes: ["user_name", "created_at"],
+      where: {
+        id: id,
+      },
+      attributes: ["user_name", "created_at", "introduce"],
     });
     return user;
   }
@@ -105,6 +108,24 @@ class UserService {
     }
     const result = await user.removeWishList(+wishListData.productId);
     return result;
+  }
+
+  async updateUserName(id, newName) {
+    console.log(id, newName);
+    const updated = await this.User.update(
+      { user_name: newName },
+      { where: { id: id } }
+    );
+    return updated;
+  }
+
+  async updateIntroduce(id, newIntroduce) {
+    console.log(id, newIntroduce);
+    const updated = await this.User.update(
+      { introduce: newIntroduce },
+      { where: { id: id } }
+    );
+    return updated;
   }
 }
 
