@@ -1,17 +1,19 @@
-import { Fragment } from "react";
+import { Fragment, useState } from "react";
 
 import classes from "../../styles/banner/Banner.module.css";
 import mainImg from "../../assets/platformImage1.png";
 import mainImg1 from "../../assets/platformImage4.png";
 import Slider from "react-slick";
+import styled from "styled-components";
 
 const Banner = (props) => {
-  const customPhrases = [
-    "판다 메인",
-    "상품구매",
-    "상품판매",
-    // Add more custom texts for each item as needed
-  ];
+  const customDots = ["판다메인", "상품구매", "상품판매"];
+
+  const [backgroundColor, setBackgroundColor] = useState("white");
+
+  const handleDivClick = () => {
+    setBackgroundColor("blue"); // 색상을 변경하고 싶은 색으로 바꿉니다.
+  };
 
   const settings = {
     dots: true,
@@ -19,34 +21,13 @@ const Banner = (props) => {
     speed: 500,
     slidesToShow: 1,
     slidesToScroll: 1,
-    appendDots: (dots) => (
-      <div
-        style={{
-          borderRadius: "20px",
-        }}
-      >
-        <ul
-          style={{
-            listStyle: "none",
-            padding: 0,
-          }}
-        >
-          {" "}
-          {dots}{" "}
-        </ul>
-      </div>
-    ),
-    customPaging: (i) => (
-      <div
-        style={{
-          width: "30px",
-          // border: "1px gray solid",
-        }}
-        className={classes.test}
-      >
-        {customPhrases[i]}
-      </div>
-    ),
+    customPaging: function (i) {
+      return (
+        <div className="custom-dot-wrapper">
+          <button className="custom-dot">{customDots[i]}</button>
+        </div>
+      );
+    },
   };
 
   return (
@@ -130,8 +111,11 @@ const Banner = (props) => {
                   안전한 중고거래를 이용해보세요
                 </span>
               </div>
-              <div className={classes.mainSlide}>
-                <Slider {...settings}>
+              <div
+                className="slider-container"
+                style={{ backgroundColor: backgroundColor }}
+              >
+                <StyledSlider {...settings} className={classes["bannerSlide"]}>
                   <div className={classes.firstSlide}>
                     <div className={classes.secondContent}>
                       <div className={classes.secondImage}>
@@ -207,7 +191,7 @@ const Banner = (props) => {
                       </div>
                     </div>
                   </div>
-                </Slider>
+                </StyledSlider>
               </div>
             </div>
           </div>
@@ -218,3 +202,72 @@ const Banner = (props) => {
 };
 
 export default Banner;
+
+const StyledSlider = styled(Slider)`
+  // .slick-prev {
+  //   z-index: 1;
+  //   left: 30px;
+  // }
+
+  // .slick-next {
+  //   right: 60px;
+  //   z-index: 1;
+  // }
+
+  // .slick-prev:before,
+  // .slick-next:before {
+  //   font-size: 30px;
+  //   opacity: 1;
+  //   // color: #1ecfba;
+  //   color: white;
+  // }
+
+  .custom-dot-wrapper {
+    width: 100%;
+  }
+
+  .slider-container {
+    position: relative;
+    z-index: 1;
+    backgroundcolor: backgroundColor;
+    visibility: hidden;
+  }
+
+  .slick-dots {
+    position: absolute;
+    top: 0;
+    z-index: 2;
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    width: 100%;
+  }
+
+  .slick-dots ul {
+    display: flex;
+    flex-direction: row;
+  }
+
+  .slick-dots li {
+    width: 200px;
+    border: 1px solid rgb(238, 238, 238);
+    // border-radius: 4px;
+    // height: 50px;
+  }
+
+  .custom-dot {
+    width: 100%;
+    height: 100%;
+    background: none;
+    border: 1px solid rgb(238, 238, 238);
+    border-radius: 4px;
+    padding: 20px 30px;
+    cursor: pointer;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: black;
+  }
+`;
