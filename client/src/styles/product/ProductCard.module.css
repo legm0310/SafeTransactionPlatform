@@ -6,17 +6,19 @@
 .prodCardContainer {
   display: flex;
   flex-wrap: wrap;
-  justify-content: flex-start;
+  justify-content: space-around;
+  align-items: start;
   margin: 0 auto;
 }
 
 /*상품 카드*/
 .prodCard {
   border-radius: 13px;
-  width: 297px;
+  width: 23%;
+  aspect-ratio: 1 / 1.2;
   display: block;
-  margin-right: 30px;
-  margin-bottom: 30px;
+  border: 1px solid rgba(0, 0, 0, 0.083);
+  margin-bottom: 10px;
 }
 
 .prodCard:hover {
@@ -32,13 +34,13 @@
 /*상품 이미지*/
 .imgBox {
   width: 100%;
-  height: 276px;
+  aspect-ratio: 1 / 1;
 }
 
 .prodImg {
   width: 100%;
   height: 100%;
-  border-radius: 13px;
+  border-radius: 10px 10px 0 0;
 }
 
 /*상품 정보*/
@@ -68,18 +70,19 @@
   margin-bottom: 10px;
   text-overflow: ellipsis;
   white-space: nowrap;
-  color: rgb(136, 136, 136);
-  font-size: 18px;
+  overflow: hidden;
+  color: black;
+  text-size-adjust: none;
 }
 
 .prodPrice {
-  font-size: 16px;
   font-weight: 700;
   color: rgb(33, 33, 33);
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
   margin-bottom: 3px;
+  text-size-adjust: none;
 }
 
 .prodPrice::after {
