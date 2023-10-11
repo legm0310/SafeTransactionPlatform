@@ -32,11 +32,15 @@ const Home = (props) => {
               <div className={classes.typingBottom}>
                 <span>블록체인을 활용해 보다 안전하게!</span>
               </div>
+              <div className={classes.IntroButton}>
+                <Link to="/banner">
+                  <button>서비스 더 알아보기</button>
+                </Link>
+              </div>
             </div>
 
             <div className={classes.mainImgWrap}>
               <img src={mainImg} alt="" className={classes.mainImg} />
-              <img src={mainImg1} alt="" className={classes.mainImg1} />
             </div>
           </div>
         </section>
