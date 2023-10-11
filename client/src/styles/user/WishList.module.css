@@ -28,98 +28,104 @@
   place-content: center;
 }
 
-.tabTitle input[type="checkbox"] {
-  accent-color: #1ecfba;
-}
-
 /* WishItem.js */
 .wishList {
-  position: relative;
-  height: 200px;
-  border-radius: 10px;
-  border: 1px solid #c4c4c4;
-  margin: 0 auto;
-  margin-top: 35px;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  place-items: center;
-}
-
-.wishListProductWrap {
   display: flex;
   align-items: center;
-}
-
-.wishList input[type="checkbox"] {
-  accent-color: #1ecfba;
-  width: 20px;
-  height: 20px;
-  border: 2px solid #1ecfba;
-  border-radius: 50%;
-  appearance: none;
-  cursor: pointer;
-  margin-left: 100px;
-}
-
-.wishList input[type="checkbox"]:checked {
-  background: #1ecfba;
-  border: none;
+  justify-content: space-between;
+  width: 95%;
+  aspect-ratio: 1 / 0.15;
+  border-radius: 4px;
+  border: 1px solid #c4c4c4;
+  margin: 0 auto;
+  padding: 0 1rem;
+  margin-top: 35px;
+  min-height: 150px;
 }
 
 .wishListProductImage {
-  width: 160px;
-  height: 160px;
-  border-radius: 10px;
-  margin-left: 100px;
+  width: 13%;
+  aspect-ratio: 1 / 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 135px;
 }
 
 .wishListProductImage img {
   width: 100%;
-  height: 100%;
-  border-radius: 10px;
-}
-
-.wishListProductInfo {
-  width: 150px;
-  margin-left: 36px;
-}
-
-.productCategory {
-  font-size: 12px;
-  line-height: 18px;
-  color: #767676;
-}
-
-.productPrice {
-  margin-left: 100px;
-  width: 108px;
-}
-
-.wishListProductPurchase {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.totalPrice {
-  font-size: 18px;
-  line-height: 23px;
+  aspect-ratio: 1 / 1;
+  border-radius: 4px;
 }
 
 .btnSubmit {
-  width: 130px;
-  height: 40px;
-  border-radius: 5px;
-  border: none;
+  width: 100px;
+  aspect-ratio: 1 / 0.4;
+  border-radius: 4px;
+  border: 1px solid #c4c4c4;
   line-height: 20px;
-  margin-left: 200px;
+  white-space: nowrap;
+  color: black;
+  background: none;
+}
+
+.btnSubmit:hover {
+  background: #1ecfba;
+  border: none;
+  color: white;
+  transition: all 0.2s;
 }
 
 .wishListProductRemove {
-  position: absolute;
-  top: 15px;
-  right: 15px;
-  width: 20px;
-  height: 15px;
   cursor: pointer;
+  display: flex;
+  align-items: start;
+  justify-content: start;
+  flex-direction: column;
+}
+
+/* 반응형 */
+
+@media (max-width: 800px) {
+  .wishList {
+    width: 33%;
+    aspect-ratio: 1 / 1.4;
+    flex-direction: column;
+    justify-content: space-between;
+    min-width: 150px;
+    min-height: 0;
+    padding: 0;
+    margin: 20px 15px;
+    align-items: flex-start;
+  }
+
+  .wishList:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    transform: translateY(-10px);
+    transition: box-shadow 0.3s, transform 0.5s;
+    border: none;
+  }
+
+  .wishListProductImage {
+    width: 100%;
+    min-width: 150px;
+  }
+
+  .wishListProductImage img {
+    border-radius: 0;
+    overflow: hidden;
+  }
+
+  .wishList p {
+    margin: 0;
+    padding: 3px;
+  }
+
+  .btnSubmit {
+    display: none;
+  }
+
+  .wishListProductRemove img {
+    width: 15px;
+  }
 }
