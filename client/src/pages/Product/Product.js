@@ -2,9 +2,9 @@ import React, { Fragment, useState, useEffect } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { getSearchRecentProducts } from "../../_actions/productAction";
-import RecentProductsList from "../../components/product/RecentProducts";
-import CategoryBar from "../../components/product/CategoryBar";
-import ProductCard from "../../components/product/ProductCard";
+import RecentProductsList from "../../components/Product/RecentProducts";
+import CategoryBar from "../../components/Product/CategoryBar";
+import ProductCard from "../../components/Product/ProductCard";
 import Paging from "../../components/common/Paging";
 import { getItem } from "../../utils";
 
