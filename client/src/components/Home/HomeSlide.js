@@ -2,7 +2,9 @@ import { Fragment } from "react";
 import { Link } from "react-router-dom";
 
 import classes from "../../styles/home/HomeSlide.module.css";
-import testImg from "../../assets/testImg1.png";
+import bannerImg1 from "../../assets/bannerImg1.png";
+import bannerImg2 from "../../assets/bannerImg2.png";
+import bannerImg3 from "../../assets/bannerImg3.png";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -13,8 +15,8 @@ const HomeSlide = () => {
     dots: true, // 캐러셀 밑에 ... 을 표시할지
     infinite: true, // 슬라이드가 끝까지 가면 다시 처음으로 반복
     speed: 500, // 속도
-    autoplay: true, // 자동 재생
-    autoplaySpeed: 5000, // 자동 재생 속도
+    autoplay: false, // 자동 재생
+    autoplaySpeed: 3000, // 자동 재생 속도
     slidesToShow: 1, // 한 번에 보여줄 슬라이드 개수
     slidesToScroll: 1, // 한 번에 넘어가는 슬라이드 개수
     arrows: true,
@@ -25,40 +27,19 @@ const HomeSlide = () => {
       <div className={classes.Slide}>
         <StyledSlider {...settings}>
           <div className={classes.firstSlide}>
-            <Link to="/banner">
-              <img src={testImg} alt="" className={classes.slideImg} />
-            </Link>
-            <h3>1</h3>
+            {/* <Link to="/banner"> */}
+            <img src={bannerImg1} alt="" className={classes["bannerImg1"]} />
+            {/* </Link> */}
           </div>
           <div>
-            <Link to="/notice/2">
-              <img src={testImg} alt="" className={classes.slideImg} />
-            </Link>
-            <h3>2</h3>
+            {/* <Link to="/notice/2"> */}
+            <img src={bannerImg2} alt="" className={classes["bannerImg1"]} />
+            {/* </Link> */}
           </div>
           <div>
-            <Link to="/notice/3">
-              <img src={testImg} alt="" className={classes.slideImg} />
-            </Link>
-            <h3>3</h3>
-          </div>
-          <div>
-            <Link to="/notice/4">
-              <img src={testImg} alt="" className={classes.slideImg} />
-            </Link>
-            <h3>4</h3>
-          </div>
-          <div>
-            <Link to="/notice/5">
-              <img src={testImg} alt="" className={classes.slideImg} />
-            </Link>
-            <h3>5</h3>
-          </div>
-          <div>
-            <Link to="/notice/6">
-              <img src={testImg} alt="" className={classes.slideImg} />
-            </Link>
-            <h3>6</h3>
+            {/* <Link to="/notice/3"> */}
+            <img src={bannerImg3} alt="" className={classes["bannerImg1"]} />
+            {/* </Link> */}
           </div>
         </StyledSlider>
       </div>
@@ -83,21 +64,20 @@ const StyledSlider = styled(Slider)`
   .slick-next:before {
     font-size: 30px;
     opacity: 1;
-    color: #1ecfba;
+    // color: #1ecfba;
+    color: white;
   }
 
   .slick-dots {
     display: flex;
     justify-content: center;
 
-    color: red;
-
     li button:before {
-      color: red;
+      color: blue;
     }
 
     li.slick-active button:before {
-      color: red;
+      color: blue;
     }
   }
 `;
