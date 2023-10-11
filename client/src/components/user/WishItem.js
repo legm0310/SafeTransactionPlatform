@@ -34,32 +34,21 @@ const WishItem = () => {
           }
           return (
             <section className={classes.wishList}>
-              <input type="checkbox" />
-              <div className={classes.wishListProductWrap}>
-                <div className={classes.wishListProductImage}>
-                  <img src={item?.image} alt="" />
-                </div>
+              <div className={classes.wishListProductImage}>
+                <img src={item?.image} alt="" />
+              </div>
 
-                <div className={classes.wishListProductInfo}>
-                  <p className={classes.productCategory}>{item?.category}</p>
-                  <p className={classes.productName}>{item?.title}</p>
-                </div>
+              <p className={classes.productName}>{item?.title}</p>
 
-                <div className={classes.productPrice}>
-                  <p>{item?.price}PDT</p>
-                </div>
+              <p>{item?.price}PDT</p>
 
-                <div className={classes.wishListProductPurchase}>
-                  <p className={classes.totalPrice}></p>
-                  <button className={classes.btnSubmit}>구매하기</button>
-                </div>
+              <button className={classes.btnSubmit}>구매하기</button>
 
-                <div className={classes.wishListProductRemove}>
-                  <img
-                    src={deleteBtn}
-                    onClick={() => onDeleteWishListHandler(item.id)}
-                  />
-                </div>
+              <div className={classes.wishListProductRemove}>
+                <img
+                  src={deleteBtn}
+                  onClick={() => onDeleteWishListHandler(item.id)}
+                />
               </div>
             </section>
           );
