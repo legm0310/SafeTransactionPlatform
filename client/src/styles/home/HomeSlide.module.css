@@ -2,15 +2,7 @@
   text-align: center;
 }
 
-.firstSlide {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.slideImg {
-  width: 100%;
-  aspect-ratio: 1 / 0.3;
-  object-fit: contain;
-  text-align: center;
+.bannerImg1 {
+  height: 400px;
+  border-radius: 4px;
 }

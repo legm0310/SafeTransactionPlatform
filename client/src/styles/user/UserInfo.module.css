@@ -34,20 +34,23 @@
 
 /* userDetailProfile */
 .userDetailProfile {
+  display: flex;
+  flex: 1 0 0%;
+  flex-direction: column;
   padding: 0 20px;
-  width: 75%;
 }
 
 .userNameWrap {
   display: flex;
+  flex-direction: row;
   width: 100%;
-  height: 20%;
   align-items: center;
+  height: 15%;
   border-bottom: solid 1px rgb(200, 200, 200);
 }
 
 .userNameInput input {
-  padding: 10px 15px;
+  padding: 6px 0 6px 12px;
 }
 
 .userNameButton {
@@ -69,7 +72,6 @@
 
 .userIntroWrap {
   padding: 5px 0px;
-  height: 120px;
   align-items: center;
 }
 
