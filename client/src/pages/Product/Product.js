@@ -54,18 +54,20 @@ const Product = (props) => {
   return (
     <Fragment>
       <div className={classes.mainBox}>
-        <div className={classes.categoryBar}>
-          <CategoryBar onCategoryClick={onCategoryClick} />
-          {/* <button onClick={handleResetFilter}>필터링 초기화</button> */}
-        </div>
-        <div className={classes.prdouctCardWrap}>
-          {selectedCategory ? (
-            <ProductCard filteredProducts={filteredProducts} />
-          ) : (
-            // (<Paging />)
+        <div className={classes.productWrap}>
+          <div className={classes.categoryBar}>
+            <CategoryBar onCategoryClick={onCategoryClick} />
+            {/* <button onClick={handleResetFilter}>필터링 초기화</button> */}
+          </div>
+          <div className={classes.prdouctCardWrap}>
+            {selectedCategory ? (
+              <ProductCard filteredProducts={filteredProducts} />
+            ) : (
+              // (<Paging />)
 
-            <RecentProductsList />
-          )}
+              <RecentProductsList />
+            )}
+          </div>
         </div>
       </div>
     </Fragment>

@@ -10,7 +10,7 @@
 
 .slideImg {
   width: 100%;
-  aspect-ratio: 1 / 0.3;
+  height: 300px;
   object-fit: contain;
   text-align: center;
 }
