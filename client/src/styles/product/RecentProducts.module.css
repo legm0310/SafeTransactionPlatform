@@ -19,7 +19,7 @@
 
 /*상품 카드*/
 .latestProduct {
-  border-radius: 13px;
+  border-radius: 10px;
   width: 277.5px;
   display: block;
   margin-right: 30px;
@@ -51,7 +51,7 @@ a {
 .prodImg {
   width: 100%;
   height: 100%;
-  border-radius: 13px;
+  border-radius: 10px;
 }
 
 /*상품 정보*/
@@ -61,7 +61,7 @@ a {
   left: 0;
   width: 100%;
   height: 100%;
-  border-radius: 13px;
+  border-radius: 10px;
   background-color: rgba(0, 0, 0, 0.4);
 }
 

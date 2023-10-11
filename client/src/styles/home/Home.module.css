@@ -18,11 +18,18 @@
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: space-between;
 }
 
 .mainTitle {
   width: 40%;
+}
+
+.mainImgWrap {
+  width: 60%;
+}
+
+.mainImg {
+  width: 1000px;
 }
 
 .typingTop {
@@ -75,22 +82,30 @@
   line-height: 3rem;
 }
 
+.IntroButton button {
+  width: 200px;
+  height: 50px;
+  border-radius: 4px;
+  font-size: 1.1rem;
+}
+
 .mainImgWrap {
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.mainImg {
-  margin-right: 40px;
+.mainImg1 {
+  position: relative;
+  right: 30%;
 }
 
 /* 두번째 섹션 */
 .ImgslideWrap {
   width: 1200px;
-  border: 1px solid #1ecfba;
+
   border-radius: 12px;
-  margin-top: 150px;
+  margin-top: 100px;
 }
 
 /* 세반째 섹션 */
@@ -98,7 +113,7 @@
   display: flex;
   justify-content: center;
   width: 1200px;
-  margin: 150px auto 50px;
+  margin: 100px auto 50px;
 }
 
 /* 반응형 1250 */
@@ -116,10 +131,6 @@
 
   .mainImg {
     width: 350px;
-  }
-
-  .mainImg1 {
-    width: 150px;
   }
 
   /* 두 번째 섹션 */

@@ -44,7 +44,7 @@
 /* 두번째 섹션 */
 .secondContent {
   width: 1024px;
-  margin: 0 auto;
+  margin: 100px auto;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -56,7 +56,7 @@
 .secondImage {
   background-size: 655px 750px;
   width: 655px;
-  height: 750px;
+  /* height: 750px; */
 }
 
 .secondTypingMiddle {
@@ -125,12 +125,23 @@
   height: 750px;
 }
 
+.mainSlide {
+  position: relative;
+}
+
 .firstSlide {
-  width: 1024px;
+  width: 1200px;
   margin: 0 auto;
   display: flex;
   align-items: center;
   justify-content: space-between;
+}
+
+.bannerSlide {
+  border: 1px solid blue;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 /* 첫번째 슬라이드 */
 
