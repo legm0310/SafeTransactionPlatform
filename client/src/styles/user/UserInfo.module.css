@@ -4,16 +4,15 @@
   justify-content: center;
   flex-direction: column;
   align-items: center;
-  width: 1200px;
+  width: 70%;
   margin: 0 auto;
 }
 
 /* 유저 프로필 */
 
 .userInfoWrap {
-  display: flex;
   width: 100%;
-  height: 300px;
+  aspect-ratio: 1 / 0.25;
   border: 1px solid rgb(238, 238, 238);
   border-radius: 4px;
   margin-top: 30px;
@@ -99,7 +98,7 @@
 
 .userInfoMenuWrap {
   margin-top: 20px;
-  width: 1200px;
+  width: 100%;
 }
 
 .userInfoMenu {
@@ -123,8 +122,9 @@
 }
 
 .menuButton1 span {
-  font-size: 14px;
+  font-size: 0.9rem;
   color: rgb(136, 136, 136);
+  white-space: nowrap;
 }
 
 .menuButton {
@@ -142,8 +142,9 @@
 }
 
 .menuButton span {
-  font-size: 14px;
+  font-size: 0.9rem;
   color: rgb(136, 136, 136);
+  white-space: nowrap;
 }
 
 .wishListLength p {
@@ -165,4 +166,12 @@
 
 .active span {
   color: black;
+}
+
+@media (max-width: 800px) {
+  .userInfoExplanation {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+  }
 }
