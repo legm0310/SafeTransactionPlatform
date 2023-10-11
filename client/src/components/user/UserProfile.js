@@ -15,8 +15,8 @@ const UserProfile = () => {
   const introduce = userDetail?.introduce;
   const [updateName, setUpdateName] = useState(false);
   const [updateIntro, setUpdateIntro] = useState(false);
-  const [newName, setNewName] = useState({ userName });
-  const [newIntroduce, setNewIntroduce] = useState("");
+  const [newName, setNewName] = useState(userName);
+  const [newIntroduce, setNewIntroduce] = useState(introduce);
 
   const dispatch = useDispatch();
   const { id } = useParams();
