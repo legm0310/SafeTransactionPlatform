@@ -1,10 +1,11 @@
 .latestProductSection h1 {
-  font-size: 30px;
+  text-size-adjust: auto;
   margin: 0;
 }
 
 .latestProductWrap {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   margin-top: 20px;
@@ -13,24 +14,26 @@
 .latestProductContainer {
   display: flex;
   flex-wrap: wrap;
-  justify-content: flex-start;
+  justify-content: space-around;
   margin: 0 auto;
 }
 
 /*상품 카드*/
 .latestProduct {
   border-radius: 13px;
-  width: 277.5px;
+  width: 24%;
+  aspect-ratio: 1 / 1.2;
   display: block;
-  margin-right: 30px;
-  margin-bottom: 30px;
+  margin: 10px;
   flex-grow: 1;
+  border: 1px solid rgba(0, 0, 0, 0.083);
 }
 
 .latestProduct:hover {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
   transform: translateY(-10px);
   transition: box-shadow 0.3s, transform 0.5s;
+  border: none;
 }
 
 .latestProduct:nth-child(4n) {
@@ -44,14 +47,14 @@ a {
 /*상품 이미지*/
 .imgBox {
   width: 100%;
-  height: 276px;
+  aspect-ratio: 1 / 1;
   position: relative;
 }
 
 .prodImg {
   width: 100%;
   height: 100%;
-  border-radius: 13px;
+  border-radius: 10px 10px 0 0;
 }
 
 /*상품 정보*/
@@ -60,8 +63,8 @@ a {
   top: 0;
   left: 0;
   width: 100%;
-  height: 100%;
-  border-radius: 13px;
+  aspect-ratio: 1 / 1;
+  border-radius: 10px 10px 0 0;
   background-color: rgba(0, 0, 0, 0.4);
 }
 
@@ -71,6 +74,7 @@ a {
   align-items: center;
   color: #fff;
   margin-top: 44%;
+  font-size: 1.2rem;
 }
 
 .prodInfo {
@@ -82,12 +86,12 @@ a {
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
-  color: rgb(136, 136, 136);
-  font-size: 18px;
+  color: black;
+  font-size: 1rem;
 }
 
 .prodPrice {
-  font-size: 16px;
+  font-size: 1rem;
   font-weight: 700;
   color: rgb(33, 33, 33);
   text-overflow: ellipsis;
@@ -122,4 +126,16 @@ a {
   height: 40px;
   border-radius: 4px;
   box-shadow: 2px 2px rgb(220, 220, 220);
+}
+
+@media (max-width: 1250px) {
+  .reserved h2 {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 1250px) {
+  .reserved h2 {
+    font-size: 1rem;
+  }
 }
