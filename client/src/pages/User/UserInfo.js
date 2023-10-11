@@ -1,16 +1,18 @@
 import React, { Fragment, useState, useEffect } from "react";
-import { useSelector } from "react-redux";
-import { useLocation } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { useLocation, useParams } from "react-router-dom";
 import Button from "../../components/common/Button";
 import SaleList from "../../components/user/SaleList";
 import ReservedProduct from "../../components/user/ReservedProduct";
 import PurchasedProduct from "../../components/user/PurchasedProduct";
 import WishList from "../../components/user/WishList";
+import UserProfile from "../../components/user/UserProfile";
 
 import classes from "../../styles/user/UserInfo.module.css";
 
 const UserInfo = () => {
   const [activeMenu, setActiveMenu] = useState("SaleList");
+
   const location = useLocation();
   const { loadWishList } = useSelector((state) => state.user);
 
@@ -26,11 +28,7 @@ const UserInfo = () => {
   return (
     <Fragment>
       <section className={classes.userInfoSection}>
-        <div className={classes.userInfoWrap}>
-          <div></div>
-          <div></div>
-        </div>
-
+        <UserProfile />
         <div className={classes.userInfoMenuWrap}>
           <div className={classes.userInfoMenu}>
             <Button onClick={() => onMenuHandler("SaleList")}>

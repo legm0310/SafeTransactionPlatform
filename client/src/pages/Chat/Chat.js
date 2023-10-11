@@ -14,12 +14,15 @@ import classes from "../../styles/chat/Chat.module.css";
 import { useLocation, useParams } from "react-router-dom";
 import {
   addChat,
+  deleteRoom,
   getRooms,
   socketInit,
   updateRecentChats,
 } from "../../_actions/chatAction";
 import { io } from "socket.io-client";
 const Chat = () => {
+  const apiBaseUrl = process.env.REACT_APP_API_BASE_URL;
+  const domain = process.env.REACT_APP_DOMAIN;
   const location = useLocation();
   const dispatch = useDispatch();
   const { roomId } = useParams() ?? { roomId: 0 };
@@ -34,7 +37,8 @@ const Chat = () => {
     if (roomId != 0) dispatch(getRooms());
     if (!socketRef.current) {
       const curSocket = io("localhost:5000", {
-        cors: { origin: "*" },
+        withCredentials: true,
+        transports: ["websocket"],
       });
       curSocket.on("connect", () => {
         rooms?.forEach((room) => curSocket?.emit("onJoinRoom", room.id));
@@ -65,14 +69,16 @@ const Chat = () => {
           })
         );
       });
-      curSocket.on("onReceiveRead", ({ user, chat }) => {});
+      // curSocket.on("onReceiveRead", ({ user, chat }) => {});
       socketRef.current = curSocket;
       roomsRef.current = rooms;
       dispatch(socketInit(curSocket));
     }
     return () => {
       if (!socketRef.current) return;
-      socketRef.current?.disconnect();
+      socketRef.current.off("onReceiveSend");
+      socketRef.current.off("onReceiveRead");
+      socketRef.current.disconnect();
       socketRef.current = null;
     };
   }, [location.pathname]);

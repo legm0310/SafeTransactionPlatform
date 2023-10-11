@@ -12,7 +12,7 @@ const WishItem = () => {
   const dispatch = useDispatch();
   const { userId, loadWishList } = useSelector((state) => state.user);
   const { enqueueSnackbar } = useSnackbar();
-  console.log(loadWishList);
+  console.log("loadWishList", loadWishList);
   const onDeleteWishListHandler = (wishItemId) => {
     dispatch(deleteWishList(wishItemId)).then((response) => {
       enqueueSnackbar("상품이 찜목록에서 삭제되었습니다", {

@@ -124,7 +124,14 @@ a {
   background-color: #dbe1e5;
   width: 200px;
   height: 40px;
-  border-radius: 5px;
+  border-radius: 4px;
+  box-shadow: 2px 2px rgb(220, 220, 220);
+}
+
+@media (max-width: 1250px) {
+  .reserved h2 {
+    font-size: 1rem;
+  }
 }
 
 @media (max-width: 1250px) {

@@ -13,6 +13,7 @@ export const RESET_STORE_UI = "resetStoreUi";
 
 // action의 type들만 관리 (action의 type를 정의)
 //user
+export const GET_USER = "getUser";
 export const SIGNUP_USER = "signup";
 export const LOGIN_USER = "login";
 export const LOGOUT_USER = "logout";
@@ -20,6 +21,8 @@ export const AUTH_USER = "auth";
 export const ADD_WISHLIST = "addWishList";
 export const GET_WISHLIST = "getWishList";
 export const DELETE_WISHLIST = "deleteWishList";
+export const UPDATE_USERNAME = "updateUserName";
+export const UPDATE_INTRODUCE = "updateIntroduce";
 //product
 export const ADD_PRODUCT = "addProduct";
 export const DEPOSITED_PRODUCTS = "depositedProducts";
@@ -36,9 +39,9 @@ export const SET_CONTRACT_LOADING = "setContractLoading";
 export const SOCKET_INIT = "socketInit";
 export const ADD_ROOM = "addRoom";
 export const GET_ROOMS = "getRooms";
+export const DELETE_ROOM = "deleteRoom";
 export const ADD_CHAT = "addChat";
 export const GET_CHATS = "getChats";
 export const UPDATE_RECENT_CHATS = "updateRecentChats";
 export const LOAD_MORE_CHATS = "loadMoreChat";
-export const RESET_CURRENT_CHATS = "resetCurrentChats";
 // export const GET_UNREAD_CHATS = "getUnreadChats";

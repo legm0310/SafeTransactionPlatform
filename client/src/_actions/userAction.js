@@ -5,11 +5,14 @@
 */
 
 import {
+  GET_USER,
   RESET_STORE_USER,
   SIGNUP_USER,
   LOGIN_USER,
   LOGOUT_USER,
   AUTH_USER,
+  UPDATE_USERNAME,
+  UPDATE_INTRODUCE,
   ADD_WISHLIST,
   GET_WISHLIST,
   DELETE_WISHLIST,
@@ -20,6 +23,21 @@ import { setLoadings } from "./uiAction";
 export function resetStoreUser() {
   return {
     type: RESET_STORE_USER,
+  };
+}
+
+export function getUser(dataToSubmit) {
+  const params = dataToSubmit;
+  const request = authRequest()
+    .get(`/api/user/${params}`)
+    .then((response) => response.data)
+    .catch((err) => {
+      console.log(err.response);
+      return err.response.data;
+    });
+  return {
+    type: GET_USER,
+    payload: request,
   };
 }
 
@@ -38,8 +56,9 @@ export function signup(dataToSubmit) {
 }
 
 export function login(dataToSubmit) {
+  const options = { withCredentials: true };
   const request = baseRequest()
-    .post("/api/auth/login", dataToSubmit)
+    .post("/api/auth/login", dataToSubmit, options)
     .then((response) => response.data)
     .catch((err) => {
       console.log(err.response.data);
@@ -96,6 +115,47 @@ export function connectWallet() {
   };
 }
 
+export function updateUserName(id, newName) {
+  return async (dispatch) => {
+    try {
+      const res = await authRequest().put(`/api/user/userName/${id}`, newName);
+      console.log("res", res);
+      return dispatch({
+        type: UPDATE_USERNAME,
+        payload: res.data,
+      });
+    } catch (err) {
+      console.log(err);
+      return dispatch({
+        type: UPDATE_USERNAME,
+        payload: err.response.data,
+      });
+    }
+  };
+}
+
+export function updateIntroduce(id, newIntroduce) {
+  return async (dispatch) => {
+    try {
+      const res = await authRequest().put(
+        `/api/user/introduce/${id}`,
+        newIntroduce
+      );
+      console.log("res", res);
+      return dispatch({
+        type: UPDATE_INTRODUCE,
+        payload: res.data,
+      });
+    } catch (err) {
+      console.log(err);
+      return dispatch({
+        type: UPDATE_INTRODUCE,
+        payload: err.response.data,
+      });
+    }
+  };
+}
+
 export function addWishList(dataToSubmit) {
   return async (dispatch) => {
     try {
@@ -119,7 +179,7 @@ export function addWishList(dataToSubmit) {
 export function getWishList(dataToSubmit) {
   const params = dataToSubmit;
   const request = authRequest()
-    .get(`api/user/wishlist/${params}`)
+    .get(`/api/user/wishlist/${params}`)
     .then((response) => response.data)
     .catch((err) => {
       console.log(err.response);
@@ -134,7 +194,7 @@ export function getWishList(dataToSubmit) {
 export function deleteWishList(dataToSubmit) {
   const params = dataToSubmit;
   const request = authRequest()
-    .delete(`api/user/wishlist/${params}`)
+    .delete(`/api/user/wishlist/${params}`)
     .then((response) => response.data)
     .catch((err) => {
       console.log(err.response);
