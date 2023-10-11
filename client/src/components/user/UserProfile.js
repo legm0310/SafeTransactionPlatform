@@ -94,14 +94,13 @@ const UserProfile = () => {
                   className={classes["test"]}
                   onChange={onNameHandler}
                 />
-                <div>
-                  <button
-                    className={classes.userNameButton}
-                    onClick={onNameUpdateHandler}
-                  >
-                    확인
-                  </button>
-                </div>
+
+                <button
+                  className={classes.userNameButton}
+                  onClick={onNameUpdateHandler}
+                >
+                  확인
+                </button>
               </div>
             ) : (
               <div>
@@ -115,6 +114,7 @@ const UserProfile = () => {
               </div>
             )}
           </div>
+
           <div className={classes.userStateWrap}>
             <time>
               {`가입 날짜 : ${dateFormat(
@@ -124,46 +124,49 @@ const UserProfile = () => {
             </time>
             {/* <div>상품 판매 개수</div> */}
           </div>
-          {updateIntro ? (
-            <div className={classes.userIntroWrap}>
-              <TextField
-                sx={{
-                  padding: "0",
-                  width: "100%",
-                }}
-                InputProps={{
-                  style: { padding: 0 }, // padding을 0으로 설정
-                }}
-                id="outlined-multiline-static"
-                multiline
-                rows={3.7}
-                defaultValue={introduce}
-                className={classes.updateIntroInput}
-                onChange={onNewIntroHandler}
-              />
-              <button
-                className={classes.userIntroButton}
-                onClick={onIntroUpdateHandler}
-              >
-                확인
-              </button>
-            </div>
-          ) : (
-            <div>
-              <div
-                className={classes.userIntroWrap}
-                style={{ whiteSpace: "pre-line" }}
-              >
-                {introduce}
+          <div>
+            {updateIntro ? (
+              <div className={classes.userIntroWrap}>
+                <TextField
+                  sx={{
+                    padding: "0",
+                    width: "100%",
+                  }}
+                  InputProps={{
+                    style: { padding: 0 }, // padding을 0으로 설정
+                  }}
+                  id="outlined-multiline-static"
+                  multiline
+                  rows={3.7}
+                  defaultValue={introduce}
+                  className={classes.updateIntroInput}
+                  onChange={onNewIntroHandler}
+                />
+                <button
+                  className={classes.userIntroButton}
+                  onClick={onIntroUpdateHandler}
+                >
+                  확인
+                </button>
               </div>
-              <button
-                className={classes.userIntroModifyButton}
-                onClick={onShowIntroUpdateHandler}
-              >
-                소개글 수정
-              </button>
-            </div>
-          )}
+            ) : (
+              <div className={classes.userIntroWrap}>
+                <div
+                  classname={classes.userIntro}
+                  style={{ whiteSpace: "pre-line", height: "163px" }}
+                >
+                  {introduce}
+                </div>
+
+                <button
+                  className={classes.userIntroModifyButton}
+                  onClick={onShowIntroUpdateHandler}
+                >
+                  소개글 수정
+                </button>
+              </div>
+            )}
+          </div>
         </div>
       </div>
     </Fragment>

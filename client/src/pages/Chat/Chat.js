@@ -6,8 +6,8 @@ import React, {
   useState,
 } from "react";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
-import Sidebar from "../../components/chat/Sidebar";
-import ChatRoom from "../../components/chat/ChatRoom.js";
+import Sidebar from "../../components/Chat/Sidebar";
+import ChatRoom from "../../components/Chat/ChatRoom.js";
 import { isEqual } from "lodash";
 
 import classes from "../../styles/chat/Chat.module.css";

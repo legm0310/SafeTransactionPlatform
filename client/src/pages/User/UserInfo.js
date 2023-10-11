@@ -2,11 +2,11 @@ import React, { Fragment, useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useLocation, useParams } from "react-router-dom";
 import Button from "../../components/common/Button";
-import SaleList from "../../components/user/SaleList";
-import ReservedProduct from "../../components/user/ReservedProduct";
-import PurchasedProduct from "../../components/user/PurchasedProduct";
-import WishList from "../../components/user/WishList";
-import UserProfile from "../../components/user/UserProfile";
+import SaleList from "../../components/User/SaleList";
+import ReservedProduct from "../../components/User/ReservedProduct";
+import PurchasedProduct from "../../components/User/PurchasedProduct";
+import WishList from "../../components/User/WishList";
+import UserProfile from "../../components/User/UserProfile";
 
 import classes from "../../styles/user/UserInfo.module.css";
 

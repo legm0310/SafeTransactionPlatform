@@ -8,16 +8,16 @@ import { setLoadings } from "../../_actions/uiAction";
 import { getProduct, purchase } from "../../_actions/productAction";
 import { addRoom, getRooms } from "../../_actions/chatAction";
 
-import DetailSlide from "../../components/detailProduct/DetailSlide";
+import DetailSlide from "../../components/Detail/DetailSlide";
 import { FaHeart } from "react-icons/fa";
 import { TbMessageCircle2Filled } from "react-icons/tb";
 import { IoCart } from "react-icons/io5";
 import Button from "../../components/common/Button";
-import ProductSellor from "../../components/detailProduct/ProductSellor";
-import ProductInformation from "../../components/detailProduct/ProductInformation";
+import ProductSellor from "../../components/Detail/ProductSellor";
+import ProductInformation from "../../components/Detail/ProductInformation";
 import Loading from "../../components/common/Loading";
 
-import classes from "../../styles/product/Detail.module.css";
+import classes from "../../styles/detail/Detail.module.css";
 import { closeSnackbar, useSnackbar } from "notistack";
 
 const Detail = () => {

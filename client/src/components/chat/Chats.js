@@ -41,7 +41,8 @@ const Chats = () => {
               to={`/chat/0?exists=false&user=${userId}&seller=${sellerId}&sellerName=${sellerName}&prod=${productId}`}
             >
               <div className={classes.userChat}>
-                <img src={defaultProfile} alt="" className={classes.testImg} />
+                <img src={defaultProfile} alt="" />
+
                 <div className={classes.userChatInfo}>
                   <span>{sellerName}</span>
                 </div>

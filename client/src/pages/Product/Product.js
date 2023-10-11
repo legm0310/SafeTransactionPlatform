@@ -2,9 +2,9 @@ import React, { Fragment, useState, useEffect } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { getSearchRecentProducts } from "../../_actions/productAction";
-import RecentProductsList from "../../components/product/RecentProducts";
-import CategoryBar from "../../components/product/CategoryBar";
-import ProductCard from "../../components/product/ProductCard";
+import RecentProductsList from "../../components/Product/RecentProducts";
+import CategoryBar from "../../components/Product/CategoryBar";
+import ProductCard from "../../components/Product/ProductCard";
 import Paging from "../../components/common/Paging";
 import { getItem } from "../../utils";
 
@@ -54,18 +54,20 @@ const Product = (props) => {
   return (
     <Fragment>
       <div className={classes.mainBox}>
-        <div className={classes.categoryBar}>
-          <CategoryBar onCategoryClick={onCategoryClick} />
-          {/* <button onClick={handleResetFilter}>필터링 초기화</button> */}
-        </div>
-        <div className={classes.prdouctCardWrap}>
-          {selectedCategory ? (
-            <ProductCard filteredProducts={filteredProducts} />
-          ) : (
-            // (<Paging />)
+        <div className={classes.productWrap}>
+          <div className={classes.categoryBar}>
+            <CategoryBar onCategoryClick={onCategoryClick} />
+            {/* <button onClick={handleResetFilter}>필터링 초기화</button> */}
+          </div>
+          <div className={classes.prdouctCardWrap}>
+            {selectedCategory ? (
+              <ProductCard filteredProducts={filteredProducts} />
+            ) : (
+              // (<Paging />)
 
-            <RecentProductsList />
-          )}
+              <RecentProductsList />
+            )}
+          </div>
         </div>
       </div>
     </Fragment>

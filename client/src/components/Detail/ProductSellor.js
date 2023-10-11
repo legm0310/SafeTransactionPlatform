@@ -1,7 +1,7 @@
 import React, { Fragment } from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import classes from "../../styles/product/Detail.module.css";
+import classes from "../../styles/detail/Detail.module.css";
 import defaultProfile from "../../assets/defaultProfile.png";
 
 const ProductSellor = () => {

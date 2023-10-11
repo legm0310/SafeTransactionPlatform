@@ -18,7 +18,7 @@ const Header = (props, { wish }) => {
   const [isScrolled, setIsScrolled] = useState(false);
 
   const handleScroll = () => {
-    if (window.scrollY > 200) {
+    if (window.scrollY > 150) {
       setIsScrolled(true);
     } else {
       setIsScrolled(false);
