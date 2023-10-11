@@ -110,19 +110,10 @@ class UserService {
     return result;
   }
 
-  async updateUserName(id, newName) {
-    console.log(id, newName);
+  async updateUserName(id, newName, newIntroduce) {
+    console.log("User : ", id, newName, newIntroduce);
     const updated = await this.User.update(
-      { user_name: newName },
-      { where: { id: id } }
-    );
-    return updated;
-  }
-
-  async updateIntroduce(id, newIntroduce) {
-    console.log(id, newIntroduce);
-    const updated = await this.User.update(
-      { introduce: newIntroduce },
+      { user_name: newName, introduce: newIntroduce },
       { where: { id: id } }
     );
     return updated;
