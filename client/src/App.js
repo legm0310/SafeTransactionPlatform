@@ -3,14 +3,14 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { useDispatch, useSelector, shallowEqual } from "react-redux";
 import { auth } from "./_actions/userAction";
 
-import Header from "./components/headers/Header";
+import Header from "./components/Headers/Header";
 import Home from "./pages/Home/Home";
 import Product from "./pages/Product/Product";
 import AddProduct from "./pages/AddProduct/AddProduct";
 import Chat from "./pages/Chat/Chat";
 import Login from "./pages/Auth/Login";
 import Register from "./pages/Auth/Register";
-import Detail from "./pages/DetailProduct/Detail";
+import Detail from "./pages/Detail/Detail";
 import Notice from "./pages/Notice/Notice";
 import Auth from "./hoc/auth";
 import Loading from "./components/common/Loading";
