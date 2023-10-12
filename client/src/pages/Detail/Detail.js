@@ -222,27 +222,6 @@ const Detail = () => {
           <section className={classes.informationWrap}>
             <div className={classes.prodInformation}>
               <div className={classes.prodInfoHeader}></div>
-              {/* <div className={classes.prodInfoButton}>
-              <Button onClick={() => onMenuHandler("productInformation")}>
-                <div
-                  className={`${classes.infoButton} ${
-                    activeMenu === "productInformation" ? classes.active : ""
-                  }`}
-                >
-                  상품정보
-                </div>
-              </Button>
-
-              <Button onClick={() => onMenuHandler("productStore")}>
-                <div
-                  className={`${classes.storeButton} ${
-                    activeMenu === "productStore" ? classes.active : ""
-                  }`}
-                >
-                  판매자정보
-                </div>
-              </Button>
-            </div> */}
               <div className={classes.productInfo}>
                 <div className={classes.productInfoHeader}>상품정보</div>
                 <div className={classes.ProdinfoExplanation}>
@@ -255,11 +234,6 @@ const Detail = () => {
                   <ProductSellor />
                 </div>
               </div>
-
-              {/* <div className={classes.ProdinfoExplanation}>
-              {activeMenu === "productStore" && <ProductStore />}
-              {activeMenu === "productInformation" && <ProductInformation />}
-            </div> */}
             </div>
           </section>
 
