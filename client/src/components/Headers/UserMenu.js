@@ -32,7 +32,7 @@ import {
 const UserSection = (props) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { userId, loadWishList, userDetail } = useSelector(
+  const { userId, loadWishList, authCheck } = useSelector(
     (state) => state.user
   );
   const { enqueueSnackbar } = useSnackbar();
@@ -378,9 +378,9 @@ const UserSection = (props) => {
           >
             <AccountCircle sx={{ fontSize: 30 }} />
             <Typography>
-              {userDetail?.userData?.user_name.length > 3
-                ? `${userDetail.userData?.user_name.slice(0, 2)}..`
-                : userDetail?.userData?.user_name}{" "}
+              {authCheck?.userData?.user_name.length > 3
+                ? `${authCheck.userData?.user_name.slice(0, 2)}..`
+                : authCheck?.userData?.user_name}{" "}
               님
             </Typography>
           </IconButton>
