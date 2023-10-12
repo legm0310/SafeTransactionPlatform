@@ -49,7 +49,7 @@ module.exports = {
     const userId = req.params.id;
     const newName = req.body.newName;
     const newIntroduce = req.body.newIntroduce;
-    console.log("TeST : ", newName, newIntroduce);
+    // console.log("TeST : ", newName, newIntroduce);
     const updated = await userServiceInstance.updateUserName(
       userId,
       newName,
