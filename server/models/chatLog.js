@@ -10,20 +10,22 @@ class ChatLog extends Sequelize.Model {
           autoIncrement: true,
           allowNull: false,
         },
-        chat_type: {
-          allowNull: false,
+        type: {
+          allowNull: true,
           type: Sequelize.STRING,
           comment: "텍스트, 이미지 구분",
+          defaultValue: "text",
         },
-        message: {
+        content: {
           allowNull: false,
           type: Sequelize.STRING,
-          comment: "메세지 내용",
+          comment: "채팅 내용",
         },
         check_read: {
           allowNull: false,
           type: Sequelize.BOOLEAN,
-          comment: "메세지 읽음 유무 (1 없애기)",
+          comment: "메세지 읽음 유무 (true/1읽음, false/0읽기전)",
+          defaultValue: 0,
         },
       },
       {

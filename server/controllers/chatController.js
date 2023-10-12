@@ -2,32 +2,32 @@ const { Container } = require("typedi");
 const { catchAsync } = require("../utils");
 
 module.exports = {
-  // getChats: catchAsync(async (req, res) => {
-  //   const chatServiceInstance = await Container.get("chatService");
-  //   const params = req.query;
-  //   const { pages, chatList } = await chatServiceInstance.getChats(params);
-  //   res.status(200).json({
-  //     getChatsSuccess: true,
-  //     totalPage: pages,
-  //     chats: chatList,
-  //   });
-  // }),
   addRoom: catchAsync(async (req, res) => {
     const chatServiceInstance = await Container.get("chatService");
-    const chatRoom = await chatServiceInstance.createRoom(req.body);
+    const roomData = req.body;
+    const { room, result } = await chatServiceInstance.createRoom(roomData);
     res.status(201).json({
       addRoomSuccess: true,
-      room: chatRoom,
+      result: result,
+      room: room,
     });
   }),
 
-  getRoom: catchAsync(async (req, res) => {
+  getChats: catchAsync(async (req, res) => {
     const chatServiceInstance = await Container.get("chatService");
-    const roomId = req.params.id;
-    const room = await chatServiceInstance.getRoomById(roomId);
+    const chatRoomData = {
+      userId: res.locals.userId,
+      roomId: req.params.id,
+      lastId: req.query.lastId,
+      limit: req.query.limit,
+    };
+    const { roomInfo, chats } = await chatServiceInstance.getChatsByRoom(
+      chatRoomData
+    );
     res.status(200).json({
-      getRoomSuccess: true,
-      room: room,
+      getChatsSuccess: true,
+      roomInfo,
+      chats,
     });
   }),
 
@@ -37,7 +37,17 @@ module.exports = {
     const rooms = await chatServiceInstance.getRooms(userId);
     res.status(200).json({
       getRoomsSuccess: true,
-      rooms: rooms,
+      rooms,
+    });
+  }),
+
+  deleteRoom: catchAsync(async (req, res) => {
+    const chatServiceInstance = await Container.get("chatService");
+    const roomData = { userId: res.locals.userId, roomId: req.params.id };
+    const result = await chatServiceInstance.deleteRoom(roomData);
+    res.status(200).json({
+      deleteRoomSuccess: result,
+      deletedRoom: req.params.id,
     });
   }),
 };

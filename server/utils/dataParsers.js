@@ -9,7 +9,7 @@ const genCondition = (params) => {
     };
     return { where };
   }
-  const { lastId, search, status, page, sellerId } = params;
+  const { lastId, search, status, page, sellerId, category } = params;
   const limit = 12;
   const offset = +page && +page > 1 ? 0 + (page - 1) * limit : null;
 
@@ -18,6 +18,7 @@ const genCondition = (params) => {
     ...(search && { title: { [Op.like]: `%${search}%` } }),
     ...(status && { status }),
     ...(sellerId && { sellerId }),
+    ...(category && { category: { [Op.like]: `${category}` } }),
   };
   return { where, offset, limit };
 };
@@ -32,7 +33,15 @@ const generateGetProductsQuery = (params) => {
     ],
     offset: offset,
     limit: limit,
-    attributes: ["id", "status", "title", "price", "images", "created_at"],
+    attributes: [
+      "id",
+      "status",
+      "title",
+      "price",
+      "category",
+      "images",
+      "created_at",
+    ],
   };
   return query;
 };

@@ -1,98 +1,94 @@
 module.exports = (io) => {
+  const db = require("../models");
+  const { Container } = require("typedi");
+
   io.on("connection", (socket) => {
     const req = socket.request;
     const ip = req.headers["x-forwarded-for"] || req.connection.remoteAddress;
-    console.log("✨Socket connected✨", ip, socket.id, req.ip);
+    console.log(
+      "✨Socket connected✨",
+      ip,
+      socket.id,
+      req.ip,
+      socket.rooms,
+      "Current User Count : ",
+      io.engine.clientsCount
+    );
 
     socket.on("disconnect", () => {
-      clearInterval(socket.interval);
+      console.log("disconnected", socket.id);
+      setTimeout(() => {
+        console.log(io.engine.clientsCount);
+      }, 1000);
+    });
+
+    socket.on("connect_error", (error) => {
+      console.log("Connection error:", error);
     });
 
     socket.on("error", (error) => {
-      console.log(error);
+      throw error;
     });
 
-    socket.on("login", ({ userId }) => {
-      socket.join(userId);
+    socket.on("onJoinRoom", (roomId) => {
+      socket.join(roomId);
+      console.log(socket.rooms);
     });
 
-    // socket.on("sendMessage", (message, callback) => {
-    //   const user = getUser(socket.id);
-    //   console.log(`${user.name} : "${message}"`);
-    //   // console.log(typeof message, message)
-    //   io.to(user.room).emit("message", {
-    //     user: user.name,
-    //     text: message,
-    //   });
-    //   callback();
-    // });
+    socket.on("getMyRooms", (callback) => {
+      const rooms = Object.keys(socket.rooms);
+      console.log(rooms);
+      callback(rooms);
+    });
 
-    socket.on("message", ({ userId, message }) => {
-      io.emit("message", { userId, message });
+    socket.on(
+      "onAddRoomAndSend",
+      async ({ userId, sellerId, roomName, chat }, callback) => {
+        const chatServiceInstance = await Container.get("chatService");
+        try {
+          const { room, result } = await chatServiceInstance.createRoom({
+            userId,
+            sellerId,
+            roomName,
+          });
+
+          await db.ChatLog.create({
+            content: chat,
+            sender_id: userId,
+            room_id: room.id,
+          });
+          callback({ result: result, roomId: room.id });
+        } catch (err) {
+          callback({ result: "error", error: err.message });
+        }
+      }
+    );
+
+    socket.on("onSend", async ({ user, roomId, chat }) => {
+      console.log(user, roomId, chat);
+      await db.ChatLog.create({
+        content: chat,
+        sender_id: user.id,
+        room_id: roomId,
+      });
+      console.log(socket.rooms, socket.connected, roomId);
+      socket.broadcast
+        .to(+roomId)
+        .emit("onReceiveSend", { user: user, chat: chat, roomId: roomId });
+    });
+
+    socket.on("onRead", async ({ user, roomId, chat }) => {
+      await db.ChatLog.update(
+        { check_read: true },
+        { where: { check_read: false } }
+      );
+      socket.broadcast.to(roomId).emit("onReceiveRead", { user, chat });
+    });
+
+    socket.on("onLeftRoom", async ({ userId, roomId }, callback) => {
+      const chatServiceInstance = await Container.get("chatService");
+      const result = await chatServiceInstance.deleteRoom({ userId, roomId });
+      callback(result);
     });
   });
 };
-
-// socket.on(EVENT.JOIN_ROOM, async ({ userId, qUserId }) => {
-//   try {
-//     const roomNum = await roomNumMaker(userId, qUserId);
-//     await chatService.createChatRoom({ userId, qUserId, roomNum });
-//     socket.join(roomNum);
-//     socket.leave(userId);
-//   } catch (error) {
-//     console.log(error);
-//   }
-// });
-
-// socket.io 동작
-// io.on("connection", (socket) => {
-//   const roomNumMaker = (x, y) => {
-//     const arr = [x, y];
-//     arr.sort((a, b) => a - b);
-//     let roomNum = arr[0].toString() + arr[1];
-//     return roomNum;
-//   };
-
-//   socket.on("join", ({ name, room }, callback) => {
-//     const { error, user } = addUser({ id: socket.id, name, room });
-//     console.log("유저이름 : " + user?.["id"]);
-
-//     if (error) callback({ error: "에러가 발생했습니다." });
-
-//     socket.emit("message", {
-//       user: "admin",
-//       text: `${user?.name}, ${user?.room}에 오신 것을 환영합니다.`,
-//     });
-//     io.to(user.room).emit("roomData", {
-//       room: user.room,
-//       users: getUsersInRoom(user.room),
-//     });
-//     socket.join(user.room);
-//     callback();
-//   });
-
-//   socket.on("sendMessage", (message, callback) => {
-//     const user = getUser(socket.id);
-//     console.log(`${user.name} : "${message}"`);
-//     // console.log(typeof message, message)
-//     io.to(user.room).emit("message", {
-//       user: user.name,
-//       text: message,
-//     });
-//     callback();
-//   });
-//   socket.on("disconnect", () => {
-//     const user = removeUser(socket.id);
-//     if (user) {
-//       io.to(user.room).emit("message", {
-//         user: "admin",
-//         text: `${user.name}님이 퇴장하셨습니다.`,
-//       });
-//       io.to(user.room).emit("roomData", {
-//         room: user.room,
-//         users: getUsersInRoom(user.room),
-//       });
-//     }
-//     console.log("유저가 나갔습니다.");
-//   });
-// });

@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const utils = require("../utils");
 const { chatController } = require("../controllers");
+const { isAuth } = require("../middlewares");
 
 /** chat 관련 라우팅 함수
  * @param {Function} app 라우터 설정을 위한 express.Router()
@@ -9,9 +10,15 @@ const { chatController } = require("../controllers");
  *
  */
 module.exports = (app) => {
-  app.use("/chats", router);
+  app.use("/chat", router);
 
-  router.get("/:id", chatController.getRoom);
-  router.post("/", chatController.addRoom);
-  // router.get("/", chatController.getChats);
+  // router.post("/createTest", chatController.createTest);
+  router.delete("/deleteTest", chatController.deleteRoom);
+
+  router.get("/", isAuth, chatController.getRooms);
+  router.get("/:id", isAuth, chatController.getChats);
+  router.post("/room", isAuth, chatController.addRoom);
+  router.delete("/:id", isAuth, chatController.deleteRoom);
+
+  // router.post("/addMessage", chatController.addMessage);
 };

@@ -1,4 +1,5 @@
 const { Container } = require("typedi");
+const { Op } = require("sequelize");
 const {
   InternalServerError,
   generateGetProductsQuery,
@@ -8,6 +9,7 @@ const {
 class ProductService {
   constructor() {
     this.Product = Container.get("productModel");
+    this.User = Container.get("userModel");
   }
 
   async addProduct(productData) {
@@ -20,8 +22,8 @@ class ProductService {
     const query = generateGetProductsQuery(params);
     const { count, rows } = await this.Product.findAndCountAll(query);
     const pages = Math.ceil(count / 12);
-    console.log("query", query);
-    console.log(rows);
+    // console.log("query", query);
+    // console.log(rows);
     const extractedList = extractProductsList(rows);
     return { pages, prodList: extractedList };
   }
@@ -29,7 +31,7 @@ class ProductService {
   //infinite scrolling 방식 (lastId)
   async getProducts(params) {
     const query = generateGetProductsQuery(params);
-    console.log("query", query);
+    // console.log("query", query);
     const products = await this.Product.findAll(query);
     if (!products) throw new InternalServerError("Internal Server Error");
 
@@ -41,6 +43,15 @@ class ProductService {
     const product = await this.Product.findByPk(id);
     const productData = product.toJSON();
     productData.images = productData.images.split(",");
+    const user = await this.User.findOne({
+      attributes: ["user_name"],
+      where: {
+        id: productData.seller_id,
+      },
+      raw: true,
+    });
+    productData.seller_name = user.user_name;
+    // console.log(productData);
     return productData;
   }
 

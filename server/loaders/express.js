@@ -17,7 +17,11 @@ const { secure, errorConvert, globalErrorHandler } = require("../middlewares");
  */
 module.exports = async ({ app }) => {
   //Http 요청, 응답 로깅
-  app.use(morgan("dev"));
+  if (config.nodeEnv === "production") {
+    app.use(morgan("combine"));
+  } else {
+    app.use(morgan("dev"));
+  }
 
   //static 디렉터리 설정
   app.use(express.static(path.join(__dirname, "public")));
