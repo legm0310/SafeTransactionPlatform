@@ -7,14 +7,16 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
   margin-top: 20px;
 }
 
 .latestProductContainer {
   display: flex;
-  flex-wrap: wrap;
   justify-content: flex-start;
+  flex-wrap: wrap;
   margin: 0 auto;
+  flex-grow: 1;
 }
 
 /*상품 카드*/
@@ -24,7 +26,6 @@
   display: block;
   margin-right: 30px;
   margin-bottom: 30px;
-  flex-grow: 1;
 }
 
 .latestProduct:hover {
@@ -43,13 +44,13 @@ a {
 
 /*상품 이미지*/
 .imgBox {
-  width: 100%;
+  width: 277.5px;
   height: 276px;
   position: relative;
 }
 
 .prodImg {
-  width: 100%;
+  width: 277.5px;
   height: 100%;
   border-radius: 10px;
 }
@@ -122,4 +123,77 @@ a {
   height: 40px;
   border-radius: 4px;
   box-shadow: 2px 2px rgb(220, 220, 220);
+}
+
+@media (max-width: 1260px) {
+  .latestProduct {
+    width: 216px;
+  }
+
+  .imgBox {
+    width: 216px;
+    aspect-ratio: 1 / 1;
+    height: auto;
+  }
+
+  .prodImg {
+    width: 216px;
+  }
+
+  .reserved {
+    width: 216px;
+    height: 216px;
+  }
+}
+
+@media (max-width: 980px) {
+  .latestProduct {
+    width: 155px;
+  }
+
+  .imgBox {
+    width: 155px;
+  }
+
+  .prodImg {
+    width: 155px;
+  }
+
+  .reserved {
+    width: 155px;
+    height: 155px;
+  }
+}
+
+@media (max-width: 500px) {
+  .latestProductSection h1 {
+    font-size: 22px;
+    margin-left: 10px;
+  }
+
+  .latestProductContainer {
+    justify-content: space-evenly;
+  }
+
+  .latestProduct {
+    margin: 0;
+    width: 45%;
+  }
+
+  .latestProduct:nth-child(4n) {
+    margin: 0;
+  }
+
+  .imgBox {
+    width: 100%;
+  }
+
+  .prodImg {
+    width: 100%;
+  }
+
+  .reserved {
+    width: 100%;
+    height: 100%;
+  }
 }
