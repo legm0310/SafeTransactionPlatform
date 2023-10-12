@@ -44,20 +44,19 @@ module.exports = {
     });
   }),
 
-  updateUserName: catchAsync(async (req, res) => {
+  updateUser: catchAsync(async (req, res) => {
     const userServiceInstance = await Container.get("userService");
     const userId = req.params.id;
     const newName = req.body.newName;
     const newIntroduce = req.body.newIntroduce;
     // console.log("TeST : ", newName, newIntroduce);
-    const updated = await userServiceInstance.updateUserName(
+    const updated = await userServiceInstance.updateUser(
       userId,
       newName,
       newIntroduce
     );
     res.status(200).json({
-      updateUserName: true,
-      updated: updated,
+      updateUserSuccess: true,
     });
   }),
 };
