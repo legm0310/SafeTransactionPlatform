@@ -12,9 +12,13 @@ const ProductSellor = () => {
   return (
     <Fragment>
       <div className={classes.ProductSellorWrap}>
-        <div>
+        <Link
+          className={classes.userInfoLink}
+          to={`/user/${prodDetail?.seller_id}`}
+        >
           <img src={defaultProfile} alt="" className={classes.testImg} />
-        </div>
+        </Link>
+
         <div className={classes.sellerName}>
           <Link
             className={classes.userInfoLink}

@@ -1,0 +1,122 @@
+.container {
+  max-width: 740px;
+  margin: 0 auto;
+}
+
+.main{
+  position: relative;
+  padding: 100px 0;
+  color: #fff;
+  text-align: center;
+}
+
+.main p{
+  font-size: 50px;
+  margin: 20px 0;
+}
+
+.mainImgWrap{
+  position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+}
+
+.sectionImg{
+  background: url(../../assets/manual/manualMainImg.png);
+  display: flex;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+}
+
+.mainTyping {
+  text-align: center;
+  font-size: 60px;
+  margin: 50px;
+}
+
+.mainBottom h2 {
+  font-size: 40px;
+  margin-top: 3.2rem;
+  margin-bottom: 1.6rem;
+}
+
+.mainBottom p {
+  margin : 50px 0;
+  font-size: 20px;
+  font-weight: 100;
+  color: rgba(0, 0, 0, 0.845);
+}
+.manualImg01 {
+  width: 100%;
+}
+.manualImg02 {
+  width: 100%;
+}
+.manualImg03 {
+  width: 50%;
+  margin: auto;
+  display: block;
+}
+.manualImg04 {
+  width: 50%;
+  margin: auto;
+  display: block;
+}
+.manualImg05 {
+  width: 100%;
+}
+.manualImg06 {
+  width: 100%;
+}
+.manualImg07 {
+  width: 50%;
+  margin: auto;
+  display: block;
+}
+.manualImg08 {
+  width: 50%;
+  margin: auto;
+  display: block;
+}
+.manualImg09 {
+  width: 100%;
+}
+.manualImg10 {
+  width: 50%;
+  margin: auto;
+  display: block;
+}
+.manualImg11 {
+  width: 50%;
+  margin: auto;
+  display: block;
+}
+.manualImg12 {
+  width: 100%;
+}
+.manualImg13 {
+  width: 50%;
+  margin: auto;
+  display: block;
+}
+.manualImg15 {
+  width: 50%;
+  margin: auto;
+  display: block;
+}
+.manualImg14 {
+  width: 100%;
+}
+
+.typingButton button{
+  color: rgb(255, 255, 255);
+  background-color: #18c3b7;
+  border-radius: 6px;
+  width: 250px;
+  font-size: 25px;
+  line-height: 3rem;
+}

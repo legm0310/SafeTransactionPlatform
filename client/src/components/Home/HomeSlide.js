@@ -27,9 +27,9 @@ const HomeSlide = () => {
       <div className={classes.Slide}>
         <StyledSlider {...settings}>
           <div className={classes.firstSlide}>
-            {/* <Link to="/banner"> */}
-            <img src={bannerImg1} alt="" className={classes["bannerImg1"]} />
-            {/* </Link> */}
+            <Link to="/manual">
+              <img src={bannerImg1} alt="" className={classes["bannerImg1"]} />
+            </Link>
           </div>
           <div>
             {/* <Link to="/notice/2"> */}
@@ -52,7 +52,7 @@ export default HomeSlide;
 const StyledSlider = styled(Slider)`
   .slick-prev {
     z-index: 1;
-    left: 30px;
+    left: 60px;
   }
 
   .slick-next {

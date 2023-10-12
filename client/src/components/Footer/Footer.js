@@ -1,4 +1,5 @@
 import { Fragment } from "react";
+import { Link } from "react-router-dom";
 
 import { FiInstagram } from "react-icons/fi";
 import classes from "../../styles/Footer/Footer.module.css";
@@ -24,42 +25,80 @@ const Footer = () => {
             <div className={classes.social}>
               <h3>Social</h3>
               <ul className={classes.socialList}>
-                <li className={classes.listContent}>
-                  <FiInstagram className={classes["instagramImg"]} />
-                  Instagram(이규민)
+                <li>
+                  <a
+                    href="https://www.instagram.com/9_miin/"
+                    target="_blank"
+                    className={classes.listContent}
+                  >
+                    <FiInstagram className={classes["instagramImg"]} />
+                    이규민
+                  </a>
                 </li>
-                <li className={classes.listContent}>
-                  <FiInstagram className={classes["instagramImg"]} />
-                  Instagram(이승훈)
+                <li>
+                  <a
+                    href="https://www.instagram.com/ho_onii_/"
+                    target="_blank"
+                    className={classes.listContent}
+                  >
+                    <FiInstagram className={classes["instagramImg"]} />
+                    이승훈
+                  </a>
                 </li>
-                <li className={classes.listContent}>
-                  <FiInstagram className={classes["instagramImg"]} />
-                  Instagram(성우상)
+                <linearGradient>
+                  <a
+                    href="https://www.instagram.com/woo.__.sang/"
+                    target="_blank"
+                    className={classes.listContent}
+                  >
+                    <FiInstagram className={classes["instagramImg"]} />
+                    성우상
+                  </a>
+                </linearGradient>
+                <li>
+                  <a
+                    href="https://www.instagram.com/im_jun0_/"
+                    target="_blank"
+                    className={classes.listContent}
+                  >
+                    <FiInstagram className={classes["instagramImg"]} />
+                    전준영
+                  </a>
                 </li>
-                <li className={classes.listContent}>
-                  <FiInstagram className={classes["instagramImg"]} />
-                  Instagram(전준영)
+                <li>
+                  <a
+                    href="https://www.instagram.com/ldhokrj/"
+                    target="_blank"
+                    className={classes.listContent}
+                  >
+                    <FiInstagram className={classes["instagramImg"]} />
+                    최병준
+                  </a>
                 </li>
-                <li className={classes.listContent}>
-                  <FiInstagram className={classes["instagramImg"]} />
-                  Instagram(최병준)
-                </li>
-                <li className={classes.listContent}>
-                  <FiInstagram className={classes["instagramImg"]} />
-                  Instagram(김준현)
+                <li>
+                  <a
+                    href="https://www.instagram.com/junhyeon_e/"
+                    target="_blank"
+                    className={classes.listContent}
+                  >
+                    <FiInstagram className={classes["instagramImg"]} />
+                    김준현
+                  </a>
                 </li>
               </ul>
             </div>
             <div>
               <h3>Information</h3>
               <ul className={classes.infoList}>
-                <li>이용절차</li>
+                <Link to="/manual">
+                  <li>판다 메뉴얼</li>
+                </Link>
               </ul>
             </div>
             <div>
               <h3>Contact</h3>
               <ul className={classes.contactList}>
-                <li>대표: 이귀민</li>
+                <li>대표: 이규민</li>
                 <li>tel: 010-7763-7514</li>
               </ul>
             </div>
