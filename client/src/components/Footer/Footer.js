@@ -24,30 +24,45 @@ const Footer = () => {
             <div className={classes.social}>
               <h3>Social</h3>
               <ul className={classes.socialList}>
-                <li className={classes.listContent}>
-                  <FiInstagram className={classes["instagramImg"]} />
-                  Instagram(이규민)
-                </li>
-                <li className={classes.listContent}>
-                  <FiInstagram className={classes["instagramImg"]} />
-                  Instagram(이승훈)
-                </li>
-                <li className={classes.listContent}>
-                  <FiInstagram className={classes["instagramImg"]} />
-                  Instagram(성우상)
-                </li>
-                <li className={classes.listContent}>
-                  <FiInstagram className={classes["instagramImg"]} />
-                  Instagram(전준영)
-                </li>
-                <li className={classes.listContent}>
-                  <FiInstagram className={classes["instagramImg"]} />
-                  Instagram(최병준)
-                </li>
-                <li className={classes.listContent}>
-                  <FiInstagram className={classes["instagramImg"]} />
-                  Instagram(김준현)
-                </li>
+                <a href="https://www.instagram.com/9_miin/" target="_blank">
+                  <li className={classes.listContent}>
+                    <FiInstagram className={classes["instagramImg"]} />
+                    이규민
+                  </li>
+                </a>
+                <a href="https://www.instagram.com/ho_onii_/" target="_blank">
+                  <li className={classes.listContent}>
+                    <FiInstagram className={classes["instagramImg"]} />
+                    이승훈
+                  </li>
+                </a>
+                <a
+                  href="https://www.instagram.com/woo.__.sang/"
+                  target="_blank"
+                >
+                  <li className={classes.listContent}>
+                    <FiInstagram className={classes["instagramImg"]} />
+                    성우상
+                  </li>
+                </a>
+                <a href="https://www.instagram.com/im_jun0_/" target="_blank">
+                  <li className={classes.listContent}>
+                    <FiInstagram className={classes["instagramImg"]} />
+                    전준영
+                  </li>
+                </a>
+                <a href="https://www.instagram.com/ldhokrj/" target="_blank">
+                  <li className={classes.listContent}>
+                    <FiInstagram className={classes["instagramImg"]} />
+                    최병준
+                  </li>
+                </a>
+                <a href="https://www.instagram.com/junhyeon_e/" target="_blank">
+                  <li className={classes.listContent}>
+                    <FiInstagram className={classes["instagramImg"]} />
+                    김준현
+                  </li>
+                </a>
               </ul>
             </div>
             <div>
