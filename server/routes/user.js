@@ -17,7 +17,7 @@ module.exports = (app) => {
   router.delete("/wishlist/:id", isAuth, userController.deleteWishList);
 
   // 유저 정보 수정
-  router.put("/userName/:id", userController.updateUserName);
+  router.put("/userName/:id", isAuth, userController.updateUser);
 
   router.get("/:id", userController.getUser);
 };

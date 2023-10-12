@@ -110,7 +110,7 @@ class UserService {
     return result;
   }
 
-  async updateUserName(id, newName, newIntroduce) {
+  async updateUser(id, newName, newIntroduce) {
     // console.log("User : ", id, newName, newIntroduce);
     const updated = await this.User.update(
       { user_name: newName, introduce: newIntroduce },
