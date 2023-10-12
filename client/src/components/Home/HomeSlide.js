@@ -73,7 +73,7 @@ const StyledSlider = styled(Slider)`
     justify-content: center;
 
     li button:before {
-      color: blue;
+      display: none;
     }
 
     li.slick-active button:before {
