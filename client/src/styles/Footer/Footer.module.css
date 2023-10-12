@@ -49,6 +49,10 @@ h3 {
   color: rgb(136, 136, 136);
 }
 
+.infoList li {
+  color: rgb(136, 136, 136);
+}
+
 .contactList {
   list-style: none;
   padding: 0;
