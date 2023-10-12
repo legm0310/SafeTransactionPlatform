@@ -25,45 +25,66 @@ const Footer = () => {
             <div className={classes.social}>
               <h3>Social</h3>
               <ul className={classes.socialList}>
-                <a href="https://www.instagram.com/9_miin/" target="_blank">
-                  <li className={classes.listContent}>
+                <li>
+                  <a
+                    href="https://www.instagram.com/9_miin/"
+                    target="_blank"
+                    className={classes.listContent}
+                  >
                     <FiInstagram className={classes["instagramImg"]} />
                     이규민
-                  </li>
-                </a>
-                <a href="https://www.instagram.com/ho_onii_/" target="_blank">
-                  <li className={classes.listContent}>
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://www.instagram.com/ho_onii_/"
+                    target="_blank"
+                    className={classes.listContent}
+                  >
                     <FiInstagram className={classes["instagramImg"]} />
                     이승훈
-                  </li>
-                </a>
-                <a
-                  href="https://www.instagram.com/woo.__.sang/"
-                  target="_blank"
-                >
-                  <li className={classes.listContent}>
+                  </a>
+                </li>
+                <linearGradient>
+                  <a
+                    href="https://www.instagram.com/woo.__.sang/"
+                    target="_blank"
+                    className={classes.listContent}
+                  >
                     <FiInstagram className={classes["instagramImg"]} />
                     성우상
-                  </li>
-                </a>
-                <a href="https://www.instagram.com/im_jun0_/" target="_blank">
-                  <li className={classes.listContent}>
+                  </a>
+                </linearGradient>
+                <li>
+                  <a
+                    href="https://www.instagram.com/im_jun0_/"
+                    target="_blank"
+                    className={classes.listContent}
+                  >
                     <FiInstagram className={classes["instagramImg"]} />
                     전준영
-                  </li>
-                </a>
-                <a href="https://www.instagram.com/ldhokrj/" target="_blank">
-                  <li className={classes.listContent}>
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://www.instagram.com/ldhokrj/"
+                    target="_blank"
+                    className={classes.listContent}
+                  >
                     <FiInstagram className={classes["instagramImg"]} />
                     최병준
-                  </li>
-                </a>
-                <a href="https://www.instagram.com/junhyeon_e/" target="_blank">
-                  <li className={classes.listContent}>
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://www.instagram.com/junhyeon_e/"
+                    target="_blank"
+                    className={classes.listContent}
+                  >
                     <FiInstagram className={classes["instagramImg"]} />
                     김준현
-                  </li>
-                </a>
+                  </a>
+                </li>
               </ul>
             </div>
             <div>
