@@ -42,7 +42,7 @@ const RecentProductsList = () => {
                     <img
                       src={product.image}
                       className={classes.prodImg}
-                      alt=""
+                      alt=''
                     />
 
                     {product.status === "RESERVED" && (
@@ -68,14 +68,13 @@ const RecentProductsList = () => {
                 </Link>
               </div>
             ))}
-
-            <div className={classes.moreButtonWrap}>
-              {displayMore ? (
-                <Button onClick={onClickMoreProduct}>
-                  <div className={classes.moreButton}>더보기</div>
-                </Button>
-              ) : null}
-            </div>
+          </div>
+          <div className={classes.moreButtonWrap}>
+            {displayMore ? (
+              <Button onClick={onClickMoreProduct}>
+                <div className={classes.moreButton}>더보기</div>
+              </Button>
+            ) : null}
           </div>
         </div>
       </div>
