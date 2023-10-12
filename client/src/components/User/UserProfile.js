@@ -6,11 +6,12 @@ import { getUser, updateUser } from "../../_actions/userAction";
 import classes from "../../styles/user/UserInfo.module.css";
 import { dateFormat } from "../../utils/dataParse";
 import { TextField } from "@mui/material";
+import { useSnackbar } from "notistack";
 import defaultProfile from "../../assets/defaultProfile.png";
 
 const UserProfile = () => {
   const userDetail = useSelector((state) => state.user.userDetail?.userData);
-
+  const myId = useSelector((state) => state.user?.userId);
   const userName = userDetail?.user_name;
   const introduce = userDetail?.introduce;
   const [updateName, setUpdateName] = useState(false);
@@ -20,6 +21,7 @@ const UserProfile = () => {
 
   const dispatch = useDispatch();
   const { id } = useParams();
+  const { enqueueSnackbar } = useSnackbar();
 
   useEffect(() => {
     dispatch(getUser(id));
@@ -43,6 +45,9 @@ const UserProfile = () => {
       .then((response) => {
         console.log(response);
         dispatch(getUser(id));
+        enqueueSnackbar("이름 수정이 완료되었습니다.", {
+          variant: "success",
+        });
       })
       .catch((err) => err);
 
@@ -56,6 +61,9 @@ const UserProfile = () => {
       .then((response) => {
         console.log(response);
         dispatch(getUser(id));
+        enqueueSnackbar("소개글 수정이 완료되었습니다.", {
+          variant: "success",
+        });
       })
       .catch((err) => err);
 
@@ -103,14 +111,20 @@ const UserProfile = () => {
                 </button>
               </div>
             ) : (
-              <div>
+              <div className={classes.nonBorderUserNameWrap}>
                 {userName}
-                <button
-                  className={classes.userNameModifyButton}
-                  onClick={onShowNameUpdateHandler}
-                >
-                  이름 수정
-                </button>
+                {+id === myId ? (
+                  <div>
+                    <button
+                      className={classes.userNameModifyButton}
+                      onClick={onShowNameUpdateHandler}
+                    >
+                      이름 수정
+                    </button>
+                  </div>
+                ) : (
+                  <div></div>
+                )}
               </div>
             )}
           </div>
@@ -133,7 +147,7 @@ const UserProfile = () => {
                     width: "100%",
                   }}
                   InputProps={{
-                    style: { padding: 0 }, // padding을 0으로 설정
+                    style: { padding: "1px" }, // padding을 0으로 설정
                   }}
                   id="outlined-multiline-static"
                   multiline
@@ -157,13 +171,18 @@ const UserProfile = () => {
                 >
                   {introduce}
                 </div>
-
-                <button
-                  className={classes.userIntroModifyButton}
-                  onClick={onShowIntroUpdateHandler}
-                >
-                  소개글 수정
-                </button>
+                {+id === myId ? (
+                  <div>
+                    <button
+                      className={classes.userIntroModifyButton}
+                      onClick={onShowIntroUpdateHandler}
+                    >
+                      소개글 수정
+                    </button>
+                  </div>
+                ) : (
+                  <div></div>
+                )}
               </div>
             )}
           </div>
