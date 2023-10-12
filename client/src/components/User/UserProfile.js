@@ -166,7 +166,7 @@ const UserProfile = () => {
             ) : (
               <div className={classes.userIntroWrap}>
                 <div
-                  classname={classes.userIntro}
+                  className={classes.userIntro}
                   style={{ whiteSpace: "pre-line", height: "163px" }}
                 >
                   {introduce}

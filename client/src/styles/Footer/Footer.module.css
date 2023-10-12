@@ -73,3 +73,15 @@ h3 {
 .footerBottom span {
   color: black;
 }
+
+a {
+  text-decoration: none;
+  color: rgb(136, 136, 136);
+}
+
+a:hover,
+a:active,
+a:visited,
+a:focus {
+  text-decoration: none;
+}
