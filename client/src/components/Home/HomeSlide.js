@@ -52,7 +52,7 @@ export default HomeSlide;
 const StyledSlider = styled(Slider)`
   .slick-prev {
     z-index: 1;
-    left: 30px;
+    left: 60px;
   }
 
   .slick-next {
