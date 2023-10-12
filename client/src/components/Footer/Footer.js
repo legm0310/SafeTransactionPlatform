@@ -1,4 +1,5 @@
 import { Fragment } from "react";
+import { Link } from "react-router-dom";
 
 import { FiInstagram } from "react-icons/fi";
 import classes from "../../styles/Footer/Footer.module.css";
@@ -68,13 +69,15 @@ const Footer = () => {
             <div>
               <h3>Information</h3>
               <ul className={classes.infoList}>
-                <li>이용절차</li>
+                <Link to="/manual">
+                  <li>판다 메뉴얼</li>
+                </Link>
               </ul>
             </div>
             <div>
               <h3>Contact</h3>
               <ul className={classes.contactList}>
-                <li>대표: 이귀민</li>
+                <li>대표: 이규민</li>
                 <li>tel: 010-7763-7514</li>
               </ul>
             </div>
