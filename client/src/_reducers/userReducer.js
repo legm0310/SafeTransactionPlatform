@@ -13,8 +13,7 @@ import {
   LOGIN_USER,
   LOGOUT_USER,
   AUTH_USER,
-  UPDATE_USERNAME,
-  UPDATE_INTRODUCE,
+  UPDATE_USER,
   ADD_WISHLIST,
   GET_WISHLIST,
   DELETE_WISHLIST,
@@ -76,10 +75,8 @@ export default function (state = initialState, action) {
         userId: action.payload.userData?.id,
       };
       break;
-    case UPDATE_USERNAME:
-      return { ...state, updateUserName: action.payload };
-    case UPDATE_INTRODUCE:
-      return { ...state, updateUserName: action.payload };
+    case UPDATE_USER:
+      return { ...state, updateUser: action.payload };
     case ADD_WISHLIST: {
       console.log(action.payload.wishList);
       state.loadWishList = action.payload.addWishListSuccess

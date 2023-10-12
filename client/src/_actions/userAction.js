@@ -11,8 +11,7 @@ import {
   LOGIN_USER,
   LOGOUT_USER,
   AUTH_USER,
-  UPDATE_USERNAME,
-  UPDATE_INTRODUCE,
+  UPDATE_USER,
   ADD_WISHLIST,
   GET_WISHLIST,
   DELETE_WISHLIST,
@@ -115,41 +114,23 @@ export function connectWallet() {
   };
 }
 
-export function updateUserName(id, newName) {
+export function updateUser(id, dataToSubmit) {
   return async (dispatch) => {
     try {
-      const res = await authRequest().put(`/api/user/userName/${id}`, newName);
-      console.log("res", res);
-      return dispatch({
-        type: UPDATE_USERNAME,
-        payload: res.data,
-      });
-    } catch (err) {
-      console.log(err);
-      return dispatch({
-        type: UPDATE_USERNAME,
-        payload: err.response.data,
-      });
-    }
-  };
-}
-
-export function updateIntroduce(id, newIntroduce) {
-  return async (dispatch) => {
-    try {
+      console.log(dataToSubmit);
       const res = await authRequest().put(
-        `/api/user/introduce/${id}`,
-        newIntroduce
+        `/api/user/userName/${id}`,
+        dataToSubmit
       );
       console.log("res", res);
       return dispatch({
-        type: UPDATE_INTRODUCE,
+        type: UPDATE_USER,
         payload: res.data,
       });
     } catch (err) {
       console.log(err);
       return dispatch({
-        type: UPDATE_INTRODUCE,
+        type: UPDATE_USER,
         payload: err.response.data,
       });
     }

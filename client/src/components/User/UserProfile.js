@@ -2,11 +2,7 @@ import React, { Fragment, useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 
-import {
-  getUser,
-  updateUserName,
-  updateIntroduce,
-} from "../../_actions/userAction";
+import { getUser, updateUser } from "../../_actions/userAction";
 import classes from "../../styles/user/UserInfo.module.css";
 import { dateFormat } from "../../utils/dataParse";
 import { TextField } from "@mui/material";
@@ -19,19 +15,14 @@ const UserProfile = () => {
   const introduce = userDetail?.introduce;
   const [updateName, setUpdateName] = useState(false);
   const [updateIntro, setUpdateIntro] = useState(false);
-  const [newName, setNewName] = useState({ userName });
-  const [newIntroduce, setNewIntroduce] = useState("");
+  const [newName, setNewName] = useState(userName);
+  const [newIntroduce, setNewIntroduce] = useState(introduce);
 
   const dispatch = useDispatch();
   const { id } = useParams();
 
   useEffect(() => {
     dispatch(getUser(id));
-    //   .then((response) => {
-    //     console.log(response);
-    //   })
-    //   .catch((err) => err);
-    // console.log(userDetail);
   }, [dispatch]);
 
   const onShowNameUpdateHandler = (event) => {
@@ -39,10 +30,16 @@ const UserProfile = () => {
     setUpdateName(true);
   };
 
+  const onShowIntroUpdateHandler = (event) => {
+    event.preventDefault();
+    setUpdateIntro(true);
+  };
+
   const onNameUpdateHandler = (event) => {
     event.preventDefault();
+    if (newName == "") return setUpdateName(false);
 
-    dispatch(updateUserName(id, { new_name: newName }))
+    dispatch(updateUser(id, { newName: newName, newIntroduce: newIntroduce }))
       .then((response) => {
         console.log(response);
         dispatch(getUser(id));
@@ -52,15 +49,10 @@ const UserProfile = () => {
     setUpdateName(false);
   };
 
-  const onShowIntroUpdateHandler = (event) => {
-    event.preventDefault();
-    setUpdateIntro(true);
-  };
-
   const onIntroUpdateHandler = (event) => {
     event.preventDefault();
 
-    dispatch(updateIntroduce(id, { new_introduce: newIntroduce }))
+    dispatch(updateUser(id, { newName: newName, newIntroduce: newIntroduce }))
       .then((response) => {
         console.log(response);
         dispatch(getUser(id));
@@ -80,7 +72,6 @@ const UserProfile = () => {
     const value = event.target.value;
 
     setNewIntroduce(value);
-    console.log("Intro : ", newIntroduce);
   };
 
   return (
