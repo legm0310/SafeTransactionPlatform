@@ -23,6 +23,7 @@ const initialState = {
   isLoggedIn: null,
   userId: "",
   authCheck: null,
+  userDetail: null,
   loadWishList: [],
   signupSuccess: null,
   loginSuccess: null,
