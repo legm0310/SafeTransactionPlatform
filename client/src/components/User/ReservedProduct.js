@@ -33,13 +33,13 @@ const ReservedProduct = () => {
   const handleGetEventsLog = async () => {
     const log = await getEventsFromWeb3js("EscrowCreate", address);
     console.log(log);
-    const prodIdLog = log.map((event) =>
-      parseInt(event.returnValues.productId)
-    );
-    console.log(prodIdLog);
-    setProductIds([...prodIdLog]);
-    return prodIdLog;
-  };
+    // const prodIdLog = log.map((event) =>
+    //   parseInt(event.returnValues.productId)
+    // );
+    // console.log(prodIdLog);
+    // setProductIds([...prodIdLog]);
+    // return prodIdLog;
+  }; // map 에러로 인한 임시 주석처리
 
   const onReleaseHandler = (id) => {
     dispatch(setLoadings({ isLoading: true }));
