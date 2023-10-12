@@ -1,4 +1,5 @@
 import { Fragment } from "react";
+import { Link } from "react-router-dom";
 
 import classes from "../../styles/manual/Manual.module.css";
 import manualImg01 from "../../assets/manual/manualImage01.png";
@@ -147,9 +148,12 @@ const Manual = (props) => {
                 </p>
 
                 <p>
-                  현재는 가스비를 테스트 네트워크(Sepolia)의 코인으로 지불해야
-                  합니다. 추후 플랫폼 상의 토큰으로 가스비 대체가 예정되어
-                  있습니다.
+                  현재는 가스비를 테스트 네트워크&nbsp;
+                  <a href="https://sepoliafaucet.com/" target="_blank">
+                    SEPOLIA
+                  </a>
+                  의 코인으로 지불해야 합니다. 추후 플랫폼 상의 토큰으로 가스비
+                  대체가 예정되어 있습니다.
                   <br />
                   <br />
                   10-1) 먼저 오른쪽 상단의 여우 아이콘인 메타마스크 버튼을 눌러
@@ -206,7 +210,9 @@ const Manual = (props) => {
           안전하게 거래해보세요
         </p>
         <div className={classes.typingButton}>
-          <button>중고거래 시작하기</button>
+          <Link to="/">
+            <button>중고거래 시작하기</button>
+          </Link>
         </div>
       </section>
     </Fragment>
