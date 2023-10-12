@@ -18,6 +18,7 @@ import ScrollTop from "./components/common/ScrollTop";
 import UserInfo from "./pages/User/UserInfo";
 import Footer from "./components/Footer/Footer";
 import Banner from "./components/Banner/Banner";
+import Manual from "./components/Manual/Manual";
 
 import { Backdrop } from "@mui/material";
 
@@ -66,6 +67,7 @@ function App() {
             <Route path="/user/:id" element={<UserInfo />}></Route>
 
             <Route path="/banner" element={<Banner />}></Route>
+            <Route path="/manual" element={<Manual />}></Route>
           </Routes>
           <Footer />
         </BrowserRouter>
