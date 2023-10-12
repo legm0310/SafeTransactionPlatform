@@ -31,6 +31,7 @@ const initialState = {
   addWishListSuccess: null,
   getWishListSuccess: null,
   deleteWishListSuccess: null,
+  updateUserSuccess: null,
 };
 
 // Action의 type에 따라 변화된 state 반환
@@ -77,7 +78,7 @@ export default function (state = initialState, action) {
       };
       break;
     case UPDATE_USER:
-      return { ...state, updateUser: action.payload };
+      return { ...state, updateUserSuccess: action.payload.updateUserSuccess };
     case ADD_WISHLIST: {
       console.log(action.payload.wishList);
       state.loadWishList = action.payload.addWishListSuccess
