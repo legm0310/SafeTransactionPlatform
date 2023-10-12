@@ -10,7 +10,7 @@ import defaultProfile from "../../assets/defaultProfile.png";
 
 const UserProfile = () => {
   const userDetail = useSelector((state) => state.user.userDetail?.userData);
-
+  const myId = useSelector((state) => state.user?.userId);
   const userName = userDetail?.user_name;
   const introduce = userDetail?.introduce;
   const [updateName, setUpdateName] = useState(false);
@@ -105,12 +105,18 @@ const UserProfile = () => {
             ) : (
               <div>
                 {userName}
-                <button
-                  className={classes.userNameModifyButton}
-                  onClick={onShowNameUpdateHandler}
-                >
-                  이름 수정
-                </button>
+                {+id === myId ? (
+                  <div>
+                    <button
+                      className={classes.userNameModifyButton}
+                      onClick={onShowNameUpdateHandler}
+                    >
+                      이름 수정
+                    </button>
+                  </div>
+                ) : (
+                  <div></div>
+                )}
               </div>
             )}
           </div>
@@ -157,13 +163,18 @@ const UserProfile = () => {
                 >
                   {introduce}
                 </div>
-
-                <button
-                  className={classes.userIntroModifyButton}
-                  onClick={onShowIntroUpdateHandler}
-                >
-                  소개글 수정
-                </button>
+                {+id === myId ? (
+                  <div>
+                    <button
+                      className={classes.userIntroModifyButton}
+                      onClick={onShowIntroUpdateHandler}
+                    >
+                      소개글 수정
+                    </button>
+                  </div>
+                ) : (
+                  <div></div>
+                )}
               </div>
             )}
           </div>
