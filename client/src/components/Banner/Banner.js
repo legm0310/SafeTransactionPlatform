@@ -1,4 +1,5 @@
 import { Fragment, useState } from "react";
+import { Link } from "react-router-dom";
 
 import classes from "../../styles/banner/Banner.module.css";
 import mainImg from "../../assets/platformImage1.png";
@@ -43,7 +44,9 @@ const Banner = (props) => {
                 </span>
               </div>
               <div className={classes.typingBottom}>
-                <button>중고거래 시작하기</button>
+                <Link to="/">
+                  <button>중고거래 시작하기</button>
+                </Link>
               </div>
             </div>
 
@@ -111,10 +114,7 @@ const Banner = (props) => {
                   안전한 중고거래를 이용해보세요
                 </span>
               </div>
-              <div
-                className="slider-container"
-                style={{ backgroundColor: backgroundColor }}
-              >
+              <div className="slider-container">
                 <StyledSlider {...settings} className={classes["bannerSlide"]}>
                   <div className={classes.firstSlide}>
                     <div className={classes.secondContent}>
@@ -241,6 +241,14 @@ const StyledSlider = styled(Slider)`
     justify-content: center;
     flex-direction: row;
     width: 100%;
+
+    li button:before {
+      display: none;
+    }
+
+    li.slick-active button:before {
+      display: none;
+    }
   }
 
   .slick-dots ul {
@@ -250,16 +258,13 @@ const StyledSlider = styled(Slider)`
 
   .slick-dots li {
     width: 200px;
-    border: 1px solid rgb(238, 238, 238);
-    // border-radius: 4px;
-    // height: 50px;
   }
 
   .custom-dot {
     width: 100%;
     height: 100%;
     background: none;
-    border: 1px solid rgb(238, 238, 238);
+    border: 2px solid rgb(238, 238, 238);
     border-radius: 4px;
     padding: 20px 30px;
     cursor: pointer;
