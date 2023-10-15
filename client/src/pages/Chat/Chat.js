@@ -22,7 +22,6 @@ import {
 import { io } from "socket.io-client";
 const Chat = () => {
   const apiBaseUrl = process.env.REACT_APP_API_BASE_URL;
-  const domain = process.env.REACT_APP_DOMAIN;
   const location = useLocation();
   const dispatch = useDispatch();
   const { roomId } = useParams() ?? { roomId: 0 };
@@ -36,7 +35,7 @@ const Chat = () => {
     // if (isEqual(rooms, roomsRef.current)) return;
     if (roomId != 0) dispatch(getRooms());
     if (!socketRef.current) {
-      const curSocket = io("localhost:5000", {
+      const curSocket = io(apiBaseUrl, {
         withCredentials: true,
         transports: ["websocket"],
       });
