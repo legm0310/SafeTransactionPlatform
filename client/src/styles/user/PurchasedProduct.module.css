@@ -1,0 +1,17 @@
+.notPurchasedList {
+  /* position: absolute;
+  top: 70%;
+  left: 50%;
+  transform: translate(-50%, -50%); */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 100px;
+  margin-bottom: 100px; /* userInfoExplanation 만들어주면 50px로 바꾸기 */
+}
+
+.notPurchasedList p {
+  line-height: 18px;
+  color: rgb(136, 136, 136);
+  margin: 0;
+}

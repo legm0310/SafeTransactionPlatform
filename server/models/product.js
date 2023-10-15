@@ -69,7 +69,7 @@ class Product extends Sequelize.Model {
     db.Product.belongsToMany(db.User, {
       through: "wish_list",
       as: "WishList",
-      foreignKey: "productId",
+      foreignKey: "product_id",
       onDelete: "cascade",
     });
   }

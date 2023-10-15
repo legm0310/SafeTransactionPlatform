@@ -1,6 +1,11 @@
+const config = require("../config");
 const db = require("../models");
+
 module.exports = async () => {
-  const force = true;
+  const force = false;
+  if (config.mode === "clusterMode" && process.env.NODE_APP_INSTANCE !== "0")
+    return;
+
   await db.sequelize
     .sync({ force: force })
     .then(async () => {
@@ -11,6 +16,7 @@ module.exports = async () => {
           email: "t@t.com",
           phone_number: "12312341234",
           password: "1234",
+          introduce: "안녕하세요.",
         });
         await db.User.create({
           role: 0,
@@ -18,6 +24,7 @@ module.exports = async () => {
           email: "a@a.com",
           phone_number: "23423452345",
           password: "1234",
+          introduce: "안녕하세요.1",
         });
         await db.User.create({
           role: 0,
@@ -25,6 +32,7 @@ module.exports = async () => {
           email: "b@b.com",
           phone_number: "34534563456",
           password: "1234",
+          introduce: "안녕하세요.2",
         });
         await db.User.create({
           role: 0,
@@ -32,6 +40,7 @@ module.exports = async () => {
           email: "c@c.com",
           phone_number: "45645674567",
           password: "1234",
+          introduce: "안녕하세요.3",
         });
         await db.User.create({
           role: 0,
@@ -39,14 +48,149 @@ module.exports = async () => {
           email: "d@d.com",
           phone_number: "56756785678",
           password: "1234",
+          introduce: "안녕하세요.4",
         });
-        await db.ChatRoom.create({
-          room_name: "1_2",
+        await db.User.create({
+          role: 0,
+          user_name: "최병준",
+          email: "q@q.com",
+          phone_number: "01068301232",
+          password: "1234",
+          introduce: "안녕하세요. 병준입니다",
         });
-        await db.ChatRoom.create({
-          room_name: "1_3",
+        await db.User.create({
+          role: 0,
+          user_name: "성우상",
+          email: "w@w.com",
+          phone_number: "01020596571",
+          password: "1234",
+          introduce: "안녕하세요. 우상입니다",
         });
-        await db.Catagory.bulkCreate([
+        await db.User.create({
+          role: 0,
+          user_name: "이규민",
+          email: "g@g.com",
+          phone_number: "01077637514",
+          password: "1234",
+          introduce: "안녕하세요. 규민입니다",
+        });
+        await db.User.create({
+          role: 0,
+          user_name: "이승훈",
+          email: "s@s.com",
+          phone_number: "01093507390",
+          password: "1234",
+          introduce: "안녕하세요. 승훈입니다",
+        });
+        await db.User.create({
+          role: 0,
+          user_name: "전준영",
+          email: "j@j.com",
+          phone_number: "01066211085",
+          password: "1234",
+          introduce: "안녕하세요. 준영입니다",
+        });
+        await db.User.create({
+          role: 0,
+          user_name: "김준현",
+          email: "k@k.com",
+          phone_number: "01034111327",
+          password: "1234",
+          introduce: "안녕하세요. 준현입니다",
+        });
+
+        const user1 = await db.User.findByPk(1);
+        const user2 = await db.User.findByPk(2);
+        const user3 = await db.User.findByPk(3);
+        const user4 = await db.User.findByPk(4);
+        const user5 = await db.User.findByPk(5);
+
+        //test
+        const room2_1 = await db.ChatRoom.create({
+          name: "2_1",
+        });
+        const room3_1 = await db.ChatRoom.create({
+          name: "3_1",
+        });
+        const room4_1 = await db.ChatRoom.create({
+          name: "4_1",
+        });
+        const room5_1 = await db.ChatRoom.create({
+          name: "5_1",
+        });
+
+        const seller2_1 = room2_1.addRoomUser(1, {
+          through: { role: "SELLER" },
+        });
+        const buyer2_1 = room2_1.addRoomUser(2, { through: { role: "BUYER" } });
+        const seller3_1 = room3_1.addRoomUser(1, {
+          through: { role: "SELLER" },
+        });
+        const buyer3_1 = room3_1.addRoomUser(3, { through: { role: "BUYER" } });
+        const seller4_1 = room4_1.addRoomUser(1, {
+          through: { role: "SELLER" },
+        });
+        const buyer4_1 = room4_1.addRoomUser(4, { through: { role: "BUYER" } });
+        const seller5_1 = room5_1.addRoomUser(1, {
+          through: { role: "SELLER" },
+        });
+        const buyer5_1 = room5_1.addRoomUser(5, { through: { role: "BUYER" } });
+
+        await Promise.allSettled([
+          seller2_1,
+          buyer2_1,
+          seller3_1,
+          buyer3_1,
+          seller4_1,
+          buyer4_1,
+          seller5_1,
+          buyer5_1,
+        ]);
+        await new Promise((resolve) => setTimeout(resolve, 1500));
+
+        await db.ChatLog.create({
+          content: "물건 삽니다.",
+          sender_id: 2,
+          room_id: 1,
+        });
+        await db.ChatLog.create({
+          content: "얼마에 파세요?",
+          sender_id: 2,
+          room_id: 1,
+        });
+        await db.ChatLog.create({
+          content: "누구세요?",
+          sender_id: 1,
+          room_id: 1,
+        });
+        await db.ChatLog.create({
+          content: "3번입니다",
+          sender_id: 3,
+          room_id: 2,
+        });
+        await db.ChatLog.create({
+          content: "4번입니다",
+          sender_id: 4,
+          room_id: 3,
+        });
+        await db.ChatLog.create({
+          content: "5번입니다",
+          sender_id: 5,
+          room_id: 4,
+        });
+
+        // await db.ChatParticipant.create({
+        //   user_id: 1, // 외래 키
+        //   room_id: 1, // 외래 키
+        //   role: "SELLER",
+        // });
+        // await db.ChatParticipant.create({
+        //   user_id: 2, // 외래 키
+        //   room_id: 1, // 외래 키
+        //   role: "BUYER",
+        // });
+
+        await db.Category.bulkCreate([
           {
             name: "전체",
           },
@@ -290,7 +434,7 @@ module.exports = async () => {
             detail: "애플워치",
             images:
               "https://product-test-01.s3.ap-northeast-2.amazonaws.com/product/21.jpg",
-            seller_id: 1,
+            seller_id: 2,
           },
           {
             status: "SALE",
@@ -300,7 +444,7 @@ module.exports = async () => {
             detail: "온도계",
             images:
               "https://product-test-01.s3.ap-northeast-2.amazonaws.com/product/22.jpg",
-            seller_id: 1,
+            seller_id: 2,
           },
           {
             status: "SALE",
@@ -310,7 +454,7 @@ module.exports = async () => {
             detail: "배터리",
             images:
               "https://product-test-01.s3.ap-northeast-2.amazonaws.com/product/23.jpg",
-            seller_id: 1,
+            seller_id: 2,
           },
           {
             status: "SALE",
@@ -320,7 +464,7 @@ module.exports = async () => {
             detail: "맥북",
             images:
               "https://product-test-01.s3.ap-northeast-2.amazonaws.com/product/24.jpg",
-            seller_id: 1,
+            seller_id: 2,
           },
           // {
           //   status: "SALE",
@@ -333,6 +477,13 @@ module.exports = async () => {
           //   seller_id: 1,
           // },
         ]);
+
+        await user2.addWishList(2);
+        await user2.addWishList(3);
+        await user2.addWishList(4);
+        await user3.addWishList(3);
+        await user3.addWishList(4);
+        await user3.addWishList(5);
       }
     })
     .catch((err) => {

@@ -7,6 +7,7 @@
 */
 
 import {
+  RESET_STORE_PRODUCT,
   ADD_PRODUCT,
   DEPOSITED_PRODUCTS,
   RECENT_PRODUCTS,
@@ -16,13 +17,18 @@ import {
   RELEASE,
 } from "../_actions/type";
 
-const initialState = {};
+const initialState = {
+  productDetail: {},
+};
 
 // Action의 type에 따라 변화된 state 반환
 // eslint-disable-next-line import/no-anonymous-default-export
 export default function (state = initialState, action) {
   // 전의 state, 지금의 state
   switch (action.type) {
+    case RESET_STORE_PRODUCT:
+      return initialState;
+      break;
     case ADD_PRODUCT:
       return { ...state, addProductSuccess: action.payload };
       break;

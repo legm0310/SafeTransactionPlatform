@@ -1,10 +1,10 @@
 import React, { Fragment, useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { getProducts } from "../../_actions/productAction";
-import RecentProductsList from "../../components/product/RecentProducts";
-import CategoryBar from "./CategoryBar";
-import ProductCard from "./ProductCard";
+import { getSearchRecentProducts } from "../../_actions/productAction";
+import RecentProductsList from "../../components/Product/RecentProducts";
+import CategoryBar from "../../components/Product/CategoryBar";
+import ProductCard from "../../components/Product/ProductCard";
 import Paging from "../../components/common/Paging";
 import { getItem } from "../../utils";
 
@@ -15,69 +15,59 @@ const Product = (props) => {
   const dispatch = useDispatch();
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [filteredProducts, setFilteredProducts] = useState([]);
+  const [searchParams, setSearchParams] = useSearchParams();
 
-  // 선택 카테고리 값 변경
-  const onCategoryClick = (productCategory) => {
-    const filter = {};
-    setSelectedCategory(productCategory);
-    const searchWord = getItem("searchWord") ?? "";
-    filter.search = searchWord;
-    filter.category = selectedCategory ?? "";
-    // filter.page = page ?? "";
-    filter.status = "";
-    dispatch(getProducts(filter)).then((response) => {
-      console.log(response);
-      setFilteredProducts(response.payload?.products);
-    });
+  const onCategoryClick = async (e) => {
+    updateSearchParams(e);
+  };
+
+  const updateSearchParams = (e) => {
+    searchParams.set("category", e.category);
+    setSearchParams(searchParams);
+  };
+
+  const handleResetFilter = (e) => {
+    searchParams.set("category", "");
+    searchParams.set("search", "");
+    setSearchParams(searchParams);
   };
 
   useEffect(() => {
-    // 선택한 카테고리에 따라 제품을 필터링
-
-    // const filtered =
-    //   selectedCategory === null
-    //     ? props.ProductCard
-    //     : props.ProductCard.filter(
-    //         (card) =>
-    //           card.productCategory &&
-    //           card.productCategory.includes(selectedCategory)
-    //       );
-    setFilteredProducts();
-  }, [selectedCategory]);
+    const filter = {};
+    const category = searchParams.get("category");
+    const search = searchParams.get("search");
+    setSelectedCategory(category);
+    filter.category = category;
+    filter.status = "SALE";
+    filter.search = search;
+    dispatch(
+      getSearchRecentProducts({
+        status: filter.status,
+        category: filter.category,
+        search: filter.search,
+      })
+    ).then((response) => {
+      setFilteredProducts(response.payload?.products ?? []);
+    });
+  }, [searchParams.get("category"), searchParams.get("search")]);
 
   return (
     <Fragment>
       <div className={classes.mainBox}>
-        {/* <div className={classes.categoryBox}>
-          <div onClick={() => onCategoryClick("전체")}>전체</div>
-          <ul className={classes.category1}>
-            <li onClick={() => onCategoryClick("남성의류")}>남성의류</li>
-            <li onClick={() => onCategoryClick("여성의류")}>여성의류</li>
-            <li onClick={() => onCategoryClick("패션잡화")}>패션잡화</li>
-            <li onClick={() => onCategoryClick("스포츠 용품")}>스포츠 용품</li>
-            <li onClick={() => onCategoryClick("신발")}>신발</li>
-          </ul>
-          <ul className={classes.category2}>
-            <li onClick={() => onCategoryClick("가전제품")}>가전제품</li>
-            <li onClick={() => onCategoryClick("컴퓨터/주변기기")}>
-              컴퓨터/주변기기
-            </li>
-            <li onClick={() => onCategoryClick("전자제품")}>전자제품</li>
-            <li onClick={() => onCategoryClick("가구")}>가구</li>
-            <li onClick={() => onCategoryClick("기타")}>기타</li>
-          </ul>
-        </div> */}
-
         <div className={classes.productWrap}>
           <div className={classes.categoryBar}>
-            <CategoryBar />
+            <CategoryBar onCategoryClick={onCategoryClick} />
+            {/* <button onClick={handleResetFilter}>필터링 초기화</button> */}
           </div>
+          <div className={classes.prdouctCardWrap}>
+            {selectedCategory ? (
+              <ProductCard filteredProducts={filteredProducts} />
+            ) : (
+              // (<Paging />)
 
-          {selectedCategory ? (
-            ((<ProductCard />), (<Paging />))
-          ) : (
-            <RecentProductsList />
-          )}
+              <RecentProductsList />
+            )}
+          </div>
         </div>
       </div>
     </Fragment>

@@ -18,6 +18,7 @@ if (envFound.error) {
 module.exports = {
   //server 구동 환경
   nodeEnv: process.env.NODE_ENV,
+  mode: process.env.MODE,
   port: parseInt(process.env.PORT, 10),
 
   //db 설정 (development, production)
@@ -75,6 +76,7 @@ module.exports = {
   },
 
   //cookie 발급 옵션
+  //쿠키 건드리면 안됨
   cookieSet: {
     domain: process.env.DOMAIN,
     path: "/",
@@ -82,5 +84,22 @@ module.exports = {
     sameSite: "none",
     httpOnly: true,
     secure: true,
+  },
+
+  //socket 옵션
+  socketOption: {
+    cors: {
+      origin: process.env.CORS_ORIGIN.split(","),
+      allowedHeaders: ["Authorization"],
+      credentials: true,
+    },
+    transports: ["websocket"],
+  },
+
+  //https 인증서
+  certOption: {
+    ca: process.env.CA_PATH,
+    key: process.env.KEY_PATH,
+    cert: process.env.CERT_PATH,
   },
 };

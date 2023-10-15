@@ -65,7 +65,9 @@ module.exports = {
     const prodServiceInstance = await Container.get("productService");
     const productId = req.params;
     await prodServiceInstance.deleteProduct(productId);
-    res.status(200).json({});
+    res.status(200).json({
+      deleteProductSuccess: true,
+    });
   }),
 
   deposit: catchAsync(async (req, res) => {
