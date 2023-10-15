@@ -1,0 +1,21 @@
+.buttonList {
+    display: flex;
+}
+
+.buttonList button {
+    border: none;
+    background-color: rgba(255, 255, 255, 0);
+    font-size: 0.8rem;
+    font-weight: bold;
+    color: gray;
+}
+
+.buttonList button:hover {
+    cursor: pointer;
+}
+
+.selected {
+    color: black;
+    font-size: 1rem;
+}
+

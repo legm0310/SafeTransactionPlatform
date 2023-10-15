@@ -1,0 +1,154 @@
+/* 첫번째 섹션 */
+
+.mainWrap {
+  background-color: #1ecfba21;
+}
+
+.mainContent {
+  width: 1000px;
+  height: 900px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.mainTitle {
+  width: 100%;
+}
+
+.typingMiddle {
+  font-size: 60px;
+  line-height: 1.3;
+  text-align: center;
+}
+
+/* 로그인 타이핑 */
+.typingBottom {
+  margin-top: 23px;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.typingBottom button {
+  color: rgb(255, 255, 255);
+  border: 1px solid #18c3b7;
+  background-color: #18c3b7;
+  border-radius: 6px;
+  width: 250px;
+  font-size: 25px;
+  line-height: 3rem;
+}
+
+/* 두번째 섹션 */
+.secondContent {
+  width: 1024px;
+  margin: 100px auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.secondTitle {
+  width: 434px;
+}
+
+.secondImage {
+  background-size: 655px 750px;
+  width: 655px;
+  /* height: 750px; */
+}
+
+.secondTypingMiddle {
+  font-size: 40px;
+  line-height: 1.3;
+  margin-bottom: 10px;
+  /* text-align: center; */
+}
+.secondTypingBottom {
+  font-size: 20px;
+}
+
+/* 세반쩨 섹션 */
+.thirdWrap {
+  background-color: #f9f9f9;
+}
+
+.thirdContent {
+  background-color: #f9f9f9;
+  width: 1024px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 70px;
+}
+
+.thirdTitle {
+  width: 100%;
+}
+.thirdTypingMiddle {
+  font-size: 40px;
+  line-height: 1.3;
+  margin-bottom: 10px;
+}
+
+.thirdTypingBottom {
+  font-size: 20px;
+}
+
+.thirdImage {
+  background-size: 655px 750px;
+  width: 655px;
+  height: 750px;
+}
+
+/* 네반쩨 섹션 */
+
+.forthContent {
+  width: 1024px;
+  margin: 0 auto;
+  align-items: center;
+}
+
+.forthTypingMiddle {
+  margin-top: 130px;
+  margin-bottom: 50px;
+  font-size: 40px;
+  text-align: center;
+  line-height: 1.3;
+  /* text-align: center; */
+}
+
+.forthImage {
+  background-size: 655px 750px;
+  width: 655px;
+  height: 750px;
+}
+
+.mainSlide {
+  position: relative;
+}
+
+.firstSlide {
+  width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.bannerSlide {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+/* 첫번째 슬라이드 */
+
+.test {
+  display: flex;
+  justify-content: center;
+  border: 1px solid red;
+  width: 100px !important;
+  position: relative;
+}
