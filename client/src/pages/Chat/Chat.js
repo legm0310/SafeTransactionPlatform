@@ -21,13 +21,14 @@ import {
 } from "../../_actions/chatAction";
 import { io } from "socket.io-client";
 const Chat = () => {
-  const apiBaseUrl = process.env.REACT_APP_API_BASE_URL;
+  const apiBaseUrl =
+    process.env.REACT_APP_API_BASE_URL.length > 0
+      ? process.env.REACT_APP_API_BASE_URL
+      : "localhost:5000";
   const location = useLocation();
   const dispatch = useDispatch();
   const { roomId } = useParams() ?? { roomId: 0 };
-  const { userId } = useSelector((state) => state.user);
-  const { rooms, chats, roomInfo, socket } = useSelector((state) => state.chat);
-  const [fetchRoom, setFetchRoom] = useState([]);
+  const { rooms } = useSelector((state) => state.chat);
   const socketRef = useRef(null);
   const roomsRef = useRef(null);
 
