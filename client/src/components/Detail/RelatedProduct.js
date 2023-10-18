@@ -14,7 +14,6 @@ const RelatedProduct = (prodDetail) => {
     const filter = {};
     filter.category = category;
     filter.status = "SALE";
-    console.log(filter);
     dispatch(getSearchRecentProducts(filter)).then((response) => {
       setFilteredProducts(response.payload?.products ?? []);
     });

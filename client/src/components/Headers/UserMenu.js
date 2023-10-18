@@ -35,6 +35,8 @@ const UserSection = (props) => {
   const { userId, loadWishList, authCheck } = useSelector(
     (state) => state.user
   );
+  const { unreadTotalCount } = useSelector((state) => state.chat);
+
   const { enqueueSnackbar } = useSnackbar();
 
   const disconnect = useDisconnect();
@@ -58,7 +60,6 @@ const UserSection = (props) => {
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
 
   const isMenuOpen = Boolean(anchorEl);
-  const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
   // const unreadCount = rooms.reduce((acc, value) => acc + value.unreadCount, 0);
 
@@ -86,23 +87,14 @@ const UserSection = (props) => {
     setAnchorEl(event.currentTarget);
   };
 
-  const onMobileMenuClose = () => {
-    setMobileMoreAnchorEl(null);
-  };
-
   const onMenuClose = () => {
     setAnchorEl(null);
-    onMobileMenuClose();
   };
 
   // const handleWishListClick = () => {
   //   // Call onMenuHandler with "Wish" to change the active menu
   //   onMenuHandler("Wish");
   // };
-
-  const handleMobileMenuOpen = (event) => {
-    setMobileMoreAnchorEl(event.currentTarget);
-  };
 
   const menuId = "primary-search-account-menu";
   const renderMenu = (
@@ -143,115 +135,10 @@ const UserSection = (props) => {
     </Menu>
   );
 
-  const mobileMenuId = "primary-search-account-menu-mobile";
-  const renderMobileMenu = (
-    <Menu
-      anchorEl={mobileMoreAnchorEl}
-      anchorOrigin={{
-        vertical: "top",
-        horizontal: "right",
-      }}
-      id={mobileMenuId}
-      keepMounted
-      transformOrigin={{
-        vertical: "top",
-        horizontal: "right",
-      }}
-      open={isMobileMenuOpen}
-      onClose={onMobileMenuClose}
-      sx={{
-        py: 0,
-      }}
-    >
-      <MenuItem sx={{ px: 1, py: 0 }}>
-        <IconButton
-          size="large"
-          aria-label="show 4 new mails"
-          color="primary"
-          onClick={onChattingOpen}
-          sx={{
-            p: 1,
-          }}
-        >
-          <Badge badgeContent={4} color="error">
-            <ChatBubbleOutlineOutlinedIcon />
-          </Badge>
-        </IconButton>
-        <p className={classes.iconText}>판다톡</p>
-      </MenuItem>
-
-      <MenuItem onClick={onWishListOpen} sx={{ px: 1, py: 0 }}>
-        <IconButton
-          size="large"
-          aria-label="show 17 new notifications"
-          color="primary"
-          sx={{
-            p: 1,
-          }}
-        >
-          <Badge badgeContent={loadWishList?.length} color="error">
-            <FavoriteBorderOutlinedIcon sx={{ color: "#fe4e62" }} />
-          </Badge>
-        </IconButton>
-        <p className={classes.iconText}>찜목록</p>
-      </MenuItem>
-
-      <MenuItem
-        onClick={handleOpenWallet}
-        onClose={onMobileMenuClose}
-        sx={{ px: 1, py: 0 }}
-      >
-        <IconButton
-          size="large"
-          aria-label="account of current user"
-          aria-controls="primary-search-account-menu"
-          aria-haspopup="true"
-          color="primary"
-          sx={{
-            p: 1,
-          }}
-        >
-          <WalletOutlinedIcon sx={{ color: "#1ecfba" }} />
-        </IconButton>
-        <p className={classes.iconText}>내지갑</p>
-      </MenuItem>
-      <MyWallet open={openWallet} onClose={handleCloseWallet} />
-
-      <MenuItem onClick={onProfileMenuOpen} sx={{ px: 1, py: 0 }}>
-        <IconButton
-          size="large"
-          aria-label="account of current user"
-          aria-controls="primary-search-account-menu"
-          aria-haspopup="true"
-          color="primary"
-          sx={{
-            p: 1,
-          }}
-        >
-          <AccountCircle />
-        </IconButton>
-        <p className={classes.iconText}>내정보</p>
-      </MenuItem>
-
-      <MenuItem
-        onClick={onLogoutHandler}
-        sx={{
-          borderTop: 2,
-          px: 1,
-          pt: 1,
-          pb: 0,
-          justifyContent: "center",
-        }}
-      >
-        로그아웃
-      </MenuItem>
-    </Menu>
-  );
   return (
     <Fragment>
-      <Box sx={{ flexGrow: 1 }}>
-        <Box sx={{ display: { xs: "none", lg: "flex" } }}>
-          {/* <Tooltip
+      <Box sx={{ display: { xs: "none", lg: "flex" }, width: { lg: "360px" } }}>
+        {/* <Tooltip
             title="현재 진행중인 대화"
             TransitionComponent={Fade}
             TransitionProps={{ timeout: 600 }}
@@ -275,27 +162,27 @@ const UserSection = (props) => {
             </Link>
           </Tooltip> */}
 
-          <Tooltip
-            title="현재 진행중인 대화"
-            TransitionComponent={Fade}
-            TransitionProps={{ timeout: 600 }}
-            arrow
+        <Tooltip
+          title="현재 진행중인 대화"
+          TransitionComponent={Fade}
+          TransitionProps={{ timeout: 600 }}
+          arrow
+        >
+          <IconButton
+            size="large"
+            aria-label="show 4 new mails"
+            color="black"
+            sx={{ borderRadius: 2, p: 1 }}
+            onClick={onChattingOpen}
           >
-            <IconButton
-              size="large"
-              aria-label="show 4 new mails"
-              color="black"
-              sx={{ borderRadius: 2, p: 1 }}
-              onClick={onChattingOpen}
-            >
-              <Badge badgeContent={4} color="error">
-                <ChatBubbleOutlineOutlinedIcon sx={{ fontSize: 30 }} />
-              </Badge>
-              <Typography>판다톡</Typography>
-            </IconButton>
-          </Tooltip>
+            <Badge badgeContent={unreadTotalCount} color="error">
+              <ChatBubbleOutlineOutlinedIcon sx={{ fontSize: 30 }} />
+            </Badge>
+            <Typography>판다톡</Typography>
+          </IconButton>
+        </Tooltip>
 
-          {/* <Tooltip
+        {/* <Tooltip
             title="찜 목록"
             TransitionComponent={Fade}
             TransitionProps={{ timeout: 600 }}
@@ -318,26 +205,26 @@ const UserSection = (props) => {
             </Link>
           </Tooltip> */}
 
-          <Tooltip
-            title="찜 목록"
-            TransitionComponent={Fade}
-            TransitionProps={{ timeout: 600 }}
-            arrow
+        <Tooltip
+          title="찜 목록"
+          TransitionComponent={Fade}
+          TransitionProps={{ timeout: 600 }}
+          arrow
+        >
+          <IconButton
+            size="large"
+            color="black"
+            sx={{ borderRadius: 2, p: 1 }}
+            onClick={onWishListOpen}
           >
-            <IconButton
-              size="large"
-              color="black"
-              sx={{ borderRadius: 2, p: 1 }}
-              onClick={onWishListOpen}
-            >
-              <Badge badgeContent={loadWishList?.length} color="error">
-                <FavoriteBorderOutlinedIcon sx={{ fontSize: 30 }} />
-              </Badge>
-              <Typography>찜목록</Typography>
-            </IconButton>
-          </Tooltip>
+            <Badge badgeContent={loadWishList?.length} color="error">
+              <FavoriteBorderOutlinedIcon sx={{ fontSize: 30 }} />
+            </Badge>
+            <Typography>찜목록</Typography>
+          </IconButton>
+        </Tooltip>
 
-          {/* <Button
+        {/* <Button
             sx={{
               mr: 1,
               color: "black",
@@ -354,50 +241,37 @@ const UserSection = (props) => {
           </Button>
           <MyWallet open={openWallet} onClose={handleCloseWallet} /> */}
 
-          <IconButton
-            size="large"
-            sx={{ borderRadius: 2, p: 1 }}
-            onClick={handleOpenWallet}
-          >
-            <WalletOutlinedIcon sx={{ fontSize: 30 }} />
-            <Typography>내지갑</Typography>
-          </IconButton>
-          <MyWallet open={openWallet} onClose={handleCloseWallet} />
+        <IconButton
+          size="large"
+          sx={{ borderRadius: 2, p: 1 }}
+          onClick={handleOpenWallet}
+        >
+          <WalletOutlinedIcon sx={{ fontSize: 30 }} />
+          <Typography>내지갑</Typography>
+        </IconButton>
+        <MyWallet open={openWallet} onClose={handleCloseWallet} />
 
-          <IconButton
-            size="large"
-            edge="end"
-            aria-controls={menuId}
-            aria-haspopup="true"
-            onClick={onProfileMenuOpen}
-            color="black"
-            sx={{
-              borderRadius: 2,
-              p: 1,
-            }}
-          >
-            <AccountCircle sx={{ fontSize: 30 }} />
-            <Typography>
-              {authCheck?.userData?.user_name.length > 3
-                ? `${authCheck.userData?.user_name.slice(0, 2)}..`
-                : authCheck?.userData?.user_name}{" "}
-              님
-            </Typography>
-          </IconButton>
-        </Box>
+        <IconButton
+          size="large"
+          edge="end"
+          aria-controls={menuId}
+          aria-haspopup="true"
+          onClick={onProfileMenuOpen}
+          color="black"
+          sx={{
+            borderRadius: 2,
+            p: 1,
+          }}
+        >
+          <AccountCircle sx={{ fontSize: 30 }} />
+          <Typography>
+            {authCheck?.userData?.user_name.length > 3
+              ? `${authCheck.userData?.user_name.slice(0, 2)}..`
+              : authCheck?.userData?.user_name}{" "}
+            님
+          </Typography>
+        </IconButton>
 
-        <Box sx={{ display: { xs: "flex", md: "none" } }}>
-          <IconButton
-            size="large"
-            aria-controls={mobileMenuId}
-            aria-haspopup="true"
-            onClick={handleMobileMenuOpen}
-            color="black"
-          >
-            <MoreIcon />
-          </IconButton>
-        </Box>
-        <div className={classes.renderMobileMenu}>{renderMobileMenu}</div>
         {renderMenu}
       </Box>
     </Fragment>

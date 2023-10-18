@@ -8,7 +8,6 @@ const ProductSellor = () => {
   const prodDetail = useSelector(
     (state) => state.product.productDetail?.product
   );
-  console.log(prodDetail);
   return (
     <Fragment>
       <div className={classes.ProductSellorWrap}>
