@@ -10,7 +10,7 @@
   flex-wrap: wrap;
   justify-content: flex-start;
   margin: 0 auto;
-  min-width: 1280px;
+  /* min-width: 1200px; */
 }
 
 /*상품 카드*/
