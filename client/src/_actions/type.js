@@ -22,6 +22,8 @@ export const ADD_WISHLIST = "addWishList";
 export const GET_WISHLIST = "getWishList";
 export const DELETE_WISHLIST = "deleteWishList";
 export const UPDATE_USER = "updateUser";
+export const GET_INIT_USER = "GET_INIT_USER";
+
 //product
 export const ADD_PRODUCT = "addProduct";
 export const DEPOSITED_PRODUCTS = "depositedProducts";

@@ -35,6 +35,8 @@ const UserSection = (props) => {
   const { userId, loadWishList, authCheck } = useSelector(
     (state) => state.user
   );
+  const { unreadTotalCount } = useSelector((state) => state.chat);
+
   const { enqueueSnackbar } = useSnackbar();
 
   const disconnect = useDisconnect();
@@ -288,7 +290,7 @@ const UserSection = (props) => {
               sx={{ borderRadius: 2, p: 1 }}
               onClick={onChattingOpen}
             >
-              <Badge badgeContent={4} color="error">
+              <Badge badgeContent={unreadTotalCount} color="error">
                 <ChatBubbleOutlineOutlinedIcon sx={{ fontSize: 30 }} />
               </Badge>
               <Typography>판다톡</Typography>
