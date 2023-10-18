@@ -1,3 +1,7 @@
+.latestProductSection {
+  margin-bottom: 30px;
+}
+
 .latestProductSection h1 {
   font-size: 30px;
   margin: 0;
@@ -22,7 +26,6 @@
 /*상품 카드*/
 .latestProduct {
   border-radius: 10px;
-  width: 277.5px;
   display: block;
   margin-right: 30px;
   margin-bottom: 30px;
@@ -44,13 +47,13 @@ a {
 
 /*상품 이미지*/
 .imgBox {
-  width: 277.5px;
+  width: 100%;
   height: 276px;
   position: relative;
 }
 
 .prodImg {
-  width: 277.5px;
+  width: 100%;
   height: 100%;
   border-radius: 10px;
 }
