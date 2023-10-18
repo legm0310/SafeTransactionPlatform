@@ -18,7 +18,13 @@ const MobileNavMenu = () => {
 
   return (
     <Fragment>
-      <Box sx={{ display: { xs: "flex", md: "none" } }}>
+      <Box
+        sx={{
+          display: { md: "flex", lg: "none" },
+          position: { xs: "absolute" },
+          right: { xs: 0 },
+        }}
+      >
         <IconButton
           size="large"
           aria-label="account of current user"
@@ -46,7 +52,7 @@ const MobileNavMenu = () => {
           sx={{
             display: {
               xs: "block",
-              md: "none",
+              lg: "none",
               fontFamily: "GongGothicMedium",
             },
           }}
