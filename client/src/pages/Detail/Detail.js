@@ -14,6 +14,7 @@ import { TbMessageCircle2Filled } from "react-icons/tb";
 import { IoCart } from "react-icons/io5";
 import Button from "../../components/common/Button";
 import ProductSellor from "../../components/Detail/ProductSellor";
+import RelatedProduct from "../../components/Detail/RelatedProduct";
 import ProductInformation from "../../components/Detail/ProductInformation";
 import Loading from "../../components/common/Loading";
 
@@ -237,11 +238,7 @@ const Detail = () => {
             </div>
           </section>
 
-          <div className={classes.relationproductWrap}>
-            <div className={classes.relationProduct}>
-              <div className={classes.relationProductHeader}>연관 상품</div>
-            </div>
-          </div>
+          <RelatedProduct prodDetail={prodDetail} />
         </div>
       )}
     </Fragment>

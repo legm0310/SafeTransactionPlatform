@@ -237,12 +237,12 @@
 } */
 
 /* 연관상품 */
-.relationproductWrap {
+.relatedProductWrap {
   width: 1200px;
   height: 500px;
   border: 1px solid blue;
 }
 
-.relationProductHeader {
+.relatedProductHeader {
   font-size: 20px;
 }
