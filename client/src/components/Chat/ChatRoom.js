@@ -89,14 +89,17 @@ const ChatRoom = () => {
             variant: "error",
           }
         );
+      //채팅방 미생성 상태 시
       if (roomId == 0) {
         const newRoomId = await onAddRoomAndSend();
-        if (!newRoomId)
+        if (!newRoomId) {
           enqueueSnackbar(`관리자에게 문의하세요`, {
             variant: "error",
           });
-        return navigate(`/`);
+        }
+        return navigate(`/chat/${newRoomId}`);
       }
+      //이미 채팅방이 생성되어있을 시
       return onSendChat(roomId, chat);
     },
     [userId, socket, dispatch, chat, setChat]
@@ -110,6 +113,7 @@ const ChatRoom = () => {
       roomName: `${searchParams.get("user")}_${searchParams.get("seller")}`,
       chat: chat,
     };
+    console.log(body);
     return new Promise((resolve, reject) => {
       socket?.emit("onAddRoomAndSend", body, (res) => {
         if (res.result === "createdRoom" || res.result === "updatedRoom") {
@@ -136,7 +140,7 @@ const ChatRoom = () => {
           ).then(() => {
             setChat("");
           });
-          navigate(`/chat/${res.roomId}`);
+
           resolve(res.roomId);
         } else {
           console.log(res);

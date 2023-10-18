@@ -1,6 +1,8 @@
 .prodCardWrap {
   display: flex;
   justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }
 
 .prodCardContainer {
@@ -8,12 +10,13 @@
   flex-wrap: wrap;
   justify-content: flex-start;
   margin: 0 auto;
+  /* min-width: 1200px; */
 }
 
 /*상품 카드*/
 .prodCard {
   border-radius: 10px;
-  width: 297px;
+  width: 277.5px;
   display: block;
   margin-right: 30px;
   margin-bottom: 30px;
@@ -33,6 +36,7 @@
 .imgBox {
   width: 100%;
   height: 276px;
+  position: relative;
 }
 
 .prodImg {

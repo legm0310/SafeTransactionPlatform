@@ -9,6 +9,7 @@ import {
   UPDATE_RECENT_CHATS,
   LOAD_MORE_CHATS,
   GET_INIT_USER,
+  READ_CHATS,
 } from "../_actions/type";
 
 const initialState = {

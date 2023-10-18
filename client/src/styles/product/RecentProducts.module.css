@@ -1,3 +1,7 @@
+.latestProductSection {
+  margin-bottom: 30px;
+}
+
 .latestProductSection h1 {
   font-size: 30px;
   margin: 0;
@@ -44,13 +48,13 @@ a {
 
 /*상품 이미지*/
 .imgBox {
-  width: 277.5px;
+  width: 100%;
   height: 276px;
   position: relative;
 }
 
 .prodImg {
-  width: 277.5px;
+  width: 100%;
   height: 100%;
   border-radius: 10px;
 }
@@ -125,28 +129,28 @@ a {
   /* box-shadow: 2px 2px rgb(220, 220, 220); */
 }
 
-@media (max-width: 1260px) {
+@media (max-width: 1200px) {
   .latestProduct {
-    width: 216px;
+    width: 202px;
   }
 
   .imgBox {
-    width: 216px;
+    width: 202px;
     aspect-ratio: 1 / 1;
     height: auto;
   }
 
   .prodImg {
-    width: 216px;
+    width: 202px;
   }
 
   .reserved {
-    width: 216px;
-    height: 216px;
+    width: 202px;
+    height: 202px;
   }
 }
 
-@media (max-width: 980px) {
+@media (max-width: 900px) {
   .latestProduct {
     width: 155px;
   }
@@ -165,7 +169,7 @@ a {
   }
 }
 
-@media (max-width: 500px) {
+@media (max-width: 600px) {
   .latestProductSection h1 {
     font-size: 22px;
     margin-left: 10px;
