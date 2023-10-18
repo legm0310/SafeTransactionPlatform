@@ -43,4 +43,5 @@ export const ADD_CHAT = "addChat";
 export const GET_CHATS = "getChats";
 export const UPDATE_RECENT_CHATS = "updateRecentChats";
 export const LOAD_MORE_CHATS = "loadMoreChat";
+export const READ_CHATS = "readChats;";
 // export const GET_UNREAD_CHATS = "getUnreadChats";
