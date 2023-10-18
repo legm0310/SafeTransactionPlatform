@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import classes from "../../styles/banner/Banner.module.css";
 
 import mainImg from "../../assets/platformImage1.png";
-import mainImg1 from "../../assets/pandaImg1.jpeg";
+// import mainImg1 from "../../assets/pandaImg1.jpeg";
 
 import Slider from "react-slick";
 import styled from "styled-components";
@@ -65,7 +65,7 @@ const Banner = (props) => {
 
             <div className={classes.mainImgWrap}>
               {/* <img src={mainImg} alt="" className={classes.mainImg} /> */}
-              <img src={mainImg1} alt="" className={classes.mainImg1} />
+              <img src="" alt="" className={classes.mainImg1} />
             </div>
           </div>
         </section>
