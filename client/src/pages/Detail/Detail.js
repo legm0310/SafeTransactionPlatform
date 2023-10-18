@@ -237,9 +237,11 @@ const Detail = () => {
             </div>
           </section>
 
-          <div className={classes.relationproductWrap}>
-            <div className={classes.relationProduct}>
-              <div className={classes.relationProductHeader}>연관 상품</div>
+          <div className={classes.relatedProductWrap}>
+            <div className={classes.relatedProduct}>
+              <div className={classes.relatedProductHeader}>
+                <RelatedProduct prodDetail={prodDetail} />
+              </div>
             </div>
           </div>
         </div>
