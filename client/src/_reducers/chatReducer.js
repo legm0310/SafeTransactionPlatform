@@ -8,6 +8,7 @@ import {
   DELETE_ROOM,
   UPDATE_RECENT_CHATS,
   LOAD_MORE_CHATS,
+  READ_CHATS,
 } from "../_actions/type";
 
 const initialState = {
@@ -121,6 +122,7 @@ export default function (state = initialState, action) {
         hasMoreChatLoad: action.payload.chats.length === 20 ? true : false,
       };
       break;
+
     default:
       return state;
   }

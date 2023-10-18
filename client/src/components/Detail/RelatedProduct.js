@@ -9,9 +9,8 @@ const RelatedProduct = (prodDetail) => {
   const dispatch = useDispatch();
   const [filteredProducts, setFilteredProducts] = useState([]);
 
-  const category = prodDetail.prodDetail.category;
-
   useEffect(() => {
+    const category = prodDetail.prodDetail?.category;
     const filter = {};
     filter.category = category;
     filter.status = "SALE";
