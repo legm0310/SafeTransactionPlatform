@@ -7,7 +7,7 @@
 }
 
 .categoryBar {
-  position: fixed;
+  /* position: fixed; */
   top: 100px;
   height: 100%;
   /* position: fixed;
@@ -18,7 +18,7 @@
 
 .productWrap {
   display: flex;
-  width: 1480px;
+  width: 1200px;
   margin-top: 30px;
 }
 
@@ -26,6 +26,10 @@
   text-decoration: none;
 }
 
-.prdouctCardWrap {
+/* .RecentProductsListWrap {
   margin-left: 200px;
-}
+} */
+
+/* .prdouctCardWrap {
+  margin-left: 200px;
+} */
