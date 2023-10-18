@@ -19,5 +19,6 @@ module.exports = (app) => {
   // 유저 정보 수정
   router.put("/userName/:id", isAuth, userController.updateUser);
 
+  router.get("/init", isAuth, userController.getInitUser);
   router.get("/:id", userController.getUser);
 };
