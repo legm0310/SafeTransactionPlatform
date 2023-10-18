@@ -18,7 +18,7 @@ const Header = (props, { wish }) => {
   const [isScrolled, setIsScrolled] = useState(false);
 
   const handleScroll = () => {
-    if (window.scrollY > 150) {
+    if (window.scrollY > 0) {
       setIsScrolled(true);
     } else {
       setIsScrolled(false);
@@ -35,7 +35,8 @@ const Header = (props, { wish }) => {
   const appBarStyle = {
     position: "sticky",
     width: "100%",
-    boxShadow: isScrolled ? "0px 2px 4px rgba(0, 0, 0, 0.1)" : "none",
+    borderBottom: isScrolled ? "none" : "1px solid rgb(238, 238, 238)",
+    boxShadow: isScrolled ? "0px 2px 4px rgba(0, 0, 0, 0.2)" : "none",
   };
 
   // 현재 경로가 로그인 페이지인 경우 Header를 렌더링하지 않음
