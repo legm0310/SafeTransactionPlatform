@@ -1,5 +1,9 @@
 .footerWrap {
   border-top: 1px solid rgb(238, 238, 238);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .footerContent {
@@ -7,7 +11,7 @@
   grid-template-columns: 2fr 1fr 1fr 1fr;
   gap: 1.5rem;
   margin-top: 50px;
-  padding: 0 10%;
+  width: 1200px;
 }
 
 .footerContent h2,
@@ -62,12 +66,16 @@ h3 {
 
 .footerBottom {
   border-top: 1px solid rgb(238, 238, 238);
-  padding: 0 10%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .footerBottom p {
   color: rgb(136, 136, 136);
   font-size: 15px;
+  width: 1200px;
 }
 
 .footerBottom span {
@@ -84,4 +92,56 @@ a:active,
 a:visited,
 a:focus {
   text-decoration: none;
+}
+
+@media (max-width: 1200px) {
+  .footerContent {
+    width: 900px;
+  }
+
+  .footerBottom {
+    padding: 0;
+  }
+
+  .footerBottom p {
+    width: 900px;
+  }
+}
+
+@media (max-width: 900px) {
+  .footerContent,
+  .footerBottom p {
+    width: 720px;
+  }
+}
+
+@media (max-width: 700px) {
+  .footerWrap {
+    padding-left: 10px;
+  }
+
+  .footerContent {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin-top: 20px;
+  }
+
+  .companyInfo {
+    width: 100%;
+  }
+
+  .social,
+  .information {
+    width: 45%;
+  }
+  .contact {
+    width: 100%;
+  }
+
+  .footerBottom p {
+    width: 100%;
+  }
 }

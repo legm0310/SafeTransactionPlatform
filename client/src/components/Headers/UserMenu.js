@@ -250,7 +250,7 @@ const UserSection = (props) => {
   return (
     <Fragment>
       <Box sx={{ flexGrow: 1 }}>
-        <Box sx={{ display: { xs: "none", md: "flex" } }}>
+        <Box sx={{ display: { xs: "none", lg: "flex" } }}>
           {/* <Tooltip
             title="현재 진행중인 대화"
             TransitionComponent={Fade}
@@ -285,7 +285,7 @@ const UserSection = (props) => {
               size="large"
               aria-label="show 4 new mails"
               color="black"
-              sx={{ mr: 2, borderRadius: 2, p: 1 }}
+              sx={{ borderRadius: 2, p: 1 }}
               onClick={onChattingOpen}
             >
               <Badge badgeContent={4} color="error">
@@ -327,7 +327,7 @@ const UserSection = (props) => {
             <IconButton
               size="large"
               color="black"
-              sx={{ mr: 2, borderRadius: 2, p: 1 }}
+              sx={{ borderRadius: 2, p: 1 }}
               onClick={onWishListOpen}
             >
               <Badge badgeContent={loadWishList?.length} color="error">
@@ -356,7 +356,7 @@ const UserSection = (props) => {
 
           <IconButton
             size="large"
-            sx={{ mr: 2, borderRadius: 2, p: 1 }}
+            sx={{ borderRadius: 2, p: 1 }}
             onClick={handleOpenWallet}
           >
             <WalletOutlinedIcon sx={{ fontSize: 30 }} />
@@ -397,7 +397,7 @@ const UserSection = (props) => {
             <MoreIcon />
           </IconButton>
         </Box>
-        {renderMobileMenu}
+        <div className={classes.renderMobileMenu}>{renderMobileMenu}</div>
         {renderMenu}
       </Box>
     </Fragment>
