@@ -17,6 +17,7 @@ import {
   ADD_WISHLIST,
   GET_WISHLIST,
   DELETE_WISHLIST,
+  GET_INIT_USER,
 } from "../_actions/type";
 
 const initialState = {
@@ -109,6 +110,13 @@ export default function (state = initialState, action) {
           ),
         };
       }
+      break;
+    case GET_INIT_USER:
+      return {
+        ...state,
+        getInitUserSuccess: action.payload.getInitUserSuccess,
+        // loadWishList: [...action.payload?.wishListId],
+      };
       break;
     default: // state가 들어오지 않았을 경우 전의 state를 넣어줌
       return state;

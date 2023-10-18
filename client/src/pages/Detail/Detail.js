@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useSDK, useAddress } from "@thirdweb-dev/react";
-import { addWishList } from "../../_actions/userAction";
+import { addWishList, deleteWishList } from "../../_actions/userAction";
 import { setLoadings } from "../../_actions/uiAction";
 import { getProduct, purchase } from "../../_actions/productAction";
 import { addRoom, getRooms } from "../../_actions/chatAction";
@@ -22,20 +22,23 @@ import classes from "../../styles/detail/Detail.module.css";
 import { closeSnackbar, useSnackbar } from "notistack";
 
 const Detail = () => {
-  const [activeMenu, setActiveMenu] = useState("productInformation");
+  const { userId, loadWishList } = useSelector((state) => state.user);
+  const prodDetail = useSelector(
+    (state) => state.product.productDetail.product
+  );
+  const isLoading = useSelector((state) => state.ui.isLoading);
+
   const { enqueueSnackbar } = useSnackbar();
   const sdk = useSDK();
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { productId } = useParams();
+  const wishListId = loadWishList.map((item) => item.id);
 
-  const prodDetail = useSelector(
-    (state) => state.product.productDetail.product
+  const [activeWish, setActiveWish] = useState(
+    wishListId.indexOf(+productId) == -1 ? false : true
   );
-  const isLoading = useSelector((state) => state.ui.isLoading);
-  const { userId, loadWishList } = useSelector((state) => state.user);
-  const { rooms } = useSelector((state) => state.chat);
   const sellerId = prodDetail?.seller_id;
 
   useEffect(() => {
@@ -60,7 +63,6 @@ const Detail = () => {
       ),
     });
   };
-
   const onPurchaseHandler = () => {
     handleClick(purchase, "해당 상품 구매하시겠습니까?");
   };
@@ -144,14 +146,17 @@ const Detail = () => {
       productId,
     };
     dispatch(addWishList(data)).then((response) => {
-      console.log(loadWishList);
       if (response.payload.addWishListSuccess) {
-        enqueueSnackbar("관심상품 등록에 성공했습니다.", {
+        enqueueSnackbar("상품을 찜 했습니다.", {
           variant: "success",
         });
+        setActiveWish(true);
       } else {
-        enqueueSnackbar("관심상품 등록에 실패했습니다.", {
-          variant: "error",
+        dispatch(deleteWishList(productId)).then((response) => {
+          enqueueSnackbar("찜이 해제 되었습니다. ", {
+            variant: "error",
+          });
+          setActiveWish(false);
         });
       }
     });
@@ -185,10 +190,19 @@ const Detail = () => {
                 <div className={classes.putMessageButton}>
                   <Button onClick={() => addWishListHandler()}>
                     <div className={classes.productPutWrap}>
-                      <div className={classes.productPut}>
-                        <FaHeart />
-                        <span className={classes.buttonText}>찜하기</span>
-                      </div>
+                      {activeWish ? (
+                        <div>
+                          <div className={classes.productPut}>
+                            <FaHeart style={{ color: "red" }} />
+                            <span className={classes.buttonText}>찜하기</span>
+                          </div>
+                        </div>
+                      ) : (
+                        <div className={classes.previousProductPut}>
+                          <FaHeart />
+                          <span className={classes.buttonText}>찜하기</span>
+                        </div>
+                      )}
                     </div>
                   </Button>
 
