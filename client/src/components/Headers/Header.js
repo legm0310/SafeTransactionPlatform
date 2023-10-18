@@ -62,14 +62,13 @@ const Header = (props, { wish }) => {
           ...appBarStyle,
         }}
       >
-        <Container maxWidth="xl">
-          {/* <div
-            id="test"
-            style={{
-              display: "flex",
-              justifyContent: "space-between",
-            }}
-          > */}
+        <Container
+          maxWidth="xl"
+          sx={{
+            width: { lg: "1200px", md: "900px", sm: "720px" },
+            padding: "0px !important",
+          }}
+        >
           <Toolbar
             disableGutters
             sx={{
@@ -81,14 +80,13 @@ const Header = (props, { wish }) => {
               handleOpenNavMenu={handleOpenNavMenu}
               handleCloseNavMenu={handleCloseNavMenu}
               anchorElNav={anchorElNav}
-              classes={classes}
             />
 
             <Link to="/">
               <Logo />
             </Link>
 
-            <DesktopNavMenu classes={classes} />
+            <DesktopNavMenu />
 
             <UserAuth
               setIsLoggedIn={props.setIsLoggedIn}
