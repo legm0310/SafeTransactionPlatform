@@ -12,11 +12,11 @@ const RecentProductsList = () => {
   const [productsList, setProductsList] = useState([]);
   const [displayMore, setDisplayMore] = useState(true);
 
-  const isHome = window.location.pathname === "/";
+  // const isHome = window.location.pathname === "/";
 
-  const customStyle = {
-    width: isHome ? "277.5px" : "297.5px",
-  };
+  // const customStyle = {
+  //   width: isHome ? "277.5px" : "297.5px",
+  // };
 
   const onClickMoreProduct = () => {
     setLastProdId(productsList[productsList.length - 1]?.id);
@@ -45,7 +45,7 @@ const RecentProductsList = () => {
               <div
                 key={product.id}
                 className={classes.latestProduct}
-                style={customStyle}
+                // style={customStyle}
               >
                 <Link to={`/products/${product.id}`}>
                   <div className={classes.imgBox}>
