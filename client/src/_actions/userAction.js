@@ -15,6 +15,7 @@ import {
   ADD_WISHLIST,
   GET_WISHLIST,
   DELETE_WISHLIST,
+  GET_INIT_USER,
 } from "./type";
 import { authRequest, baseRequest } from "../api/common";
 import { setLoadings } from "./uiAction";
@@ -183,6 +184,20 @@ export function deleteWishList(dataToSubmit) {
     });
   return {
     type: DELETE_WISHLIST,
+    payload: request,
+  };
+}
+
+export function getInitUser() {
+  const request = authRequest()
+    .get(`/api/user/init`)
+    .then((response) => response.data)
+    .catch((err) => {
+      console.log(err.response);
+      return err.response.data;
+    });
+  return {
+    type: GET_INIT_USER,
     payload: request,
   };
 }

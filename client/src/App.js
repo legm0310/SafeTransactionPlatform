@@ -1,7 +1,7 @@
 import React, { Fragment, useEffect, useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { useDispatch, useSelector, shallowEqual } from "react-redux";
-import { auth } from "./_actions/userAction";
+import { auth, getInitUser } from "./_actions/userAction";
 
 import Header from "./components/Headers/Header";
 import Home from "./pages/Home/Home";
@@ -20,19 +20,16 @@ import Footer from "./components/Footer/Footer";
 import Banner from "./components/Banner/Banner";
 import Manual from "./components/Manual/Manual";
 
-import { Backdrop } from "@mui/material";
-
 function App() {
   const dispatch = useDispatch();
   const isLoggedIn = useSelector(
     (state) => state.user.isLoggedIn,
     shallowEqual
   );
-  const isLoading = useSelector((state) => state.ui.isLoading, shallowEqual);
-  const [wish, setWish] = useState([]);
 
   useEffect(() => {
     dispatch(auth());
+    dispatch(getInitUser());
   }, [dispatch]);
 
   const AuthHome = Auth(Home, null);
