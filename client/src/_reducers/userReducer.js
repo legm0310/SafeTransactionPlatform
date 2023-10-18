@@ -115,7 +115,7 @@ export default function (state = initialState, action) {
       return {
         ...state,
         getInitUserSuccess: action.payload.getInitUserSuccess,
-        loadWishList: [...action.payload.wishListId],
+        // loadWishList: [...action.payload?.wishListId],
       };
       break;
     default: // state가 들어오지 않았을 경우 전의 state를 넣어줌

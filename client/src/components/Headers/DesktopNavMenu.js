@@ -33,7 +33,8 @@ const DesktopNavMenu = () => {
     <Fragment>
       <Box
         sx={{
-          flexGrow: 1,
+          flexGrow: 0.8,
+          width: { lg: "600px" },
           display: "flex",
           alignItems: "center",
         }}
@@ -74,10 +75,10 @@ const DesktopNavMenu = () => {
           component="form"
           sx={{
             p: "2px 4px 0 0",
-            ml: { lg: 3, xs: 0 },
+            ml: { lg: 3, xs: 2 },
             display: "flex",
             alignItems: "center",
-            width: 400,
+            width: { sm: "400px" },
             borderRadius: 1.5,
             height: 37,
             justifyContent: "center",
