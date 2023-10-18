@@ -90,6 +90,11 @@ const Banner = (props) => {
                   카테고리를 선택해서 제품을 검색해보세요.
                 </p>
               </div>
+              <div className={classes.typingBottom}>
+                <Link to="/products/all">
+                  <button>제품 구매하기</button>
+                </Link>
+              </div>
             </div>
           </div>
         </section>
@@ -128,6 +133,11 @@ const Banner = (props) => {
                             중고거래를 이용하실 수 있어요.
                           </span>
                         </div>
+                        <div className={classes.typingBottom}>
+                          <Link to="/manual">
+                            <button>서비스 이용 가이드</button>
+                          </Link>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -152,6 +162,11 @@ const Banner = (props) => {
                             판다 서비스는 토큰을 이용해 거래합니다. <br />
                             자세한 사항은 가이드를 참고해주세요.
                           </span>
+                        </div>
+                        <div className={classes.typingBottom}>
+                          <Link to="/manual">
+                            <button>서비스 이용 가이드</button>
+                          </Link>
                         </div>
                       </div>
                     </div>
@@ -178,6 +193,11 @@ const Banner = (props) => {
                             수령한 후 구매 확정을 하면 토큰이 판매자에게
                             송금됩니다.
                           </span>
+                        </div>
+                        <div className={classes.typingBottom}>
+                          <Link to="/manual">
+                            <button>서비스 이용 가이드</button>
+                          </Link>
                         </div>
                       </div>
                     </div>
