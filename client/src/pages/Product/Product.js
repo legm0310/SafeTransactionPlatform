@@ -29,15 +29,19 @@ const Product = (props) => {
 
   const onPageChange = (page) => {
     setPage(page);
+    searchParams.set("page", page);
+    setSearchParams(searchParams);
   };
 
   useEffect(() => {
     const filter = {};
     const category = searchParams.get("category") ?? "%";
     const search = searchParams.get("search") ?? "%";
+    const page = searchParams.get("page") ?? "1";
     filter.category = category;
     filter.search = search;
     filter.page = page;
+
     dispatch(getSearchRecentProducts(filter)).then((response) => {
       setFilteredProducts(response.payload?.products ?? []);
       setCount(response.payload?.count);
