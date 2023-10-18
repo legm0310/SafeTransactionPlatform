@@ -59,7 +59,13 @@ const Product = (props) => {
             {searchParams.get("category") ? (
               <div>
                 <ProductCard filteredProducts={filteredProducts} />
-                <Paging count={count} onPageChange={onPageChange} page={page} />
+                {filteredProducts.length !== 0 ? (
+                  <Paging
+                    count={count}
+                    onPageChange={onPageChange}
+                    page={page}
+                  />
+                ) : null}
               </div>
             ) : (
               <RecentProductsList />
