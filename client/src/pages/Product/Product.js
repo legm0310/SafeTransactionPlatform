@@ -68,7 +68,9 @@ const Product = (props) => {
                 ) : null}
               </div>
             ) : (
-              <RecentProductsList />
+              <div className={classes.RecentProductsListWrap}>
+                <RecentProductsList />
+              </div>
             )}
           </div>
         </div>
