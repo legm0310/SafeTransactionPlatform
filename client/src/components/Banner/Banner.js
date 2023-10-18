@@ -2,13 +2,15 @@ import { Fragment, useState } from "react";
 import { Link } from "react-router-dom";
 
 import classes from "../../styles/banner/Banner.module.css";
+
 import mainImg from "../../assets/platformImage1.png";
-import mainImg1 from "../../assets/platformImage4.png";
+import mainImg1 from "../../assets/pandaImg1.jpeg";
+
 import Slider from "react-slick";
 import styled from "styled-components";
 
 const Banner = (props) => {
-  const customDots = ["판다메인", "상품구매", "상품판매"];
+  const customDots = ["지갑 연결", "토큰 발급", "구매 확정"];
 
   const [backgroundColor, setBackgroundColor] = useState("white");
 
@@ -37,11 +39,22 @@ const Banner = (props) => {
         <section className={classes.mainWrap}>
           <div className={classes.mainContent}>
             <div className={classes.mainTitle}>
-              <div className={classes.typingMiddle}>
+              <div className={classes.typingTop}>
                 <span>
-                  블록체인을 이용해서 <br />
-                  중고거래를 안전하게
+                  블록체인을 이용해
+                  <br />
+                  안전하게 거래하기
                 </span>
+                {/* <span>
+                  판다에서 안전하게 <br />
+                  거래 서비스를 이용하세요
+                </span> */}
+              </div>
+              <div className={classes.typingMiddle}>
+                <p>
+                  에스크로를 통해 사기 위험도를 낮춰 <br />
+                  안전하게 중고거래를 이용하실 수 있어요.
+                </p>
               </div>
               <div className={classes.typingBottom}>
                 <Link to="/">
@@ -66,40 +79,17 @@ const Banner = (props) => {
             <div className={classes.secondTitle}>
               <div className={classes.secondTypingMiddle}>
                 <span>
-                  블록체인의 기술로 <br />
-                  안전하게 거래하세요
+                  원하는 제품
+                  <br />
+                  검색하고 구매하기
                 </span>
               </div>
               <div className={classes.secondTypingBottom}>
-                <span>
-                  사기를 블록체인을 이용하여 사전에 방어하기에 <br />
-                  안전하게 중고거래를 이용하실 수 있어요
-                </span>
+                <p>
+                  원하는 제품의 키워드를 검색하거나 <br />
+                  카테고리를 선택해서 제품을 검색해보세요.
+                </p>
               </div>
-            </div>
-          </div>
-        </section>
-
-        {/* 세번째 섹션 */}
-        <section className={classes.thirdWrap}>
-          <div className={classes.thirdContent}>
-            <div className={classes.thirdTitle}>
-              <div className={classes.thirdTypingMiddle}>
-                <span>
-                  이더리움 지갑 <br />
-                  메타마스크의 이용
-                </span>
-              </div>
-              <div className={classes.thirdTypingBottom}>
-                <span>
-                  메타마스크란 이더리움 등 가상자산을 <br /> 보관, 송금, 관리할
-                  수 있는 프로그램입니다. <br /> 메타마스크를 이용하여 <br />{" "}
-                  안전한 중고거래를 이용해보세요.
-                </span>
-              </div>
-            </div>
-            <div className={classes.thirdImage}>
-              <img src={mainImg} alt="" className={classes.mainImg} />
             </div>
           </div>
         </section>
@@ -110,8 +100,8 @@ const Banner = (props) => {
             <div className={classes.forthTitle}>
               <div className={classes.forthTypingMiddle}>
                 <span>
-                  메타마스크를 사용해서 <br />
-                  안전한 중고거래를 이용해보세요
+                  메타마스크 지갑을 <br />
+                  이용해 거래하기
                 </span>
               </div>
               <div className="slider-container">
@@ -128,14 +118,14 @@ const Banner = (props) => {
                       <div className={classes.secondTitle}>
                         <div className={classes.secondTypingMiddle}>
                           <span>
-                            블록체인의 기술로 <br />
-                            안전하게 거래하세요
+                            판다 서비스에 <br />
+                            메타마스크 지갑을 연결하세요
                           </span>
                         </div>
                         <div className={classes.secondTypingBottom}>
                           <span>
-                            사기를 블록체인을 이용하여 사전에 방어하기에 <br />
-                            안전하게 중고거래를 이용하실 수 있어요
+                            메타마스크 지갑을 연결한 후 <br />
+                            중고거래를 이용하실 수 있어요.
                           </span>
                         </div>
                       </div>
@@ -153,14 +143,14 @@ const Banner = (props) => {
                       <div className={classes.secondTitle}>
                         <div className={classes.secondTypingMiddle}>
                           <span>
-                            블록체인의 기술로 <br />
-                            안전하게 거래하세요
+                            지갑에 연결한 후 <br />
+                            토큰을 발급 받아 거래에 이용하세요
                           </span>
                         </div>
                         <div className={classes.secondTypingBottom}>
                           <span>
-                            사기를 블록체인을 이용하여 사전에 방어하기에 <br />
-                            안전하게 중고거래를 이용하실 수 있어요
+                            판다 서비스는 토큰을 이용해 거래합니다. <br />
+                            자세한 사항은 가이드를 참고해주세요.
                           </span>
                         </div>
                       </div>
@@ -178,14 +168,15 @@ const Banner = (props) => {
                       <div className={classes.secondTitle}>
                         <div className={classes.secondTypingMiddle}>
                           <span>
-                            블록체인의 기술로 <br />
-                            안전하게 거래하세요
+                            제품을 수령한 후 <br />
+                            구매 확정 해주세요
                           </span>
                         </div>
                         <div className={classes.secondTypingBottom}>
                           <span>
-                            사기를 블록체인을 이용하여 사전에 방어하기에 <br />
-                            안전하게 중고거래를 이용하실 수 있어요
+                            원하는 제품을 구매하여 구매 진행 중 상태에서 제품을
+                            수령한 후 구매 확정을 하면 토큰이 판매자에게
+                            송금됩니다.
                           </span>
                         </div>
                       </div>
@@ -193,6 +184,31 @@ const Banner = (props) => {
                   </div>
                 </StyledSlider>
               </div>
+            </div>
+          </div>
+        </section>
+
+        {/* 세번째 섹션 */}
+        <section className={classes.thirdWrap}>
+          <div className={classes.thirdContent}>
+            <div className={classes.thirdTitle}>
+              <div className={classes.thirdTypingMiddle}>
+                <span>
+                  판매자와 1대1
+                  <br />
+                  채팅방 생성하기
+                </span>
+              </div>
+              <div className={classes.thirdTypingBottom}>
+                <span>
+                  제품 상세 페이지에서 판다톡 버튼을 누르면
+                  <br />
+                  판매자와의 1대1 채팅방이 생성됩니다.
+                </span>
+              </div>
+            </div>
+            <div className={classes.thirdImage}>
+              <img src={mainImg} alt="" className={classes.mainImg} />
             </div>
           </div>
         </section>
@@ -263,7 +279,7 @@ const StyledSlider = styled(Slider)`
   .custom-dot {
     width: 100%;
     height: 100%;
-    background: none;
+    background: #e9ecef;
     border: 2px solid rgb(238, 238, 238);
     border-radius: 4px;
     padding: 20px 30px;
@@ -274,5 +290,8 @@ const StyledSlider = styled(Slider)`
     justify-content: center;
     text-align: center;
     color: black;
+  }
+  .custom-dot:hover {
+    background: #dee2e6;
   }
 `;
