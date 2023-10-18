@@ -37,7 +37,6 @@ function App() {
 
   const AuthHome = Auth(Home, null);
   const AuthAddProduct = Auth(AddProduct, true);
-  // const AuthUserInfo = Auth(UserInfo, true);
   const AuthChat = Auth(Chat, true);
 
   return (
