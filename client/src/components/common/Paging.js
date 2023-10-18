@@ -1,22 +1,17 @@
-import React, { Fragment, useState } from "react";
-import { useSelector } from "react-redux";
+import React, { Fragment } from "react";
 import Pagination from "react-js-pagination";
+import "../../styles/common/Paging.css";
 
-const Paging = () => {
-  const [page, setPage] = useState(1);
-  const products = useSelector(
-    (state) => state.product.searchProduct?.products
-  );
-
-  const onPageChange = (page) => {
-    setPage(page);
-  };
+// count : 총 아이템의 개수
+// page : 현재 페이지
+// items : 가져올 아이템
+const Paging = ({ count, onPageChange, page }) => {
   return (
     <Fragment>
       <Pagination
         activePage={page}
-        itemsCountPerPage={10}
-        totalItemsCount={450}
+        itemsCountPerPage={12}
+        totalItemsCount={count}
         pageRangeDisplayed={10}
         prevPageText={"‹"}
         nextPageText={"›"}
