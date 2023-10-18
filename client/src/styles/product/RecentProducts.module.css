@@ -118,11 +118,11 @@ a {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #dbe1e5;
+  background-color: #d3d3d3;
   width: 200px;
   height: 40px;
   border-radius: 4px;
-  box-shadow: 2px 2px rgb(220, 220, 220);
+  /* box-shadow: 2px 2px rgb(220, 220, 220); */
 }
 
 @media (max-width: 1260px) {

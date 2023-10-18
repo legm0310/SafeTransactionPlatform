@@ -85,23 +85,36 @@ const DesktopNavMenu = () => {
         <Paper
           component="form"
           sx={{
-            p: "2px 4px",
+            p: "2px 4px 0 0",
             ml: 3,
             display: "flex",
             alignItems: "center",
             width: 400,
-            borderRadius: 5,
+            borderRadius: 1.5,
             height: 37,
             justifyContent: "center",
-            border: 1.5,
+            border: "none",
+            boxShadow: "none",
+            backgroundColor: "#E5E5E5",
             display: { xs: "none", md: "flex" },
           }}
         >
           <InputBase
-            sx={{ ml: 2, flex: 1 }}
+            sx={{
+              ml: 2,
+              flex: 1,
+              "input::placeholder": {
+                fontSize: "13px !important",
+              },
+            }}
             placeholder="검색어를 입력하세요..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
+            inputProps={{
+              style: {
+                fontSize: "13px", // 원하는 폰트 크기로 수정
+              },
+            }}
           />
           <IconButton
             type="submit"

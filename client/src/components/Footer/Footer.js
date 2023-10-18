@@ -45,7 +45,7 @@ const Footer = () => {
                     이승훈
                   </a>
                 </li>
-                <linearGradient>
+                <li>
                   <a
                     href="https://www.instagram.com/woo.__.sang/"
                     target="_blank"
@@ -54,7 +54,7 @@ const Footer = () => {
                     <FiInstagram className={classes["instagramImg"]} />
                     성우상
                   </a>
-                </linearGradient>
+                </li>
                 <li>
                   <a
                     href="https://www.instagram.com/im_jun0_/"
