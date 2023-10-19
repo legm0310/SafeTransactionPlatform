@@ -6,19 +6,20 @@ import RecentProductsList from "../../components/Product/RecentProducts";
 import CategoryBar from "../../components/Product/CategoryBar";
 import ProductCard from "../../components/Product/ProductCard";
 import Paging from "../../components/common/Paging";
-import { getItem } from "../../utils";
 
 import classes from "../../styles/product/Product.module.css";
 
 const Product = (props) => {
-  const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [selectedCategory, setSelectedCategory] = useState(null);
   const [filteredProducts, setFilteredProducts] = useState([]);
+  const [count, setCount] = useState(0);
+  const [page, setPage] = useState(1);
+
   const [searchParams, setSearchParams] = useSearchParams();
 
   const onCategoryClick = async (e) => {
     updateSearchParams(e);
+    setPage(1);
   };
 
   const updateSearchParams = (e) => {
@@ -26,30 +27,26 @@ const Product = (props) => {
     setSearchParams(searchParams);
   };
 
-  const handleResetFilter = (e) => {
-    searchParams.set("category", "");
-    searchParams.set("search", "");
+  const onPageChange = (page) => {
+    setPage(page);
+    searchParams.set("page", page);
     setSearchParams(searchParams);
   };
 
   useEffect(() => {
     const filter = {};
-    const category = searchParams.get("category");
-    const search = searchParams.get("search");
-    setSelectedCategory(category);
+    const category = searchParams.get("category") ?? "%";
+    const search = searchParams.get("search") ?? "%";
+    const page = searchParams.get("page") ?? "1";
     filter.category = category;
-    filter.status = "SALE";
     filter.search = search;
-    dispatch(
-      getSearchRecentProducts({
-        status: filter.status,
-        category: filter.category,
-        search: filter.search,
-      })
-    ).then((response) => {
+    filter.page = page;
+
+    dispatch(getSearchRecentProducts(filter)).then((response) => {
       setFilteredProducts(response.payload?.products ?? []);
+      setCount(response.payload?.count);
     });
-  }, [searchParams.get("category"), searchParams.get("search")]);
+  }, [searchParams.get("category"), searchParams.get("search"), page]);
 
   return (
     <Fragment>
@@ -57,15 +54,23 @@ const Product = (props) => {
         <div className={classes.productWrap}>
           <div className={classes.categoryBar}>
             <CategoryBar onCategoryClick={onCategoryClick} />
-            {/* <button onClick={handleResetFilter}>필터링 초기화</button> */}
           </div>
           <div className={classes.prdouctCardWrap}>
-            {selectedCategory ? (
-              <ProductCard filteredProducts={filteredProducts} />
+            {searchParams.get("category") ? (
+              <div>
+                <ProductCard filteredProducts={filteredProducts} />
+                {filteredProducts.length !== 0 ? (
+                  <Paging
+                    count={count}
+                    onPageChange={onPageChange}
+                    page={page}
+                  />
+                ) : null}
+              </div>
             ) : (
-              // (<Paging />)
-
-              <RecentProductsList />
+              <div className={classes.RecentProductsListWrap}>
+                <RecentProductsList />
+              </div>
             )}
           </div>
         </div>

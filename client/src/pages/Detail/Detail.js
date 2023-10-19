@@ -3,7 +3,11 @@ import { Link } from "react-router-dom";
 import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useSDK, useAddress } from "@thirdweb-dev/react";
-import { addWishList } from "../../_actions/userAction";
+import {
+  addWishList,
+  deleteWishList,
+  getWishList,
+} from "../../_actions/userAction";
 import { setLoadings } from "../../_actions/uiAction";
 import { getProduct, purchase } from "../../_actions/productAction";
 import { addRoom, getRooms } from "../../_actions/chatAction";
@@ -14,6 +18,7 @@ import { TbMessageCircle2Filled } from "react-icons/tb";
 import { IoCart } from "react-icons/io5";
 import Button from "../../components/common/Button";
 import ProductSellor from "../../components/Detail/ProductSellor";
+import RelatedProduct from "../../components/Detail/RelatedProduct";
 import ProductInformation from "../../components/Detail/ProductInformation";
 import Loading from "../../components/common/Loading";
 
@@ -21,24 +26,29 @@ import classes from "../../styles/detail/Detail.module.css";
 import { closeSnackbar, useSnackbar } from "notistack";
 
 const Detail = () => {
-  const [activeMenu, setActiveMenu] = useState("productInformation");
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { enqueueSnackbar } = useSnackbar();
   const sdk = useSDK();
 
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const { productId } = useParams();
-
+  const { userId, loadWishList } = useSelector((state) => state.user);
   const prodDetail = useSelector(
     (state) => state.product.productDetail.product
   );
   const isLoading = useSelector((state) => state.ui.isLoading);
-  const { userId, loadWishList } = useSelector((state) => state.user);
-  const { rooms } = useSelector((state) => state.chat);
+  const { productId } = useParams();
+
+  const [activeWish, setActiveWish] = useState(false);
+
+  const wishListId = loadWishList.map((item) => item.id);
+
   const sellerId = prodDetail?.seller_id;
 
   useEffect(() => {
     dispatch(getProduct(productId));
+    wishListId.indexOf(+productId) == -1
+      ? setActiveWish(false)
+      : setActiveWish(true);
   }, [dispatch, productId]);
 
   const handleClick = (func, comment) => {
@@ -59,7 +69,6 @@ const Detail = () => {
       ),
     });
   };
-
   const onPurchaseHandler = () => {
     handleClick(purchase, "해당 상품 구매하시겠습니까?");
   };
@@ -142,18 +151,22 @@ const Detail = () => {
       userId,
       productId,
     };
-    dispatch(addWishList(data)).then((response) => {
-      console.log(loadWishList);
-      if (response.payload.addWishListSuccess) {
-        enqueueSnackbar("관심상품 등록에 성공했습니다.", {
-          variant: "success",
+    activeWish
+      ? dispatch(deleteWishList(productId)).then((response) => {
+          enqueueSnackbar("찜이 해제 되었습니다. ", {
+            variant: "error",
+          });
+          dispatch(getWishList(userId));
+          setActiveWish(false);
+        })
+      : dispatch(addWishList(data)).then((response) => {
+          if (response.payload.addWishListSuccess) {
+            enqueueSnackbar("상품을 찜 했습니다.", {
+              variant: "success",
+            });
+            setActiveWish(true);
+          }
         });
-      } else {
-        enqueueSnackbar("관심상품 등록에 실패했습니다.", {
-          variant: "error",
-        });
-      }
-    });
   };
 
   return (
@@ -184,10 +197,19 @@ const Detail = () => {
                 <div className={classes.putMessageButton}>
                   <Button onClick={() => addWishListHandler()}>
                     <div className={classes.productPutWrap}>
-                      <div className={classes.productPut}>
-                        <FaHeart />
-                        <span className={classes.buttonText}>찜하기</span>
-                      </div>
+                      {activeWish ? (
+                        <div>
+                          <div className={classes.productPut}>
+                            <FaHeart style={{ color: "red" }} />
+                            <span className={classes.buttonText}>찜하기</span>
+                          </div>
+                        </div>
+                      ) : (
+                        <div className={classes.previousProductPut}>
+                          <FaHeart />
+                          <span className={classes.buttonText}>찜하기</span>
+                        </div>
+                      )}
                     </div>
                   </Button>
 
@@ -237,11 +259,7 @@ const Detail = () => {
             </div>
           </section>
 
-          <div className={classes.relationproductWrap}>
-            <div className={classes.relationProduct}>
-              <div className={classes.relationProductHeader}>연관 상품</div>
-            </div>
-          </div>
+          <RelatedProduct prodDetail={prodDetail} />
         </div>
       )}
     </Fragment>

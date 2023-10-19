@@ -45,7 +45,7 @@ const Footer = () => {
                     이승훈
                   </a>
                 </li>
-                <linearGradient>
+                <li>
                   <a
                     href="https://www.instagram.com/woo.__.sang/"
                     target="_blank"
@@ -54,7 +54,7 @@ const Footer = () => {
                     <FiInstagram className={classes["instagramImg"]} />
                     성우상
                   </a>
-                </linearGradient>
+                </li>
                 <li>
                   <a
                     href="https://www.instagram.com/im_jun0_/"
@@ -87,7 +87,7 @@ const Footer = () => {
                 </li>
               </ul>
             </div>
-            <div>
+            <div className={classes.information}>
               <h3>Information</h3>
               <ul className={classes.infoList}>
                 <Link to="/manual">
@@ -95,7 +95,7 @@ const Footer = () => {
                 </Link>
               </ul>
             </div>
-            <div>
+            <div className={classes.contact}>
               <h3>Contact</h3>
               <ul className={classes.contactList}>
                 <li>대표: 이규민</li>

@@ -18,7 +18,7 @@ const Header = (props, { wish }) => {
   const [isScrolled, setIsScrolled] = useState(false);
 
   const handleScroll = () => {
-    if (window.scrollY > 150) {
+    if (window.scrollY > 0) {
       setIsScrolled(true);
     } else {
       setIsScrolled(false);
@@ -35,7 +35,8 @@ const Header = (props, { wish }) => {
   const appBarStyle = {
     position: "sticky",
     width: "100%",
-    boxShadow: isScrolled ? "0px 2px 4px rgba(0, 0, 0, 0.1)" : "none",
+    borderBottom: isScrolled ? "none" : "1px solid rgb(238, 238, 238)",
+    boxShadow: isScrolled ? "0px 2px 4px rgba(0, 0, 0, 0.2)" : "none",
   };
 
   // 현재 경로가 로그인 페이지인 경우 Header를 렌더링하지 않음
@@ -61,14 +62,13 @@ const Header = (props, { wish }) => {
           ...appBarStyle,
         }}
       >
-        <Container maxWidth="xl">
-          {/* <div
-            id="test"
-            style={{
-              display: "flex",
-              justifyContent: "space-between",
-            }}
-          > */}
+        <Container
+          maxWidth="xl"
+          sx={{
+            width: { lg: "1200px", md: "900px", sm: "720px" },
+            padding: "0px !important",
+          }}
+        >
           <Toolbar
             disableGutters
             sx={{
@@ -80,14 +80,13 @@ const Header = (props, { wish }) => {
               handleOpenNavMenu={handleOpenNavMenu}
               handleCloseNavMenu={handleCloseNavMenu}
               anchorElNav={anchorElNav}
-              classes={classes}
             />
 
             <Link to="/">
               <Logo />
             </Link>
 
-            <DesktopNavMenu classes={classes} />
+            <DesktopNavMenu />
 
             <UserAuth
               setIsLoggedIn={props.setIsLoggedIn}

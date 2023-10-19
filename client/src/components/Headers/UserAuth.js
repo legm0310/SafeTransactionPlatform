@@ -22,6 +22,7 @@ const UserAuth = (props, { wish }) => {
                 color: "black",
                 fontWeight: 700,
                 fontFamily: "GongGothicMedium",
+                display: { lg: "block", xs: "none" },
               }}
             >
               로그인/회원가입

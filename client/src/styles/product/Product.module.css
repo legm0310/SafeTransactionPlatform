@@ -18,7 +18,7 @@
 
 .productWrap {
   display: flex;
-  width: 1480px;
+  width: 1200px;
   margin-top: 30px;
 }
 
@@ -26,6 +26,10 @@
   text-decoration: none;
 }
 
-.prdouctCardWrap {
-  margin-left: 200px;
+.RecentProductsListWrap {
+  margin-left: 192px;
 }
+
+/* .prdouctCardWrap {
+  margin-left: 200px;
+} */

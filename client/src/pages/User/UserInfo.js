@@ -13,8 +13,9 @@ import classes from "../../styles/user/UserInfo.module.css";
 const UserInfo = () => {
   const [activeMenu, setActiveMenu] = useState("SaleList");
 
+  const { id } = useParams();
   const location = useLocation();
-  const { loadWishList } = useSelector((state) => state.user);
+  const { loadWishList, userId } = useSelector((state) => state.user);
 
   useEffect(() => {
     if (location.state && location.state.activeMenu)
@@ -29,56 +30,71 @@ const UserInfo = () => {
     <Fragment>
       <section className={classes.userInfoSection}>
         <UserProfile />
+
         <div className={classes.userInfoMenuWrap}>
-          <div className={classes.userInfoMenu}>
-            <Button onClick={() => onMenuHandler("SaleList")}>
-              <div
-                className={`${classes.menuButton1} ${
-                  activeMenu === "SaleList" ? classes.active : ""
-                }`}
-              >
-                <span>판매상품</span>
-              </div>
-            </Button>
+          {+id === userId ? (
+            <div className={classes.userInfoMenu}>
+              <Button onClick={() => onMenuHandler("SaleList")}>
+                <div
+                  className={`${classes.menuButton1} ${
+                    activeMenu === "SaleList" ? classes.active : ""
+                  }`}
+                >
+                  <span>판매상품</span>
+                </div>
+              </Button>
 
-            <Button onClick={() => onMenuHandler("ReservedProduct")}>
-              <div
-                className={`${classes.menuButton} ${
-                  activeMenu === "ReservedProduct" ? classes.active : ""
-                }`}
-              >
-                <span>구매진행상품</span>
-              </div>
-            </Button>
+              <Button onClick={() => onMenuHandler("ReservedProduct")}>
+                <div
+                  className={`${classes.menuButton} ${
+                    activeMenu === "ReservedProduct" ? classes.active : ""
+                  }`}
+                >
+                  <span>구매진행상품</span>
+                </div>
+              </Button>
 
-            <Button onClick={() => onMenuHandler("PurchasedProduct")}>
-              <div
-                className={`${classes.menuButton} ${
-                  activeMenu === "PurchasedProduct" ? classes.active : ""
-                }`}
-              >
-                <span>구매완료상품</span>
-              </div>
-            </Button>
+              <Button onClick={() => onMenuHandler("PurchasedProduct")}>
+                <div
+                  className={`${classes.menuButton} ${
+                    activeMenu === "PurchasedProduct" ? classes.active : ""
+                  }`}
+                >
+                  <span>구매완료상품</span>
+                </div>
+              </Button>
 
-            <Button onClick={() => onMenuHandler("WishList")}>
-              <div
-                className={`${classes.menuButton} ${
-                  activeMenu === "WishList" ? classes.active : ""
-                }`}
-              >
-                <span>찜목록</span>
-                {loadWishList?.length >= 1 ? (
-                  <div className={classes.wishListLength}>
-                    {" "}
-                    <p>{loadWishList?.length}</p>{" "}
-                  </div>
-                ) : (
-                  ""
-                )}
-              </div>
-            </Button>
-          </div>
+              <Button onClick={() => onMenuHandler("WishList")}>
+                <div
+                  className={`${classes.menuButton} ${
+                    activeMenu === "WishList" ? classes.active : ""
+                  }`}
+                >
+                  <span>찜목록</span>
+                  {loadWishList?.length >= 1 ? (
+                    <div className={classes.wishListLength}>
+                      {" "}
+                      <p>{loadWishList?.length}</p>{" "}
+                    </div>
+                  ) : (
+                    ""
+                  )}
+                </div>
+              </Button>
+            </div>
+          ) : (
+            <div className={classes.userInfoMenu}>
+              <Button onClick={() => onMenuHandler("SaleList")}>
+                <div
+                  className={`${classes.menuButton1} ${
+                    activeMenu === "SaleList" ? classes.active : ""
+                  }`}
+                >
+                  <span>판매상품</span>
+                </div>
+              </Button>
+            </div>
+          )}
 
           <div className={classes.userInfoExplanation}>
             {activeMenu === "SaleList" && <SaleList />}

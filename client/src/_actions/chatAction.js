@@ -8,7 +8,7 @@ import {
   DELETE_ROOM,
   UPDATE_RECENT_CHATS,
   LOAD_MORE_CHATS,
-  RESET_CURRENT_CHATS,
+  READ_CHATS,
 } from "./type";
 import { setLoadings } from "./uiAction";
 import { addProdRequest } from "../api/productApi";
@@ -153,6 +153,15 @@ export function updateRecentChats(dataToSubmit) {
     dispatch({
       type: UPDATE_RECENT_CHATS,
       payload: { oneSelf, roomId, chat, checkRead },
+    });
+  };
+}
+
+export function readChats() {
+  return async (dispatch) => {
+    dispatch({
+      type: 1,
+      payload: 1,
     });
   };
 }

@@ -29,7 +29,7 @@
 }
 
 .mainImg {
-  width: 1000px;
+  width: 720px;
 }
 
 .typingTop {
@@ -78,13 +78,18 @@
 }
 
 .typingBottom span {
-  font-size: 1.5rem;
+  font-size: 1.3rem;
   line-height: 3rem;
+  color: rgb(123, 123, 123);
+}
+
+.IntroButton {
+  margin-top: 50px;
 }
 
 .IntroButton button {
   width: 200px;
-  height: 50px;
+  height: 60px;
   border-radius: 4px;
   font-size: 1.1rem;
 }
@@ -105,7 +110,7 @@
   width: 1200px;
 
   border-radius: 12px;
-  margin-top: 100px;
+  margin-top: 50px;
 }
 
 /* 세반째 섹션 */
@@ -113,11 +118,11 @@
   display: flex;
   justify-content: center;
   width: 1200px;
-  margin: 100px auto 50px;
+  margin-top: 100px;
 }
 
-/* 반응형 1260 */
-@media (max-width: 1260px) {
+/* 반응형 1200 */
+@media (max-width: 1200px) {
   .container {
     margin-top: 50px;
   }
@@ -128,25 +133,29 @@
     justify-content: space-around;
   }
 
+  .mainImgWrap {
+    overflow: visible;
+  }
+
   .mainImg {
     width: 560px;
   }
 
   /* 두 번째 섹션 */
   .ImgslideWrap {
-    width: 960px;
+    width: 900px;
     aspect-ratio: 3 / 1;
     margin-top: 50px;
   }
 
   /* 세 번째 섹션 */
   .latesProductWrap {
-    width: 960px;
+    width: 900px;
   }
 }
 
-/* 반응형 980 */
-@media (max-width: 980px) {
+/* 반응형 900 */
+@media (max-width: 900px) {
   /* 두 번째 섹션 */
   .ImgslideWrap {
     width: 720px;
@@ -159,8 +168,8 @@
   }
 }
 
-/* 반응형 500 */
-@media (max-width: 500px) {
+/* 반응형 600 */
+@media (max-width: 600px) {
   .container {
     margin-top: 10px;
   }

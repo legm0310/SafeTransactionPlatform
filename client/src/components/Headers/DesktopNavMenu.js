@@ -33,15 +33,13 @@ const DesktopNavMenu = () => {
     <Fragment>
       <Box
         sx={{
-          flexGrow: 1,
-          display: { xs: "none", md: "flex" },
+          flexGrow: 0.8,
+          width: { lg: "600px" },
+          display: "flex",
           alignItems: "center",
         }}
       >
-        <Link
-          to='/products/all?category=%&search=%'
-          className={classes.purchaseLink}
-        >
+        <Link to="/products/all" className={classes.purchaseLink}>
           <Button
             onClick={handleCloseNavMenu}
             sx={{
@@ -50,13 +48,14 @@ const DesktopNavMenu = () => {
               fontWeight: 700,
               fontFamily: "GongGothicMedium",
               whiteSpace: "nowrap",
+              display: { xs: "none", lg: "flex" },
             }}
           >
             구매하기
           </Button>
         </Link>
 
-        <Link to='/products/add' className={classes.purchaseLink}>
+        <Link to="/products/add" className={classes.purchaseLink}>
           <Button
             onClick={handleCloseNavMenu}
             sx={{
@@ -65,52 +64,52 @@ const DesktopNavMenu = () => {
               fontWeight: 700,
               fontFamily: "GongGothicMedium",
               whiteSpace: "nowrap",
+              display: { xs: "none", lg: "flex" },
             }}
           >
             판매하기
           </Button>
         </Link>
 
-        {/* <Link to="Loading" className={classes.purchaseLink}>
-          <Button
-            onClick={handleCloseNavMenu}
-            sx={{
-              my: 2,
-              color: "black",
-              fontWeight: 700,
-              fontFamily: "GongGothicMedium",
-            }}
-          >
-            로딩버튼
-          </Button>
-        </Link> */}
-
         <Paper
-          component='form'
+          component="form"
           sx={{
-            p: "2px 4px",
-            ml: 3,
+            p: "2px 4px 0 0",
+            ml: { lg: 3, xs: 2 },
             display: "flex",
             alignItems: "center",
-            width: 400,
-            borderRadius: 5,
+            width: { sm: "400px" },
+            borderRadius: 1.5,
             height: 37,
             justifyContent: "center",
-            border: 1.5,
-            display: { xs: "none", md: "flex" },
+            border: "none",
+            boxShadow: "none",
+            backgroundColor: "#E5E5E5",
+            display: "flex",
           }}
         >
           <InputBase
-            sx={{ ml: 2, flex: 1 }}
-            placeholder='검색어를 입력하세요...'
+            sx={{
+              ml: 2,
+              flex: 1,
+              "input::placeholder": {
+                fontSize: "13px !important",
+              },
+            }}
+            placeholder="검색어를 입력하세요..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
+            inputProps={{
+              style: {
+                fontSize: "13px", // 원하는 폰트 크기로 수정
+              },
+            }}
           />
           <IconButton
-            type='submit'
+            type="submit"
             onClick={onSearchProducts}
             sx={{ p: "10px" }}
-            aria-label='search'
+            aria-label="search"
           >
             <SearchIcon />
           </IconButton>
