@@ -1,5 +1,5 @@
 import { Fragment } from "react";
-import { useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteWishList } from "../../_actions/userAction";
 
@@ -29,20 +29,27 @@ const WishItem = () => {
       ) : (
         loadWishList.map((item) => {
           {
-            console.log(item);
+            console.log(item.id);
           }
+
+          // <Link to={`/products/${item.id}`}>
+
           return (
             <section className={classes.wishList}>
-              <input type="checkbox" />
+              {/* <input type="checkbox" /> */}
               <div className={classes.wishListProductWrap}>
-                <div className={classes.wishListProductImage}>
-                  <img src={item?.image} alt="" />
-                </div>
+                <Link to={`/products/${item.id}`}>
+                  <div className={classes.wishListProductImage}>
+                    <img src={item?.image} alt="" />
+                  </div>
+                </Link>
 
-                <div className={classes.wishListProductInfo}>
-                  <p className={classes.productCategory}>{item?.category}</p>
-                  <p className={classes.productName}>{item?.title}</p>
-                </div>
+                <Link to={`/products/${item.id}`} style={{ color: "black" }}>
+                  <div className={classes.wishListProductInfo}>
+                    <p className={classes.productCategory}>{item?.category}</p>
+                    <p className={classes.productName}>{item?.title}</p>
+                  </div>
+                </Link>
 
                 <div className={classes.productPrice}>
                   <p>{item?.price}PDT</p>
