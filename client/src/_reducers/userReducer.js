@@ -112,10 +112,12 @@ export default function (state = initialState, action) {
       }
       break;
     case GET_INIT_USER:
+      state.loadWishList = action.payload.getInitUserSuccess
+        ? [...action.payload.wishListId]
+        : state.loadWishList;
       return {
         ...state,
-        getInitUserSuccess: action.payload.getInitUserSuccess,
-        // loadWishList: [...action.payload?.wishListId],
+        getInitUserSuccess: action.payload?.getInitUserSuccess ? true : false,
       };
       break;
     default: // state가 들어오지 않았을 경우 전의 state를 넣어줌
