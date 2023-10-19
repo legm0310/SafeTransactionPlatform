@@ -11,11 +11,14 @@ const RelatedProduct = (prodDetail) => {
 
   useEffect(() => {
     const category = prodDetail.prodDetail?.category;
+    const productId = prodDetail.prodDetail?.id;
     const filter = {};
     filter.category = category;
     filter.status = "SALE";
     dispatch(getSearchRecentProducts(filter)).then((response) => {
-      setFilteredProducts(response.payload?.products ?? []);
+      setFilteredProducts(
+        response.payload?.products.filter((item) => item.id !== productId) ?? []
+      );
     });
   }, []);
 
