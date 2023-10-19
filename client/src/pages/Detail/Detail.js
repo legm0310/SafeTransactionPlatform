@@ -3,7 +3,11 @@ import { Link } from "react-router-dom";
 import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useSDK, useAddress } from "@thirdweb-dev/react";
-import { addWishList, deleteWishList } from "../../_actions/userAction";
+import {
+  addWishList,
+  deleteWishList,
+  getWishList,
+} from "../../_actions/userAction";
 import { setLoadings } from "../../_actions/uiAction";
 import { getProduct, purchase } from "../../_actions/productAction";
 import { addRoom, getRooms } from "../../_actions/chatAction";
@@ -22,27 +26,29 @@ import classes from "../../styles/detail/Detail.module.css";
 import { closeSnackbar, useSnackbar } from "notistack";
 
 const Detail = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { enqueueSnackbar } = useSnackbar();
+  const sdk = useSDK();
+
   const { userId, loadWishList } = useSelector((state) => state.user);
   const prodDetail = useSelector(
     (state) => state.product.productDetail.product
   );
   const isLoading = useSelector((state) => state.ui.isLoading);
-
-  const { enqueueSnackbar } = useSnackbar();
-  const sdk = useSDK();
-
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
   const { productId } = useParams();
+
+  const [activeWish, setActiveWish] = useState(false);
+
   const wishListId = loadWishList.map((item) => item.id);
 
-  const [activeWish, setActiveWish] = useState(
-    wishListId.indexOf(+productId) == -1 ? false : true
-  );
   const sellerId = prodDetail?.seller_id;
 
   useEffect(() => {
     dispatch(getProduct(productId));
+    wishListId.indexOf(+productId) == -1
+      ? setActiveWish(false)
+      : setActiveWish(true);
   }, [dispatch, productId]);
 
   const handleClick = (func, comment) => {
@@ -145,21 +151,22 @@ const Detail = () => {
       userId,
       productId,
     };
-    dispatch(addWishList(data)).then((response) => {
-      if (response.payload.addWishListSuccess) {
-        enqueueSnackbar("상품을 찜 했습니다.", {
-          variant: "success",
-        });
-        setActiveWish(true);
-      } else {
-        dispatch(deleteWishList(productId)).then((response) => {
+    activeWish
+      ? dispatch(deleteWishList(productId)).then((response) => {
           enqueueSnackbar("찜이 해제 되었습니다. ", {
             variant: "error",
           });
+          dispatch(getWishList(userId));
           setActiveWish(false);
+        })
+      : dispatch(addWishList(data)).then((response) => {
+          if (response.payload.addWishListSuccess) {
+            enqueueSnackbar("상품을 찜 했습니다.", {
+              variant: "success",
+            });
+            setActiveWish(true);
+          }
         });
-      }
-    });
   };
 
   return (
