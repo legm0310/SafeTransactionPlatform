@@ -31,11 +31,16 @@ class ProductService {
   //infinite scrolling 방식 (lastId)
   async getProducts(params) {
     const query = generateGetProductsQuery(params);
-    // console.log("query", query);
     const products = await this.Product.findAll(query);
     if (!products) throw new InternalServerError("Internal Server Error");
 
     const extractedList = extractProductsList(products);
+    extractedList.count = await this.Product.count({
+      where: {
+        title: { [Op.like]: `%${params.search}%` },
+        category: { [Op.like]: `${params.category}` },
+      },
+    });
     return extractedList;
   }
 

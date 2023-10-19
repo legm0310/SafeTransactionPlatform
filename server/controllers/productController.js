@@ -41,6 +41,7 @@ module.exports = {
     res.status(200).json({
       getRecentProductsSuccess: true,
       products: recentProducts,
+      count: recentProducts.count,
     });
   }),
 

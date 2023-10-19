@@ -59,4 +59,16 @@ module.exports = {
       updateUserSuccess: true,
     });
   }),
+
+  getInitUser: catchAsync(async (req, res) => {
+    const userServiceInstance = await Container.get("userService");
+    const userId = res.locals.userId;
+    console.log("userId", userId);
+    const initUserData = await userServiceInstance.getInitUser(userId);
+    res.status(200).json({
+      getInitUserSuccess: true,
+      wishListId: initUserData.wishList,
+      unreadCount: initUserData.count,
+    });
+  }),
 };
