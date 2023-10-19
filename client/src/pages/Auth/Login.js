@@ -2,7 +2,7 @@ import { Fragment, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
-import { login } from "../../_actions/userAction";
+import { login, getInitUser } from "../../_actions/userAction";
 // import Button from "../../components/common/Button";
 // import CustomAlert from "../../components/common/Alert";
 
@@ -69,6 +69,7 @@ const Login = (props) => {
         enqueueSnackbar("로그인 성공", {
           variant: "success",
         });
+        dispatch(getInitUser());
         navigate("/");
       } else if (
         response.payload.code === 404 ||

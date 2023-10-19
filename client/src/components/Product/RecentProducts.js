@@ -12,6 +12,14 @@ const RecentProductsList = () => {
   const [productsList, setProductsList] = useState([]);
   const [displayMore, setDisplayMore] = useState(true);
 
+  // const isHome = window.location.pathname === "/";
+
+  const isHome = window.location.pathname;
+
+  // const customStyle = {
+  //   width: isHome ? "277.5px" : "297.5px",
+  // };
+
   const onClickMoreProduct = () => {
     setLastProdId(productsList[productsList.length - 1]?.id);
   };
@@ -31,53 +39,113 @@ const RecentProductsList = () => {
   }, [dispatch, lastProdId]);
   return (
     <Fragment>
-      <div className={classes.latestProductSection}>
-        <h1>판다의 최근 상품</h1>
-        <div className={classes.latestProductWrap}>
-          <div className={classes.latestProductContainer}>
-            {productsList.map((product) => (
-              <div key={product.id} className={classes.latestProduct}>
-                <Link to={`/products/${product.id}`}>
-                  <div className={classes.imgBox}>
-                    <img
-                      src={product.image}
-                      className={classes.prodImg}
-                      alt=''
-                    />
+      {isHome === "/" ? (
+        <div className={classes.homeLatestProductSection}>
+          <h1>판다의 최근 상품</h1>
+          <div className={classes.homeLatestProductWrap}>
+            <div className={classes.homeLatestProductContainer}>
+              {productsList.map((product) => (
+                <div
+                  key={product.id}
+                  className={classes.homeLatestProduct}
+                  // style={customStyle}
+                >
+                  <Link to={`/products/${product.id}`}>
+                    <div className={classes.homeImgBox}>
+                      <img
+                        src={product.image}
+                        className={classes.homeProdImg}
+                        alt=""
+                      />
 
-                    {product.status === "RESERVED" && (
-                      <div className={classes.reserved}>
-                        <h2>구매진행중</h2>
-                      </div>
-                    )}
+                      {product.status === "RESERVED" && (
+                        <div className={classes.homeReserved}>
+                          <h2>구매진행중</h2>
+                        </div>
+                      )}
 
-                    {product.status == "SOLD" ? (
-                      <div className={classes.reserved}>
-                        <h2>판매완료</h2>
-                      </div>
-                    ) : null}
-                  </div>
-                  <div className={classes.prodInfo}>
-                    <div className={classes.prodName}>{product.title}</div>
-                    <div className={classes.prodPrice}>
-                      {" "}
-                      {product.price.toLocaleString()}
+                      {product.status == "SOLD" ? (
+                        <div className={classes.homeReserved}>
+                          <h2>판매완료</h2>
+                        </div>
+                      ) : null}
                     </div>
-                    {/* <div className={classes.prodStatus}>{product.status}</div> */}
-                  </div>
-                </Link>
-              </div>
-            ))}
-          </div>
-          <div className={classes.moreButtonWrap}>
-            {displayMore ? (
-              <Button onClick={onClickMoreProduct}>
-                <div className={classes.moreButton}>더보기</div>
-              </Button>
-            ) : null}
+                    <div className={classes.homeProdInfo}>
+                      <div className={classes.homeProdName}>
+                        {product.title}
+                      </div>
+                      <div className={classes.homeProdPrice}>
+                        {" "}
+                        {product.price.toLocaleString()}
+                      </div>
+                      {/* <div className={classes.prodStatus}>{product.status}</div> */}
+                    </div>
+                  </Link>
+                </div>
+              ))}
+            </div>
+            <div className={classes.homeMoreButtonWrap}>
+              {displayMore ? (
+                <Button onClick={onClickMoreProduct}>
+                  <div className={classes.homeMoreButton}>더보기</div>
+                </Button>
+              ) : null}
+            </div>
           </div>
         </div>
-      </div>
+      ) : (
+        <div className={classes.latestProductSection}>
+          <h1>판다의 최근 상품</h1>
+          <div className={classes.latestProductWrap}>
+            <div className={classes.latestProductContainer}>
+              {productsList.map((product) => (
+                <div
+                  key={product.id}
+                  className={classes.latestProduct}
+                  // style={customStyle}
+                >
+                  <Link to={`/products/${product.id}`}>
+                    <div className={classes.imgBox}>
+                      <img
+                        src={product.image}
+                        className={classes.prodImg}
+                        alt=""
+                      />
+
+                      {product.status === "RESERVED" && (
+                        <div className={classes.reserved}>
+                          <h2>구매진행중</h2>
+                        </div>
+                      )}
+
+                      {product.status == "SOLD" ? (
+                        <div className={classes.reserved}>
+                          <h2>판매완료</h2>
+                        </div>
+                      ) : null}
+                    </div>
+                    <div className={classes.prodInfo}>
+                      <div className={classes.prodName}>{product.title}</div>
+                      <div className={classes.prodPrice}>
+                        {" "}
+                        {product.price.toLocaleString()}
+                      </div>
+                      {/* <div className={classes.prodStatus}>{product.status}</div> */}
+                    </div>
+                  </Link>
+                </div>
+              ))}
+            </div>
+            <div className={classes.moreButtonWrap}>
+              {displayMore ? (
+                <Button onClick={onClickMoreProduct}>
+                  <div className={classes.moreButton}>더보기</div>
+                </Button>
+              ) : null}
+            </div>
+          </div>
+        </div>
+      )}
     </Fragment>
   );
 };

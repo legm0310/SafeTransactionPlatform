@@ -1,10 +1,12 @@
 const { Container } = require("typedi");
+const { Op } = require("sequelize");
 const { BadRequestError, NotFoundError } = require("../utils/generalError");
 const { extractProductsList } = require("../utils");
 
 class UserService {
   constructor() {
     this.User = Container.get("userModel");
+    this.ChatLog = Container.get("chatLogModel");
   }
 
   async createUser(newUserData) {
@@ -117,6 +119,32 @@ class UserService {
       { where: { id: id } }
     );
     return updated;
+  }
+
+  async getInitUser(userId) {
+    console.log(userId);
+    const user = await this.User.findByPk(+userId);
+    const wishList = await user.getWishList({
+      attributes: ["id"],
+      joinTableAttributes: [],
+    });
+    const room = await user.getUserRoom({
+      attributes: ["id"],
+      joinTableAttributes: [],
+    });
+    const roomId = room.map((room) => room.dataValues.id);
+    const count = await this.ChatLog.count({
+      where: {
+        [Op.and]: [
+          { room_id: { [Op.in]: roomId } },
+          { sender_id: { [Op.ne]: userId } },
+          { check_read: { [Op.eq]: 1 } },
+        ],
+      },
+    });
+    console.log(wishList);
+    const userData = { wishList, count };
+    return userData;
   }
 }
 
