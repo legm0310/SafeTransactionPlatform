@@ -4,7 +4,10 @@ import { Link } from "react-router-dom";
 import classes from "../../styles/banner/Banner.module.css";
 
 import mainImg from "../../assets/platformImage1.png";
-// import mainImg1 from "../../assets/pandaImg1.jpeg";
+import img2 from "../../assets/onboard/pandaImg6.png";
+import img3 from "../../assets/onboard/pandaImgChat.png";
+import img4 from "../../assets/onboard/pandaImg3.png";
+import img5 from "../../assets/onboard/pandaImg4.png";
 
 import Slider from "react-slick";
 import styled from "styled-components";
@@ -64,8 +67,7 @@ const Banner = (props) => {
             </div>
 
             <div className={classes.mainImgWrap}>
-              {/* <img src={mainImg} alt="" className={classes.mainImg} /> */}
-              <img src="" alt="" className={classes.mainImg1} />
+              {/* <img src={img5} alt="" className={classes.mainImg} /> */}
             </div>
           </div>
         </section>
@@ -74,7 +76,7 @@ const Banner = (props) => {
         <section className={classes.secondWrap}>
           <div className={classes.secondContent}>
             <div className={classes.secondImage}>
-              <img src={mainImg} alt="" className={classes.secondImg} />
+              <img src={img2} alt="" className={classes.secondImg} />
             </div>
             <div className={classes.secondTitle}>
               <div className={classes.secondTypingMiddle}>
@@ -114,11 +116,7 @@ const Banner = (props) => {
                   <div className={classes.firstSlide}>
                     <div className={classes.secondContent}>
                       <div className={classes.secondImage}>
-                        <img
-                          src={mainImg}
-                          alt=""
-                          className={classes.secondImg}
-                        />
+                        <img src={img5} alt="" className={classes.slideImg1} />
                       </div>
                       <div className={classes.secondTitle}>
                         <div className={classes.secondTypingMiddle}>
@@ -144,11 +142,7 @@ const Banner = (props) => {
                   <div className={classes.secondSlide}>
                     <div className={classes.secondContent}>
                       <div className={classes.secondImage}>
-                        <img
-                          src={mainImg}
-                          alt=""
-                          className={classes.secondImg}
-                        />
+                        <img src={img4} alt="" className={classes.slideImg1} />
                       </div>
                       <div className={classes.secondTitle}>
                         <div className={classes.secondTypingMiddle}>
@@ -177,7 +171,7 @@ const Banner = (props) => {
                         <img
                           src={mainImg}
                           alt=""
-                          className={classes.secondImg}
+                          className={classes.slideImg1}
                         />
                       </div>
                       <div className={classes.secondTitle}>
@@ -225,10 +219,15 @@ const Banner = (props) => {
                   <br />
                   판매자와의 1대1 채팅방이 생성됩니다.
                 </span>
+                <div className={classes.typingBottom}>
+                  <Link to="/products/all">
+                    <button>제품 구매하기</button>
+                  </Link>
+                </div>
               </div>
             </div>
             <div className={classes.thirdImage}>
-              <img src={mainImg} alt="" className={classes.mainImg} />
+              <img src={img3} alt="" className={classes.thirdImg} />
             </div>
           </div>
         </section>
@@ -255,7 +254,7 @@ const StyledSlider = styled(Slider)`
   //   font-size: 30px;
   //   opacity: 1;
   //   // color: #1ecfba;
-  //   color: white;
+  // color: white;
   // }
 
   .custom-dot-wrapper {
