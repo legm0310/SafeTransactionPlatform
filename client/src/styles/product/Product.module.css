@@ -22,6 +22,10 @@
   text-decoration: none;
 }
 
+.RecentProductsListWrap {
+  margin-left: 192px;
+}
+
 .productCardWrap {
   margin-left: 192px;
 }
@@ -49,6 +53,14 @@
 }
 
 @media screen and (max-width: 600px) {
+  .RecentProductsListWrap {
+    margin-left: 0;
+  }
+
+  .productCardWrap {
+    margin-left: 192px;
+  }
+
   .mainBox {
     width: 100%;
   }
@@ -63,11 +75,13 @@
     padding: 10px;
   }
 
+  .RecentProductsListWrap {
+    width: 90%;
+    margin: 20px auto;
+  }
+
   .productCardWrap {
     width: 90%;
     margin: 20px auto;
   }
-}
-.prdouctCardWrap {
-  margin-left: 192px;
 }
