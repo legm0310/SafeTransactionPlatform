@@ -123,6 +123,10 @@
 
 /* 반응형 1200 */
 @media (max-width: 1200px) {
+  .mainWrap {
+    height: auto;
+  }
+
   .container {
     margin-top: 50px;
   }
@@ -171,7 +175,7 @@
 /* 반응형 600 */
 @media (max-width: 600px) {
   .container {
-    margin-top: 10px;
+    margin-top: 20px;
   }
 
   .mainWrap {
@@ -180,10 +184,8 @@
     height: 180px;
   }
 
-  .mainContent {
-    justify-content: flex-start;
-    aspect-ratio: 1 / 1;
-    height: 180px;
+  .mainTitle {
+    width: 85%;
   }
 
   .mainImgWrap {
@@ -191,33 +193,39 @@
   }
 
   .typingTop span {
-    font-size: 23px;
+    font-size: 1.8rem;
   }
 
   .typingMiddle span {
-    font-size: 28px;
+    font-size: 2.3rem;
   }
 
   .typingBottom span {
-    font-size: 17px;
-    line-height: 2rem;
+    margin-top: 5px;
+    font-size: 1.3rem;
+    line-height: 2.2rem;
+  }
+
+  .IntroButton {
+    margin-top: 10px;
   }
 
   .IntroButton button {
     padding: 3px;
-    width: 100px;
-    height: 24px;
-    font-size: 6px;
+    width: 160px;
+    height: 32px;
+    font-size: 1rem;
   }
 
   .ImgslideWrap {
     width: 100%;
     aspect-ratio: 3 / 1;
     margin: 10px 0;
+    border-radius: 0;
   }
 
   .latesProductWrap {
-    width: 100%;
+    width: 90%;
     margin: 30px 0;
   }
 }

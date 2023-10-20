@@ -76,13 +76,7 @@ const Header = (props, { wish }) => {
               justifyContent: "space-between",
             }}
           >
-            <MobileNavMenu
-              handleOpenNavMenu={handleOpenNavMenu}
-              handleCloseNavMenu={handleCloseNavMenu}
-              anchorElNav={anchorElNav}
-            />
-
-            <Link to="/">
+            <Link to="/" className={classes.logo}>
               <Logo />
             </Link>
 
@@ -92,6 +86,12 @@ const Header = (props, { wish }) => {
               setIsLoggedIn={props.setIsLoggedIn}
               isLoggedIn={props.isLoggedIn}
               wish={wish}
+            />
+
+            <MobileNavMenu
+              handleOpenNavMenu={handleOpenNavMenu}
+              handleCloseNavMenu={handleCloseNavMenu}
+              anchorElNav={anchorElNav}
             />
           </Toolbar>
         </Container>

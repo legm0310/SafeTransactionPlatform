@@ -1,10 +1,3 @@
-.prodCardWrap {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-}
-
 .prodCardContainer {
   display: flex;
   flex-wrap: wrap;
@@ -90,4 +83,117 @@
   content: "PDT";
   font-size: 16px;
   margin-left: 3px;
+}
+
+@media screen and (max-width: 1200px) {
+  .prodCardSection {
+    width: 708.01px;
+  }
+
+  .prodCardContainer {
+    width: 708.01px;
+    flex-wrap: wrap;
+    min-width: auto;
+  }
+
+  .prodCard {
+    width: 161.5px;
+    margin: 0 20px 15px 0;
+  }
+
+  .imgBox {
+    width: 161.5px;
+    height: auto;
+  }
+
+  .reserved {
+    width: 161.5px;
+    height: 161.5px;
+  }
+
+  .reserved h2 {
+    font-size: 18px;
+  }
+}
+
+@media screen and (max-width: 900px) {
+  .prodCardSection {
+    width: 528px;
+  }
+
+  .prodCardContainer {
+    width: 528px;
+  }
+
+  .prodCard {
+    width: 169px;
+    margin: 0 10px 10px 0;
+  }
+
+  .prodCard:nth-child(4n) {
+    margin: 0 10px 10px 0;
+  }
+
+  .prodCard:nth-child(3n) {
+    margin-right: 0;
+  }
+
+  .imgBox {
+    width: 169px;
+    height: auto;
+  }
+
+  .reserved {
+    width: 169px;
+    height: 169px;
+  }
+
+  .reserved h2 {
+    font-size: 18px;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .prodCardSection {
+    width: 100%;
+  }
+
+  .prodCardContainer {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .prodCard:nth-child(4n),
+  .prodCard:nth-child(3n) {
+    margin: 0;
+  }
+  .prodCard {
+    width: 47%;
+    margin: 0;
+  }
+
+  .imgBox {
+    width: 100%;
+  }
+
+  .prodImg {
+    width: 100%;
+  }
+
+  .reserved {
+    width: 100%;
+    height: 98.1%;
+  }
+
+  .prodName {
+    font-size: 16px;
+  }
+
+  .prodPrice {
+    font-size: 14px;
+  }
+
+  .prodPrice::after {
+    font-size: 13px;
+  }
 }

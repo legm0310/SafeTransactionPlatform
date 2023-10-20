@@ -112,7 +112,7 @@ const MobileNavMenu = (props) => {
           <List
             sx={{
               padding: 0,
-              width: { sm: "300px", xs: "200px" },
+              width: { sm: "300px", xs: "250px" },
               height: "100%",
             }}
           >

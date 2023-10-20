@@ -22,10 +22,52 @@
   text-decoration: none;
 }
 
-.RecentProductsListWrap {
+.productCardWrap {
   margin-left: 192px;
 }
 
+@media screen and (max-width: 1200px) {
+  .mainBox {
+    width: 900px;
+    margin: 0 auto;
+    padding: 0;
+  }
+
+  .productWrap {
+    width: 900px;
+  }
+}
+
+@media screen and (max-width: 900px) {
+  .mainBox {
+    width: 720px;
+  }
+
+  .productWrap {
+    width: 720px;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .mainBox {
+    width: 100%;
+  }
+
+  .productWrap {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .categoryBar {
+    position: inherit;
+    padding: 10px;
+  }
+
+  .productCardWrap {
+    width: 90%;
+    margin: 20px auto;
+  }
+}
 .prdouctCardWrap {
   margin-left: 192px;
 }
