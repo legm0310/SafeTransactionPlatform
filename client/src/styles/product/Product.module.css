@@ -10,10 +10,6 @@
   position: fixed;
   top: 100px;
   height: 100%;
-  /* position: fixed;
-  left: 19rem;
-  top: 12rem;
-  transform: translate(1em, 12rem); */
 }
 
 .productWrap {
@@ -30,6 +26,6 @@
   margin-left: 192px;
 }
 
-/* .prdouctCardWrap {
-  margin-left: 200px;
-} */
+.prdouctCardWrap {
+  margin-left: 192px;
+}
