@@ -1,5 +1,5 @@
 import { Fragment } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 import { FiInstagram } from "react-icons/fi";
 import classes from "../../styles/Footer/Footer.module.css";
@@ -7,6 +7,12 @@ import { useSelector } from "react-redux";
 
 const Footer = () => {
   const isLoading = useSelector((state) => state.ui.isLoading);
+  const location = useLocation();
+
+  if (location.pathname === "/login" || location.pathname === "/register") {
+    return null;
+  }
+
   return (
     <Fragment>
       {isLoading ? null : (
