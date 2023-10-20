@@ -39,36 +39,45 @@ const Detail = () => {
   const { productId } = useParams();
 
   const [activeWish, setActiveWish] = useState(false);
-  const [wishCount, setWishCount] = useState(+prodDetail?.wishCount);
+  const [wishCount, setWishCount] = useState(0);
 
   const wishListId = loadWishList.map((item) => item.id);
 
   const sellerId = prodDetail?.seller_id;
 
   useEffect(() => {
-    dispatch(getProduct(productId));
-    wishListId.indexOf(+productId) == -1
-      ? setActiveWish(false)
-      : setActiveWish(true);
+    dispatch(getProduct(productId)).then(() => {
+      setWishCount(+prodDetail?.wishCount);
+      setActiveWish(wishListId.indexOf(+productId) == -1 ? false : true);
+    });
   }, [dispatch, productId]);
 
+  if (isNaN(wishCount)) {
+    setWishCount(+prodDetail?.wishCount);
+    setActiveWish(wishListId.indexOf(+productId) == -1 ? false : true);
+  }
+
   const handleClick = (func, comment) => {
-    enqueueSnackbar(comment, {
-      variant: "info",
-      persist: true, // 자동으로 스낵바를 닫지 않음
-      action: (key) => (
-        <>
-          <button onClick={() => func(key)}>구매하기</button>
-          <button
-            onClick={() => {
-              closeSnackbar(key);
-            }}
-          >
-            뒤로가기
-          </button>
-        </>
-      ),
-    });
+    if (userId == undefined) {
+      navigate("/login");
+    } else {
+      enqueueSnackbar(comment, {
+        variant: "info",
+        persist: true, // 자동으로 스낵바를 닫지 않음
+        action: (key) => (
+          <>
+            <button onClick={() => func(key)}>구매하기</button>
+            <button
+              onClick={() => {
+                closeSnackbar(key);
+              }}
+            >
+              뒤로가기
+            </button>
+          </>
+        ),
+      });
+    }
   };
   const onPurchaseHandler = () => {
     handleClick(purchase, "해당 상품 구매하시겠습니까?");
@@ -148,28 +157,40 @@ const Detail = () => {
   };
 
   const addWishListHandler = () => {
-    let data = {
-      userId,
-      productId,
-    };
-    activeWish
-      ? dispatch(deleteWishList(productId)).then((response) => {
-          enqueueSnackbar("찜이 해제 되었습니다. ", {
-            variant: "error",
-          });
-          dispatch(getWishList(userId));
-          setWishCount(wishCount - 1);
-          setActiveWish(false);
-        })
-      : dispatch(addWishList(data)).then((response) => {
-          if (response.payload.addWishListSuccess) {
-            enqueueSnackbar("상품을 찜 했습니다.", {
-              variant: "success",
+    if (userId == undefined) {
+      navigate("/login");
+    } else {
+      let data = {
+        userId,
+        productId,
+      };
+      activeWish
+        ? dispatch(deleteWishList(productId)).then((response) => {
+            enqueueSnackbar("찜이 해제 되었습니다. ", {
+              variant: "error",
             });
-            setActiveWish(true);
-            setWishCount(wishCount + 1);
-          }
-        });
+            dispatch(getWishList(userId));
+            setWishCount(wishCount - 1);
+            setActiveWish(false);
+          })
+        : dispatch(addWishList(data)).then((response) => {
+            if (response.payload.addWishListSuccess) {
+              enqueueSnackbar("상품을 찜 했습니다.", {
+                variant: "success",
+              });
+              setActiveWish(true);
+              setWishCount(wishCount + 1);
+            } else {
+              console.log(wishListId.indexOf(+productId));
+              setActiveWish(
+                wishListId.indexOf(+productId) == -1 ? true : false
+              );
+              enqueueSnackbar("이미 찜한 상품입니다. ", {
+                variant: "error",
+              });
+            }
+          });
+    }
   };
 
   return (
