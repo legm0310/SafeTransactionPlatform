@@ -37,7 +37,7 @@ const Logo = () => {
           color: "black",
           textDecoration: "none",
           fontFamily: "GongGothicMedium",
-          mx: "auto",
+          ml: 1,
         }}
       >
         PANDA.
