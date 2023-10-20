@@ -57,7 +57,7 @@ const Product = (props) => {
           </div>
           <div>
             {searchParams.get("category") ? (
-              <div className={classes.prdouctCardWrap}>
+              <div className={classes.productCardWrap}>
                 <ProductCard filteredProducts={filteredProducts} />
                 {filteredProducts.length !== 0 ? (
                   <Paging
