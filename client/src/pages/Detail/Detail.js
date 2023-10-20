@@ -39,6 +39,7 @@ const Detail = () => {
   const { productId } = useParams();
 
   const [activeWish, setActiveWish] = useState(false);
+  const [wishCount, setWishCount] = useState(+prodDetail?.wishCount);
 
   const wishListId = loadWishList.map((item) => item.id);
 
@@ -157,6 +158,7 @@ const Detail = () => {
             variant: "error",
           });
           dispatch(getWishList(userId));
+          setWishCount(wishCount - 1);
           setActiveWish(false);
         })
       : dispatch(addWishList(data)).then((response) => {
@@ -165,6 +167,7 @@ const Detail = () => {
               variant: "success",
             });
             setActiveWish(true);
+            setWishCount(wishCount + 1);
           }
         });
   };
@@ -202,12 +205,14 @@ const Detail = () => {
                           <div className={classes.productPut}>
                             <FaHeart style={{ color: "red" }} />
                             <span className={classes.buttonText}>찜하기</span>
+                            <span>{wishCount}</span>
                           </div>
                         </div>
                       ) : (
                         <div className={classes.previousProductPut}>
                           <FaHeart />
                           <span className={classes.buttonText}>찜하기</span>
+                          <span>&nbsp;{wishCount}</span>
                         </div>
                       )}
                     </div>
