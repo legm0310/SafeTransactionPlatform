@@ -147,6 +147,7 @@ a {
 
   .homeReserved {
     width: 202px;
+    height: 202px;
   }
 }
 
@@ -170,18 +171,26 @@ a {
 }
 
 @media (max-width: 600px) {
+  .homeLatestProductSection {
+    width: auto;
+  }
+
   .homeLatestProductSection h1 {
-    font-size: 22px;
-    margin-left: 10px;
+    font-size: 1.3rem;
+    width: 200px;
+  }
+
+  .homeLatestProductWrap {
+    width: auto;
   }
 
   .homeLatestProductContainer {
-    justify-content: space-evenly;
+    justify-content: space-between;
   }
 
   .homeLatestProduct {
     margin: 0;
-    width: 45%;
+    width: 47%;
   }
 
   .homeLatestProduct:nth-child(4n) {
@@ -198,7 +207,23 @@ a {
 
   .homeReserved {
     width: 100%;
-    height: 100%;
+    height: 98.1%;
+  }
+
+  .homeProdInfo {
+    padding: 7px;
+  }
+
+  .homeProdName {
+    font-size: 16px;
+  }
+
+  .homeProdPrice {
+    font-size: 14px;
+  }
+
+  .homeProdPrice::after {
+    font-size: 13px;
   }
 }
 
@@ -332,4 +357,103 @@ a {
   height: 40px;
   border-radius: 4px;
   /* box-shadow: 2px 2px rgb(220, 220, 220); */
+}
+
+@media screen and (max-width: 1200px) {
+  .latestProductSection h1 {
+    font-size: 25px;
+  }
+
+  .latestProduct {
+    width: 161.5px;
+    margin: 0 20px 15px 0;
+  }
+
+  .imgBox {
+    width: 161.5px;
+    height: auto;
+  }
+
+  .reserved {
+    width: 161.5px;
+    height: 161.5px;
+  }
+
+  .reserved h2 {
+    font-size: 18px;
+  }
+}
+
+@media screen and (max-width: 900px) {
+  .latestProductSection h1 {
+    font-size: 20px;
+  }
+
+  .latestProduct {
+    width: 169px;
+    margin: 0 10px 10px 0;
+  }
+
+  .latestProduct:nth-child(4n) {
+    margin: 0 10px 10px 0;
+  }
+
+  .latestProduct:nth-child(3n) {
+    margin-right: 0;
+  }
+
+  .imgBox {
+    width: 169px;
+    height: auto;
+  }
+
+  .reserved {
+    width: 169px;
+    height: 169px;
+  }
+
+  .reserved h2 {
+    font-size: 18px;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .latestProductContainer {
+    width: auto;
+    justify-content: space-between;
+  }
+
+  .latestProduct:nth-child(4n),
+  .latestProduct:nth-child(3n) {
+    margin: 0;
+  }
+  .latestProduct {
+    width: 47%;
+    margin: 0;
+  }
+
+  .imgBox {
+    width: 100%;
+  }
+
+  .prodImg {
+    width: 100%;
+  }
+
+  .reserved {
+    width: 100%;
+    height: 98.1%;
+  }
+
+  .prodName {
+    font-size: 16px;
+  }
+
+  .prodPrice {
+    font-size: 14px;
+  }
+
+  .prodPrice::after {
+    font-size: 13px;
+  }
 }

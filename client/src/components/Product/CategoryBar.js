@@ -8,7 +8,7 @@ import { Navigation } from "react-minimal-side-navigation";
 // import "react-minimal-side-navigation/lib/ReactMinimalSideNavigation.css";
 
 const Bar = styled.div`
-  width: 12rem;
+  width: 100%;
 `;
 
 const CategoryBar = ({ onCategoryClick }) => {

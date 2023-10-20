@@ -220,3 +220,20 @@
   —tw-ring-offset-shadow: 0 0 #0000;
   —tw-ring-shadow: 0 0 #0000;
 } */
+
+@media screen and (max-width: 600px) {
+  .side-navigation-panel {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow: auto;
+    background-color: #e2e8f065;
+  }
+
+  .side-navigation-panel ul {
+    width: 200px;
+  }
+
+  .side-navigation-panel-select-option-text {
+    white-space: nowrap;
+  }
+}

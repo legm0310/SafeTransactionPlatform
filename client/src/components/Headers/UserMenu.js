@@ -137,7 +137,7 @@ const UserSection = (props) => {
 
   return (
     <Fragment>
-      <Box sx={{ display: { xs: "none", lg: "flex" }, width: { lg: "360px" } }}>
+      <Box sx={{ display: { xs: "none", lg: "flex" }, width: { lg: "auto" } }}>
         {/* <Tooltip
             title="현재 진행중인 대화"
             TransitionComponent={Fade}
@@ -172,7 +172,7 @@ const UserSection = (props) => {
             size="large"
             aria-label="show 4 new mails"
             color="black"
-            sx={{ borderRadius: 2, p: 1 }}
+            sx={{ borderRadius: 2, p: 0.8 }}
             onClick={onChattingOpen}
           >
             <Badge badgeContent={unreadTotalCount} color="error">
@@ -214,7 +214,7 @@ const UserSection = (props) => {
           <IconButton
             size="large"
             color="black"
-            sx={{ borderRadius: 2, p: 1 }}
+            sx={{ borderRadius: 2, p: 0.8 }}
             onClick={onWishListOpen}
           >
             <Badge badgeContent={loadWishList?.length} color="error">
@@ -243,7 +243,7 @@ const UserSection = (props) => {
 
         <IconButton
           size="large"
-          sx={{ borderRadius: 2, p: 1 }}
+          sx={{ borderRadius: 2, p: 0.8 }}
           onClick={handleOpenWallet}
         >
           <WalletOutlinedIcon sx={{ fontSize: 30 }} />
@@ -260,7 +260,7 @@ const UserSection = (props) => {
           color="black"
           sx={{
             borderRadius: 2,
-            p: 1,
+            p: 0.8,
           }}
         >
           <AccountCircle sx={{ fontSize: 30 }} />

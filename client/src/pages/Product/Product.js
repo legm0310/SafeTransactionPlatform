@@ -55,7 +55,7 @@ const Product = (props) => {
           <div className={classes.categoryBar}>
             <CategoryBar onCategoryClick={onCategoryClick} />
           </div>
-          <div className={classes.prdouctCardWrap}>
+          <div className={classes.productCardWrap}>
             {searchParams.get("category") ? (
               <div>
                 <ProductCard filteredProducts={filteredProducts} />
