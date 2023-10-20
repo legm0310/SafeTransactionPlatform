@@ -75,10 +75,10 @@ const DesktopNavMenu = () => {
           component="form"
           sx={{
             p: "2px 4px 0 0",
-            ml: { lg: 3, xs: 2 },
+            ml: { lg: 3, xs: 1 },
             display: "flex",
             alignItems: "center",
-            width: { sm: "400px" },
+            width: { xs: "200px", sm: "400px" },
             borderRadius: 1.5,
             height: 37,
             justifyContent: "center",
