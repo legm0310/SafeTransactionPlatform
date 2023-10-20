@@ -10,10 +10,6 @@
   position: fixed;
   top: 100px;
   height: 100%;
-  /* position: fixed;
-  left: 19rem;
-  top: 12rem;
-  transform: translate(1em, 12rem); */
 }
 
 .productWrap {
@@ -26,13 +22,13 @@
   text-decoration: none;
 }
 
-.productCardWrap {
+.RecentProductsListWrap {
   margin-left: 192px;
 }
 
-/* .prdouctCardWrap {
-  margin-left: 200px;
-} */
+.productCardWrap {
+  margin-left: 192px;
+}
 
 @media screen and (max-width: 1200px) {
   .mainBox {
@@ -57,6 +53,14 @@
 }
 
 @media screen and (max-width: 600px) {
+  .RecentProductsListWrap {
+    margin-left: 0;
+  }
+
+  .productCardWrap {
+    margin-left: 192px;
+  }
+
   .mainBox {
     width: 100%;
   }
@@ -69,6 +73,11 @@
   .categoryBar {
     position: inherit;
     padding: 10px;
+  }
+
+  .RecentProductsListWrap {
+    width: 90%;
+    margin: 20px auto;
   }
 
   .productCardWrap {

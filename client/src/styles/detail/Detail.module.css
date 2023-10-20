@@ -1,8 +1,6 @@
 .productDetailWrap {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
   margin-top: 20px;
   width: 1200px;
   margin: 10px auto 0;
@@ -171,6 +169,16 @@
   margin-left: 5px;
 }
 
+.purchaseButton {
+  border-radius: 4px;
+  margin-right: 10px;
+}
+
+.backButton {
+  border-radius: 4px;
+  background: #fe4e62;
+}
+
 /* 상품정보 및 판매자정보 */
 .informationWrap {
   display: flex;
@@ -230,36 +238,10 @@
   color: black;
 }
 
-/* .prodInfoButton {
-  display: flex;
-  width: 1200px;
-} */
-
-/* .infoButton,
-.storeButton {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 40px;
-  width: 100%;
-  background: white;
-  border-top: 1px solid black;
-  border-bottom: none;
-  border-left: 1px solid black;
-  border-top-left-radius: 4px;
-  border-top-right-radius: 4px;
-} */
-
-/* .active {
-} */
-
 /* 연관상품 */
-.relatedProductWrap {
-  width: 1200px;
-  height: 500px;
-  border: 1px solid blue;
-}
 
 .relatedProductHeader {
   font-size: 20px;
+  margin-bottom: 30px;
+  display: block;
 }

@@ -49,13 +49,12 @@ const Detail = () => {
     dispatch(getProduct(productId)).then(() => {
       setWishCount(+prodDetail?.wishCount);
       setActiveWish(wishListId.indexOf(+productId) == -1 ? false : true);
+      if (isNaN(wishCount)) {
+        setWishCount(+prodDetail?.wishCount);
+        setActiveWish(wishListId.indexOf(+productId) == -1 ? false : true);
+      }
     });
   }, [dispatch, productId]);
-
-  if (isNaN(wishCount)) {
-    setWishCount(+prodDetail?.wishCount);
-    setActiveWish(wishListId.indexOf(+productId) == -1 ? false : true);
-  }
 
   const handleClick = (func, comment) => {
     if (userId == undefined) {
@@ -285,6 +284,7 @@ const Detail = () => {
             </div>
           </section>
 
+          <div className={classes.relatedProductHeader}>연관상품</div>
           <RelatedProduct prodDetail={prodDetail} />
         </div>
       )}

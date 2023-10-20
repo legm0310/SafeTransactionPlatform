@@ -2,6 +2,7 @@ import React, { Fragment, useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { getSearchRecentProducts } from "../../_actions/productAction";
 import ProductCard from "../../components/Product/ProductCard";
+import RelatedProductSlide from "./RelateProductSlide";
 
 import classes from "../../styles/detail/Detail.module.css";
 
@@ -24,14 +25,7 @@ const RelatedProduct = (prodDetail) => {
 
   return (
     <Fragment>
-      <div className={classes.relatedProductWrap}>
-        <div className={classes.relatedProduct}>
-          <div className={classes.relatedProductHeader}>
-            <p>연관상품</p>
-            <ProductCard filteredProducts={filteredProducts} />
-          </div>
-        </div>
-      </div>
+      <RelatedProductSlide filteredProducts={filteredProducts} />
     </Fragment>
   );
 };
