@@ -1,18 +1,26 @@
 /* 첫번째 섹션 */
 
 .mainWrap {
-  background-color: #1ecfba21;
+  background: url(../../assets/onboard/bannerMainImg.png);
+  display: flex;
+  width: 100%;
+  height: 800px;
+  background-size: cover;
 }
 .mainImgWrap {
   width: 300px;
 }
 .mainContent {
-  width: 1000px;
+  width: 800px;
   height: 900px;
   margin: 0 auto;
-  display: flex;
   align-items: center;
-  justify-content: space-between;
+  text-align: center;
+}
+
+.mainImg{
+  width: 655px;
+  height: 580px;
 }
 
 .mainTitle {
@@ -20,9 +28,10 @@
 }
 
 .typingTop {
+  margin-top: 50px;
+  text-align: center;
   font-size: 60px;
   line-height: 1.3;
-  text-align: left;
 }
 .typingMiddle {
   font-size: 1.5rem;
@@ -33,7 +42,7 @@
 /* 로그인 타이핑 */
 .typingBottom {
   margin-top: 23px;
-  display: flex;
+  text-align: center;
   width: 100%;
 }
 
@@ -53,7 +62,9 @@
 /* 두번째 섹션 */
 .secondContent {
   width: 1024px;
-  margin: 100px auto;
+  margin: 0 auto;
+  margin-top: 100px;
+
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -64,8 +75,14 @@
 
 .secondImage {
   background-size: 655px 750px;
-  width: 655px;
+  width: 700px;
   /* height: 750px; */
+}
+
+.secondImg {
+  background-size: 655px 750px;
+    width: 650px;
+    height: 750px;
 }
 
 .secondTypingMiddle {
@@ -86,13 +103,12 @@
 }
 
 .thirdContent {
-  /* background-color: #f9f9f9; */
   width: 1024px;
   margin: 0 auto;
+  margin-top: 100px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 70px;
 }
 
 .thirdTitle {
@@ -116,6 +132,12 @@
   height: 750px;
 }
 
+.thirdImg {
+  background-size: 655px 750px;
+  width: 500px;
+  height: 750px;
+}
+
 /* 네반쩨 섹션 */
 
 .forthContent {
@@ -126,7 +148,7 @@
 }
 
 .forthTypingMiddle {
-  margin-top: 130px;
+  /* margin-top: 130px; */
   margin-bottom: 50px;
   font-size: 40px;
   text-align: center;
@@ -165,4 +187,8 @@
   border: 1px solid red;
   width: 100px !important;
   position: relative;
+}
+
+.slideImg1{
+  width: 100%;
 }
