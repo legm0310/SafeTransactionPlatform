@@ -49,13 +49,12 @@ const Detail = () => {
     dispatch(getProduct(productId)).then(() => {
       setWishCount(+prodDetail?.wishCount);
       setActiveWish(wishListId.indexOf(+productId) == -1 ? false : true);
+      if (isNaN(wishCount)) {
+        setWishCount(+prodDetail?.wishCount);
+        setActiveWish(wishListId.indexOf(+productId) == -1 ? false : true);
+      }
     });
   }, [dispatch, productId]);
-
-  if (isNaN(wishCount)) {
-    setWishCount(+prodDetail?.wishCount);
-    setActiveWish(wishListId.indexOf(+productId) == -1 ? false : true);
-  }
 
   const handleClick = (func, comment) => {
     if (userId == undefined) {
@@ -66,14 +65,8 @@ const Detail = () => {
         persist: true, // 자동으로 스낵바를 닫지 않음
         action: (key) => (
           <>
+            <button onClick={() => func(key)}>구매하기</button>
             <button
-              className={classes.purchaseButton}
-              onClick={() => func(key)}
-            >
-              구매하기
-            </button>
-            <button
-              className={classes.backButton}
               onClick={() => {
                 closeSnackbar(key);
               }}
