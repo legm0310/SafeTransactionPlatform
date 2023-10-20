@@ -98,10 +98,6 @@
 }
 
 /* 세반쩨 섹션 */
-.forthWrap {
-  background-color: #f9f9f9;
-}
-
 .thirdContent {
   width: 1024px;
   margin: 0 auto;
@@ -128,33 +124,34 @@
 
 .thirdImage {
   background-size: 655px 750px;
-  width: 655px;
-  height: 750px;
+    width: 650px;
+    height: 700px;
 }
 
 .thirdImg {
   background-size: 655px 750px;
-  width: 500px;
-  height: 750px;
+    width: 700px;
+    height: 700px;
 }
 
 /* 네반쩨 섹션 */
+.forthWrap {
+  background-color: #f9f9f9;
+}
 
 .forthContent {
-  background-color: #f9f9f9;
   width: 1024px;
   margin: 0 auto;
   align-items: center;
 }
 
 .forthTypingMiddle {
-  /* margin-top: 130px; */
-  margin-bottom: 50px;
+  padding-top: 100px;
   font-size: 40px;
   text-align: center;
   line-height: 1.3;
-  /* text-align: center; */
 }
+
 
 .forthImage {
   background-size: 655px 750px;

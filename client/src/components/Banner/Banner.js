@@ -219,6 +219,11 @@ const Banner = (props) => {
                   <br />
                   판매자와의 1대1 채팅방이 생성됩니다.
                 </span>
+                <div className={classes.typingBottom}>
+                  <Link to="/products/all">
+                    <button>제품 구매하기</button>
+                  </Link>
+                </div>
               </div>
             </div>
             <div className={classes.thirdImage}>
@@ -249,7 +254,7 @@ const StyledSlider = styled(Slider)`
   //   font-size: 30px;
   //   opacity: 1;
   //   // color: #1ecfba;
-  //   color: white;
+  // color: white;
   // }
 
   .custom-dot-wrapper {
