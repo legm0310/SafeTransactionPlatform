@@ -15,9 +15,7 @@ import { useSelector, useDispatch } from "react-redux";
 import useInfiniteScroll from "../../hooks/useInfiniteScroll";
 import {
   addChat,
-  addRoom,
   deleteRoom,
-  getChats,
   loadMoreChats,
   updateRecentChats,
 } from "../../_actions/chatAction";
@@ -54,15 +52,9 @@ const ChatRoom = () => {
   //채팅방 입장 시 초기 데이터 로드
   useEffect(() => {
     if (roomId && roomId != 0) {
-      const body = {
-        roomId: roomId,
-        lastId: -1,
-        limit: 20,
-      };
-      dispatch(getChats(body)).then(() => {
-        if (!chatWrapRef.current) return;
-        chatWrapRef.current.scrollTop = chatWrapRef.current?.scrollHeight;
-      });
+      socket?.emit();
+      if (!chatWrapRef.current) return;
+      chatWrapRef.current.scrollTop = chatWrapRef.current?.scrollHeight;
     }
   }, [location.pathname, roomId]);
 
@@ -92,6 +84,7 @@ const ChatRoom = () => {
       //채팅방 미생성 상태 시
       if (roomId == 0) {
         const newRoomId = await onAddRoomAndSend();
+        console.log(newRoomId);
         if (!newRoomId) {
           enqueueSnackbar(`관리자에게 문의하세요`, {
             variant: "error",
@@ -117,30 +110,7 @@ const ChatRoom = () => {
     return new Promise((resolve, reject) => {
       socket?.emit("onAddRoomAndSend", body, (res) => {
         if (res.result === "createdRoom" || res.result === "updatedRoom") {
-          dispatch(
-            addChat({
-              check_read: false,
-              content: chat,
-              createdAt: new Date().toString(),
-              updatedAt: new Date().toString(),
-              type: "text",
-              id: Date.now(),
-              room_id: res.roomId,
-              sender_id: userId,
-              user: { id: userId, user_name: authCheck?.userData.user_name },
-            })
-          );
-          dispatch(
-            updateRecentChats({
-              oneSelf: true,
-              roomId: res.roomId,
-              chat: chat,
-              checkRead: false,
-            })
-          ).then(() => {
-            setChat("");
-          });
-
+          setChat("");
           resolve(res.roomId);
         } else {
           console.log(res);
@@ -162,7 +132,7 @@ const ChatRoom = () => {
     });
     dispatch(
       addChat({
-        check_read: false,
+        check_read: true,
         content: chat,
         createdAt: new Date().toString(),
         updatedAt: new Date().toString(),
@@ -178,7 +148,7 @@ const ChatRoom = () => {
         oneSelf: true,
         roomId: roomId,
         chat: chat,
-        checkRead: false,
+        checkRead: true,
       })
     ).then(
       () => (chatWrapRef.current.scrollTop = chatWrapRef.current.scrollHeight)
@@ -279,6 +249,8 @@ const ChatRoom = () => {
           <span>
             {roomInfo?.roomId == roomId && roomInfo?.partner
               ? roomInfo.partner.user_name
+              : +roomId === 0
+              ? searchParams.get("sellerName")
               : null}
           </span>
           <div className={classes.chatIcons}>
@@ -303,20 +275,16 @@ const ChatRoom = () => {
             ref={chatRef}
             rows={1}
             placeholder="메시지를 입력해주세요"
-            // onInput={resizeTextareaHeight}
             onChange={onChatHandler}
-            // onKeyDown={onLineChange}
           />
 
           <div className={classes.send}>
             <button type="submit" ref={buttonRef}>
               Send
             </button>
-            {/* <IoMdAttach className={classes.inputIcon} /> */}
+
             <input type="file" style={{ display: "none" }} id="file" />
-            <label htmlFor="file">
-              {/* <IoImage className={classes.inputIcon2} /> */}
-            </label>
+            <label htmlFor="file"></label>
           </div>
         </form>
       </div>

@@ -50,11 +50,11 @@ const Chats = () => {
             </Link>
           ) : null}
           {rooms?.map((room) => {
-            if (room.chat_participant.self_granted === 0) return;
+            if (room?.chat_participant.self_granted === 0) return;
             return (
               <Link
                 key={room.id}
-                to={roomId == room.id ? `/chat` : `/chat/${room.id}`}
+                to={roomId == room?.id ? `/chat` : `/chat/${room?.id}`}
               >
                 <div className={classes.userChat}>
                   <img
@@ -63,13 +63,13 @@ const Chats = () => {
                     className={classes.testImg}
                   />
                   <div className={classes.userChatInfo}>
-                    <span>{room.RoomUser[0]?.user_name}</span>
+                    <span>{room?.RoomUser[0]?.user_name}</span>
                     <p>
-                      {room.chat_logs[0]?.content?.length > 14
-                        ? `${room.chat_logs[0]?.content?.substr(0, 15)} ...`
-                        : room.chat_logs[0]?.content}
+                      {room?.chat_logs[0]?.content?.length > 14
+                        ? `${room?.chat_logs[0]?.content?.substr(0, 15)} ...`
+                        : room?.chat_logs[0]?.content}
                     </p>
-                    <p>읽지 않은 메시지: {room.unreadCount}</p>
+                    <p>{+room?.unreadCount !== 0 ? room?.unreadCount : null}</p>
                   </div>
                 </div>
               </Link>

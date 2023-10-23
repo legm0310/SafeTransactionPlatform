@@ -123,6 +123,26 @@ export default function (state = initialState, action) {
       };
       break;
 
+    case READ_CHATS:
+      const readChats = state.chats.map((chat) => {
+        if (+chat.sender_id != +action.payload.userId) {
+          chat.check_read = true;
+          return chat;
+        }
+        return chat;
+      });
+      const readChatInRoom = state.rooms.map((room) => {
+        if (+room.id == +action.payload.roomId) {
+          room.unreadCount = 0;
+          return room;
+        }
+        return room;
+      });
+      return {
+        ...state,
+        chats: [...readChats],
+        rooms: [...readChatInRoom],
+      };
     default:
       return state;
   }

@@ -157,11 +157,12 @@ export function updateRecentChats(dataToSubmit) {
   };
 }
 
-export function readChats() {
+export function readChats(dataToSubmit) {
+  const { userId, roomId } = dataToSubmit;
   return async (dispatch) => {
     dispatch({
-      type: 1,
-      payload: 1,
+      type: READ_CHATS,
+      payload: { userId, roomId },
     });
   };
 }
