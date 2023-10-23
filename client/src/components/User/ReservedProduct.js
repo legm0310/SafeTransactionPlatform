@@ -1,16 +1,18 @@
 import { Fragment, useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import { getDepositedProducts, release } from "../../_actions/productAction";
+import { setLoadings } from "../../_actions/uiAction";
+import { getEventsFromWeb3js } from "../../contract/getEvents";
+
 import {
   // useContractEvents,
   useSDK,
   useContract,
   useAddress,
 } from "@thirdweb-dev/react";
-import { getDepositedProducts, release } from "../../_actions/productAction";
-import { setLoadings } from "../../_actions/uiAction";
-import { getEventsFromWeb3js } from "../../contract/getEvents";
-import Button from "../common/Button";
 
+import deleteBtn from "../../assets/icon-delete.svg";
 import classes from "../../styles/user/ReservedProduct.module.css";
 
 const contractAddress = process.env.REACT_APP_CONTRACT_ADDRESS;
@@ -67,35 +69,65 @@ const ReservedProduct = () => {
 
   return (
     <Fragment>
-      <div className={classes.notReservedList}>
+      {/* <div className={classes.notReservedList}>
         <h2>구매진행중인 상품이 없습니다.</h2>
         <p>원하는 상품을 구매해보세요!</p>
-      </div>
-      <div className={classes.reservedWrap}>
-        {prodDetail &&
+      </div> */}
+      <div className={classes.reservedList}>
+        {/* {prodDetail &&
           prodDetail.map((product) => (
-            <div key={product?.id} className={classes.reserved}>
-              <div className={classes.reservedImg}>
+            <div className={classes.wishListProductWrap}>
+              <div className={classes.wishListProductImage}>
                 <img src={product?.image} alt="" />
               </div>
 
-              <div className={classes.reservedDetail}>
-                <div className={classes.rservedTitle}>
-                  <p>{product?.title} </p>
-                </div>
-
-                <div className={classes.rservedPrice}>
-                  <p>{`${product?.price} PDT`}</p>
-                </div>
+              <div className={classes.wishListProductInfo}>
+                <p className={classes.productCategory}>{product?.category}</p>
+                <p className={classes.productName}>{product?.title}</p>
               </div>
 
-              <div className={classes.reservedButtonWrap}>
-                <Button onClick={() => onReleaseHandler(product?.id)}>
-                  <div className={classes.reservedButton}>구매확정</div>
-                </Button>
+              <div className={classes.productPrice}>
+                <p>{product?.price}PDT</p>
+              </div>
+
+              <div className={classes.wishListProductPurchase}>
+                <p className={classes.totalPrice}></p>
+                <button className={classes.btnSubmit}>구매확정</button>
+              </div>
+
+              <div className={classes.wishListProductRemove}>
+                <img
+                  src={deleteBtn}
+                  // onClick={() => onDeleteWishListHandler(product.id)}
+                />
               </div>
             </div>
-          ))}
+          ))} */}
+        <div className={classes.reservedProductWrap}>
+          <div className={classes.reservedProductImage}>
+            <img src="" alt="" />
+          </div>
+
+          <div className={classes.reservedProductInfo}>
+            <p className={classes.productCategory}>category</p>
+            <p className={classes.productName}>상품이름</p>
+          </div>
+
+          <div className={classes.productPrice}>
+            <p>1000PDT</p>
+          </div>
+
+          <div className={classes.reservedProductPurchase}>
+            <button className={classes.btnSubmit}>구매확정</button>
+          </div>
+
+          <div className={classes.reservedProductRemove}>
+            <img
+              src={deleteBtn}
+              // onClick={() => onDeleteWishListHandler(product.id)}
+            />
+          </div>
+        </div>
       </div>
     </Fragment>
   );
