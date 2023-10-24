@@ -23,7 +23,7 @@ import { dateOrTimeFormatForChat, dateFormat } from "../../utils/dataParse";
 
 import classes from "../../styles/chat/Chat.module.css";
 import { useSnackbar } from "notistack";
-import { IoImage } from "react-icons/io5";
+import { IoChatbubbleEllipsesSharp, IoImage } from "react-icons/io5";
 import { IoMdAttach } from "react-icons/io";
 import { TbLogout } from "react-icons/tb";
 
@@ -52,14 +52,19 @@ const ChatRoom = () => {
   //채팅방 입장 시 초기 데이터 로드
   useEffect(() => {
     if (roomId && roomId != 0) {
-      socket?.emit();
       if (!chatWrapRef.current) return;
       chatWrapRef.current.scrollTop = chatWrapRef.current?.scrollHeight;
     }
+    return () => {
+      socket?.emit("DeactiveRoom", userId);
+    };
   }, [location.pathname, roomId]);
 
   //무한 스크롤
   const target = useInfiniteScroll(async (entry, observer) => {
+    if (chatWrapRef?.current.scrollTop == 0)
+      return (chatWrapRef.current.scrollTop =
+        chatWrapRef.current?.scrollHeight);
     if (isChatLoading || roomId == 0) return;
     dispatch(loadMoreChats({ roomId: roomId, lastId: chats[0].id, limit: 20 }));
     chatWrapRef.current.scrollTop = 1200;
@@ -101,8 +106,14 @@ const ChatRoom = () => {
   // 첫 채팅 전송 시 채팅방 생성 및 채팅 전송
   const onAddRoomAndSend = async () => {
     const body = {
-      sellerId: searchParams.get("seller"),
-      userId: searchParams.get("user"),
+      seller: {
+        id: searchParams.get("seller"),
+        name: searchParams.get("sellerName"),
+      },
+      buyer: {
+        id: searchParams.get("user"),
+        name: authCheck?.userData.user_name,
+      },
       roomName: `${searchParams.get("user")}_${searchParams.get("seller")}`,
       chat: chat,
     };
@@ -126,6 +137,10 @@ const ChatRoom = () => {
       user: {
         id: userId,
         name: authCheck.userData?.user_name,
+      },
+      receiver: {
+        id: roomInfo?.partner.id,
+        name: roomInfo.partner.user_name,
       },
       roomId: roomId,
       chat,
@@ -238,7 +253,7 @@ const ChatRoom = () => {
             </div>
           </div>
         );
-      } else return;
+      }
     });
   };
   return (
@@ -266,6 +281,17 @@ const ChatRoom = () => {
             ></div>
           ) : null}
           {renderChat()}
+          {+roomId === 0 || +chats?.length === 0 ? (
+            <div className={classes.noneChatRoom}>
+              <div className={classes.noneChatRoomImg}>
+                <IoChatbubbleEllipsesSharp />
+              </div>
+              <div className={classes.noneChatRoomText}>
+                <p>이전 대화 기록이 없습니다.</p>
+                <p>메시지를 보내 대화를 시작해보세요.</p>
+              </div>
+            </div>
+          ) : null}
         </div>
         <form className={classes.inputWrap} onSubmit={onSubmitHandler}>
           <input

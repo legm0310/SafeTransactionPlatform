@@ -86,7 +86,6 @@ export default function (state = initialState, action) {
       break;
 
     case UPDATE_RECENT_CHATS: {
-      console.log(action.payload);
       const updatedRooms = state.rooms?.map((room) =>
         room.id == action.payload.roomId
           ? {
@@ -99,9 +98,16 @@ export default function (state = initialState, action) {
               chat_logs: [
                 { content: action.payload.chat, createdAt: new Date() },
               ],
+              chat_participant: {
+                ...room.chat_participant,
+                self_granted: action.payload.selfGranted
+                  ? action.payload.selfGranted
+                  : room.chat_participant.self_granted,
+              },
             }
           : room
       );
+      if (action.payload.newRoom) updatedRooms.push(action.payload.newRoom);
       const sortedRooms = updatedRooms.sort((a, b) => {
         if (a.chat_logs.length === 0 || b.chat_logs.length === 0) return 1;
         return (
@@ -124,14 +130,14 @@ export default function (state = initialState, action) {
       break;
 
     case READ_CHATS:
-      const readChats = state.chats.map((chat) => {
+      const readChats = state.chats?.map((chat) => {
         if (+chat.sender_id != +action.payload.userId) {
           chat.check_read = true;
           return chat;
         }
         return chat;
       });
-      const readChatInRoom = state.rooms.map((room) => {
+      const readChatInRoom = state.rooms?.map((room) => {
         if (+room.id == +action.payload.roomId) {
           room.unreadCount = 0;
           return room;

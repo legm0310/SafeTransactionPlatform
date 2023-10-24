@@ -5,12 +5,10 @@ import React, {
   useRef,
   useState,
 } from "react";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import Sidebar from "../../components/Chat/Sidebar";
 import ChatRoom from "../../components/Chat/ChatRoom.js";
-
-import classes from "../../styles/chat/Chat.module.css";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
 import {
   addChat,
   getChats,
@@ -20,6 +18,8 @@ import {
   updateRecentChats,
 } from "../../_actions/chatAction";
 import { io } from "socket.io-client";
+
+import classes from "../../styles/chat/Chat.module.css";
 const Chat = () => {
   const apiBaseUrl =
     process.env.REACT_APP_API_BASE_URL.length > 0
@@ -33,6 +33,9 @@ const Chat = () => {
   const { userId } = useSelector((state) => state.user);
   const socketRef = useRef(null);
   const roomsRef = useRef(null);
+  const joinRoom = rooms?.filter(
+    (room) => room.chat_participant.self_granted === 1
+  );
 
   useEffect(() => {
     console.log(roomId);
@@ -43,8 +46,8 @@ const Chat = () => {
     }
     return () => {
       if (!socketRef.current) return;
+      socketRef.current.off("connect");
       socketRef.current.off("onReceiveSend");
-      socketRef.current.off("onReceiveRead");
       socketRef.current.disconnect();
       socketRef.current = null;
     };
@@ -58,11 +61,16 @@ const Chat = () => {
       const curSocket = await io(apiBaseUrl, {
         withCredentials: true,
         transports: ["websocket"],
+        query: { userId: userId },
       });
+
       curSocket.on("connect", () => {
         roomData?.payload.rooms?.forEach((room) =>
           curSocket?.emit("onJoinRoom", room.id)
         );
+      });
+      curSocket.on("onClientJoinRoom", (roomId) => {
+        curSocket?.emit("onJoinRoom", roomId);
       });
       curSocket.on("onReceiveSend", ({ user, chat, roomId, allOnline }) => {
         dispatch(
@@ -86,13 +94,24 @@ const Chat = () => {
             oneSelf: false,
             roomId: roomId,
             chat: chat,
-            checkRead: false,
+            checkRead: allOnline ?? false,
           })
         );
       });
-      curSocket.on("onReceiveRead", ({ userId, roomId }) => {
-        dispatch(readChats({ userId, roomId }));
-      });
+
+      curSocket.on(
+        "updateSellerRoom",
+        ({ buyer, chat, roomId, selfGranted }) => {
+          dispatch(
+            updateRecentChats({
+              buyer: buyer,
+              roomId: roomId,
+              chat: chat,
+              selfGranted: selfGranted,
+            })
+          );
+        }
+      );
 
       socketRef.current = curSocket;
       roomsRef.current = rooms;
@@ -100,6 +119,7 @@ const Chat = () => {
 
       //채팅방 접속 시 채팅 가져오기
       if (roomId && roomId != 0) {
+        await socketRef.current.emit("activeRoom", userId, roomId);
         const body = {
           roomId: roomId,
           lastId: -1,
@@ -118,7 +138,9 @@ const Chat = () => {
       <div className={classes.ChatWrap}>
         <div className={classes.container}>
           <Sidebar />
-          {!roomId && roomId != 0 ? null : <ChatRoom />}
+          {!roomId || (joinRoom?.length === 0 && roomId != 0) ? null : (
+            <ChatRoom />
+          )}
         </div>
       </div>
     </Fragment>

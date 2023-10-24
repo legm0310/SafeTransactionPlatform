@@ -21,10 +21,12 @@ const Chats = () => {
   const sellerId = searchParams.get("seller");
   const sellerName = searchParams.get("sellerName");
   const productId = searchParams.get("prod");
-  // console.log(rooms?.length, userId, exists, sellerName);
+  const joinRoom = rooms?.filter(
+    (room) => room.chat_participant.self_granted === 1
+  );
   return (
     <Fragment>
-      {rooms?.length === 0 && exists != "false" ? (
+      {joinRoom?.length === 0 && exists != "false" ? (
         <div className={classes.noneChatRoom}>
           <div className={classes.noneChatRoomImg}>
             <IoChatbubbleEllipsesSharp />
@@ -49,8 +51,7 @@ const Chats = () => {
               </div>
             </Link>
           ) : null}
-          {rooms?.map((room) => {
-            if (room?.chat_participant.self_granted === 0) return;
+          {joinRoom?.map((room) => {
             return (
               <Link
                 key={room.id}
@@ -65,8 +66,8 @@ const Chats = () => {
                   <div className={classes.userChatInfo}>
                     <span>{room?.RoomUser[0]?.user_name}</span>
                     <p>
-                      {room?.chat_logs[0]?.content?.length > 14
-                        ? `${room?.chat_logs[0]?.content?.substr(0, 15)} ...`
+                      {room?.chat_logs[0]?.content?.length > 9
+                        ? `${room?.chat_logs[0]?.content?.substr(0, 10)} ...`
                         : room?.chat_logs[0]?.content}
                     </p>
                     <p>{+room?.unreadCount !== 0 ? room?.unreadCount : null}</p>
