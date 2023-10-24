@@ -89,7 +89,7 @@ module.exports = (io) => {
               buyer: { id: buyer.id, name: buyer.name },
               chat: chat,
               roomId: room.id,
-              selfGranted: 0,
+              selfGranted: 1,
             });
           }
 
@@ -104,11 +104,10 @@ module.exports = (io) => {
       // console.log(user, roomId, chat);
       const receiverMap = users.get(+receiver.id);
       const allOnline = receiverMap && receiverMap.activeState === +roomId;
-      // console.log(allOnline, receiverMap);
+      console.log(allOnline, receiverMap);
 
-      const joinUserCount = await chatServiceIns.findAllJoinState(0, +roomId);
-
-      if (joinUserCount.length > 1) {
+      const joinUserCount = await chatServiceIns.findAllJoinState(1, +roomId);
+      if (joinUserCount.length < 2) {
         await chatServiceIns.updateJoinState(null, 1, +receiver.id, +roomId);
         if (users.get(+receiver.id)) {
           await io
