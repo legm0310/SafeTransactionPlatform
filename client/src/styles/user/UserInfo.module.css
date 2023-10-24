@@ -173,3 +173,36 @@
 .active span {
   color: black;
 }
+
+@media (max-width: 1200px) {
+  /* UserInfo.js */
+  .userInfoSection {
+    width: 900px;
+  }
+
+  .userInfoMenuWrap {
+    width: 900px;
+  }
+}
+
+@media (max-width: 900px) {
+  /* UserInfo.js */
+  .userInfoSection {
+    width: 720px;
+  }
+
+  .userInfoMenuWrap {
+    width: 720px;
+  }
+}
+
+@media (max-width: 600px) {
+  /* UserInfo.js */
+  .userInfoSection {
+    width: 95%;
+  }
+
+  .userInfoMenuWrap {
+    width: 95%;
+  }
+}

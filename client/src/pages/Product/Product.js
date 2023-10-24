@@ -55,9 +55,9 @@ const Product = (props) => {
           <div className={classes.categoryBar}>
             <CategoryBar onCategoryClick={onCategoryClick} />
           </div>
-          <div className={classes.prdouctCardWrap}>
+          <div>
             {searchParams.get("category") ? (
-              <div>
+              <div className={classes.productCardWrap}>
                 <ProductCard filteredProducts={filteredProducts} />
                 {filteredProducts.length !== 0 ? (
                   <Paging
@@ -68,7 +68,9 @@ const Product = (props) => {
                 ) : null}
               </div>
             ) : (
-              <RecentProductsList />
+              <div className={classes.RecentProductsListWrap}>
+                <RecentProductsList />
+              </div>
             )}
           </div>
         </div>

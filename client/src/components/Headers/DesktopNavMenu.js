@@ -33,8 +33,9 @@ const DesktopNavMenu = () => {
     <Fragment>
       <Box
         sx={{
-          flexGrow: 1,
-          display: { xs: "none", md: "flex" },
+          flexGrow: 0.8,
+          width: { lg: "600px" },
+          display: "flex",
           alignItems: "center",
         }}
       >
@@ -47,6 +48,7 @@ const DesktopNavMenu = () => {
               fontWeight: 700,
               fontFamily: "GongGothicMedium",
               whiteSpace: "nowrap",
+              display: { xs: "none", lg: "flex" },
             }}
           >
             구매하기
@@ -62,41 +64,28 @@ const DesktopNavMenu = () => {
               fontWeight: 700,
               fontFamily: "GongGothicMedium",
               whiteSpace: "nowrap",
+              display: { xs: "none", lg: "flex" },
             }}
           >
             판매하기
           </Button>
         </Link>
 
-        {/* <Link to="Loading" className={classes.purchaseLink}>
-          <Button
-            onClick={handleCloseNavMenu}
-            sx={{
-              my: 2,
-              color: "black",
-              fontWeight: 700,
-              fontFamily: "GongGothicMedium",
-            }}
-          >
-            로딩버튼
-          </Button>
-        </Link> */}
-
         <Paper
           component="form"
           sx={{
             p: "2px 4px 0 0",
-            ml: 3,
+            ml: { lg: 3, xs: 1 },
             display: "flex",
             alignItems: "center",
-            width: 400,
+            width: { xs: "200px", sm: "400px" },
             borderRadius: 1.5,
             height: 37,
             justifyContent: "center",
             border: "none",
             boxShadow: "none",
             backgroundColor: "#E5E5E5",
-            display: { xs: "none", md: "flex" },
+            display: "flex",
           }}
         >
           <InputBase

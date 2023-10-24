@@ -8,6 +8,7 @@ import {
   DELETE_ROOM,
   UPDATE_RECENT_CHATS,
   LOAD_MORE_CHATS,
+  GET_INIT_USER,
   READ_CHATS,
 } from "../_actions/type";
 
@@ -17,6 +18,7 @@ const initialState = {
   roomInfo: {},
   hasMoreChatLoad: true,
   socket: null,
+  unreadTotalCount: 0,
 };
 
 // eslint-disable-next-line import/no-anonymous-default-export
@@ -149,6 +151,12 @@ export default function (state = initialState, action) {
         chats: [...readChats],
         rooms: [...readChatInRoom],
       };
+    case GET_INIT_USER:
+      return {
+        ...state,
+        unreadTotalCount: action.payload.unreadCount,
+      };
+      break;
     default:
       return state;
   }

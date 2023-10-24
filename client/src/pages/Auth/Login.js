@@ -2,7 +2,7 @@ import { Fragment, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
-import { login } from "../../_actions/userAction";
+import { login, getInitUser } from "../../_actions/userAction";
 // import Button from "../../components/common/Button";
 // import CustomAlert from "../../components/common/Alert";
 
@@ -69,6 +69,7 @@ const Login = (props) => {
         enqueueSnackbar("로그인 성공", {
           variant: "success",
         });
+        dispatch(getInitUser());
         navigate("/");
       } else if (
         response.payload.code === 404 ||
@@ -93,21 +94,21 @@ const Login = (props) => {
             </Link>
           </header>
 
-          <div className={classes.loginTitle}>
-            <div className={classes.sectionHeader}>
+          <Box
+            component="form"
+            noValidate
+            sx={{
+              px: 3,
+              marginBottom: { sx: 0, xs: "20%" },
+            }}
+            onSubmit={onSubmitHandler}
+          >
+            <div className={classes.loginTitle}>
               <h1 className={classes.title}>판다에 오신 것을 환영합니다</h1>
               <p className={classes.subTitle}>
                 블록체인을 활용한 중고거래를 이용해보세요
               </p>
             </div>
-          </div>
-
-          <Box
-            component="form"
-            noValidate
-            sx={{ px: 3 }}
-            onSubmit={onSubmitHandler}
-          >
             <FormControl component="fieldset" variant="standard" fullWidth>
               <Grid container spacing={2}>
                 <Grid item xs={12}>
@@ -153,29 +154,29 @@ const Login = (props) => {
                 로그인
               </Button>
             </FormControl>
+            <div className={classes.registerWrap}>
+              <Button type="submit" className={classes.registerButton}>
+                <Link to="/register" className={classes.textButton}>
+                  회원가입
+                </Link>
+              </Button>
+            </div>
           </Box>
 
-          <div className={classes.registerWrap}>
-            <Button type="submit" className={classes.registerButton}>
-              <Link to="/register" className={classes.textButton}>
-                회원가입
-              </Link>
-            </Button>
-          </div>
-
           <div className={classes.snsWrap}>
-            <span className={classes.before}></span>
-            <p className={classes.snsTitle}>SNS 로그인</p>
-            <span className={classes.after}></span>
-          </div>
-
-          <div className={classes.snsIconWrap}>
-            <a href="1" className={classes.snsIcon}>
-              <img src={googleIcon} alt="" />
-            </a>
-            <a href="1" className={classes.snsIcon}>
-              <img src={kakaoIcon} alt="" />
-            </a>
+            <div className={classes.snsLine}>
+              <span className={classes.before}></span>
+              <p className={classes.snsTitle}>SNS 로그인</p>
+              <span className={classes.after}></span>
+            </div>
+            <div className={classes.snsIconWrap}>
+              <a href="1" className={classes.snsIcon}>
+                <img src={googleIcon} alt="" />
+              </a>
+              <a href="1" className={classes.snsIcon}>
+                <img src={kakaoIcon} alt="" />
+              </a>
+            </div>
           </div>
         </div>
       </div>

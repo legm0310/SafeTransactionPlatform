@@ -1,68 +1,181 @@
 import React, { useState, Fragment } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import {
+  Drawer,
+  List,
+  ListItem,
+  ListItemButton,
+  Box,
+  IconButton,
+} from "@mui/material";
+import { Menu as MenuIcon } from "@mui/icons-material";
+import { useDispatch, useSelector } from "react-redux";
+import { logout, resetStoreUser } from "../../_actions/userAction";
+import { resetStoreProduct } from "../../_actions/productAction";
+import { resetStoreChat } from "../../_actions/chatAction";
+import { resetStoreUi } from "../../_actions/uiAction";
+import { useDisconnect } from "@thirdweb-dev/react";
+import { useSnackbar } from "notistack";
+import MyWallet from "./MyWallet";
 
 import classes from "../../styles/headers/Header.module.css";
-import { Box, IconButton, Menu, MenuItem } from "@mui/material";
-import { Menu as MenuIcon } from "@mui/icons-material";
 
-const MobileNavMenu = () => {
-  const [anchorElNav, setAnchorElNav] = useState(null);
+const MobileNavMenu = (props) => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { userId, loadWishList, authCheck } = useSelector(
+    (state) => state.user
+  );
 
-  const handleOpenNavMenu = (event) => {
-    setAnchorElNav(event.currentTarget);
+  const { enqueueSnackbar } = useSnackbar();
+
+  const disconnect = useDisconnect();
+
+  const isLoggedIn = useSelector((state) => state.user.isLoggedIn);
+
+  const onLogoutHandler = () => {
+    dispatch(logout()).then((response) => {
+      dispatch(resetStoreUi());
+      dispatch(resetStoreUser());
+      dispatch(resetStoreProduct());
+      dispatch(resetStoreChat());
+      enqueueSnackbar("로그아웃 되었습니다.", {
+        variant: "success",
+      });
+      disconnect();
+      navigate("/");
+    });
+  };
+  const [drawerIsOpen, setDrawerIsOpen] = useState(false);
+  const [openWallet, setOpenWallet] = useState(false);
+
+  const handleOpenDrawer = () => {
+    setDrawerIsOpen(true);
   };
 
-  const handleCloseNavMenu = () => {
-    setAnchorElNav(null);
+  const handleCloseDrawer = () => {
+    setDrawerIsOpen(false);
+  };
+
+  const handleOpenWallet = () => {
+    setOpenWallet(true);
+  };
+
+  const handleCloseWallet = () => {
+    setOpenWallet(false);
+  };
+
+  const onChattingOpen = () => {
+    navigate("/chat");
+  };
+
+  const onWishListOpen = () => {
+    navigate(`/user/${userId}`, {
+      state: {
+        activeMenu: "WishList",
+      },
+    });
   };
 
   return (
     <Fragment>
-      <Box sx={{ display: { xs: "flex", md: "none" } }}>
+      <Box
+        sx={{
+          display: { md: "flex", lg: "none" },
+          position: { xs: "absolute" },
+          right: { xs: 0 },
+        }}
+      >
         <IconButton
           size="large"
           aria-label="account of current user"
-          aria-controls="menu-appbar"
+          aria-controls="mobile-nav-menu"
           aria-haspopup="true"
-          onClick={handleOpenNavMenu}
+          onClick={handleOpenDrawer}
           color="black"
         >
           <MenuIcon />
         </IconButton>
-        <Menu
-          id="menu-appbar"
-          anchorEl={anchorElNav}
-          anchorOrigin={{
-            vertical: "bottom",
-            horizontal: "left",
-          }}
-          keepMounted
-          transformOrigin={{
-            vertical: "top",
-            horizontal: "left",
-          }}
-          open={Boolean(anchorElNav)}
-          onClose={handleCloseNavMenu}
+
+        <Drawer
+          anchor="right"
+          open={drawerIsOpen}
+          onClose={handleCloseDrawer}
           sx={{
             display: {
               xs: "block",
-              md: "none",
+              lg: "none",
               fontFamily: "GongGothicMedium",
             },
           }}
         >
-          <MenuItem onClick={handleCloseNavMenu}>
+          <List
+            sx={{
+              padding: 0,
+              width: { sm: "300px", xs: "250px" },
+              height: "100%",
+            }}
+          >
+            <Link to={`/user/${userId}`}>
+              <ListItem>
+                {isLoggedIn ? (
+                  <ListItemButton sx={{ height: 100, borderRadius: "5px" }}>
+                    {authCheck?.userData?.user_name.length > 3
+                      ? `${authCheck.userData?.user_name.slice(0, 2)}..`
+                      : authCheck?.userData?.user_name}{" "}
+                    님
+                  </ListItemButton>
+                ) : (
+                  <Link to="/login" className={classes.loginRegister}>
+                    <ListItemButton sx={{ height: 100, borderRadius: "5px" }}>
+                      로그인/회원가입
+                    </ListItemButton>
+                  </Link>
+                )}
+              </ListItem>
+            </Link>
             <Link to="/products/all" className={classes.purchaseLink}>
-              구매하기
+              <ListItem
+                sx={{
+                  borderTop: "1px solid rgb(238, 238, 238)",
+                  borderRadius: "5px",
+                }}
+              >
+                <ListItemButton>구매하기</ListItemButton>
+              </ListItem>
             </Link>
-          </MenuItem>
-          <MenuItem onClick={handleCloseNavMenu}>
             <Link to="/products/add" className={classes.purchaseLink}>
-              판매하기
+              <ListItem
+                sx={{
+                  borderRadius: "5px",
+                }}
+              >
+                <ListItemButton>판매하기</ListItemButton>
+              </ListItem>
             </Link>
-          </MenuItem>
-        </Menu>
+            <ListItem onClick={onChattingOpen}>
+              <ListItemButton>판다톡</ListItemButton>
+            </ListItem>
+            <ListItem onClick={onWishListOpen}>
+              <ListItemButton>찜목록</ListItemButton>
+            </ListItem>
+            <ListItem onClick={handleOpenWallet}>
+              <ListItemButton>내지갑</ListItemButton>
+            </ListItem>
+            <ListItem
+              onClick={onLogoutHandler}
+              sx={{ position: "absolute", bottom: 0 }}
+            >
+              <Link to="">
+                <ListItemButton sx={{ color: "gray", fontSize: "13px" }}>
+                  로그아웃
+                </ListItemButton>
+              </Link>
+            </ListItem>
+          </List>
+        </Drawer>
       </Box>
+      <MyWallet open={openWallet} onClose={handleCloseWallet} />
     </Fragment>
   );
 };

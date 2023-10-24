@@ -1,3 +1,233 @@
+/* home.js에 import된 RecentProducts.js css */
+.homeLatestProductSection {
+  margin-bottom: 30px;
+}
+
+.homeLatestProductSection h1 {
+  font-size: 30px;
+  margin: 0;
+}
+
+.homeLatestProductWrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 20px;
+}
+
+.homeLatestProductContainer {
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  margin: 0 auto;
+  flex-grow: 1;
+}
+
+/*상품 카드*/
+.homeLatestProduct {
+  border-radius: 10px;
+  width: 277.5px;
+  display: block;
+  margin-right: 30px;
+  margin-bottom: 30px;
+}
+
+.homeLatestProduct:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  transform: translateY(-10px);
+  transition: box-shadow 0.3s, transform 0.5s;
+}
+
+.homeLatestProduct:nth-child(4n) {
+  margin-right: 0px;
+}
+
+a {
+  text-decoration: none;
+}
+
+/*상품 이미지*/
+.homeImgBox {
+  width: 100%;
+  height: 276px;
+  position: relative;
+}
+
+.homeProdImg {
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
+}
+
+/*상품 정보*/
+.homeReserved {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.homeReserved h2 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  margin-top: 44%;
+}
+
+.homeProdInfo {
+  padding: 11px 10px;
+}
+
+.homeProdName {
+  margin-bottom: 10px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  color: rgb(136, 136, 136);
+  font-size: 18px;
+}
+
+.homeProdPrice {
+  font-size: 16px;
+  font-weight: 700;
+  color: rgb(33, 33, 33);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  margin-bottom: 3px;
+}
+
+.homeProdPrice::after {
+  content: "PDT";
+  font-size: 16px;
+  margin-left: 3px;
+}
+
+/* .prodStatus {
+  color: #1ecfba;
+} */
+
+.homeMoreButtonWrap {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 10px;
+  margin: 0 auto;
+}
+
+.homeMoreButton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #d3d3d3;
+  width: 200px;
+  height: 40px;
+  border-radius: 4px;
+  /* box-shadow: 2px 2px rgb(220, 220, 220); */
+}
+
+@media (max-width: 1200px) {
+  .homeLatestProduct {
+    width: 202px;
+  }
+
+  .homeImgBox {
+    width: 202px;
+    aspect-ratio: 1 / 1;
+    height: auto;
+  }
+
+  .homeProdImg {
+    width: 202px;
+  }
+
+  .homeReserved {
+    width: 202px;
+    height: 202px;
+  }
+}
+
+@media (max-width: 900px) {
+  .homeLatestProduct {
+    width: 155px;
+  }
+
+  .homeImgBox {
+    width: 155px;
+  }
+
+  .homeProdImg {
+    width: 155px;
+  }
+
+  .homeReserved {
+    width: 155px;
+    height: 155px;
+  }
+}
+
+@media (max-width: 600px) {
+  .homeLatestProductSection {
+    width: auto;
+  }
+
+  .homeLatestProductSection h1 {
+    font-size: 1.3rem;
+    width: 200px;
+  }
+
+  .homeLatestProductWrap {
+    width: auto;
+  }
+
+  .homeLatestProductContainer {
+    justify-content: space-between;
+  }
+
+  .homeLatestProduct {
+    margin: 0;
+    width: 47%;
+  }
+
+  .homeLatestProduct:nth-child(4n) {
+    margin: 0;
+  }
+
+  .homeImgBox {
+    width: 100%;
+  }
+
+  .homeProdImg {
+    width: 100%;
+  }
+
+  .homeReserved {
+    width: 100%;
+    height: 98.1%;
+  }
+
+  .homeProdInfo {
+    padding: 7px;
+  }
+
+  .homeProdName {
+    font-size: 16px;
+  }
+
+  .homeProdPrice {
+    font-size: 14px;
+  }
+
+  .homeProdPrice::after {
+    font-size: 13px;
+  }
+}
+
+/* product.js에 import된 RecentProducts.js css */
 .latestProductSection {
   margin-bottom: 30px;
 }
@@ -26,6 +256,7 @@
 /*상품 카드*/
 .latestProduct {
   border-radius: 10px;
+  width: 229.5px;
   display: block;
   margin-right: 30px;
   margin-bottom: 30px;
@@ -48,7 +279,7 @@ a {
 /*상품 이미지*/
 .imgBox {
   width: 100%;
-  height: 276px;
+  height: 229.5px;
   position: relative;
 }
 
@@ -128,62 +359,76 @@ a {
   /* box-shadow: 2px 2px rgb(220, 220, 220); */
 }
 
-@media (max-width: 1260px) {
+@media screen and (max-width: 1200px) {
+  .latestProductSection h1 {
+    font-size: 25px;
+  }
+
   .latestProduct {
-    width: 216px;
+    width: 161.5px;
+    margin: 0 20px 15px 0;
   }
 
   .imgBox {
-    width: 216px;
-    aspect-ratio: 1 / 1;
+    width: 161.5px;
     height: auto;
   }
 
-  .prodImg {
-    width: 216px;
+  .reserved {
+    width: 161.5px;
+    height: 161.5px;
   }
 
-  .reserved {
-    width: 216px;
-    height: 216px;
+  .reserved h2 {
+    font-size: 18px;
   }
 }
 
-@media (max-width: 980px) {
-  .latestProduct {
-    width: 155px;
-  }
-
-  .imgBox {
-    width: 155px;
-  }
-
-  .prodImg {
-    width: 155px;
-  }
-
-  .reserved {
-    width: 155px;
-    height: 155px;
-  }
-}
-
-@media (max-width: 500px) {
+@media screen and (max-width: 900px) {
   .latestProductSection h1 {
-    font-size: 22px;
-    margin-left: 10px;
-  }
-
-  .latestProductContainer {
-    justify-content: space-evenly;
+    font-size: 20px;
   }
 
   .latestProduct {
-    margin: 0;
-    width: 45%;
+    width: 169px;
+    margin: 0 10px 10px 0;
   }
 
   .latestProduct:nth-child(4n) {
+    margin: 0 10px 10px 0;
+  }
+
+  .latestProduct:nth-child(3n) {
+    margin-right: 0;
+  }
+
+  .imgBox {
+    width: 169px;
+    height: auto;
+  }
+
+  .reserved {
+    width: 169px;
+    height: 169px;
+  }
+
+  .reserved h2 {
+    font-size: 18px;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .latestProductContainer {
+    width: auto;
+    justify-content: space-between;
+  }
+
+  .latestProduct:nth-child(4n),
+  .latestProduct:nth-child(3n) {
+    margin: 0;
+  }
+  .latestProduct {
+    width: 47%;
     margin: 0;
   }
 
@@ -197,6 +442,18 @@ a {
 
   .reserved {
     width: 100%;
-    height: 100%;
+    height: 98.1%;
+  }
+
+  .prodName {
+    font-size: 16px;
+  }
+
+  .prodPrice {
+    font-size: 14px;
+  }
+
+  .prodPrice::after {
+    font-size: 13px;
   }
 }

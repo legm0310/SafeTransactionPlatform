@@ -7,22 +7,30 @@
   border-radius: 4px;
 }
 
-@media (max-width: 1260px) {
+@media (max-width: 1200px) {
   .bannerImg1 {
-    width: 960px;
+    width: 900px;
     height: auto;
     aspect-ratio: 3 / 1;
   }
 }
 
-@media (max-width: 980px) {
+@media (max-width: 900px) {
   .bannerImg1 {
     width: 720px;
   }
 }
 
-@media (max-width: 500px) {
+@media (max-width: 600px) {
+  .Slide div {
+    width: 100%;
+    aspect-ratio: 2 / 1;
+  }
+
   .bannerImg1 {
     width: 100%;
+    aspect-ratio: 2 / 1;
+    border-radius: 0;
+    object-fit: cover;
   }
 }

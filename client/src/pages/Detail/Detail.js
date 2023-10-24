@@ -3,7 +3,11 @@ import { Link } from "react-router-dom";
 import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useSDK, useAddress } from "@thirdweb-dev/react";
-import { addWishList } from "../../_actions/userAction";
+import {
+  addWishList,
+  deleteWishList,
+  getWishList,
+} from "../../_actions/userAction";
 import { setLoadings } from "../../_actions/uiAction";
 import { getProduct, purchase } from "../../_actions/productAction";
 import { addRoom, getRooms } from "../../_actions/chatAction";
@@ -22,45 +26,58 @@ import classes from "../../styles/detail/Detail.module.css";
 import { closeSnackbar, useSnackbar } from "notistack";
 
 const Detail = () => {
-  const [activeMenu, setActiveMenu] = useState("productInformation");
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { enqueueSnackbar } = useSnackbar();
   const sdk = useSDK();
 
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const { productId } = useParams();
-
+  const { userId, loadWishList } = useSelector((state) => state.user);
   const prodDetail = useSelector(
     (state) => state.product.productDetail.product
   );
   const isLoading = useSelector((state) => state.ui.isLoading);
-  const { userId, loadWishList } = useSelector((state) => state.user);
-  const { rooms } = useSelector((state) => state.chat);
+  const { productId } = useParams();
+
+  const [activeWish, setActiveWish] = useState(false);
+  const [wishCount, setWishCount] = useState(0);
+
+  const wishListId = loadWishList.map((item) => item.id);
+
   const sellerId = prodDetail?.seller_id;
 
   useEffect(() => {
-    dispatch(getProduct(productId));
+    dispatch(getProduct(productId)).then(() => {
+      setWishCount(+prodDetail?.wishCount);
+      setActiveWish(wishListId.indexOf(+productId) == -1 ? false : true);
+      if (isNaN(wishCount)) {
+        setWishCount(+prodDetail?.wishCount);
+        setActiveWish(wishListId.indexOf(+productId) == -1 ? false : true);
+      }
+    });
   }, [dispatch, productId]);
 
   const handleClick = (func, comment) => {
-    enqueueSnackbar(comment, {
-      variant: "info",
-      persist: true, // 자동으로 스낵바를 닫지 않음
-      action: (key) => (
-        <>
-          <button onClick={() => func(key)}>구매하기</button>
-          <button
-            onClick={() => {
-              closeSnackbar(key);
-            }}
-          >
-            뒤로가기
-          </button>
-        </>
-      ),
-    });
+    if (userId == undefined) {
+      navigate("/login");
+    } else {
+      enqueueSnackbar(comment, {
+        variant: "info",
+        persist: true, // 자동으로 스낵바를 닫지 않음
+        action: (key) => (
+          <>
+            <button onClick={() => func(key)}>구매하기</button>
+            <button
+              onClick={() => {
+                closeSnackbar(key);
+              }}
+            >
+              뒤로가기
+            </button>
+          </>
+        ),
+      });
+    }
   };
-
   const onPurchaseHandler = () => {
     handleClick(purchase, "해당 상품 구매하시겠습니까?");
   };
@@ -139,22 +156,40 @@ const Detail = () => {
   };
 
   const addWishListHandler = () => {
-    let data = {
-      userId,
-      productId,
-    };
-    dispatch(addWishList(data)).then((response) => {
-      console.log(loadWishList);
-      if (response.payload.addWishListSuccess) {
-        enqueueSnackbar("관심상품 등록에 성공했습니다.", {
-          variant: "success",
-        });
-      } else {
-        enqueueSnackbar("관심상품 등록에 실패했습니다.", {
-          variant: "error",
-        });
-      }
-    });
+    if (userId == undefined) {
+      navigate("/login");
+    } else {
+      let data = {
+        userId,
+        productId,
+      };
+      activeWish
+        ? dispatch(deleteWishList(productId)).then((response) => {
+            enqueueSnackbar("찜이 해제 되었습니다. ", {
+              variant: "error",
+            });
+            dispatch(getWishList(userId));
+            setWishCount(wishCount - 1);
+            setActiveWish(false);
+          })
+        : dispatch(addWishList(data)).then((response) => {
+            if (response.payload.addWishListSuccess) {
+              enqueueSnackbar("상품을 찜 했습니다.", {
+                variant: "success",
+              });
+              setActiveWish(true);
+              setWishCount(wishCount + 1);
+            } else {
+              console.log(wishListId.indexOf(+productId));
+              setActiveWish(
+                wishListId.indexOf(+productId) == -1 ? true : false
+              );
+              enqueueSnackbar("이미 찜한 상품입니다. ", {
+                variant: "error",
+              });
+            }
+          });
+    }
   };
 
   return (
@@ -185,10 +220,21 @@ const Detail = () => {
                 <div className={classes.putMessageButton}>
                   <Button onClick={() => addWishListHandler()}>
                     <div className={classes.productPutWrap}>
-                      <div className={classes.productPut}>
-                        <FaHeart />
-                        <span className={classes.buttonText}>찜하기</span>
-                      </div>
+                      {activeWish ? (
+                        <div>
+                          <div className={classes.productPut}>
+                            <FaHeart style={{ color: "red" }} />
+                            <span className={classes.buttonText}>찜하기</span>
+                            <span>{wishCount}</span>
+                          </div>
+                        </div>
+                      ) : (
+                        <div className={classes.previousProductPut}>
+                          <FaHeart />
+                          <span className={classes.buttonText}>찜하기</span>
+                          <span>&nbsp;{wishCount}</span>
+                        </div>
+                      )}
                     </div>
                   </Button>
 
@@ -238,6 +284,7 @@ const Detail = () => {
             </div>
           </section>
 
+          <div className={classes.relatedProductHeader}>연관상품</div>
           <RelatedProduct prodDetail={prodDetail} />
         </div>
       )}
