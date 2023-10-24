@@ -14,11 +14,23 @@ import {
   GET_PRODUCTS,
   GET_PRODUCT,
   DEPOSIT,
+  DEPOSIT_SUCCESS,
+  DEPOSIT_FAILURE,
   RELEASE,
+  RELEASE_SUCCESS,
+  RELEASE_FAILURE,
 } from "../_actions/type";
 
 const initialState = {
   productDetail: {},
+
+  depositLoading: false,
+  depositDone: null,
+  depositError: null,
+
+  releaseLoading: false,
+  releaseDone: null,
+  releaseError: null,
 };
 
 // Action의 type에 따라 변화된 state 반환

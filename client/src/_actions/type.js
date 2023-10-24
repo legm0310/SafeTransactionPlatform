@@ -29,7 +29,11 @@ export const GET_PRODUCTS = "getProducts";
 export const RECENT_PRODUCTS = "recentProducts";
 export const GET_PRODUCT = "getProduct";
 export const DEPOSIT = "deposit";
+export const DEPOSIT_SUCCESS = "depositSuccess";
+export const DEPOSIT_FAILURE = "depositFailure";
 export const RELEASE = "release";
+export const RELEASE_SUCCESS = "releaseSuccess";
+export const RELEASE_FAILURE = "releaseFailure";
 export const SEARCH_RECENT_PRODUCTS = "getSearchRecentProducts";
 //ui
 export const SET_LOADINGS = "setLoadings";
