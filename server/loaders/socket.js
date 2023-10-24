@@ -101,14 +101,14 @@ module.exports = (io) => {
     );
 
     socket.on("onSend", async ({ user, receiver, roomId, chat }) => {
-      console.log(user, roomId, chat);
+      // console.log(user, roomId, chat);
       const receiverMap = users.get(+receiver.id);
       const allOnline = receiverMap && receiverMap.activeState === +roomId;
-      console.log(allOnline, receiverMap);
+      // console.log(allOnline, receiverMap);
 
       const joinUserCount = await chatServiceIns.findAllJoinState(0, +roomId);
 
-      if (joinUserCount.length < 2) {
+      if (joinUserCount.length > 1) {
         await chatServiceIns.updateJoinState(null, 1, +receiver.id, +roomId);
         if (users.get(+receiver.id)) {
           await io
@@ -128,7 +128,6 @@ module.exports = (io) => {
         sender_id: user.id,
         room_id: roomId,
       });
-      console.log(socket.rooms, socket.connected, roomId);
       socket.broadcast.to(+roomId).emit("onReceiveSend", {
         user: user,
         chat: chat,
