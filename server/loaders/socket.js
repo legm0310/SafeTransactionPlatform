@@ -164,11 +164,11 @@ module.exports = (io) => {
     function clearSocketAndUserMap() {
       for (let [key, value] of users.entries()) {
         if (typeof key !== "number" || isNaN(key)) {
-          users.delete(key);
-          const socket = io.sockets.sockets.get(socketData.sid);
+          const socket = io.sockets.sockets.get(users.get(+key).sid);
           if (socket) {
             socket.disconnect();
           }
+          users.delete(key);
         }
       }
     }
