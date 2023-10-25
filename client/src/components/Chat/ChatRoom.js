@@ -75,6 +75,14 @@ const ChatRoom = () => {
     };
   }, [location.pathname, roomId]);
 
+  useEffect(() => {
+    if (!chatWrapRef.current) return;
+    const curScrollTop = chatWrapRef.current?.scrollTop;
+    const curScrollHeight = chatWrapRef.current?.scrollHeight;
+    const curClientHeight = chatWrapRef.current?.clientHeight;
+    if (curScrollHeight - (curScrollTop + curClientHeight) <= 350)
+      chatWrapRef.current.scrollTop = chatWrapRef.current?.scrollHeight;
+  }, [chats]);
   //무한 스크롤
   const target = useInfiniteScroll(async (entry, observer) => {
     if (chatWrapRef?.current.scrollTop == 0)
