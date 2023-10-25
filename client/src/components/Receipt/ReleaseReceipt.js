@@ -15,12 +15,6 @@ import {
 import { Close as CloseIcon } from "@mui/icons-material";
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
-  // "& .MuiDialogContent-root": {
-  //   padding: theme.spacing(2),
-  // },
-  // "& .MuiDialogActions-root": {
-  //   padding: theme.spacing(1),
-  // },
   "& .MuiDialog-paper": {
     borderRadius: "13px",
     width: "500px",
@@ -56,7 +50,7 @@ BootstrapDialogTitle.propTypes = {
   onClose: PropTypes.func.isRequired,
 };
 
-const Reciept = (props) => {
+const ReleaseReciept = (props) => {
   const handleClose = () => {
     props.onClose();
   };
@@ -64,10 +58,22 @@ const Reciept = (props) => {
   return (
     <Fragment>
       <div>
-        <BootstrapDialog></BootstrapDialog>
+        <BootstrapDialog
+          aria-labelledby="customized-dialog-title"
+          open={props.open || false}
+          onClose={handleClose}
+          disableEnforceFocus
+        >
+          <BootstrapDialogTitle
+            id="customized-dialog-title"
+            onClose={handleClose}
+          >
+            영수증
+          </BootstrapDialogTitle>
+        </BootstrapDialog>
       </div>
     </Fragment>
   );
 };
 
-export default Reciept;
+export default ReleaseReciept;

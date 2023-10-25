@@ -1,9 +1,21 @@
-import { Fragment } from "react";
+import { Fragment, useState } from "react";
+import { Link } from "react-router-dom";
+import ReleaseReciept from "../Receipt/ReleaseReceipt";
 
 import classes from "../../styles/user/PurchasedList.module.css";
 import deleteBtn from "../../assets/icon-delete.svg";
 
 const PurchasedList = () => {
+  const [openReceipt, setOpenReceipt] = useState(false);
+
+  const handleOpenReceipt = () => {
+    setOpenReceipt(true);
+  };
+
+  const handleCloseReceipt = () => {
+    setOpenReceipt(false);
+  };
+
   return (
     <Fragment>
       {/* <div className={classes.notPurchasedList}>
@@ -56,7 +68,9 @@ const PurchasedList = () => {
           </div>
 
           <div className={classes.purchasedProductReceipt}>
-            <button className={classes.btnSubmit}>영수증</button>
+            <button onClick={handleOpenReceipt} className={classes.btnSubmit}>
+              영수증
+            </button>
           </div>
 
           <div className={classes.purchasedProductRemove}>
@@ -67,6 +81,8 @@ const PurchasedList = () => {
           </div>
         </div>
       </div>
+
+      <ReleaseReciept open={openReceipt} onClose={handleCloseReceipt} />
     </Fragment>
   );
 };
