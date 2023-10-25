@@ -231,7 +231,9 @@ const Detail = () => {
                           <div className={classes.productPut}>
                             <FaHeart style={{ color: "red" }} />
                             <span className={classes.buttonText}>찜하기</span>
-                            <span>{wishCount}</span>
+                            <span className={classes.wishCount}>
+                              {wishCount}
+                            </span>
                           </div>
                         </div>
                       ) : (
