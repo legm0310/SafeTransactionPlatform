@@ -39,3 +39,14 @@
 .swiper-button-disabled {
   pointer-events: auto !important;
 }
+
+@media screen and (max-width: 600px) {
+  .swiper {
+    width: 95%;
+    margin: 0 auto 12px;
+  }
+
+  .swiper-slide {
+    width: 100%;
+  }
+}

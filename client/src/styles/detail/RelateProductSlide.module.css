@@ -1,7 +1,9 @@
 /*상품 카드*/
 .prodCard {
-  border-radius: 10px;
+  border-radius: 5px;
   display: block;
+  min-width: 127.55px;
+  min-height: auto;
 }
 
 /*상품 이미지*/
@@ -9,26 +11,7 @@
 .prodImg {
   width: 100%;
   height: 100%;
-  border-radius: 10px;
-}
-
-/*상품 정보*/
-.reserved {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  border-radius: 10px;
-  background-color: rgba(0, 0, 0, 0.4);
-}
-
-.reserved h2 {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: #fff;
-  margin-top: 44%;
+  border-radius: 5px;
 }
 
 .prodInfo {
@@ -45,7 +28,7 @@
 
 .prodPrice {
   font-size: 16px;
-  font-weight: 700;
+  font-weight: 300;
   color: rgb(33, 33, 33);
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -57,4 +40,20 @@
   content: "PDT";
   font-size: 16px;
   margin-left: 3px;
+}
+
+@media screen and (max-width: 600px) {
+  .prodName {
+    font-size: 0.9rem;
+  }
+
+  .prodPrice {
+    font-size: 1rem;
+  }
+
+  .prodPrice::after {
+    content: "PDT";
+    font-size: 0.9rem;
+    margin-left: 3px;
+  }
 }
