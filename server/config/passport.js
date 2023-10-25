@@ -1,21 +1,40 @@
+const cookie = require("cookie");
 const { Strategy: JwtStrategy, ExtractJwt } = require("passport-jwt");
 const { Container } = require("typedi");
 const config = require("../config");
 const { UnauthorizedError } = require("../utils");
 
-const cookieExtractor = function (req) {
+const cookieExtractor = function (reqOrSoc) {
   var token = null;
-  if (req && req.cookies) {
-    token = req.cookies["refreshToken"];
+  if (reqOrSoc && reqOrSoc.cookies) {
+    token = reqOrSoc.cookies["refreshToken"];
+  }
+  if (reqOrSoc && reqOrSoc?.handshake?.headers.cookie) {
+    const parsedCookies = cookie.parse(reqOrSoc.handshake.headers.cookie);
+    token = parsedCookies["refreshToken"];
+  }
+  return token;
+};
+const headersExtractor = function (reqOrSoc) {
+  var token = null;
+  if (reqOrSoc?.headers?.authorization) {
+    // console.log("HTTP", reqOrSoc?.headers?.authorization);
+    return ExtractJwt.fromAuthHeaderAsBearerToken()(reqOrSoc);
+  }
+  if (reqOrSoc && reqOrSoc.handshake?.query.token) {
+    // console.log("SOCKET", reqOrSoc.handshake?.query.token);
+    const parts = reqOrSoc.handshake.query.token.split(" ");
+    if (parts.length === 2 && parts[0] === "Bearer") {
+      token = parts[1];
+    }
   }
   return token;
 };
 
 const accessOptions = {
   secretOrKey: config.jwtAccessSecret,
-  jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+  jwtFromRequest: headersExtractor,
 };
-
 const refreshOptions = {
   secretOrKey: config.jwtRefreshSecret,
   jwtFromRequest: cookieExtractor,

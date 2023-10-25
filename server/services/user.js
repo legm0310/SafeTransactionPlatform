@@ -122,7 +122,6 @@ class UserService {
   }
 
   async getInitUser(userId) {
-    console.log(userId);
     const user = await this.User.findByPk(+userId);
     const wishList = await user.getWishList({
       attributes: ["id"],
@@ -138,11 +137,10 @@ class UserService {
         [Op.and]: [
           { room_id: { [Op.in]: roomId } },
           { sender_id: { [Op.ne]: userId } },
-          { check_read: { [Op.eq]: 1 } },
+          { check_read: { [Op.eq]: 0 } },
         ],
       },
     });
-    console.log(wishList);
     const userData = { wishList, count };
     return userData;
   }
