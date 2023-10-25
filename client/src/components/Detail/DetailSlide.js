@@ -11,7 +11,7 @@ const DetailSlide = () => {
   const { productDetail } = useSelector((state) => state.product);
   const settings = {
     dots: true, // 캐러셀 밑에 ... 을 표시할지
-    infinite: true, // 슬라이드가 끝까지 가면 다시 처음으로 반복
+    infinite: false, // 슬라이드가 끝까지 가면 다시 처음으로 반복
     speed: 500, // 속도
     autoplay: false, // 자동 재생
     autoplaySpeed: 3000, // 자동 재생 속도
@@ -39,17 +39,16 @@ export default DetailSlide;
 
 const StyledSlider = styled(Slider)`
   .slick-prev {
-    z-index: 1;
-    left: 30px;
+    display: none !important;
   }
 
   .slick-next {
-    right: 60px;
+    display: none !important;
   }
 
   .slick-prev:before,
   .slick-next:before {
-    font-size: 50px;
+    font-size: 30px;
     opacity: 1;
     color: #1ecfba;
   }
@@ -62,10 +61,12 @@ const StyledSlider = styled(Slider)`
 
     li button:before {
       color: white;
+      font-size: 15px;
     }
 
     li.slick-active button:before {
       color: white;
+      font-size: 15px;
     }
   }
 `;
