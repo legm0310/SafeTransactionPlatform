@@ -149,19 +149,54 @@ export function loadMoreChats(dataToSubmit) {
 
 export function updateRecentChats(dataToSubmit) {
   const { oneSelf, roomId, chat, checkRead } = dataToSubmit;
-  return async (dispatch) => {
+  let newRoom = null;
+  return async (dispatch, getState) => {
+    if (!getState().chat.rooms?.find((room) => +room.id === +roomId)) {
+      const { buyer, chat, roomId } = dataToSubmit;
+      newRoom = {
+        id: roomId,
+        createdAt: new Date().toString(),
+        updatedAt: new Date().toString(),
+        RoomUser: {
+          [0]: {
+            id: buyer.id,
+            user_name: buyer.name,
+          },
+        },
+        chat_participant: {
+          self_granted: 1,
+          createdAt: new Date().toString(),
+          updatedAt: new Date().toString(),
+        },
+        chat_logs: {
+          [0]: {
+            content: chat,
+            createdAt: new Date().toString(),
+          },
+        },
+        unreadCount: 1,
+      };
+    }
     dispatch({
       type: UPDATE_RECENT_CHATS,
-      payload: { oneSelf, roomId, chat, checkRead },
+      payload: {
+        oneSelf,
+        roomId,
+        chat,
+        checkRead,
+        newRoom,
+        selfGranted: dataToSubmit.selfGranted ? dataToSubmit.selfGranted : null,
+      },
     });
   };
 }
 
-export function readChats() {
+export function readChats(dataToSubmit) {
+  const { userId, roomId } = dataToSubmit;
   return async (dispatch) => {
     dispatch({
-      type: 1,
-      payload: 1,
+      type: READ_CHATS,
+      payload: { userId, roomId },
     });
   };
 }
