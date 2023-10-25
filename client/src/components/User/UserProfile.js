@@ -142,7 +142,12 @@ const UserProfile = () => {
             ) : (
               <div>
                 <Link to={`/chat`}></Link>
-                <button onClick={startChatHandler}>판다톡</button>
+                <button
+                  onClick={startChatHandler}
+                  className={classes.chatButton}
+                >
+                  판다톡
+                </button>
               </div>
             )}
           </div>

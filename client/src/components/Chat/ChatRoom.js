@@ -10,6 +10,7 @@ import {
   useNavigate,
   useLocation,
   useSearchParams,
+  Link,
 } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import useInfiniteScroll from "../../hooks/useInfiniteScroll";
@@ -44,6 +45,20 @@ const ChatRoom = () => {
   const buttonRef = useRef(null);
   const chatWrapRef = useRef(null);
   const [chat, setChat] = useState("");
+
+  const { sellerId, sellerName } = sellerInfo();
+
+  function sellerInfo() {
+    let sellerId, sellerName;
+    if (roomInfo?.roomId == roomId && roomInfo?.partner) {
+      sellerId = roomInfo.partner.id;
+      sellerName = roomInfo.partner.user_name;
+    } else {
+      sellerId = +roomId === 0 ? searchParams.get("seller") : null;
+      sellerName = +roomId === 0 ? searchParams.get("sellerName") : null;
+    }
+    return { sellerId, sellerName };
+  }
 
   const onChatHandler = (e) => {
     setChat(e.currentTarget.value);
@@ -264,13 +279,9 @@ const ChatRoom = () => {
       <div className={classes.chatRoomWrap}>
         <div className={classes.chatInfo}>
           {/* db의 roomId와 현재 url의 roomId가 같고 db에서 온 파트너값이 있으면 그 파트너의 user_name값을 채팅방 이름 값에 넣음 */}
-          <span>
-            {roomInfo?.roomId == roomId && roomInfo?.partner
-              ? roomInfo.partner.user_name
-              : +roomId === 0
-              ? searchParams.get("sellerName")
-              : null}
-          </span>
+          <Link to={`/user/${sellerId}`}>
+            <span>{sellerName}</span>
+          </Link>
           <div className={classes.chatIcons}>
             <TbLogout onClick={onExitRoomHandler} className={classes.icon} />
           </div>
