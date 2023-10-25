@@ -15,7 +15,6 @@ class Product extends Sequelize.Model {
         },
         title: {
           type: Sequelize.STRING(255),
-          unique: true,
           allowNull: false,
         },
         price: {
@@ -33,6 +32,18 @@ class Product extends Sequelize.Model {
         images: {
           type: Sequelize.STRING(3000),
           allowNull: false,
+        },
+        hash: {
+          type: Sequelize.STRING,
+          allowNull: false,
+        },
+        deposit_txid: {
+          type: Sequelize.STRING,
+          allowNull: true,
+        },
+        release_txid: {
+          type: Sequelize.STRING,
+          allowNull: true,
         },
       },
       {
