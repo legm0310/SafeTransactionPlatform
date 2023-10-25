@@ -4,6 +4,7 @@ import { Link, useLocation } from "react-router-dom";
 import { FiInstagram } from "react-icons/fi";
 import classes from "../../styles/Footer/Footer.module.css";
 import { useSelector } from "react-redux";
+import presentation from "../../assets/presentation.pdf";
 
 const Footer = () => {
   const isLoading = useSelector((state) => state.ui.isLoading);
@@ -99,6 +100,15 @@ const Footer = () => {
                 <Link to="/manual">
                   <li>판다 메뉴얼</li>
                 </Link>
+                <li>
+                  <a
+                    href={presentation}
+                    target="_blank"
+                    className={classes.listContent}
+                  >
+                    발표 자료
+                  </a>
+                </li>
               </ul>
             </div>
             <div className={classes.contact}>
