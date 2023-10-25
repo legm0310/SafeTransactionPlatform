@@ -72,13 +72,21 @@ const Chats = ({ searchRoomName }) => {
                     className={classes.testImg}
                   />
                   <div className={classes.userChatInfo}>
-                    <span>{room?.RoomUser[0]?.user_name}</span>
+                    <div className={classes.userChatInfoTop}>
+                      <span>{room?.RoomUser[0]?.user_name}</span>
+
+                      <div className={classes.unreadCountText}>
+                        <p>
+                          {+room?.unreadCount !== 0 ? room?.unreadCount : null}
+                        </p>
+                      </div>
+                    </div>
+
                     <p>
                       {latestChat?.length > 9
                         ? `${latestChat?.substr(0, 10)} ...`
                         : latestChat}
                     </p>
-                    <p>{+room?.unreadCount !== 0 ? room?.unreadCount : null}</p>
                   </div>
                 </div>
               </Link>

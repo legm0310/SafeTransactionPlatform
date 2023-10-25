@@ -6,14 +6,14 @@ import classes from "../../styles/user/PurchasedList.module.css";
 import deleteBtn from "../../assets/icon-delete.svg";
 
 const PurchasedList = () => {
-  const [openReceipt, setOpenReceipt] = useState(false);
+  const [openReleaseReciept, setOpenReleaseReciept] = useState(false);
 
-  const handleOpenReceipt = () => {
-    setOpenReceipt(true);
+  const handleOpenReleaseReceipt = () => {
+    setOpenReleaseReciept(true);
   };
 
-  const handleCloseReceipt = () => {
-    setOpenReceipt(false);
+  const handleCloseReleaseReceipt = () => {
+    setOpenReleaseReciept(false);
   };
 
   return (
@@ -68,7 +68,10 @@ const PurchasedList = () => {
           </div>
 
           <div className={classes.purchasedProductReceipt}>
-            <button onClick={handleOpenReceipt} className={classes.btnSubmit}>
+            <button
+              onClick={handleOpenReleaseReceipt}
+              className={classes.btnSubmit}
+            >
               영수증
             </button>
           </div>
@@ -82,7 +85,10 @@ const PurchasedList = () => {
         </div>
       </div>
 
-      <ReleaseReciept open={openReceipt} onClose={handleCloseReceipt} />
+      <ReleaseReciept
+        open={openReleaseReciept}
+        onClose={handleCloseReleaseReceipt}
+      />
     </Fragment>
   );
 };

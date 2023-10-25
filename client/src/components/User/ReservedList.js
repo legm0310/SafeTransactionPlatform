@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getDepositedProducts, release } from "../../_actions/productAction";
 import { setLoadings } from "../../_actions/uiAction";
 import { getEventsFromWeb3js } from "../../contract/getEvents";
+import DepositReceipt from "../Receipt/DepositReceipt";
 
 import {
   // useContractEvents,
@@ -27,10 +28,19 @@ const ReservedList = () => {
   // });
 
   const [productIds, setProductIds] = useState();
+  const [openDepositReceipt, setOpenDepositReceipt] = useState(false);
   const sdk = useSDK();
   const { contract } = useContract(contractAddress);
   const address = useAddress();
   // const { data, isLoading, error } = useContractEvents(contract, "");
+
+  const handleOpenDepositReceipt = () => {
+    setOpenDepositReceipt(true);
+  };
+
+  const handleCloseDepositReceipt = () => {
+    setOpenDepositReceipt(false);
+  };
 
   const handleGetEventsLog = async () => {
     const log = await getEventsFromWeb3js("EscrowCreate", address);
@@ -119,6 +129,12 @@ const ReservedList = () => {
 
           <div className={classes.reservedProductPurchase}>
             <button className={classes.btnSubmit}>구매확정</button>
+            <button
+              onClick={handleOpenDepositReceipt}
+              className={classes.receiptbtn}
+            >
+              구매진행정보
+            </button>
           </div>
 
           <div className={classes.reservedProductRemove}>
@@ -129,6 +145,11 @@ const ReservedList = () => {
           </div>
         </div>
       </div>
+
+      <DepositReceipt
+        open={openDepositReceipt}
+        onClose={handleCloseDepositReceipt}
+      />
     </Fragment>
   );
 };

@@ -153,7 +153,10 @@ export default function (state = initialState, action) {
         ...state,
         chats: [...readChats],
         rooms: [...readChatInRoom],
-        unreadTotalCount: state.unreadTotalCount - currentChatCount,
+        unreadTotalCount:
+          state.unreadTotalCount - currentChatCount <= 0
+            ? 0
+            : state.unreadTotalCount - currentChatCount,
       };
     case GET_INIT_USER:
       return {
