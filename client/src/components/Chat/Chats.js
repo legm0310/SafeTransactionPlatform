@@ -56,7 +56,10 @@ const Chats = ({ searchRoomName }) => {
             </Link>
           ) : null}
           {filteredJoinRooms?.map((room) => {
-            const latestChat = chats.length > 0 && room?.chat_logs[0]?.content;
+            const latestChat =
+              new Date(room?.chat_participant.updatedAt) <=
+                new Date(room?.chat_logs[0].createdAt) &&
+              room?.chat_logs[0]?.content;
             return (
               <Link
                 key={room.id}
