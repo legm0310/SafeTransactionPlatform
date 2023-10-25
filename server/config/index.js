@@ -51,6 +51,8 @@ module.exports = {
     },
   },
 
+  redisConfig: { host: process.env.REDIS_HOST },
+
   //jwt auth token
   jwtAccessSecret: process.env.JWT_SECRET_ACCESS,
   jwtRefreshSecret: process.env.JWT_SECRET_REFRESH,
