@@ -235,6 +235,7 @@ module.exports = async () => {
             images:
               "https://product-test-01.s3.ap-northeast-2.amazonaws.com/product/1.jpg",
             seller_id: 1,
+            hash: "abcdef0123456789",
           },
           {
             status: "SALE",
@@ -245,6 +246,7 @@ module.exports = async () => {
             images:
               "https://product-test-01.s3.ap-northeast-2.amazonaws.com/product/2.jpg",
             seller_id: 1,
+            hash: "abcdef0123456789",
           },
           {
             status: "SALE",
@@ -255,6 +257,7 @@ module.exports = async () => {
             images:
               "https://product-test-01.s3.ap-northeast-2.amazonaws.com/product/3.jpg",
             seller_id: 1,
+            hash: "abcdef0123456789",
           },
           {
             status: "SALE",
@@ -265,6 +268,7 @@ module.exports = async () => {
             images:
               "https://product-test-01.s3.ap-northeast-2.amazonaws.com/product/4.jpg",
             seller_id: 1,
+            hash: "abcdef0123456789",
           },
           {
             status: "SOLD",
@@ -275,6 +279,7 @@ module.exports = async () => {
             images:
               "https://product-test-01.s3.ap-northeast-2.amazonaws.com/product/5.jpg",
             seller_id: 1,
+            hash: "abcdef0123456789",
           },
           {
             status: "RESERVED",
@@ -285,6 +290,7 @@ module.exports = async () => {
             images:
               "https://product-test-01.s3.ap-northeast-2.amazonaws.com/product/6.jpg",
             seller_id: 1,
+            hash: "abcdef0123456789",
           },
           {
             status: "SALE",
@@ -295,6 +301,7 @@ module.exports = async () => {
             images:
               "https://product-test-01.s3.ap-northeast-2.amazonaws.com/product/7.jpg",
             seller_id: 1,
+            hash: "abcdef0123456789",
           },
           {
             status: "SALE",
@@ -305,6 +312,7 @@ module.exports = async () => {
             images:
               "https://product-test-01.s3.ap-northeast-2.amazonaws.com/product/8.jpg",
             seller_id: 1,
+            hash: "abcdef0123456789",
           },
           {
             status: "RESERVED",
@@ -315,6 +323,7 @@ module.exports = async () => {
             images:
               "https://product-test-01.s3.ap-northeast-2.amazonaws.com/product/9.jpg",
             seller_id: 1,
+            hash: "abcdef0123456789",
           },
           {
             status: "RESERVED",
@@ -325,6 +334,7 @@ module.exports = async () => {
             images:
               "https://product-test-01.s3.ap-northeast-2.amazonaws.com/product/10.jpg",
             seller_id: 1,
+            hash: "abcdef0123456789",
           },
           {
             status: "SALE",
@@ -335,6 +345,7 @@ module.exports = async () => {
             images:
               "https://product-test-01.s3.ap-northeast-2.amazonaws.com/product/11.jpg",
             seller_id: 1,
+            hash: "abcdef0123456789",
           },
           {
             status: "SALE",
@@ -345,6 +356,7 @@ module.exports = async () => {
             images:
               "https://product-test-01.s3.ap-northeast-2.amazonaws.com/product/12.jpg",
             seller_id: 1,
+            hash: "abcdef0123456789",
           },
           {
             status: "SALE",
@@ -355,6 +367,7 @@ module.exports = async () => {
             images:
               "https://product-test-01.s3.ap-northeast-2.amazonaws.com/product/13.jpg",
             seller_id: 1,
+            hash: "abcdef0123456789",
           },
           {
             status: "SALE",
@@ -365,6 +378,7 @@ module.exports = async () => {
             images:
               "https://product-test-01.s3.ap-northeast-2.amazonaws.com/product/14.jpg",
             seller_id: 1,
+            hash: "abcdef0123456789",
           },
           {
             status: "SALE",
@@ -375,6 +389,7 @@ module.exports = async () => {
             images:
               "https://product-test-01.s3.ap-northeast-2.amazonaws.com/product/15.jpg",
             seller_id: 1,
+            hash: "abcdef0123456789",
           },
           {
             status: "SALE",
@@ -385,6 +400,7 @@ module.exports = async () => {
             images:
               "https://product-test-01.s3.ap-northeast-2.amazonaws.com/product/16.jpg",
             seller_id: 1,
+            hash: "abcdef0123456789",
           },
           {
             status: "SALE",
@@ -395,6 +411,7 @@ module.exports = async () => {
             images:
               "https://product-test-01.s3.ap-northeast-2.amazonaws.com/product/17.jpg",
             seller_id: 1,
+            hash: "abcdef0123456789",
           },
           {
             status: "SALE",
@@ -405,6 +422,7 @@ module.exports = async () => {
             images:
               "https://product-test-01.s3.ap-northeast-2.amazonaws.com/product/18.jpg",
             seller_id: 1,
+            hash: "abcdef0123456789",
           },
           {
             status: "SALE",
@@ -415,6 +433,7 @@ module.exports = async () => {
             images:
               "https://product-test-01.s3.ap-northeast-2.amazonaws.com/product/19.jpg",
             seller_id: 1,
+            hash: "abcdef0123456789",
           },
           {
             status: "SALE",
@@ -425,6 +444,7 @@ module.exports = async () => {
             images:
               "https://product-test-01.s3.ap-northeast-2.amazonaws.com/product/20.jpg",
             seller_id: 1,
+            hash: "abcdef0123456789",
           },
           {
             status: "SALE",
@@ -435,6 +455,7 @@ module.exports = async () => {
             images:
               "https://product-test-01.s3.ap-northeast-2.amazonaws.com/product/21.jpg",
             seller_id: 2,
+            hash: "abcdef0123456789",
           },
           {
             status: "SALE",
@@ -445,6 +466,7 @@ module.exports = async () => {
             images:
               "https://product-test-01.s3.ap-northeast-2.amazonaws.com/product/22.jpg",
             seller_id: 2,
+            hash: "abcdef0123456789",
           },
           {
             status: "SALE",
@@ -455,6 +477,7 @@ module.exports = async () => {
             images:
               "https://product-test-01.s3.ap-northeast-2.amazonaws.com/product/23.jpg",
             seller_id: 2,
+            hash: "abcdef0123456789",
           },
           {
             status: "SALE",
@@ -465,6 +488,7 @@ module.exports = async () => {
             images:
               "https://product-test-01.s3.ap-northeast-2.amazonaws.com/product/24.jpg",
             seller_id: 2,
+            hash: "abcdef0123456789",
           },
           // {
           //   status: "SALE",
@@ -475,6 +499,7 @@ module.exports = async () => {
           //   images:
           //     "https://product-test-01.s3.ap-northeast-2.amazonaws.com/product/1687141503355_KakaoTalk_20230612_150159629.jpg",
           //   seller_id: 1,
+          // hash: "abcdef0123456789"
           // },
         ]);
 
