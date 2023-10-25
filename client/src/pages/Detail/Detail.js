@@ -32,9 +32,7 @@ const Detail = () => {
   const sdk = useSDK();
 
   const { userId, loadWishList } = useSelector((state) => state.user);
-  const prodDetail = useSelector(
-    (state) => state.product.productDetail.product
-  );
+  const { productDetail } = useSelector((state) => state.product);
   const isLoading = useSelector((state) => state.ui.isLoading);
   const { productId } = useParams();
 
@@ -43,18 +41,18 @@ const Detail = () => {
 
   const wishListId = loadWishList.map((item) => item.id);
 
-  const sellerId = prodDetail?.seller_id;
+  const sellerId = productDetail?.seller_id;
 
   useEffect(() => {
-    dispatch(getProduct(productId)).then(() => {
-      setWishCount(+prodDetail?.wishCount);
-      setActiveWish(wishListId.indexOf(+productId) == -1 ? false : true);
-      if (isNaN(wishCount)) {
-        setWishCount(+prodDetail?.wishCount);
-        setActiveWish(wishListId.indexOf(+productId) == -1 ? false : true);
-      }
-    });
+    dispatch(getProduct(productId));
   }, [dispatch, productId]);
+
+  useEffect(() => {
+    if (productDetail?.wishCount) {
+      setWishCount(+productDetail?.wishCount);
+      setActiveWish(wishListId.indexOf(+productId) == -1 ? false : true);
+    }
+  }, [productDetail?.wishCount]);
 
   const handleClick = (func, comment) => {
     if (userId == undefined) {
@@ -130,7 +128,7 @@ const Detail = () => {
       );
       if (!roomExists) {
         return navigate(
-          `/chat/0?exists=false&user=${userId}&seller=${sellerId}&sellerName=${prodDetail?.seller_name}&prod=${productId}`
+          `/chat/0?exists=false&user=${userId}&seller=${sellerId}&sellerName=${productDetail?.seller_name}&prod=${productId}`
         );
       }
       if (roomExists.chat_participant?.self_granted === 1) {
@@ -207,13 +205,15 @@ const Detail = () => {
 
             <div className={classes.producContentWrap}>
               <div>
-                <div className={classes.category}>{prodDetail?.category}</div>
-                <div className={classes.title}>{prodDetail?.title}</div>
+                <div className={classes.category}>
+                  {productDetail?.category}
+                </div>
+                <div className={classes.title}>{productDetail?.title}</div>
                 <div className={classes.price}>
                   {" "}
-                  {prodDetail?.price.toLocaleString()}
+                  {productDetail?.price?.toLocaleString()}
                 </div>
-                <div className={classes.time}>{prodDetail?.createdAt}</div>
+                <div className={classes.time}>{productDetail?.createdAt}</div>
               </div>
 
               <div className={classes.buttonWrap}>
@@ -285,7 +285,7 @@ const Detail = () => {
           </section>
 
           <div className={classes.relatedProductHeader}>연관상품</div>
-          <RelatedProduct prodDetail={prodDetail} />
+          <RelatedProduct prodDetail={productDetail} />
         </div>
       )}
     </Fragment>
