@@ -1,45 +1,46 @@
 .productDetailWrap {
   display: flex;
   flex-direction: column;
-  margin-top: 20px;
   width: 1200px;
-  margin: 10px auto 0;
+  margin: 40px auto 0 auto;
 }
 
 /* 상품 상세정보 */
 .productDetail {
   display: flex;
   width: 100%;
-  height: 600px;
-  margin-bottom: 50px;
+  padding: 30px 0;
+  border-top: 2px solid rgb(157, 157, 157);
 }
 
 .productImgWrap {
-  width: 55%;
+  width: 500px;
   border-radius: 13px;
+  height: 430px;
 }
 
 .producContentWrap {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  width: 45%;
+  width: 700px;
 }
 
 .category {
   color: #8685858e;
   margin-bottom: 10px;
+  font-size: 1rem;
 }
 
 .title {
   font-weight: 500;
-  font-size: 2.5rem;
+  font-size: 1.5rem;
   margin-bottom: 20px;
 }
 
 .price {
   font-weight: 500;
-  font-size: 3rem;
+  font-size: 2.2rem;
   margin-bottom: 20px;
 }
 
@@ -50,6 +51,7 @@
 
 .time {
   color: #8685858e;
+  font-size: 1rem;
 }
 
 /* 버튼 */
@@ -219,32 +221,39 @@
 .informationWrap {
   display: flex;
   width: 100%;
-  margin-bottom: 50px;
+  padding: 20px 0;
+  border-top: 2px solid rgb(157, 157, 157);
+  height: 450px;
 }
 
 /* 상품 정보 */
 .prodInformation {
   display: flex;
   width: 100%;
+  justify-content: space-between;
 }
 
 .productInfo {
-  width: 60%;
+  width: 840px;
 }
 
 .productInfoHeader,
 .productStoreHeader {
   font-size: 20px;
+  border-bottom: 1px solid rgb(200, 200, 200);
+  padding-bottom: 12px;
 }
 
 .ProdinfoExplanation {
-  margin-top: 30px;
+  margin-top: 20px;
   color: rgb(136, 136, 136);
   font-size: 16px;
 }
 /* 판매자 정보 */
 .productSellor {
-  width: 40%;
+  width: 300px;
+  border-left: 1px solid rgb(200, 200, 200);
+  padding-left: 30px;
 }
 
 .testImg {
@@ -258,7 +267,7 @@
   display: flex;
   margin-top: 30px;
   color: rgb(136, 136, 136);
-  height: 450px;
+  height: auto;
   justify-content: center;
   flex-direction: column;
   text-align: center;
@@ -279,5 +288,141 @@
 .relatedProductHeader {
   font-size: 20px;
   margin-bottom: 30px;
+  padding-top: 25px;
   display: block;
+  border-top: 2px solid rgb(157, 157, 157);
+}
+
+@media screen and (max-width: 1200px) {
+  .productDetailWrap {
+    width: 900px;
+  }
+
+  .producContentWrap {
+    height: 380px;
+    width: 480px;
+  }
+
+  .productImgWrap {
+    height: 380px;
+    width: 420px;
+  }
+
+  .category {
+    font-size: 14px;
+  }
+
+  .title {
+    font-size: 24px;
+  }
+
+  .price {
+    font-size: 34px;
+  }
+
+  .time {
+    font-size: 14px;
+  }
+
+  .informationWrap {
+    height: 380px;
+  }
+
+  .productInfo {
+    width: 615px;
+  }
+
+  .productSellor {
+    width: 225px;
+  }
+}
+
+@media screen and (max-width: 900px) {
+  .productDetailWrap {
+    width: 720px;
+  }
+
+  .producContentWrap {
+    height: 300px;
+    width: 370px;
+  }
+
+  .productImgWrap {
+    height: 300px;
+    width: 350px;
+  }
+
+  .category {
+    font-size: 12px;
+  }
+
+  .title {
+    font-size: 20px;
+  }
+
+  .price {
+    font-size: 28px;
+  }
+
+  .time {
+    font-size: 12px;
+  }
+
+  .informationWrap {
+    height: 380px;
+  }
+
+  .productInfo {
+    width: 480px;
+  }
+
+  .productSellor {
+    width: 180px;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .productDetailWrap {
+    width: 100%;
+  }
+
+  .productDetail {
+    height: 300px;
+  }
+
+  .productImgWrap {
+    width: 200px;
+    height: 200px;
+  }
+
+  .producContentWrap {
+  }
+
+  .category {
+    font-size: 12px;
+  }
+
+  .title {
+    font-size: 20px;
+  }
+
+  .price {
+    font-size: 28px;
+  }
+
+  .time {
+    font-size: 12px;
+  }
+
+  .informationWrap {
+    height: 380px;
+  }
+
+  .productInfo {
+    width: 480px;
+  }
+
+  .productSellor {
+    width: 180px;
+  }
 }
