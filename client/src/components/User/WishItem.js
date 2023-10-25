@@ -98,7 +98,7 @@ const WishItem = () => {
                 </Link>
 
                 <div className={classes.productPrice}>
-                  <p>{item?.price}PDT</p>
+                  <p>{item?.price.toLocaleString()}PDT</p>
                 </div>
 
                 <div className={classes.wishListProductPurchase}>
