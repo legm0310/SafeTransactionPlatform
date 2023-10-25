@@ -232,7 +232,9 @@ const Detail = () => {
                         <div className={classes.previousProductPut}>
                           <FaHeart />
                           <span className={classes.buttonText}>찜하기</span>
-                          <span>&nbsp;{wishCount}</span>
+                          <span className={classes.wishCount}>
+                            &nbsp;{wishCount}
+                          </span>
                         </div>
                       )}
                     </div>
@@ -268,7 +270,6 @@ const Detail = () => {
 
           <section className={classes.informationWrap}>
             <div className={classes.prodInformation}>
-              <div className={classes.prodInfoHeader}></div>
               <div className={classes.productInfo}>
                 <div className={classes.productInfoHeader}>상품정보</div>
                 <div className={classes.ProdinfoExplanation}>
