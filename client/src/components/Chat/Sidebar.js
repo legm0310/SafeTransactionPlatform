@@ -10,7 +10,10 @@ const Sidebar = () => {
   return (
     <Fragment>
       <div className={classes.sidebarWrap}>
-        <Search setSearchRoomName={setSearchRoomName} />
+        <Search
+          searchRoomName={searchRoomName}
+          setSearchRoomName={setSearchRoomName}
+        />
         <Chats searchRoomName={searchRoomName} />
       </div>
     </Fragment>
