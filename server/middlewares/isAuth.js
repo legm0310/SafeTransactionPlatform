@@ -1,3 +1,4 @@
+const cookie = require("cookie");
 const { Container } = require("typedi");
 const config = require("../config");
 const passport = require("passport");
@@ -77,11 +78,85 @@ const handleRefreshToken = async (req, res, next) => {
   )(req, res, next);
 };
 
+const handleSocketAccessToken = async (socket, next) => {
+  const tokenService = Container.get("tokenService");
+  passport.authenticate(
+    "access",
+    { session: false },
+    async (err, user, info) => {
+      if (info && info.message == "jwt expired") {
+        //... passport.authenticate("refresh")
+        return await handleSocketRefreshToken(socket, next);
+      }
+
+      if (err || info || !user) {
+        const parsedCookies = cookie.parse(socket.request.headers.cookie || "");
+        const refreshToken = parsedCookies["refreshToken"];
+        if (refreshToken) {
+          await tokenService.removeToken(refreshToken);
+        }
+        return (
+          console.log("🔥", err ? `err: ${err}` : `info: ${info}`),
+          next(Unauthorized)
+        );
+      }
+      socket.userId = user.sub;
+      return next();
+    }
+  )(socket, {}, next);
+};
+
+const handleSocketRefreshToken = async (socket, next) => {
+  const tokenService = Container.get("tokenService");
+  passport.authenticate(
+    "refresh",
+    { session: false },
+    async (err, user, info) => {
+      if (info && info.message == "jwt expired") {
+        return console.log("🔥", loginAgain), next(loginAgain);
+      }
+
+      if (err || info || !user) {
+        return (
+          console.log("🔥", err ? `err: ${err}` : `info: ${info}`),
+          next(Unauthorized)
+        );
+      }
+
+      const parsedCookies = cookie.parse(socket.request.headers.cookie || "");
+      const refreshToken = parsedCookies["refreshToken"];
+      console.log("refreshToken", refreshToken);
+      if (refreshToken !== user.tokenData.refresh_token) {
+        return console.log("🔥", Unauthorized), next(Unauthorized);
+      }
+
+      const { accessToken, exp } = await tokenService.genAccessToken(
+        user.tokenData.user_id
+      );
+
+      await tokenService.updateReissueTimeout(
+        new Date((exp + parseInt(config.reissueTimeoutInterval)) * 1000),
+        user.tokenData.user_id
+      );
+
+      await socket.emit("issueAccessToken", {
+        accessToken: `Bearer ${accessToken}`,
+      });
+      socket.userId = user.tokenData.user_id;
+      return next();
+    }
+  )(socket, {}, next);
+};
+
 const isAuth = async (req, res, next) => {
   await handleAccessToken(req, res, next);
 };
 
-module.exports = isAuth;
+const isSocketAuth = async (socket, next) => {
+  await handleSocketAccessToken(socket, next);
+};
+
+module.exports = { isAuth, isSocketAuth };
 
 //access tokenService 검사 -> 유효 -> 인증 통과
 

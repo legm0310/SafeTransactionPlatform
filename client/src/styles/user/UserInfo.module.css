@@ -29,6 +29,12 @@
   border-radius: 4px;
   background-color: rgb(200, 200, 200);
 }
+
+.chatButton {
+  border-radius: 4px;
+  background-color: #fe4e62;
+}
+
 .updateNameInput {
   width: 60%;
 }
@@ -204,5 +210,50 @@
 
   .userInfoMenuWrap {
     width: 95%;
+    height: auto;
+  }
+
+  .userInfoWrap {
+    flex-direction: column;
+    align-items: center;
+    height: auto;
+  }
+
+  .userDetailProfile {
+    align-items: center;
+    height: auto;
+    width: 90%;
+  }
+
+  .userProfileWrap {
+    background-color: white;
+    width: 100%;
+  }
+
+  .userNameWrap {
+    padding: 10px 0;
+  }
+
+  .userStateWrap {
+    width: 100%;
+    padding: 10px 0;
+  }
+
+  .userIntroBox {
+    width: 100%;
+  }
+
+  .userIntroWrap {
+    padding: 10px 0;
+  }
+
+  .userNameModifyButton {
+    padding: 7px;
+    margin-left: 30px;
+  }
+
+  .userIntroModifyButton {
+    padding: 7px;
+    font-size: 13px;
   }
 }

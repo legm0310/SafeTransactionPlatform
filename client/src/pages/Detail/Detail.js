@@ -32,42 +32,56 @@ const Detail = () => {
   const sdk = useSDK();
 
   const { userId, loadWishList } = useSelector((state) => state.user);
-  const prodDetail = useSelector(
-    (state) => state.product.productDetail.product
-  );
+  const { productDetail } = useSelector((state) => state.product);
   const isLoading = useSelector((state) => state.ui.isLoading);
   const { productId } = useParams();
 
   const [activeWish, setActiveWish] = useState(false);
+  const [wishCount, setWishCount] = useState(0);
 
   const wishListId = loadWishList.map((item) => item.id);
 
-  const sellerId = prodDetail?.seller_id;
+  const sellerId = productDetail?.seller_id;
+  const status = productDetail?.status;
 
   useEffect(() => {
     dispatch(getProduct(productId));
-    wishListId.indexOf(+productId) == -1
-      ? setActiveWish(false)
-      : setActiveWish(true);
   }, [dispatch, productId]);
 
+  useEffect(() => {
+    if (productDetail?.wishCount) {
+      setWishCount(+productDetail?.wishCount);
+      setActiveWish(wishListId.indexOf(+productId) == -1 ? false : true);
+    }
+  }, [productDetail?.wishCount]);
+
   const handleClick = (func, comment) => {
-    enqueueSnackbar(comment, {
-      variant: "info",
-      persist: true, // 자동으로 스낵바를 닫지 않음
-      action: (key) => (
-        <>
-          <button onClick={() => func(key)}>구매하기</button>
-          <button
-            onClick={() => {
-              closeSnackbar(key);
-            }}
-          >
-            뒤로가기
-          </button>
-        </>
-      ),
-    });
+    if (userId == undefined) {
+      navigate("/login");
+    } else {
+      enqueueSnackbar(comment, {
+        variant: "info",
+        persist: true, // 자동으로 스낵바를 닫지 않음
+        action: (key) => (
+          <div>
+            <button
+              onClick={() => func(key)}
+              className={classes.purchaseButton}
+            >
+              구매하기
+            </button>
+            <button
+              onClick={() => {
+                closeSnackbar(key);
+              }}
+              className={classes.backButton}
+            >
+              뒤로가기
+            </button>
+          </div>
+        ),
+      });
+    }
   };
   const onPurchaseHandler = () => {
     handleClick(purchase, "해당 상품 구매하시겠습니까?");
@@ -121,7 +135,7 @@ const Detail = () => {
       );
       if (!roomExists) {
         return navigate(
-          `/chat/0?exists=false&user=${userId}&seller=${sellerId}&sellerName=${prodDetail?.seller_name}&prod=${productId}`
+          `/chat/0?exists=false&user=${userId}&seller=${sellerId}&sellerName=${productDetail?.seller_name}&prod=${productId}`
         );
       }
       if (roomExists.chat_participant?.self_granted === 1) {
@@ -147,26 +161,40 @@ const Detail = () => {
   };
 
   const addWishListHandler = () => {
-    let data = {
-      userId,
-      productId,
-    };
-    activeWish
-      ? dispatch(deleteWishList(productId)).then((response) => {
-          enqueueSnackbar("찜이 해제 되었습니다. ", {
-            variant: "error",
-          });
-          dispatch(getWishList(userId));
-          setActiveWish(false);
-        })
-      : dispatch(addWishList(data)).then((response) => {
-          if (response.payload.addWishListSuccess) {
-            enqueueSnackbar("상품을 찜 했습니다.", {
-              variant: "success",
+    if (userId == undefined) {
+      navigate("/login");
+    } else {
+      let data = {
+        userId,
+        productId,
+      };
+      activeWish
+        ? dispatch(deleteWishList(productId)).then((response) => {
+            enqueueSnackbar("찜이 해제 되었습니다. ", {
+              variant: "error",
             });
-            setActiveWish(true);
-          }
-        });
+            dispatch(getWishList(userId));
+            setWishCount(wishCount - 1);
+            setActiveWish(false);
+          })
+        : dispatch(addWishList(data)).then((response) => {
+            if (response.payload.addWishListSuccess) {
+              enqueueSnackbar("상품을 찜 했습니다.", {
+                variant: "success",
+              });
+              setActiveWish(true);
+              setWishCount(wishCount + 1);
+            } else {
+              console.log(wishListId.indexOf(+productId));
+              setActiveWish(
+                wishListId.indexOf(+productId) == -1 ? true : false
+              );
+              enqueueSnackbar("이미 찜한 상품입니다. ", {
+                variant: "error",
+              });
+            }
+          });
+    }
   };
 
   return (
@@ -184,13 +212,15 @@ const Detail = () => {
 
             <div className={classes.producContentWrap}>
               <div>
-                <div className={classes.category}>{prodDetail?.category}</div>
-                <div className={classes.title}>{prodDetail?.title}</div>
+                <div className={classes.category}>
+                  {productDetail?.category}
+                </div>
+                <div className={classes.title}>{productDetail?.title}</div>
                 <div className={classes.price}>
                   {" "}
-                  {prodDetail?.price.toLocaleString()}
+                  {productDetail?.price?.toLocaleString()}
                 </div>
-                <div className={classes.time}>{prodDetail?.createdAt}</div>
+                <div className={classes.time}>{productDetail?.createdAt}</div>
               </div>
 
               <div className={classes.buttonWrap}>
@@ -202,12 +232,18 @@ const Detail = () => {
                           <div className={classes.productPut}>
                             <FaHeart style={{ color: "red" }} />
                             <span className={classes.buttonText}>찜하기</span>
+                            <span className={classes.wishCount}>
+                              {wishCount}
+                            </span>
                           </div>
                         </div>
                       ) : (
                         <div className={classes.previousProductPut}>
                           <FaHeart />
                           <span className={classes.buttonText}>찜하기</span>
+                          <span className={classes.wishCount}>
+                            &nbsp;{wishCount}
+                          </span>
                         </div>
                       )}
                     </div>
@@ -222,28 +258,43 @@ const Detail = () => {
                     </div>
                   </Button>
                 </div>
-                <Button
-                  onClick={(e) =>
-                    handleClick(
-                      onPurchaseHandler,
-                      "해당 상품 구매하시겠습니까?"
-                    )
-                  }
-                >
+                {status === "SALE" ? (
+                  <Button
+                    onClick={(e) =>
+                      handleClick(
+                        onPurchaseHandler,
+                        "해당 상품 구매하시겠습니까?"
+                      )
+                    }
+                  >
+                    <div className={classes.productPurchaseWrap}>
+                      <div className={classes.productPurchase}>
+                        <IoCart />
+                        <span className={classes.buttonText}>구매하기</span>
+                      </div>
+                    </div>
+                  </Button>
+                ) : status === "RESERVED" ? (
                   <div className={classes.productPurchaseWrap}>
-                    <div className={classes.productPurchase}>
+                    <div className={classes.productReserved}>
                       <IoCart />
-                      <span className={classes.buttonText}>구매하기</span>
+                      <span className={classes.buttonText}>구매진행중</span>
                     </div>
                   </div>
-                </Button>
+                ) : (
+                  <div className={classes.productPurchaseWrap}>
+                    <div className={classes.productSold}>
+                      <IoCart />
+                      <span className={classes.buttonText}>판매완료</span>
+                    </div>
+                  </div>
+                )}
               </div>
             </div>
           </section>
 
           <section className={classes.informationWrap}>
             <div className={classes.prodInformation}>
-              <div className={classes.prodInfoHeader}></div>
               <div className={classes.productInfo}>
                 <div className={classes.productInfoHeader}>상품정보</div>
                 <div className={classes.ProdinfoExplanation}>
@@ -259,7 +310,8 @@ const Detail = () => {
             </div>
           </section>
 
-          <RelatedProduct prodDetail={prodDetail} />
+          <div className={classes.relatedProductHeader}>연관상품</div>
+          <RelatedProduct prodDetail={productDetail} />
         </div>
       )}
     </Fragment>

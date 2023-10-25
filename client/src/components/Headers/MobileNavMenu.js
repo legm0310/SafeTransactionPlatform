@@ -23,15 +23,13 @@ import classes from "../../styles/headers/Header.module.css";
 const MobileNavMenu = (props) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { userId, loadWishList, authCheck } = useSelector(
+  const { userId, loadWishList, authCheck, isLoggedIn } = useSelector(
     (state) => state.user
   );
 
   const { enqueueSnackbar } = useSnackbar();
 
   const disconnect = useDisconnect();
-
-  const isLoggedIn = useSelector((state) => state.user.isLoggedIn);
 
   const onLogoutHandler = () => {
     dispatch(logout()).then((response) => {
@@ -112,7 +110,7 @@ const MobileNavMenu = (props) => {
           <List
             sx={{
               padding: 0,
-              width: { sm: "300px", xs: "200px" },
+              width: { sm: "300px", xs: "250px" },
               height: "100%",
             }}
           >
@@ -153,24 +151,34 @@ const MobileNavMenu = (props) => {
                 <ListItemButton>판매하기</ListItemButton>
               </ListItem>
             </Link>
-            <ListItem onClick={onChattingOpen}>
-              <ListItemButton>판다톡</ListItemButton>
-            </ListItem>
-            <ListItem onClick={onWishListOpen}>
-              <ListItemButton>찜목록</ListItemButton>
-            </ListItem>
-            <ListItem onClick={handleOpenWallet}>
-              <ListItemButton>내지갑</ListItemButton>
-            </ListItem>
+            {isLoggedIn ? (
+              <ListItem onClick={onChattingOpen}>
+                <ListItemButton>판다톡</ListItemButton>
+              </ListItem>
+            ) : null}
+
+            {isLoggedIn ? (
+              <ListItem onClick={onWishListOpen}>
+                <ListItemButton>찜목록</ListItemButton>
+              </ListItem>
+            ) : null}
+
+            {isLoggedIn ? (
+              <ListItem onClick={handleOpenWallet}>
+                <ListItemButton>내지갑</ListItemButton>
+              </ListItem>
+            ) : null}
             <ListItem
               onClick={onLogoutHandler}
               sx={{ position: "absolute", bottom: 0 }}
             >
-              <Link to="">
-                <ListItemButton sx={{ color: "gray", fontSize: "13px" }}>
-                  로그아웃
-                </ListItemButton>
-              </Link>
+              {isLoggedIn ? (
+                <Link to="/">
+                  <ListItemButton sx={{ color: "gray", fontSize: "13px" }}>
+                    로그아웃
+                  </ListItemButton>
+                </Link>
+              ) : null}
             </ListItem>
           </List>
         </Drawer>

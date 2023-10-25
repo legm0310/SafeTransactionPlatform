@@ -8,9 +8,7 @@ import styled from "styled-components";
 import classes from "../../styles/detail/DetailSlide.module.css";
 
 const DetailSlide = () => {
-  const productDetail = useSelector(
-    (state) => state.product.productDetail?.product
-  );
+  const { productDetail } = useSelector((state) => state.product);
   const settings = {
     dots: true, // 캐러셀 밑에 ... 을 표시할지
     infinite: true, // 슬라이드가 끝까지 가면 다시 처음으로 반복
@@ -26,7 +24,7 @@ const DetailSlide = () => {
     <Fragment>
       <div>
         <StyledSlider {...settings}>
-          {productDetail?.images.map((img) => (
+          {productDetail?.images?.map((img) => (
             <div key={img.split("/").slice(-2).join("/")}>
               <img src={img} alt="" className={classes.slideImg} />
             </div>

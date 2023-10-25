@@ -97,6 +97,10 @@
   }
 }
 
+.userChatInfoTop {
+  display: flex;
+}
+
 .userChat img {
   width: 50px;
   height: 50px;
@@ -114,6 +118,24 @@
   font-size: 14px;
   color: lightgray;
   margin: 5px 0 0 0;
+}
+
+.unreadCountText {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.unreadCountText p {
+  text-align: center;
+  color: white;
+  font-size: 12px;
+  font-weight: 700;
+  width: 14px;
+  border-radius: 50%;
+  background: red;
+  margin-top: 0;
+  margin-left: 10px;
 }
 
 /* ChatRoom.js */
@@ -254,4 +276,13 @@ button {
   cursor: pointer;
 }
 
-/* message.js */
+/* 스낵바 */
+.outButton {
+  border-radius: 4px;
+  margin-right: 10px;
+}
+
+.backButton {
+  border-radius: 4px;
+  background: #fe4e62;
+}

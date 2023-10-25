@@ -5,7 +5,11 @@ import {
   GET_PRODUCTS,
   GET_PRODUCT,
   DEPOSIT,
+  DEPOSIT_SUCCESS,
+  DEPOSIT_FAILURE,
   RELEASE,
+  RELEASE_SUCCESS,
+  RELEASE_FAILURE,
   DEPOSITED_PRODUCTS,
   SEARCH_RECENT_PRODUCTS,
 } from "./type";
@@ -150,13 +154,43 @@ export function purchase(dataToSubmit) {
       });
 
       return dispatch({
-        type: DEPOSIT,
+        type: DEPOSIT_SUCCESS,
         payload: res.data,
       });
     } catch (err) {
       console.log(err);
       return dispatch({
-        type: DEPOSIT,
+        type: DEPOSIT_FAILURE,
+        payload: err.response.data,
+      });
+    } finally {
+      dispatch(setLoadings({ isContractLoading: false }));
+    }
+  };
+}
+
+export function testPurchase(dataToSubmit) {
+  const { productId, userId, sdk } = dataToSubmit;
+  return async (dispatch) => {
+    dispatch();
+    dispatch(setLoadings({ isLoading: true }));
+    try {
+      const res = await authRequest().put(`/api/products/deposit/${productId}`);
+      console.log("res", res);
+      dispatch(setLoadings({ isLoading: false, isContractLoading: true }));
+
+      await callPurchaseDeposit(sdk, productId, userId).then((data) => {
+        console.log("contractRes", data);
+      });
+
+      return dispatch({
+        type: DEPOSIT_SUCCESS,
+        payload: res.data,
+      });
+    } catch (err) {
+      console.log(err);
+      return dispatch({
+        type: DEPOSIT_FAILURE,
         payload: err.response.data,
       });
     } finally {

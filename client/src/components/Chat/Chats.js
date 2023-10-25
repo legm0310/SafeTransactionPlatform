@@ -11,20 +11,26 @@ import classes from "../../styles/chat/Chat.module.css";
 import defaultProfile from "../../assets/defaultProfile.png";
 import { IoChatbubbleEllipsesSharp } from "react-icons/io5";
 
-const Chats = () => {
+const Chats = ({ searchRoomName }) => {
   const { roomId } = useParams() ?? { roomId: 0 };
   const [searchParams, setSearchParams] = useSearchParams();
-  const { rooms } = useSelector((state) => state.chat);
+  const { rooms, chats } = useSelector((state) => state.chat);
 
   const exists = searchParams.get("exists");
   const userId = searchParams.get("user");
   const sellerId = searchParams.get("seller");
   const sellerName = searchParams.get("sellerName");
   const productId = searchParams.get("prod");
-  // console.log(rooms?.length, userId, exists, sellerName);
+  const filteredJoinRooms = rooms?.filter((room) => {
+    return (
+      room.chat_participant.self_granted === 1 &&
+      room.RoomUser[0]?.user_name.includes(searchRoomName)
+    );
+  });
+
   return (
     <Fragment>
-      {rooms?.length === 0 && exists != "false" ? (
+      {filteredJoinRooms?.length === 0 && exists != "false" ? (
         <div className={classes.noneChatRoom}>
           <div className={classes.noneChatRoomImg}>
             <IoChatbubbleEllipsesSharp />
@@ -49,12 +55,15 @@ const Chats = () => {
               </div>
             </Link>
           ) : null}
-          {rooms?.map((room) => {
-            if (room.chat_participant.self_granted === 0) return;
+          {filteredJoinRooms?.map((room) => {
+            const latestChat =
+              new Date(room?.chat_participant.updatedAt) <=
+                new Date(room?.chat_logs[0].createdAt) &&
+              room?.chat_logs[0]?.content;
             return (
               <Link
                 key={room.id}
-                to={roomId == room.id ? `/chat` : `/chat/${room.id}`}
+                to={roomId == room?.id ? `/chat` : `/chat/${room?.id}`}
               >
                 <div className={classes.userChat}>
                   <img
@@ -63,13 +72,21 @@ const Chats = () => {
                     className={classes.testImg}
                   />
                   <div className={classes.userChatInfo}>
-                    <span>{room.RoomUser[0]?.user_name}</span>
+                    <div className={classes.userChatInfoTop}>
+                      <span>{room?.RoomUser[0]?.user_name}</span>
+
+                      <div className={classes.unreadCountText}>
+                        <p>
+                          {+room?.unreadCount !== 0 ? room?.unreadCount : null}
+                        </p>
+                      </div>
+                    </div>
+
                     <p>
-                      {room.chat_logs[0]?.content?.length > 14
-                        ? `${room.chat_logs[0]?.content?.substr(0, 15)} ...`
-                        : room.chat_logs[0]?.content}
+                      {latestChat?.length > 9
+                        ? `${latestChat?.substr(0, 10)} ...`
+                        : latestChat}
                     </p>
-                    <p>읽지 않은 메시지: {room.unreadCount}</p>
                   </div>
                 </div>
               </Link>

@@ -1,23 +1,37 @@
-module.exports = (io) => {
-  const db = require("../models");
-  const { Container } = require("typedi");
+const jwt = require("jsonwebtoken");
+const db = require("../models");
+const { Op } = require("sequelize");
+const { Container } = require("typedi");
+const { isSocketAuth } = require("../middlewares");
 
+module.exports = (io) => {
+  const users = new Map();
+  const chatServiceIns = Container.get("chatService");
+  // io.use(isSocketAuth);
   io.on("connection", (socket) => {
+    const userId = +socket.handshake?.query?.userId;
+    const userJoinData = {
+      sid: socket.id,
+      activeState: null,
+    };
+    if (typeof userId !== "number") return;
+    users.set(userId, userJoinData);
     const req = socket.request;
     const ip = req.headers["x-forwarded-for"] || req.connection.remoteAddress;
     console.log(
-      "✨Socket connected✨",
-      ip,
-      socket.id,
-      req.ip,
+      `✨Socket connected✨: ${ip}`,
       socket.rooms,
       "Current User Count : ",
       io.engine.clientsCount
     );
 
     socket.on("disconnect", () => {
-      console.log("disconnected", socket.id);
+      clearSocketAndUserMap();
+      const userId = getKeybySid(socket.id);
+      users.delete(userId);
+      console.log("disconnected", socket.id, userId);
       setTimeout(() => {
+        console.log(users);
         console.log(io.engine.clientsCount);
       }, 1000);
     });
@@ -35,28 +49,50 @@ module.exports = (io) => {
       console.log(socket.rooms);
     });
 
-    socket.on("getMyRooms", (callback) => {
-      const rooms = Object.keys(socket.rooms);
-      console.log(rooms);
-      callback(rooms);
+    socket.on("getActiveRoom", (userId, callback) => {
+      const user = users.get(+userId);
+      callback(user.active);
+    });
+
+    socket.on("activeRoom", (userId, roomId) => {
+      const userMap = users.get(+userId);
+      userMap.activeState = +roomId;
+      users.set(+userId, userMap);
+    });
+    socket.on("DeactiveRoom", (userId) => {
+      const userMap = users.get(+userId);
+      userMap.activeState = null;
+      users.set(+userId, userMap);
     });
 
     socket.on(
       "onAddRoomAndSend",
-      async ({ userId, sellerId, roomName, chat }, callback) => {
-        const chatServiceInstance = await Container.get("chatService");
+      async ({ seller, buyer, roomName, chat }, callback) => {
         try {
-          const { room, result } = await chatServiceInstance.createRoom({
-            userId,
-            sellerId,
+          const { room, result } = await chatServiceIns.createRoom({
+            userId: buyer.id,
+            sellerId: seller.id,
             roomName,
           });
 
           await db.ChatLog.create({
             content: chat,
-            sender_id: userId,
+            sender_id: buyer.id,
             room_id: room.id,
           });
+
+          if (users.get(+seller.id)) {
+            await io
+              .to(users.get(+seller.id).sid)
+              .emit("onClientJoinRoom", room.id);
+            await io.to(users.get(+seller.id).sid).emit("updateSellerRoom", {
+              buyer: { id: buyer.id, name: buyer.name },
+              chat: chat,
+              roomId: room.id,
+              selfGranted: 1,
+            });
+          }
+
           callback({ result: result, roomId: room.id });
         } catch (err) {
           callback({ result: "error", error: err.message });
@@ -64,25 +100,53 @@ module.exports = (io) => {
       }
     );
 
-    socket.on("onSend", async ({ user, roomId, chat }) => {
-      console.log(user, roomId, chat);
+    socket.on("onSend", async ({ user, receiver, roomId, chat }) => {
+      // console.log(user, roomId, chat);
+      const receiverMap = users.get(+receiver.id);
+      const allOnline = receiverMap && receiverMap.activeState === +roomId;
+      console.log(allOnline, receiverMap);
+
+      const joinUserCount = await chatServiceIns.findAllJoinState(1, +roomId);
+      if (joinUserCount.length < 2) {
+        await chatServiceIns.updateJoinState(null, 1, +receiver.id, +roomId);
+        if (users.get(+receiver.id)) {
+          await io
+            .to(users.get(+receiver.id).sid)
+            .emit("onClientJoinRoom", +roomId);
+          await io.to(users.get(+receiver.id).sid).emit("updateSellerRoom", {
+            buyer: { id: user.id, name: user.name },
+            chat: chat,
+            roomId: roomId,
+            selfGranted: 1,
+          });
+        }
+      }
       await db.ChatLog.create({
+        check_read: allOnline ? 1 : 0,
         content: chat,
         sender_id: user.id,
         room_id: roomId,
       });
-      console.log(socket.rooms, socket.connected, roomId);
-      socket.broadcast
-        .to(+roomId)
-        .emit("onReceiveSend", { user: user, chat: chat, roomId: roomId });
+      socket.broadcast.to(+roomId).emit("onReceiveSend", {
+        user: user,
+        chat: chat,
+        roomId: roomId,
+        allOnline: allOnline,
+      });
     });
 
-    socket.on("onRead", async ({ user, roomId, chat }) => {
-      await db.ChatLog.update(
-        { check_read: true },
-        { where: { check_read: false } }
+    socket.on("onRead", async ({ userId, roomId }, callback) => {
+      const res = await db.ChatLog.update(
+        { check_read: 1 },
+        {
+          where: {
+            sender_id: { [Op.not]: +userId },
+            room_id: roomId,
+            check_read: 0,
+          },
+        }
       );
-      socket.broadcast.to(roomId).emit("onReceiveRead", { user, chat });
+      await callback();
     });
 
     socket.on("onLeftRoom", async ({ userId, roomId }, callback) => {
@@ -90,5 +154,23 @@ module.exports = (io) => {
       const result = await chatServiceInstance.deleteRoom({ userId, roomId });
       callback(result);
     });
+
+    function getKeybySid(sid) {
+      for (let [key, value] of users.entries()) {
+        if (value.sid === sid) return key;
+      }
+    }
+
+    function clearSocketAndUserMap() {
+      for (let [key, value] of users.entries()) {
+        if (typeof key !== "number" || isNaN(key)) {
+          const socket = io.sockets.sockets.get(users.get(+key).sid);
+          if (socket) {
+            socket.disconnect();
+          }
+          users.delete(key);
+        }
+      }
+    }
   });
 };

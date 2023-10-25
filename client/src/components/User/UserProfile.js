@@ -1,8 +1,9 @@
 import React, { Fragment, useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { useParams } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
 
 import { getUser, updateUser } from "../../_actions/userAction";
+import { addRoom, getRooms } from "../../_actions/chatAction";
 import classes from "../../styles/user/UserInfo.module.css";
 import { dateFormat } from "../../utils/dataParse";
 import { TextField } from "@mui/material";
@@ -20,6 +21,8 @@ const UserProfile = () => {
   const [newIntroduce, setNewIntroduce] = useState(introduce);
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const { id } = useParams();
   const { enqueueSnackbar } = useSnackbar();
 
@@ -82,12 +85,72 @@ const UserProfile = () => {
     setNewIntroduce(value);
   };
 
+  const startChatHandler = async (event) => {
+    event.preventDefault();
+    if (id === myId) {
+      return enqueueSnackbar("판매자와 구매자가 같습니다.", {
+        variant: "error",
+      });
+    }
+    const body = {
+      sellerId: id,
+      userId: myId,
+      roomName: `${myId}_${id}`,
+    };
+    try {
+      const roomData = await dispatch(getRooms());
+      const roomExists = roomData.payload.rooms?.find(
+        (room) => room.RoomUser[0].id === +id
+      );
+      console.log(roomExists);
+      if (!roomExists) {
+        return navigate(
+          `/chat/0?exists=false&user=${myId}&seller=${id}&sellerName=${userName}&prod=`
+        );
+      }
+      if (roomExists.chat_participant?.self_granted === 1) {
+        enqueueSnackbar("채팅방 생성에 성공했습니다.", {
+          variant: "success",
+        });
+        return navigate(`/chat/${roomExists.id}`);
+      }
+
+      const addResult = await dispatch(addRoom(body));
+      if (addResult.payload.result == "updatedRoom") {
+        enqueueSnackbar("채팅방 생성에 성공했습니다.", {
+          variant: "success",
+        });
+        return navigate(`/chat/${addResult.payload.room}`);
+      }
+    } catch (err) {
+      console.log(err);
+      return enqueueSnackbar("채팅방 생성 실패", {
+        variant: "error",
+      });
+    }
+  };
+
   return (
     <Fragment>
       <div className={classes.userInfoWrap}>
         <div className={classes.userProfileWrap}>
           <img src={defaultProfile} alt="" className={classes.testImg} />
           <div style={{ fontSize: "23px" }}>{userName}</div>
+          <div>
+            {+id === myId ? (
+              <div></div>
+            ) : (
+              <div>
+                <Link to={`/chat`}></Link>
+                <button
+                  onClick={startChatHandler}
+                  className={classes.chatButton}
+                >
+                  판다톡
+                </button>
+              </div>
+            )}
+          </div>
         </div>
         <div className={classes.userDetailProfile}>
           <div className={classes.userNameWrap}>
@@ -138,7 +201,7 @@ const UserProfile = () => {
             </time>
             {/* <div>상품 판매 개수</div> */}
           </div>
-          <div>
+          <div className={classes.userIntroBox}>
             {updateIntro ? (
               <div className={classes.userIntroWrap}>
                 <TextField
