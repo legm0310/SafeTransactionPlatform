@@ -1,17 +1,17 @@
 import { Fragment } from "react";
 
-import classes from "../../styles/user/SaleList.module.css";
+import classes from "../../styles/user/PurchasedList.module.css";
 import deleteBtn from "../../assets/icon-delete.svg";
 
-const SaleList = () => {
+const PurchasedList = () => {
   return (
     <Fragment>
-      {/* <div className={classes.notSaleList}>
-        <h2>판매중인 상품이 없습니다.</h2>
-        <p>의미있는 상품을 판매해보세요!</p>
+      {/* <div className={classes.notPurchasedList}>
+        <h2>구매한 상품이 없습니다.</h2>
+        <p>원하는 상품을 구매해보세요!</p>
       </div> */}
 
-      <div className={classes.saleList}>
+      <div className={classes.purchasedList}>
         {/* {prodDetail &&
           prodDetail.map((product) => (
             <div className={classes.wishListProductWrap}>
@@ -41,12 +41,12 @@ const SaleList = () => {
               </div>
             </div>
           ))} */}
-        <div className={classes.saleProductWrap}>
-          <div className={classes.saleProductImage}>
+        <div className={classes.purchasedProductWrap}>
+          <div className={classes.purchasedProductImage}>
             <img src="" alt="" />
           </div>
 
-          <div className={classes.saleProductInfo}>
+          <div className={classes.purchasedProductInfo}>
             <p className={classes.productCategory}>category</p>
             <p className={classes.productName}>상품이름</p>
           </div>
@@ -55,11 +55,11 @@ const SaleList = () => {
             <p>1000PDT</p>
           </div>
 
-          <div className={classes.saleProductDetail}>
-            <button className={classes.btnSubmit}>구매하기</button>
+          <div className={classes.purchasedProductReceipt}>
+            <button className={classes.btnSubmit}>영수증</button>
           </div>
 
-          <div className={classes.saleProductRemove}>
+          <div className={classes.purchasedProductRemove}>
             <img
               src={deleteBtn}
               // onClick={() => onDeleteWishListHandler(product.id)}
@@ -71,4 +71,4 @@ const SaleList = () => {
   );
 };
 
-export default SaleList;
+export default PurchasedList;

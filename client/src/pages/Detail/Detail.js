@@ -62,16 +62,22 @@ const Detail = () => {
         variant: "info",
         persist: true, // 자동으로 스낵바를 닫지 않음
         action: (key) => (
-          <>
-            <button onClick={() => func(key)}>구매하기</button>
+          <div>
+            <button
+              onClick={() => func(key)}
+              className={classes.purchaseButton}
+            >
+              구매하기
+            </button>
             <button
               onClick={() => {
                 closeSnackbar(key);
               }}
+              className={classes.backButton}
             >
               뒤로가기
             </button>
-          </>
+          </div>
         ),
       });
     }

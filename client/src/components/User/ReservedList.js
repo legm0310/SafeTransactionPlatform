@@ -13,11 +13,11 @@ import {
 } from "@thirdweb-dev/react";
 
 import deleteBtn from "../../assets/icon-delete.svg";
-import classes from "../../styles/user/ReservedProduct.module.css";
+import classes from "../../styles/user/ReservedList.module.css";
 
 const contractAddress = process.env.REACT_APP_CONTRACT_ADDRESS;
 
-const ReservedProduct = () => {
+const ReservedList = () => {
   const dispatch = useDispatch();
   const prodDetail =
     useSelector((state) => state.product.depositedProducts?.products) || [];
@@ -133,4 +133,4 @@ const ReservedProduct = () => {
   );
 };
 
-export default ReservedProduct;
+export default ReservedList;

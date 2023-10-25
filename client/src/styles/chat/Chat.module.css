@@ -254,4 +254,13 @@ button {
   cursor: pointer;
 }
 
-/* message.js */
+/* 스낵바 */
+.outButton {
+  border-radius: 4px;
+  margin-right: 10px;
+}
+
+.backButton {
+  border-radius: 4px;
+  background: #fe4e62;
+}
