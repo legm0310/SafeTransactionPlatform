@@ -42,6 +42,7 @@ const Detail = () => {
   const wishListId = loadWishList.map((item) => item.id);
 
   const sellerId = productDetail?.seller_id;
+  const status = productDetail?.status;
 
   useEffect(() => {
     dispatch(getProduct(productId));
@@ -231,14 +232,18 @@ const Detail = () => {
                           <div className={classes.productPut}>
                             <FaHeart style={{ color: "red" }} />
                             <span className={classes.buttonText}>찜하기</span>
-                            <span>{wishCount}</span>
+                            <span className={classes.wishCount}>
+                              {wishCount}
+                            </span>
                           </div>
                         </div>
                       ) : (
                         <div className={classes.previousProductPut}>
                           <FaHeart />
                           <span className={classes.buttonText}>찜하기</span>
-                          <span>&nbsp;{wishCount}</span>
+                          <span className={classes.wishCount}>
+                            &nbsp;{wishCount}
+                          </span>
                         </div>
                       )}
                     </div>
@@ -253,28 +258,43 @@ const Detail = () => {
                     </div>
                   </Button>
                 </div>
-                <Button
-                  onClick={(e) =>
-                    handleClick(
-                      onPurchaseHandler,
-                      "해당 상품 구매하시겠습니까?"
-                    )
-                  }
-                >
+                {status === "SALE" ? (
+                  <Button
+                    onClick={(e) =>
+                      handleClick(
+                        onPurchaseHandler,
+                        "해당 상품 구매하시겠습니까?"
+                      )
+                    }
+                  >
+                    <div className={classes.productPurchaseWrap}>
+                      <div className={classes.productPurchase}>
+                        <IoCart />
+                        <span className={classes.buttonText}>구매하기</span>
+                      </div>
+                    </div>
+                  </Button>
+                ) : status === "RESERVED" ? (
                   <div className={classes.productPurchaseWrap}>
-                    <div className={classes.productPurchase}>
+                    <div className={classes.productReserved}>
                       <IoCart />
-                      <span className={classes.buttonText}>구매하기</span>
+                      <span className={classes.buttonText}>구매진행중</span>
                     </div>
                   </div>
-                </Button>
+                ) : (
+                  <div className={classes.productPurchaseWrap}>
+                    <div className={classes.productSold}>
+                      <IoCart />
+                      <span className={classes.buttonText}>판매완료</span>
+                    </div>
+                  </div>
+                )}
               </div>
             </div>
           </section>
 
           <section className={classes.informationWrap}>
             <div className={classes.prodInformation}>
-              <div className={classes.prodInfoHeader}></div>
               <div className={classes.productInfo}>
                 <div className={classes.productInfoHeader}>상품정보</div>
                 <div className={classes.ProdinfoExplanation}>

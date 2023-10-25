@@ -74,6 +74,7 @@ export default function (state = initialState, action) {
       return {
         ...state,
         chats: [...state.chats, action.payload],
+        // unreadTotalCount: state.unreadTotalCount + 1,
       };
       break;
 
@@ -132,6 +133,7 @@ export default function (state = initialState, action) {
       break;
 
     case READ_CHATS:
+      let currentChatCount = 0;
       const readChats = state.chats?.map((chat) => {
         if (+chat.sender_id != +action.payload.userId) {
           chat.check_read = true;
@@ -141,6 +143,7 @@ export default function (state = initialState, action) {
       });
       const readChatInRoom = state.rooms?.map((room) => {
         if (+room.id == +action.payload.roomId) {
+          currentChatCount = room.unreadCount;
           room.unreadCount = 0;
           return room;
         }
@@ -150,6 +153,7 @@ export default function (state = initialState, action) {
         ...state,
         chats: [...readChats],
         rooms: [...readChatInRoom],
+        unreadTotalCount: state.unreadTotalCount - currentChatCount,
       };
     case GET_INIT_USER:
       return {
