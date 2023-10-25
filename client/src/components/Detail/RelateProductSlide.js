@@ -12,10 +12,30 @@ import "../../styles/detail/styles.css";
 import { Navigation } from "swiper/modules";
 
 const RelatedProductSlide = ({ filteredProducts }) => {
+  const [slidesPerView, setSlidesPerView] = useState(4);
+
+  useEffect(() => {
+    // 화면 크기에 따라 slidesPerView를 동적으로 설정
+    const handleResize = () => {
+      if (window.innerWidth < 600) {
+        setSlidesPerView(2.5);
+      } else {
+        setSlidesPerView(4);
+      }
+    };
+
+    // 페이지가 로드될 때와 창 크기가 변경될 때 리사이즈
+    handleResize();
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
   return (
     <Fragment>
       <Swiper
-        slidesPerView={4}
+        slidesPerView={slidesPerView}
         spaceBetween={15}
         pagination={{
           clickable: true,
