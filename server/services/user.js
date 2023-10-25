@@ -137,7 +137,7 @@ class UserService {
         [Op.and]: [
           { room_id: { [Op.in]: roomId } },
           { sender_id: { [Op.ne]: userId } },
-          { check_read: { [Op.eq]: 1 } },
+          { check_read: { [Op.eq]: 0 } },
         ],
       },
     });

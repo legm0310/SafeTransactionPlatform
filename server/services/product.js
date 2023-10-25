@@ -56,8 +56,8 @@ class ProductService {
       raw: true,
     });
     productData.seller_name = user.user_name;
-    const wishCount = await product.getWishList();
-    productData.wishCount = wishCount.length;
+    const wishList = await product.getWishList();
+    productData.wishCount = wishList.length;
     return productData;
   }
 
