@@ -48,6 +48,11 @@
   cursor: pointer;
 } */
 
+.clearSearchValueImg {
+  width: 15px;
+  cursor: pointer;
+}
+
 /* 로그인/회원가입 */
 .AuthList {
   display: flex;
