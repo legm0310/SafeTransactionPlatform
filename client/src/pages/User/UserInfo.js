@@ -3,8 +3,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { useLocation, useParams } from "react-router-dom";
 import Button from "../../components/common/Button";
 import SaleList from "../../components/User/SaleList";
-import ReservedProduct from "../../components/User/ReservedProduct";
-import PurchasedProduct from "../../components/User/PurchasedProduct";
+import ReservedList from "../../components/User/ReservedList";
+import PurchasedList from "../../components/User/PurchasedList";
 import WishList from "../../components/User/WishList";
 import UserProfile from "../../components/User/UserProfile";
 
@@ -44,20 +44,20 @@ const UserInfo = () => {
                 </div>
               </Button>
 
-              <Button onClick={() => onMenuHandler("ReservedProduct")}>
+              <Button onClick={() => onMenuHandler("ReservedList")}>
                 <div
                   className={`${classes.menuButton} ${
-                    activeMenu === "ReservedProduct" ? classes.active : ""
+                    activeMenu === "ReservedList" ? classes.active : ""
                   }`}
                 >
                   <span>구매진행상품</span>
                 </div>
               </Button>
 
-              <Button onClick={() => onMenuHandler("PurchasedProduct")}>
+              <Button onClick={() => onMenuHandler("PurchasedList")}>
                 <div
                   className={`${classes.menuButton} ${
-                    activeMenu === "PurchasedProduct" ? classes.active : ""
+                    activeMenu === "PurchasedList" ? classes.active : ""
                   }`}
                 >
                   <span>구매완료상품</span>
@@ -98,8 +98,8 @@ const UserInfo = () => {
 
           <div className={classes.userInfoExplanation}>
             {activeMenu === "SaleList" && <SaleList />}
-            {activeMenu === "ReservedProduct" && <ReservedProduct />}
-            {activeMenu === "PurchasedProduct" && <PurchasedProduct />}
+            {activeMenu === "ReservedList" && <ReservedList />}
+            {activeMenu === "PurchasedList" && <PurchasedList />}
             {activeMenu === "WishList" && <WishList />}
           </div>
         </div>

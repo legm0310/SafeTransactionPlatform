@@ -1,12 +1,19 @@
 import { Fragment } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 import { FiInstagram } from "react-icons/fi";
 import classes from "../../styles/Footer/Footer.module.css";
 import { useSelector } from "react-redux";
+import presentation from "../../assets/presentation.pdf";
 
 const Footer = () => {
   const isLoading = useSelector((state) => state.ui.isLoading);
+  const location = useLocation();
+
+  if (location.pathname === "/login" || location.pathname === "/register") {
+    return null;
+  }
+
   return (
     <Fragment>
       {isLoading ? null : (
@@ -17,7 +24,7 @@ const Footer = () => {
               <p>
                 Joongbu University 정보보호학과
                 <br />
-                팀명: 개발놈들
+                팀명: 개발의 민족
                 <br />
                 호스팅서비스 제공자: Amazon Web Services(AWS), Vercel
               </p>
@@ -93,13 +100,22 @@ const Footer = () => {
                 <Link to="/manual">
                   <li>판다 메뉴얼</li>
                 </Link>
+                <li>
+                  <a
+                    href={presentation}
+                    target="_blank"
+                    className={classes.listContent}
+                  >
+                    발표 자료
+                  </a>
+                </li>
               </ul>
             </div>
             <div className={classes.contact}>
               <h3>Contact</h3>
               <ul className={classes.contactList}>
-                <li>대표: 이규민</li>
-                <li>tel: 010-7763-7514</li>
+                <li>팀: 개발의 민족</li>
+                <li>email: legm0310@gmail.com</li>
               </ul>
             </div>
           </div>
