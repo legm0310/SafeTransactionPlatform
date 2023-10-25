@@ -196,7 +196,7 @@ const UserProfile = () => {
             </time>
             {/* <div>상품 판매 개수</div> */}
           </div>
-          <div>
+          <div className={classes.userIntroBox}>
             {updateIntro ? (
               <div className={classes.userIntroWrap}>
                 <TextField
