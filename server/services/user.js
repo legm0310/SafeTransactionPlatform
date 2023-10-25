@@ -122,7 +122,6 @@ class UserService {
   }
 
   async getInitUser(userId) {
-    console.log(userId);
     const user = await this.User.findByPk(+userId);
     const wishList = await user.getWishList({
       attributes: ["id"],
@@ -142,7 +141,6 @@ class UserService {
         ],
       },
     });
-    console.log(wishList);
     const userData = { wishList, count };
     return userData;
   }
