@@ -1,7 +1,7 @@
 import React, { Fragment } from "react";
 import classes from "../../styles/chat/Chat.module.css";
 
-const Search = () => {
+const Search = ({ setSearchRoomName }) => {
   return (
     <Fragment>
       <div className={classes.searchWrap}>
@@ -10,6 +10,7 @@ const Search = () => {
             type="text"
             className={classes.searchInput}
             placeholder="검색"
+            onChange={(e) => setSearchRoomName(e.target.value)}
           />
         </div>
       </div>

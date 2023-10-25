@@ -11,7 +11,7 @@ import classes from "../../styles/chat/Chat.module.css";
 import defaultProfile from "../../assets/defaultProfile.png";
 import { IoChatbubbleEllipsesSharp } from "react-icons/io5";
 
-const Chats = () => {
+const Chats = ({ searchRoomName }) => {
   const { roomId } = useParams() ?? { roomId: 0 };
   const [searchParams, setSearchParams] = useSearchParams();
   const { rooms } = useSelector((state) => state.chat);
@@ -24,9 +24,13 @@ const Chats = () => {
   const joinRoom = rooms?.filter(
     (room) => room.chat_participant.self_granted === 1
   );
+  const filteredRooms = joinRoom?.filter((room) => {
+    return room.RoomUser[0]?.user_name.includes(searchRoomName);
+  });
+  console.log(filteredRooms);
   return (
     <Fragment>
-      {joinRoom?.length === 0 && exists != "false" ? (
+      {filteredRooms?.length === 0 && exists != "false" ? (
         <div className={classes.noneChatRoom}>
           <div className={classes.noneChatRoomImg}>
             <IoChatbubbleEllipsesSharp />
@@ -51,7 +55,7 @@ const Chats = () => {
               </div>
             </Link>
           ) : null}
-          {joinRoom?.map((room) => {
+          {filteredRooms?.map((room) => {
             return (
               <Link
                 key={room.id}

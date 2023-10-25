@@ -54,7 +54,11 @@ export default function (state = initialState, action) {
       return { ...state, searchProducts: action.payload };
       break;
     case GET_PRODUCT:
-      return { ...state, productDetail: action.payload };
+      return {
+        ...state,
+        getProductSuccess: action.payload?.getProductSuccess,
+        productDetail: action.payload?.product,
+      };
       break;
     case DEPOSIT:
       return { ...state, deposit: action.payload };
