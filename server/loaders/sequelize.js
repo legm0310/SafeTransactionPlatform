@@ -98,6 +98,14 @@ module.exports = async () => {
           password: "1234",
           introduce: "안녕하세요. 준현입니다",
         });
+        await db.User.create({
+          role: 0,
+          user_name: "이현종",
+          email: "h@h.com",
+          phone_number: "01026942573",
+          password: "1234",
+          introduce: "안녕하세요. 현종입니다",
+        });
 
         const user1 = await db.User.findByPk(1);
         const user2 = await db.User.findByPk(2);
