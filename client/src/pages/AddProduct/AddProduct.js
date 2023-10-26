@@ -92,24 +92,6 @@ const AddProduct = (props) => {
     setDetail(value);
   };
 
-  //카테고리
-  // const onCategoryChange = (event) => {
-  //   const selectedCategory = event.target.value; // 선택한 체크박스의 값
-  //   console.log(event.target);
-  //   // 선택 여부
-  //   const isSelected = category.includes(selectedCategory);
-
-  //   if (isSelected) {
-  //     // 이미 선택된 카테고리를 클릭한 경우, 선택 해제
-  //     setCategory((prevCategories) =>
-  //       prevCategories.filter((category) => category !== selectedCategory)
-  //     );
-  //   } else {
-  //     // 선택되지 않은 카테고리를 클릭한 경우, 선택 추가
-  //     setCategory((prevCategories) => [...prevCategories, selectedCategory]);
-  //   }
-  // };
-
   const onCategoryChange = (event) => {
     const selectedCategoryValue = event.target.value;
 
@@ -120,36 +102,32 @@ const AddProduct = (props) => {
   const onSubmitHandler = (event) => {
     event.preventDefault(); // prevent form submission
 
-    if (!address) {
-      setAlertOpen(true);
-      return;
-    }
     if (title.trim() === "") {
-      enqueueSnackbar("상품 이름을 입력해주세요.", {
+      return enqueueSnackbar("상품 이름을 입력해주세요.", {
         variant: "error",
       });
-      return;
     }
     if (price.trim() === "") {
-      enqueueSnackbar("상품 가격을 입력해주세요.", {
+      return enqueueSnackbar("상품 가격을 입력해주세요.", {
         variant: "error",
       });
-      return;
+    }
+    console.log(price);
+    if (isNaN(+price.split(",").join(""))) {
+      return enqueueSnackbar("가격은 숫자만 입력할 수 있습니다.", {
+        variant: "error",
+      });
     }
     if (detail.trim() === "") {
-      enqueueSnackbar("상품 설명을 입력해주세요.", {
+      return enqueueSnackbar("상품 설명을 입력해주세요.", {
         variant: "error",
       });
-      return;
     }
     if (category.length === 0) {
-      enqueueSnackbar("상품 카테고리를 입력해주세요.", {
+      return enqueueSnackbar("상품 카테고리를 입력해주세요.", {
         variant: "error",
       });
-      return;
     }
-
-    dispatch(setLoadings({ isLoading: true }));
 
     setTitle("");
     setPrice("");
