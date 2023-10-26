@@ -1,6 +1,9 @@
 const { Container } = require("typedi");
+const crypto = require("crypto");
 const { Op } = require("sequelize");
+const { sequelize } = require("../models");
 const {
+  BadRequestError,
   InternalServerError,
   generateGetProductsQuery,
   extractProductsList,
@@ -12,9 +15,39 @@ class ProductService {
     this.User = Container.get("userModel");
   }
 
+  //해시로 제품 데이터 무결성 검사
+  genProductHash(plainText) {
+    const hash = crypto.createHash("sha256").update(plainText).digest("hex");
+    if (!hash) throw new BadRequestError("Failed to generate hash");
+    return hash;
+  }
+
   async addProduct(productData) {
-    const product = await this.Product.create(productData);
-    return product;
+    const txn = await sequelize.transaction();
+    const { title, price, category, seller_id } = productData;
+    try {
+      const newProd = await this.Product.create(productData, {
+        transaction: txn,
+      });
+
+      const plain = [newProd.id, title, price, category, seller_id].join(":");
+      const hash = this.genProductHash(plain);
+
+      await this.Product.update(
+        { hash: hash },
+        {
+          where: { id: newProd.id },
+          transaction: txn,
+        }
+      );
+
+      await txn.commit();
+      return newProd;
+    } catch (err) {
+      console.log(err);
+      await txn.rollback();
+      throw err;
+    }
   }
 
   //query에 따른 분기
