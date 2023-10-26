@@ -35,7 +35,7 @@ class Product extends Sequelize.Model {
         },
         hash: {
           type: Sequelize.STRING,
-          allowNull: false,
+          allowNull: true,
         },
         deposit_txid: {
           type: Sequelize.STRING,
