@@ -5,9 +5,9 @@
   "main": "app.js",
   "scripts": {
     "start": "cross-env NODE_ENV=production node app.js",
-    "start-pm2": "cross-env NODE_ENV=production MODE=clusterMode pm2 start app.js --watch -i 4",
+    "start-pm2": "cross-env NODE_ENV=production MODE=clusterMode pm2 start app.js --watch -i 2",
     "dev": "cross-env NODE_ENV=development nodemon app.js",
-    "dev-pm2": "cross-env NODE_ENV=development MODE=clusterMode pm2 start app.js --watch -i 4",
+    "dev-pm2": "cross-env NODE_ENV=development MODE=clusterMode pm2 start app.js --watch -i 2",
     "test": "echo \"Error: no test specified\" && exit 1",
     "stop": "lsof -ti :5000 | xargs kill"
   },
