@@ -1,0 +1,71 @@
+.receiptWrap {
+  border: 1px solid #c4c4c4;
+  border-radius: 10px;
+  margin: 10px 30px 30px 30px;
+  padding: 0 15px 15px 15px;
+
+  /* box-shadow: 0px 0px 20px 1px rgb(200, 200, 200); */
+}
+
+.receiptHeader {
+  border-bottom: 1px solid #c4c4c4;
+  padding: 20px 10px 20px 10px;
+}
+
+.title {
+  width: 400px;
+  color: grey;
+}
+
+/* 첫번째 컨텐츠 */
+.receiptfirstContent {
+  border-bottom: 1px solid #c4c4c4;
+}
+
+.tHash,
+.block,
+.status,
+.timeStamp {
+  display: flex;
+  padding: 15px 10px 15px 10px;
+}
+
+/* 두번째 컨텐츠 */
+.receiptSecondContent {
+  border-bottom: 1px solid #c4c4c4;
+}
+
+.from,
+.to {
+  display: flex;
+  padding: 15px 10px 15px 10px;
+}
+
+.from .value,
+.to .value {
+  color: #4d9ecf;
+}
+
+/* 세번째 컨텐츠 */
+.receiptThirdContent {
+  border-bottom: 1px solid #c4c4c4;
+}
+
+.tvalue,
+.tFee,
+.gasPrice {
+  display: flex;
+  padding: 15px 10px 15px 10px;
+}
+
+/* 네번째 컨텐츠 */
+.receiptFurthContent {
+  border-bottom: 1px solid #c4c4c4;
+}
+
+.productNumber,
+.price,
+.sellerNumber {
+  display: flex;
+  padding: 15px 10px 15px 10px;
+}

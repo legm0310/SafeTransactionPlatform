@@ -72,7 +72,7 @@ const PurchasedList = () => {
               onClick={handleOpenReleaseReceipt}
               className={classes.btnSubmit}
             >
-              영수증
+              거래내역
             </button>
           </div>
 

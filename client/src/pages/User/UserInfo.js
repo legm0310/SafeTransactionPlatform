@@ -1,5 +1,5 @@
 import React, { Fragment, useState, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import { useLocation, useParams } from "react-router-dom";
 import Button from "../../components/common/Button";
 import SaleList from "../../components/User/SaleList";

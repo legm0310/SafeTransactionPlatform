@@ -29,12 +29,12 @@ import {
 import { Close as CloseIcon } from "@mui/icons-material";
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
-  // "& .MuiDialogContent-root": {
-  //   padding: theme.spacing(2),
-  // },
-  // "& .MuiDialogActions-root": {
-  //   padding: theme.spacing(1),
-  // },
+  "& .MuiDialogContent-root": {
+    padding: theme.spacing(2),
+  },
+  "& .MuiDialogActions-root": {
+    padding: theme.spacing(1),
+  },
   "& .MuiDialog-paper": {
     borderRadius: "13px",
     width: "500px",
