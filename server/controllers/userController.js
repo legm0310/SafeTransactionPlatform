@@ -49,7 +49,7 @@ module.exports = {
     const userId = req.params.id;
     const newName = req.body.newName;
     const newIntroduce = req.body.newIntroduce;
-    // console.log("TeST : ", newName, newIntroduce);
+    // console.log("test : ", newName, newIntroduce);
     const updated = await userServiceInstance.updateUser(
       userId,
       newName,
@@ -63,7 +63,6 @@ module.exports = {
   getInitUser: catchAsync(async (req, res) => {
     const userServiceInstance = await Container.get("userService");
     const userId = res.locals.userId;
-    console.log("userId", userId);
     const initUserData = await userServiceInstance.getInitUser(userId);
     res.status(200).json({
       getInitUserSuccess: true,
