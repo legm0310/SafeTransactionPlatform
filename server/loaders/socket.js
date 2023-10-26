@@ -48,7 +48,6 @@ module.exports = (io) => {
       await users.delete(userId);
       console.log("disconnected", socket.id, userId);
       setTimeout(async () => {
-        console.log(await users.redis.hgetall("users"));
         console.log(io.engine.clientsCount);
       }, 1000);
     });
