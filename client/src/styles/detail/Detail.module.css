@@ -14,7 +14,7 @@
 }
 
 .productImgWrap {
-  width: 500px;
+  width: 430px;
   border-radius: 13px;
   height: 430px;
 }
@@ -24,6 +24,7 @@
   flex-direction: column;
   justify-content: space-between;
   width: 700px;
+  padding-left: 70px;
 }
 
 .category {
@@ -311,7 +312,7 @@
 
   .productImgWrap {
     height: 380px;
-    width: 420px;
+    width: 380px;
   }
 
   .informationWrap {
@@ -339,7 +340,7 @@
 
   .productImgWrap {
     height: 300px;
-    width: 350px;
+    width: 300px;
   }
 
   .title {
@@ -384,6 +385,7 @@
     margin: 10px auto;
     width: 95%;
     height: auto;
+    padding-left: 0;
   }
 
   .buttonWrap {
