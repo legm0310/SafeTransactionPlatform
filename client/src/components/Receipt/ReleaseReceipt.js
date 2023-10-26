@@ -1,23 +1,24 @@
-import { Fragment } from "react";
+import { Fragment, useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
+import Button from "../../components/common/Button";
 import PropTypes from "prop-types";
+import TransacDetailReceipt from "./TransacDetailReceipt";
+// import TransactInfo from "./TransactInfo";
 
-import {
-  styled,
-  Button,
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  DialogActions,
-  IconButton,
-  Typography,
-  Modal,
-} from "@mui/material";
+import { styled, Dialog, DialogTitle, IconButton } from "@mui/material";
 import { Close as CloseIcon } from "@mui/icons-material";
+import classes from "../../styles/receipt/ReleaseReceipt.module.css";
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   "& .MuiDialog-paper": {
     borderRadius: "13px",
-    width: "500px",
+    width: "1400px",
+    margin: 0,
+  },
+  "& .MuiPaper-root": {
+    borderRadius: "13px",
+    maxWidth: "1400px !important",
+    margin: 0,
   },
 }));
 
@@ -51,8 +52,21 @@ BootstrapDialogTitle.propTypes = {
 };
 
 const ReleaseReciept = (props) => {
+  const [activeMenu, setActiveMenu] = useState("TransacDetailReceipt");
+
+  const location = useLocation();
+
   const handleClose = () => {
     props.onClose();
+  };
+
+  useEffect(() => {
+    if (location.state && location.state.activeMenu)
+      setActiveMenu(location.state.activeMenu);
+  }, [location.state]);
+
+  const onMenuHandler = (menu) => {
+    setActiveMenu(menu);
   };
 
   return (
@@ -62,14 +76,44 @@ const ReleaseReciept = (props) => {
           aria-labelledby="customized-dialog-title"
           open={props.open || false}
           onClose={handleClose}
-          disableEnforceFocus
+          // disableEnforceFocus
         >
           <BootstrapDialogTitle
             id="customized-dialog-title"
             onClose={handleClose}
+            style={{ padding: "15px 30px 15px 30px" }}
           >
-            영수증
+            거래내역(영수증)
           </BootstrapDialogTitle>
+
+          <div className={classes.userInfoMenu}>
+            <Button onClick={() => onMenuHandler("TransacDetailReceipt")}>
+              <div
+                className={`${classes.menuButton1} ${
+                  activeMenu === "TransacDetailReceipt" ? classes.active : ""
+                }`}
+              >
+                <span>거래내역(영수증)</span>
+              </div>
+            </Button>
+
+            <Button onClick={() => onMenuHandler("TransactInfo")}>
+              <div
+                className={`${classes.menuButton} ${
+                  activeMenu === "TransactInfo" ? classes.active : ""
+                }`}
+              >
+                <span>트랜잭션 정보</span>
+              </div>
+            </Button>
+          </div>
+
+          <div className={classes.userInfoExplanation}>
+            {activeMenu === "TransacDetailReceipt" && <TransacDetailReceipt />}
+            {/* {activeMenu === "TransactInfo" && (
+              <TransactInfo />
+            )} */}
+          </div>
         </BootstrapDialog>
       </div>
     </Fragment>
