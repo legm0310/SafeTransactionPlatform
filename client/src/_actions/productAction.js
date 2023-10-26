@@ -17,7 +17,6 @@ import {
 import { baseRequest, authRequest } from "../api/common";
 import { addProdRequest } from "../api/productApi";
 import {
-  callAddProduct,
   callPurchaseDeposit,
   callRelease,
 } from "../contract/contractWriteCall";
@@ -30,19 +29,13 @@ export function resetStoreProduct() {
 }
 
 export function addProduct(dataToSubmit) {
-  const { formData, sdk } = dataToSubmit;
+  const { formData } = dataToSubmit;
   return async (dispatch) => {
     dispatch(setLoadings({ isLoading: true }));
     try {
+      console.log(formData);
       const res = await addProdRequest().post("/api/products", formData);
       console.log("res", res);
-      dispatch(setLoadings({ isLoading: false, isContractLoading: true }));
-
-      callAddProduct(sdk, res.data.product).then((data) => {
-        console.log("contractRes", data);
-        dispatch(setLoadings({ isContractLoading: false }));
-      });
-
       return dispatch({
         type: ADD_PRODUCT,
         payload: res.data,
@@ -53,6 +46,8 @@ export function addProduct(dataToSubmit) {
         type: ADD_PRODUCT,
         payload: err.response.data,
       });
+    } finally {
+      dispatch(setLoadings({ isLoading: false }));
     }
   };
 }
