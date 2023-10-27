@@ -59,14 +59,18 @@ const StyledSlider = styled(Slider)`
     bottom: 30px;
     color: white;
 
+    li button {
+      border-radius: 50%;
+    }
+
     li button:before {
-      color: white;
-      font-size: 15px;
+      color: black;
+      font-size: 20px;
     }
 
     li.slick-active button:before {
-      color: white;
-      font-size: 15px;
+      color: black;
+      font-size: 20px;
     }
   }
 `;
