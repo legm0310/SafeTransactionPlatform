@@ -316,7 +316,7 @@ const AddProduct = (props) => {
               shrink: true,
             }}
             size="small"
-            className={classes.input}
+            className={classes.priceInput}
           />
           <div>PDT</div>
         </div>

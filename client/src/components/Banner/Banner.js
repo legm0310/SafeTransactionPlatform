@@ -53,12 +53,14 @@ const Banner = (props) => {
                   거래 서비스를 이용하세요
                 </span> */}
               </div>
+
               <div className={classes.typingMiddle}>
                 <p>
                   에스크로를 통해 사기 위험도를 낮춰 <br />
                   안전하게 중고거래를 이용하실 수 있어요.
                 </p>
               </div>
+
               <div className={classes.typingBottom}>
                 <Link to="/">
                   <button>중고거래 시작하기</button>
@@ -78,6 +80,7 @@ const Banner = (props) => {
             <div className={classes.secondImage}>
               <img src={img2} alt="" className={classes.secondImg} />
             </div>
+
             <div className={classes.secondTitle}>
               <div className={classes.secondTypingMiddle}>
                 <span>
@@ -86,12 +89,14 @@ const Banner = (props) => {
                   검색하고 구매하기
                 </span>
               </div>
+
               <div className={classes.secondTypingBottom}>
                 <p>
                   원하는 제품의 키워드를 검색하거나 <br />
                   카테고리를 선택해서 제품을 검색해보세요.
                 </p>
               </div>
+
               <div className={classes.typingBottom}>
                 <Link to="/products/all">
                   <button>제품 구매하기</button>
@@ -111,6 +116,7 @@ const Banner = (props) => {
                   이용해 거래하기
                 </span>
               </div>
+
               <div className="slider-container">
                 <StyledSlider {...settings} className={classes["bannerSlide"]}>
                   <div className={classes.firstSlide}>
@@ -131,6 +137,7 @@ const Banner = (props) => {
                             중고거래를 이용하실 수 있어요.
                           </span>
                         </div>
+
                         <div className={classes.typingBottom}>
                           <Link to="/manual">
                             <button>서비스 이용 가이드</button>
@@ -144,6 +151,7 @@ const Banner = (props) => {
                       <div className={classes.secondImage}>
                         <img src={img4} alt="" className={classes.slideImg1} />
                       </div>
+
                       <div className={classes.secondTitle}>
                         <div className={classes.secondTypingMiddle}>
                           <span>
@@ -151,12 +159,14 @@ const Banner = (props) => {
                             토큰을 발급 받아 거래에 이용하세요
                           </span>
                         </div>
+
                         <div className={classes.secondTypingBottom}>
                           <span>
                             판다 서비스는 토큰을 이용해 거래합니다. <br />
                             자세한 사항은 가이드를 참고해주세요.
                           </span>
                         </div>
+
                         <div className={classes.typingBottom}>
                           <Link to="/manual">
                             <button>서비스 이용 가이드</button>
@@ -174,6 +184,7 @@ const Banner = (props) => {
                           className={classes.slideImg1}
                         />
                       </div>
+
                       <div className={classes.secondTitle}>
                         <div className={classes.secondTypingMiddle}>
                           <span>
@@ -181,6 +192,7 @@ const Banner = (props) => {
                             구매 확정 해주세요
                           </span>
                         </div>
+
                         <div className={classes.secondTypingBottom}>
                           <span>
                             원하는 제품을 구매하여 구매 진행 중 상태에서 제품을
@@ -188,6 +200,7 @@ const Banner = (props) => {
                             송금됩니다.
                           </span>
                         </div>
+
                         <div className={classes.typingBottom}>
                           <Link to="/manual">
                             <button>서비스 이용 가이드</button>
@@ -213,12 +226,14 @@ const Banner = (props) => {
                   채팅방 생성하기
                 </span>
               </div>
+
               <div className={classes.thirdTypingBottom}>
                 <span>
                   제품 상세 페이지에서 판다톡 버튼을 누르면
                   <br />
                   판매자와의 1대1 채팅방이 생성됩니다.
                 </span>
+
                 <div className={classes.typingBottom}>
                   <Link to="/products/all">
                     <button>제품 구매하기</button>
@@ -226,6 +241,7 @@ const Banner = (props) => {
                 </div>
               </div>
             </div>
+
             <div className={classes.thirdImage}>
               <img src={img3} alt="" className={classes.thirdImg} />
             </div>

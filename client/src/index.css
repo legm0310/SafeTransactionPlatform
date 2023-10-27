@@ -1,15 +1,15 @@
 @import url("https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;400;500;700;900&display=swap");
 
 @font-face {
-  font-family: "GongGothicMedium";
-  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-10@1.0/GongGothicMedium.woff")
-    format("woff");
+  font-family: "NanumSquareNeo-Variable";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_11-01@1.0/NanumSquareNeo-Variable.woff2")
+    format("woff2");
   font-weight: normal;
   font-style: normal;
 }
 
 html * {
-  font-weight: 300;
+  font-family: "NanumSquareNeo-Variable", "Noto Sans KR", sans-serif;
 }
 
 body {
@@ -20,7 +20,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background: #fff;
-  font-family: "GongGothicMedium", "Noto Sans KR", sans-serif;
+
   overflow-y: scroll;
   min-height: 100vh;
 }
