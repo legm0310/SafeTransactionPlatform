@@ -142,7 +142,7 @@ export default function (state = initialState, action) {
         return chat;
       });
       const readChatInRoom = state.rooms?.map((room) => {
-        if (+room.id == +action.payload.roomId) {
+        if (+room?.id == +action.payload.roomId) {
           currentChatCount = room.unreadCount;
           room.unreadCount = 0;
           return room;

@@ -14,6 +14,7 @@ export const callAddProduct = async (sdk, prodData) => {
     return data;
   } catch (error) {
     console.log(error);
+    return error;
   }
 };
 
@@ -31,6 +32,7 @@ export const callPurchaseDeposit = async (sdk, productId, buyerId) => {
     return data;
   } catch (error) {
     console.log(error);
+    return error;
   }
 };
 
@@ -44,5 +46,6 @@ export const callRelease = async (sdk, productId) => {
     return data;
   } catch (error) {
     console.log(error);
+    return error;
   }
 };

@@ -16,10 +16,7 @@ import {
 
 import { baseRequest, authRequest } from "../api/common";
 import { addProdRequest } from "../api/productApi";
-import {
-  callPurchaseDeposit,
-  callRelease,
-} from "../contract/contractWriteCall";
+import { callPurchaseDeposit, callRelease } from "../contract/writeCall";
 import { setLoadings } from "./uiAction";
 
 export function resetStoreProduct() {
@@ -135,7 +132,7 @@ export function getProduct(dataToSubmit) {
   };
 }
 
-export function purchase(dataToSubmit) {
+export function purchaseDeposit(dataToSubmit) {
   const { productId, userId, sdk } = dataToSubmit;
   return async (dispatch) => {
     dispatch(setLoadings({ isLoading: true }));
@@ -167,7 +164,6 @@ export function purchase(dataToSubmit) {
 export function testPurchase(dataToSubmit) {
   const { productId, userId, sdk } = dataToSubmit;
   return async (dispatch) => {
-    dispatch();
     dispatch(setLoadings({ isLoading: true }));
     try {
       const res = await authRequest().put(`/api/products/deposit/${productId}`);
