@@ -97,7 +97,7 @@ const UserInfo = () => {
           )}
 
           <div className={classes.userInfoExplanation}>
-            {activeMenu === "SaleList" && <SaleList />}
+            {activeMenu === "SaleList" && <SaleList id={+id} />}
             {activeMenu === "ReservedList" && <ReservedList />}
             {activeMenu === "PurchasedList" && <PurchasedList />}
             {activeMenu === "WishList" && <WishList />}
