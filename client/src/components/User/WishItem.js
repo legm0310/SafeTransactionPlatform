@@ -83,50 +83,32 @@ const WishItem = () => {
           return (
             <section className={classes.wishList}>
               {/* <input type="checkbox" /> */}
-              <div className={classes.wishListProductWrap}>
-                <Link to={`/products/${item.id}`}>
-                  <div className={classes.wishListProductImage}>
-                    <img src={item?.image} alt="" />
-                  </div>
-                </Link>
+              {/* <div className={classes.wishListProductWrap}> */}
+              <Link
+                to={`/products/${item.id}`}
+                className={classes.wishListProduct}
+              >
+                <div className={classes.wishListProductImage}>
+                  <img src={item?.image} alt="" />
+                </div>
 
-                <Link to={`/products/${item.id}`} style={{ color: "black" }}>
-                  <div className={classes.wishListProductInfo}>
-                    <p className={classes.productCategory}>{item?.category}</p>
-                    <p className={classes.productName}>{item?.title}</p>
-                  </div>
-                </Link>
-
-                <div className={classes.productPrice}>
-                  <p>
+                <div className={classes.wishListProductInfo}>
+                  {/* <p className={classes.productCategory}>{item?.category}</p> */}
+                  <p className={classes.productName}>{item?.title}</p>
+                  <p className={classes.productPrice}>
                     {item?.price
                       ? item.price.toLocaleString() + "PDT"
                       : item?.price}
                   </p>
                 </div>
-
-                <div className={classes.wishListProductPurchase}>
-                  <p className={classes.totalPrice}></p>
-                  <button
-                    onClick={(e) =>
-                      handleClick(
-                        () => onClickPurchase(item.id),
-                        "해당 상품을 구매하시겠습니까?"
-                      )
-                    }
-                    className={classes.btnSubmit}
-                  >
-                    구매하기
-                  </button>
-                </div>
-
-                <div className={classes.wishListProductRemove}>
-                  <img
-                    src={deleteBtn}
-                    onClick={() => onDeleteWishListHandler(item.id)}
-                  />
-                </div>
+              </Link>
+              <div className={classes.wishListProductRemove}>
+                <img
+                  src={deleteBtn}
+                  onClick={() => onDeleteWishListHandler(item.id)}
+                />
               </div>
+              {/* </div> */}
             </section>
           );
         })
