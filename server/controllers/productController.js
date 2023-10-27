@@ -15,7 +15,7 @@ module.exports = {
         req.body.price,
         req.body.category,
         req.body.seller_id,
-        req.body.seller_wallet,
+        req.body.address,
       ],
     };
     const product = await prodServiceInstance.addProduct(data);
