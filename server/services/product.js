@@ -116,14 +116,14 @@ class ProductService {
     return updated;
   }
 
-  async deleteProduct(id) {
-    const deletedRows = await this.Product.destroy({
-      where: {},
+  async deleteProduct(productData) {
+    const result = await this.Product.destroy({
+      where: {
+        id: +productData.productId,
+        seller_id: +productData.userId,
+      },
     });
-    if (!deletedRows) {
-      throw new Error("User not found");
-    }
-    return deletedRows;
+    return result;
   }
 }
 
