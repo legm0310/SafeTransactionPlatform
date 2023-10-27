@@ -1,5 +1,4 @@
 /* 첫번째 섹션 */
-
 .mainWrap {
   background: url(../../assets/onboard/bannerMainImg.png);
   display: flex;
@@ -7,9 +6,11 @@
   height: 800px;
   background-size: cover;
 }
+
 .mainImgWrap {
   width: 300px;
 }
+
 .mainContent {
   width: 800px;
   height: 900px;
@@ -18,7 +19,7 @@
   text-align: center;
 }
 
-.mainImg{
+.mainImg {
   width: 655px;
   height: 580px;
 }
@@ -54,6 +55,7 @@
   width: 250px;
   font-size: 25px;
   line-height: 3rem;
+  font-weight: 700;
 }
 .typingBottom button:hover {
   background-color: #16b7ac;
@@ -76,13 +78,14 @@
 .secondImage {
   background-size: 655px 750px;
   width: 700px;
+  margin-right: 20px;
   /* height: 750px; */
 }
 
 .secondImg {
   background-size: 655px 750px;
-    width: 650px;
-    height: 750px;
+  width: 650px;
+  height: 750px;
 }
 
 .secondTypingMiddle {
@@ -124,14 +127,14 @@
 
 .thirdImage {
   background-size: 655px 750px;
-    width: 650px;
-    height: 700px;
+  width: 650px;
+  height: 700px;
 }
 
 .thirdImg {
   background-size: 655px 750px;
-    width: 700px;
-    height: 700px;
+  width: 700px;
+  height: 700px;
 }
 
 /* 네반쩨 섹션 */
@@ -151,7 +154,6 @@
   text-align: center;
   line-height: 1.3;
 }
-
 
 .forthImage {
   background-size: 655px 750px;
@@ -186,6 +188,6 @@
   position: relative;
 }
 
-.slideImg1{
+.slideImg1 {
   width: 100%;
 }

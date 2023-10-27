@@ -19,8 +19,10 @@ h3 {
   margin: 0;
 }
 
-.companyInfo h2 {
-  font-size: 35px;
+.companyInfo h1 {
+  margin: 0;
+  font-size: 2.125rem;
+  letter-spacing: 0.2rem;
 }
 
 .companyInfo p {
