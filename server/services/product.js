@@ -24,13 +24,13 @@ class ProductService {
 
   async addProduct(productData) {
     const txn = await sequelize.transaction();
-    const { title, price, category, seller_id } = productData;
+    const { prodData, hashDataArr } = productData;
     try {
-      const newProd = await this.Product.create(productData, {
+      const newProd = await this.Product.create(prodData, {
         transaction: txn,
       });
 
-      const plain = [newProd.id, title, price, category, seller_id].join(":");
+      const plain = [newProd.id, ...hashDataArr].join(":");
       const hash = this.genProductHash(plain);
 
       await this.Product.update(

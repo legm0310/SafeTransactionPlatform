@@ -5,7 +5,20 @@ const { catchAsync } = require("../utils");
 module.exports = {
   addProduct: catchAsync(async (req, res) => {
     const prodServiceInstance = await Container.get("productService");
-    const product = await prodServiceInstance.addProduct(req.body);
+    const data = {
+      prodData: {
+        ...req.body,
+        seller_wallet: req.body.address,
+      },
+      hashDataArr: [
+        req.body.title,
+        req.body.price,
+        req.body.category,
+        req.body.seller_id,
+        req.body.seller_wallet,
+      ],
+    };
+    const product = await prodServiceInstance.addProduct(data);
     res.status(201).json({
       addProductSuccess: true,
       product: product,
