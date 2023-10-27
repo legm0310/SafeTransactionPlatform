@@ -39,8 +39,6 @@ const Detail = () => {
   const [activeWish, setActiveWish] = useState(false);
   const [wishCount, setWishCount] = useState(0);
 
-  const wishListId = loadWishList.map((item) => item.id);
-
   const sellerId = productDetail?.seller_id;
   const status = productDetail?.status;
 
@@ -49,11 +47,11 @@ const Detail = () => {
   }, [dispatch, productId]);
 
   useEffect(() => {
-    if (productDetail?.wishCount) {
+    if (!isNaN(productDetail?.wishCount)) {
       setWishCount(+productDetail?.wishCount);
-      setActiveWish(wishListId.indexOf(+productId) == -1 ? false : true);
+      setActiveWish(productDetail?.wishCount ? true : false);
     }
-  }, [productDetail?.wishCount]);
+  }, [productDetail]);
 
   const handleClick = (func, comment) => {
     if (userId == undefined) {
@@ -185,9 +183,8 @@ const Detail = () => {
               setActiveWish(true);
               setWishCount(wishCount + 1);
             } else {
-              console.log(wishListId.indexOf(+productId));
               setActiveWish(
-                wishListId.indexOf(+productId) == -1 ? true : false
+                loadWishList.indexOf(+productId) == -1 ? true : false
               );
               enqueueSnackbar("이미 찜한 상품입니다. ", {
                 variant: "error",
