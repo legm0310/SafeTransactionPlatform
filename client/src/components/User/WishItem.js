@@ -19,6 +19,7 @@ const WishItem = () => {
   const sdk = useSDK();
 
   const { userId, loadWishList } = useSelector((state) => state.user);
+  const { productDetail } = useSelector((state) => state.product);
 
   const onDeleteWishListHandler = (wishItemId) => {
     dispatch(deleteWishList(wishItemId)).then((response) => {
@@ -33,16 +34,19 @@ const WishItem = () => {
       variant: "info",
       persist: true, // 자동으로 스낵바를 닫지 않음
       action: () => (
-        <>
-          <button onClick={() => func()}>구매하기</button>
+        <div>
+          <button onClick={() => func()} className={classes.purchaseButton}>
+            구매하기
+          </button>
           <button
             onClick={() => {
               closeSnackbar();
             }}
+            className={classes.backButton}
           >
             뒤로가기
           </button>
-        </>
+        </div>
       ),
     });
   };
@@ -81,7 +85,7 @@ const WishItem = () => {
       ) : (
         loadWishList.map((item) => {
           return (
-            <section className={classes.wishList}>
+            <section key={item.id} className={classes.wishList}>
               {/* <input type="checkbox" /> */}
               <div className={classes.wishListProductWrap}>
                 <Link to={`/products/${item.id}`}>
@@ -90,12 +94,12 @@ const WishItem = () => {
                   </div>
                 </Link>
 
-                <Link to={`/products/${item.id}`} style={{ color: "black" }}>
-                  <div className={classes.wishListProductInfo}>
-                    <p className={classes.productCategory}>{item?.category}</p>
-                    <p className={classes.productName}>{item?.title}</p>
-                  </div>
-                </Link>
+                <div className={classes.wishListProductInfo}>
+                  <p className={classes.productCategory}>
+                    {productDetail?.category}
+                  </p>
+                  <p className={classes.productName}>{item?.title}</p>
+                </div>
 
                 <div className={classes.productPrice}>
                   <p>
