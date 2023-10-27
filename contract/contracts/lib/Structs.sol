@@ -5,7 +5,6 @@ library Structs{
 
   struct Product {
     uint32 id;
-    string title;
     uint256 price;
     uint32 sellerId;
     address seller;
