@@ -166,6 +166,10 @@
 
 .userInfoExplanation {
   margin-bottom: 50px;
+  width: 1200px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
 }
 
 .active {
@@ -189,6 +193,10 @@
   .userInfoMenuWrap {
     width: 900px;
   }
+
+  .userInfoExplanation {
+    width: 900px;
+  }
 }
 
 @media (max-width: 900px) {
@@ -198,6 +206,10 @@
   }
 
   .userInfoMenuWrap {
+    width: 720px;
+  }
+
+  .userInfoExplanation {
     width: 720px;
   }
 }
@@ -228,10 +240,12 @@
   .userProfileWrap {
     background-color: white;
     width: 100%;
+    margin: 10px 0;
   }
 
   .userNameWrap {
     padding: 10px 0;
+    border-top: 1px solid rgb(200, 200, 200);
   }
 
   .userStateWrap {
@@ -255,5 +269,9 @@
   .userIntroModifyButton {
     padding: 7px;
     font-size: 13px;
+  }
+
+  .userInfoExplanation {
+    width: 100%;
   }
 }

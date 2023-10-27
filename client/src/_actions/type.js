@@ -26,6 +26,7 @@ export const GET_INIT_USER = "GET_INIT_USER";
 
 //product
 export const ADD_PRODUCT = "addProduct";
+export const DELETE_PRODUCT = "deleteProduct";
 export const DEPOSITED_PRODUCTS = "depositedProducts";
 export const GET_PRODUCTS = "getProducts";
 export const RECENT_PRODUCTS = "recentProducts";

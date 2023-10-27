@@ -19,48 +19,54 @@
 /* WishItem.js */
 .wishList {
   position: relative;
-  height: 200px;
-  border-radius: 10px;
+  height: 150px;
+  border-radius: 5px;
   border: 1px solid #c4c4c4;
-  margin: 0 auto;
-  margin-top: 35px;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  place-items: center;
-}
-
-.wishListProductWrap {
+  margin-top: 20px;
   display: flex;
   align-items: center;
+  width: 590px;
+}
+
+.wishList:nth-child(1),
+.wishList:nth-child(2) {
+  margin-top: 30px;
+}
+
+.wishListProduct {
+  display: flex;
+  color: black;
 }
 
 .wishListProductImage {
-  width: 160px;
-  height: 160px;
-  border-radius: 10px;
-  margin-left: 100px;
+  width: 140px;
+  height: 140px;
+  margin-left: 5px;
 }
 
 .wishListProductImage img {
   width: 100%;
   height: 100%;
-  border-radius: 10px;
+  border-radius: 5px;
 }
 
 .wishListProductInfo {
-  width: 150px;
-  margin-left: 36px;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 380px;
+  margin-left: 20px;
 }
 
-.productCategory {
-  font-size: 12px;
-  line-height: 18px;
-  color: #767676;
+.productName {
+  margin: 15px 0 0 0;
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgb(200, 200, 200);
+  font-size: 1rem;
 }
 
 .productPrice {
-  margin-left: 100px;
-  width: 108px;
+  margin-top: 20px;
 }
 
 .wishListProductPurchase {
@@ -75,12 +81,11 @@
 }
 
 .btnSubmit {
-  width: 130px;
+  width: 100px;
   height: 40px;
   border-radius: 5px;
   border: none;
-  line-height: 20px;
-  margin-left: 200px;
+  margin-right: 5px;
 }
 
 .purchaseButton {
@@ -100,4 +105,55 @@
   width: 20px;
   height: 15px;
   cursor: pointer;
+}
+
+@media screen and (max-width: 1200px) {
+  .wishList {
+    width: 440px;
+  }
+
+  .wishListProductInfo {
+    width: 220px;
+  }
+}
+
+@media screen and (max-width: 900px) {
+  .wishList {
+    width: 350px;
+    height: 135px;
+  }
+
+  .wishListProductInfo {
+    width: 150px;
+  }
+
+  .wishListProductImage {
+    width: 125px;
+    height: 125px;
+  }
+
+  .productName {
+    margin-top: 10px;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .wishList,
+  .wishList:nth-child(1),
+  .wishList:nth-child(2) {
+    margin-top: 15px;
+    width: 100%;
+  }
+
+  .wishListProduct {
+    width: 100%;
+  }
+
+  .wishListProductInfo {
+    margin-left: 10px;
+  }
+
+  .productName {
+    border: none;
+  }
 }

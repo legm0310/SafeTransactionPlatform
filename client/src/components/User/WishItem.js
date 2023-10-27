@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteWishList } from "../../_actions/userAction";
 import { setLoadings } from "../../_actions/uiAction";
-import { purchase } from "../../_actions/productAction";
+import { purchaseDeposit } from "../../_actions/productAction";
 
 import { useSDK } from "@thirdweb-dev/react";
 
@@ -60,7 +60,7 @@ const WishItem = () => {
       sdk,
     };
 
-    dispatch(purchase(data)).then((response) => {
+    dispatch(purchaseDeposit(data)).then((response) => {
       console.log(response);
       if (response.payload.updated) {
         enqueueSnackbar("에스크로 결제가 진행됩니다", {
@@ -87,12 +87,14 @@ const WishItem = () => {
           return (
             <section key={item.id} className={classes.wishList}>
               {/* <input type="checkbox" /> */}
-              <div className={classes.wishListProductWrap}>
-                <Link to={`/products/${item.id}`}>
-                  <div className={classes.wishListProductImage}>
-                    <img src={item?.image} alt="" />
-                  </div>
-                </Link>
+              {/* <div className={classes.wishListProductWrap}> */}
+              <Link
+                to={`/products/${item.id}`}
+                className={classes.wishListProduct}
+              >
+                <div className={classes.wishListProductImage}>
+                  <img src={item?.image} alt="" />
+                </div>
 
                 <div className={classes.wishListProductInfo}>
                   <p className={classes.productCategory}>
@@ -108,29 +110,14 @@ const WishItem = () => {
                       : item?.price}
                   </p>
                 </div>
-
-                <div className={classes.wishListProductPurchase}>
-                  <p className={classes.totalPrice}></p>
-                  <button
-                    onClick={(e) =>
-                      handleClick(
-                        () => onClickPurchase(item.id),
-                        "해당 상품을 구매하시겠습니까?"
-                      )
-                    }
-                    className={classes.btnSubmit}
-                  >
-                    구매하기
-                  </button>
-                </div>
-
-                <div className={classes.wishListProductRemove}>
-                  <img
-                    src={deleteBtn}
-                    onClick={() => onDeleteWishListHandler(item.id)}
-                  />
-                </div>
+              </Link>
+              <div className={classes.wishListProductRemove}>
+                <img
+                  src={deleteBtn}
+                  onClick={() => onDeleteWishListHandler(item.id)}
+                />
               </div>
+              {/* </div> */}
             </section>
           );
         })

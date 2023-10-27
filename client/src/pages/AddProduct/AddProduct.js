@@ -23,6 +23,7 @@ const AddProduct = (props) => {
   const [price, setPrice] = useState("");
   const [detail, setDetail] = useState("");
   const [titleLength, setTitleLength] = useState(0);
+  const [detailLength, setDetailLength] = useState(0);
   const [category, setCategory] = useState("");
   const [alertOpen, setAlertOpen] = useState(false);
 
@@ -66,6 +67,9 @@ const AddProduct = (props) => {
     const value = event.target.value;
     setTitle(value);
     setTitleLength(value.length);
+    if (value.length >= 40) {
+      setTitle(value.slice(0, -1));
+    }
   };
 
   // 가격
@@ -78,6 +82,8 @@ const AddProduct = (props) => {
 
     if (value === "") {
       setPrice(""); // 입력된 값이 빈 문자열인 경우
+    } else if (value.length > 11) {
+      setPrice(value.slice(0, -1));
     } else if (!isNaN(inputNumber)) {
       // 입력된 값이 숫자인지 확인
       const formattedValue = new Intl.NumberFormat("en-US").format(inputNumber);
@@ -88,8 +94,12 @@ const AddProduct = (props) => {
   // 설명
   const onDetailHandler = (event) => {
     const value = event.target.value;
-
     setDetail(value);
+    setDetailLength(value.length);
+
+    if (value.length > 2000) {
+      setDetail(value.slice(0, -1));
+    }
   };
 
   const onCategoryChange = (event) => {
@@ -121,9 +131,17 @@ const AddProduct = (props) => {
       return enqueueSnackbar("가격은 숫자만 입력할 수 있습니다.", {
         variant: "error",
       });
+    } else if (price > 1000000000) {
+      return enqueueSnackbar("유효하지 않은 가격입니다.", {
+        variant: "error",
+      });
     }
     if (detail.trim() === "") {
       return enqueueSnackbar("상품 설명을 입력해주세요.", {
+        variant: "error",
+      });
+    } else if (detail.trim().length > 2000) {
+      return enqueueSnackbar("상품 설명을 2000자 이하로 작성해주세요.", {
         variant: "error",
       });
     }
@@ -226,12 +244,13 @@ const AddProduct = (props) => {
                           onClick={(event) => deleteImgHandler(event, id)}
                           className={classes.ImgDelete}
                         />
-
-                        <img
-                          src={image}
-                          alt={`${image}-${id}`}
-                          className={classes.img}
-                        />
+                        <a href={image} target="_blank">
+                          <img
+                            src={image}
+                            alt={`${image}-${id}`}
+                            className={classes.img}
+                          />
+                        </a>
                       </div>
                     </li>
                   )
@@ -240,25 +259,12 @@ const AddProduct = (props) => {
             </ul>
 
             <ul className={classes.imgExplain}>
-              * 상품 이미지는 640x640에 최적화 되어 있습니다.
-              <li>
-                {" "}
-                - 상품 이미지는 PC에서는 1:1, 모바일에서는 1:1.23 비율로
-                보여집니다.
-              </li>
+              * 상품 이미지는 430x430에 최적화 되어 있습니다.
+              <li> - 상품 이미지는 PC에서는 1:1 비율로 보여집니다.</li>
               <li> - 이미지는 상품 등록 시 정사각형으로 잘려서 등록됩니다.</li>
               <li> - 이미지를 클릭할 경우 원본 이미지를 확인할 수 있습니다.</li>
               <li>
-                {" "}
-                - 이미지를 클릭 후 이동하여 등록순서를 변경할 수 있습니다.
-              </li>
-              <li>
-                {" "}
                 - 큰 이미지일 경우 이미지가 깨지는 경우가 발생할 수 있습니다.
-              </li>
-              <li>
-                최대 지원 사이즈인 640 X 640으로 리사이즈 해서 올려주세요.(개당
-                이미지 최대 10M)
               </li>
             </ul>
           </div>
@@ -268,7 +274,7 @@ const AddProduct = (props) => {
           <div className={classes.labelTitle}>제목</div>
           <TextField
             sx={{
-              width: "70%",
+              width: { xs: "80%", md: "70%" },
               m: 1,
               "& .MuiOutlinedInput-root.Mui-focused": {
                 "& > fieldset": {
@@ -294,7 +300,7 @@ const AddProduct = (props) => {
           </label>
           <TextField
             sx={{
-              // width: "20%",
+              width: { xs: "40%", md: "20%" },
               m: 1,
               "& .MuiOutlinedInput-root.Mui-focused": {
                 "& > fieldset": {
@@ -510,7 +516,7 @@ const AddProduct = (props) => {
 
           <TextField
             sx={{
-              width: "80%",
+              width: { xs: "95%", md: "70%" },
               m: 1,
               "& .MuiOutlinedInput-root.Mui-focused": {
                 "& > fieldset": {
@@ -524,6 +530,7 @@ const AddProduct = (props) => {
             multiline
             rows={6}
           />
+          <div>{detailLength}/2000</div>
         </div>
 
         <div className={classes.buttonWrap}>
