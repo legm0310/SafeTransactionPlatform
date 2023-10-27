@@ -33,6 +33,10 @@ class Product extends Sequelize.Model {
           type: Sequelize.STRING(3000),
           allowNull: false,
         },
+        seller_wallet: {
+          type: Sequelize.STRING,
+          allowNull: false,
+        },
         hash: {
           type: Sequelize.STRING,
           allowNull: true,
