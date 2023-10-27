@@ -49,14 +49,7 @@ const SaleList = () => {
           <div className={classes.saleProductInfo}>
             <p className={classes.productCategory}>category</p>
             <p className={classes.productName}>상품이름</p>
-          </div>
-
-          <div className={classes.productPrice}>
-            <p>1000PDT</p>
-          </div>
-
-          <div className={classes.saleProductDetail}>
-            <button className={classes.btnSubmit}>구매하기</button>
+            <p>1000 PDT</p>
           </div>
 
           <div className={classes.saleProductRemove}>
