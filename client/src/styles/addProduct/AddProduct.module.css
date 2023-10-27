@@ -191,3 +191,36 @@ textarea:focus {
     font-size: 14px;
   }
 }
+
+@media screen and (max-width: 600px) {
+  .form {
+    margin: 0 auto;
+    width: 95%;
+  }
+  .label {
+    flex-direction: column;
+    padding: 10px 0;
+  }
+
+  .label2 {
+    flex-direction: row;
+    flex-wrap: wrap;
+    padding: 10px 0;
+    align-items: center;
+  }
+
+  .labelTitle {
+    width: 80%;
+    margin-left: 10px;
+  }
+
+  .category {
+    width: 100%;
+    margin-left: 5px;
+  }
+
+  .buttonWrap {
+    margin-bottom: 20px;
+    align-items: flex-start;
+  }
+}

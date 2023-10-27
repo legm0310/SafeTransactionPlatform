@@ -274,7 +274,7 @@ const AddProduct = (props) => {
           <div className={classes.labelTitle}>제목</div>
           <TextField
             sx={{
-              width: "70%",
+              width: { xs: "80%", md: "70%" },
               m: 1,
               "& .MuiOutlinedInput-root.Mui-focused": {
                 "& > fieldset": {
@@ -300,7 +300,7 @@ const AddProduct = (props) => {
           </label>
           <TextField
             sx={{
-              width: "20%",
+              width: { xs: "40%", md: "20%" },
               m: 1,
               "& .MuiOutlinedInput-root.Mui-focused": {
                 "& > fieldset": {
@@ -516,7 +516,7 @@ const AddProduct = (props) => {
 
           <TextField
             sx={{
-              width: "80%",
+              width: { xs: "95%", md: "70%" },
               m: 1,
               "& .MuiOutlinedInput-root.Mui-focused": {
                 "& > fieldset": {
