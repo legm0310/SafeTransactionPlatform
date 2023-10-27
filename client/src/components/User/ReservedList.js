@@ -121,10 +121,7 @@ const ReservedList = () => {
           <div className={classes.reservedProductInfo}>
             <p className={classes.productCategory}>category</p>
             <p className={classes.productName}>상품이름</p>
-          </div>
-
-          <div className={classes.productPrice}>
-            <p>1000PDT</p>
+            <p className={classes.productPrice}>1000PDT</p>
           </div>
 
           <div className={classes.reservedProductPurchase}>
