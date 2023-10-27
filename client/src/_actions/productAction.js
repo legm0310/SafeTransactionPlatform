@@ -1,6 +1,7 @@
 import {
   RESET_STORE_PRODUCT,
   ADD_PRODUCT,
+  DELETE_PRODUCT,
   RECENT_PRODUCTS,
   GET_PRODUCTS,
   GET_PRODUCT,
@@ -46,6 +47,21 @@ export function addProduct(dataToSubmit) {
     } finally {
       dispatch(setLoadings({ isLoading: false }));
     }
+  };
+}
+
+export function deleteProduct(dataToSubmit) {
+  const params = dataToSubmit;
+  const request = authRequest()
+    .delete(`/api/products/${params}`)
+    .then((response) => response.data)
+    .catch((err) => {
+      console.log(err.response);
+      return err.response.data;
+    });
+  return {
+    type: DELETE_PRODUCT,
+    payload: request,
   };
 }
 
