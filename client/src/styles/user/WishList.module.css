@@ -83,6 +83,16 @@
   margin-left: 200px;
 }
 
+.purchaseButton {
+  border-radius: 4px;
+  margin-right: 10px;
+}
+
+.backButton {
+  border-radius: 4px;
+  background: #fe4e62;
+}
+
 .wishListProductRemove {
   position: absolute;
   top: 15px;
