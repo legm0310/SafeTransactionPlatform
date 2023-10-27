@@ -18,7 +18,7 @@ class Product extends Sequelize.Model {
           allowNull: false,
         },
         price: {
-          type: Sequelize.INTEGER,
+          type: Sequelize.BIGINT,
           allowNull: false,
         },
         category: {
