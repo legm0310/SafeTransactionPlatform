@@ -102,6 +102,10 @@ const AddProduct = (props) => {
   const onSubmitHandler = (event) => {
     event.preventDefault(); // prevent form submission
 
+    if (!address) {
+      setAlertOpen(true);
+      return;
+    }
     if (title.trim() === "") {
       return enqueueSnackbar("상품 이름을 입력해주세요.", {
         variant: "error",
@@ -141,6 +145,7 @@ const AddProduct = (props) => {
       price: price.split(",").join(""),
       category: category,
       detail: detail,
+      address: address,
       images: null,
     };
 
@@ -189,7 +194,7 @@ const AddProduct = (props) => {
           elevation={3}
           sx={{ width: "100%" }}
         >
-          연결된 지갑이 없습니다.
+          토큰을 송금받을 지갑을 연결해주세요.
         </Alert>
       </Snackbar>
       <form className={classes.form} onSubmit={onSubmitHandler}>
