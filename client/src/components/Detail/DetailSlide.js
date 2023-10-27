@@ -26,7 +26,9 @@ const DetailSlide = () => {
         <StyledSlider {...settings}>
           {productDetail?.images?.map((img) => (
             <div key={img.split("/").slice(-2).join("/")}>
-              <img src={img} alt="" className={classes.slideImg} />
+              <a href={img} target="_blank">
+                <img src={img} alt="" className={classes.slideImg} />
+              </a>
             </div>
           ))}
         </StyledSlider>
