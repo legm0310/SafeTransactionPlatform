@@ -9,6 +9,7 @@
 import {
   RESET_STORE_PRODUCT,
   ADD_PRODUCT,
+  DELETE_PRODUCT,
   DEPOSITED_PRODUCTS,
   RECENT_PRODUCTS,
   GET_PRODUCTS,
@@ -43,6 +44,9 @@ export default function (state = initialState, action) {
       break;
     case ADD_PRODUCT:
       return { ...state, addProductSuccess: action.payload };
+      break;
+    case DELETE_PRODUCT:
+      return { ...state, deleteProductSuccess: action.payload };
       break;
     case DEPOSITED_PRODUCTS:
       return { ...state, depositedProducts: action.payload };
