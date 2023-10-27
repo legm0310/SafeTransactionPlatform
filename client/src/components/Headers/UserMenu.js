@@ -119,12 +119,6 @@ const UserSection = (props) => {
           내정보
         </MenuItem>
       </Link>
-
-      <MenuItem sx={{ color: "black" }} onClick={onWishListOpen}>
-        <FavoriteIcon sx={{ fontSize: 20, mr: "4px", color: "#1ecfba" }} />
-        <Typography>찜목록</Typography>
-      </MenuItem>
-
       <MenuItem
         className={classes.logout}
         onClick={onLogoutHandler}
