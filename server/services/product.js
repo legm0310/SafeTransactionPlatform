@@ -88,9 +88,12 @@ class ProductService {
       },
       raw: true,
     });
+    const wishList = await product.getWishList({ raw: true });
+    const hasWishList =
+      (wishList.find((user) => user.id == 6) && true) ?? false;
     productData.seller_name = user.user_name;
-    const wishList = await product.getWishList();
     productData.wishCount = wishList.length;
+    productData.hasWishList = hasWishList;
     return productData;
   }
 
