@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteWishList } from "../../_actions/userAction";
 import { setLoadings } from "../../_actions/uiAction";
-import { purchase } from "../../_actions/productAction";
+import { purchaseDeposit } from "../../_actions/productAction";
 
 import { useSDK } from "@thirdweb-dev/react";
 
@@ -56,7 +56,7 @@ const WishItem = () => {
       sdk,
     };
 
-    dispatch(purchase(data)).then((response) => {
+    dispatch(purchaseDeposit(data)).then((response) => {
       console.log(response);
       if (response.payload.updated) {
         enqueueSnackbar("에스크로 결제가 진행됩니다", {
