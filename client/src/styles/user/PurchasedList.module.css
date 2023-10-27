@@ -12,16 +12,22 @@
   margin: 0;
 }
 
+/* */
+
 .purchasedList {
   position: relative;
-  height: 200px;
-  border-radius: 10px;
+  height: 150px;
+  border-radius: 5px;
   border: 1px solid #c4c4c4;
-  margin: 0 auto;
-  margin-top: 35px;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  place-items: center;
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+  width: 590px;
+}
+
+.purchasedList:nth-child(1),
+.purchasedList:nth-child(2) {
+  margin-top: 30px;
 }
 
 .purchasedProductWrap {
@@ -30,47 +36,29 @@
 }
 
 .purchasedProductImage {
-  width: 160px;
-  height: 160px;
-  border-radius: 10px;
-  margin-left: 100px;
+  width: 140px;
+  height: 140px;
+  margin-left: 5px;
 }
 
 .purchasedProductImage img {
   width: 100%;
   height: 100%;
-  border-radius: 10px;
+  border-radius: 5px;
 }
 
 .purchasedProductInfo {
-  width: 150px;
-  margin-left: 36px;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 240px;
+  margin-left: 20px;
 }
 
 .productCategory {
+  margin: 0;
   font-size: 12px;
-  line-height: 18px;
   color: #767676;
-}
-
-.productPrice {
-  margin-left: 100px;
-  width: 108px;
-}
-
-.purchasedProductReceipt {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.btnSubmit {
-  width: 130px;
-  height: 40px;
-  border-radius: 5px;
-  border: none;
-  line-height: 20px;
-  margin-left: 200px;
 }
 
 .purchasedProductRemove {
@@ -80,4 +68,97 @@
   width: 20px;
   height: 15px;
   cursor: pointer;
+}
+
+/*  */
+
+.productName {
+  margin: 15px 0 0 0;
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgb(200, 200, 200);
+  font-size: 1rem;
+}
+
+.productPrice {
+  margin-top: 20px;
+}
+
+.purchasedProductReceipt {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btnSubmit {
+  width: 120px;
+  height: 35px;
+  border-radius: 5px;
+  border: none;
+  line-height: 20px;
+  letter-spacing: 1px;
+  position: absolute;
+  right: 40px;
+}
+
+@media screen and (max-width: 1200px) {
+  .purchasedList {
+    width: 440px;
+  }
+
+  .purchasedProductInfo {
+    width: 220px;
+  }
+
+  .productPrice {
+    margin-top: 10px;
+  }
+
+  .btnSubmit {
+    right: 5px;
+    bottom: 5px;
+    height: 30px;
+    padding: 3px;
+    width: 100px;
+  }
+}
+
+@media screen and (max-width: 900px) {
+  .purchasedList {
+    width: 350px;
+    height: 135px;
+  }
+
+  .purchasedProductInfo {
+    width: 150px;
+  }
+
+  .purchasedProductImage {
+    width: 125px;
+    height: 125px;
+  }
+
+  .productName {
+    margin-top: 10px;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .purchasedList,
+  .purchasedList:nth-child(1),
+  .purchasedList:nth-child(2) {
+    margin-top: 15px;
+    width: 100%;
+  }
+
+  .purchasedList {
+    width: 100%;
+  }
+
+  .purchasedProductInfo {
+    margin-left: 10px;
+  }
+
+  .productName {
+    border: none;
+  }
 }
