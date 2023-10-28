@@ -87,6 +87,11 @@
   align-items: center;
 }
 
+.userIntro {
+  overflow: auto;
+  margin: 5px;
+}
+
 .updateIntroInput {
   height: 90px;
 }
