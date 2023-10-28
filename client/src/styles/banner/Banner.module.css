@@ -43,7 +43,6 @@
 /* 로그인 타이핑 */
 .typingBottom {
   margin-top: 23px;
-  text-align: center;
   width: 100%;
 }
 
@@ -180,14 +179,11 @@
 }
 /* 첫번째 슬라이드 */
 
-.test {
-  display: flex;
-  justify-content: center;
-  border: 1px solid red;
-  width: 100px !important;
-  position: relative;
-}
-
 .slideImg1 {
   width: 100%;
+}
+
+.eee a {
+  height: 70px !important;
+  z-index: 10;
 }
