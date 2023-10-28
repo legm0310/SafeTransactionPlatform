@@ -70,6 +70,11 @@ const Banner = (props) => {
 
             <div className={classes.mainImgWrap}>
               {/* <img src={img5} alt="" className={classes.mainImg} /> */}
+              <div className={classes.typingBottom2}>
+                <Link to="/">
+                  <button>중고거래 시작하기</button>
+                </Link>
+              </div>
             </div>
           </div>
         </section>
@@ -325,5 +330,27 @@ const StyledSlider = styled(Slider)`
   }
   .custom-dot:hover {
     background: #dee2e6;
+  }
+
+  @media screen and (max-width: 600px) {
+    slick-dots ul {
+      width: 100%;
+    }
+
+    .slick-dots li {
+      width: 30%;
+      height: 100%;
+    }
+
+    .custom-dot {
+      padding: 15px;
+      cursor: pointer;
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      color: black;
+    }
   }
 `;
