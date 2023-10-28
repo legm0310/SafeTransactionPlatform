@@ -28,6 +28,7 @@ const SaleList = (props) => {
     };
     dispatch(getSearchRecentProducts(filter)).then((response) => {
       setSellingProducts(response.payload?.products);
+      const newProductCount = response.payload?.products.length;
     });
   };
 
@@ -42,7 +43,7 @@ const SaleList = (props) => {
               onDeleteProductHandler(productId);
               closeSnackbar(key);
             }}
-            className={classes.purchaseButton}
+            className={classes.deleteButton}
           >
             삭제하기
           </button>
@@ -77,7 +78,7 @@ const SaleList = (props) => {
         </div>
       ) : (
         sellingProducts?.map((product) => (
-          <div className={classes.saleList}>
+          <div className={classes.saleList} key={product.id}>
             <div className={classes.saleProductWrap}>
               <Link to={`/products/${product.id}`}>
                 <div className={classes.saleProductImage}>
@@ -88,7 +89,11 @@ const SaleList = (props) => {
                 <div className={classes.saleProductInfo}>
                   <p className={classes.productCategory}>{product.category}</p>
                   <p className={classes.productName}>{product.title}</p>
-                  {<p>{product.price.toLocaleString()} PDT</p>}
+                  {
+                    <p className={classes.productPrice}>
+                      {product.price.toLocaleString()} PDT
+                    </p>
+                  }
                 </div>
               </Link>
 
