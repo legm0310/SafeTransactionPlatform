@@ -70,13 +70,13 @@ const SaleList = (props) => {
 
   return (
     <Fragment>
-      {sellingProducts?.length == 0 ? (
+      {(sellingProducts || []).length == 0 ? (
         <div className={classes.notSaleList}>
           <h2>판매중인 상품이 없습니다.</h2>
           <p>의미있는 상품을 판매해보세요!</p>
         </div>
       ) : (
-        sellingProducts.map((product) => (
+        sellingProducts?.map((product) => (
           <div className={classes.saleList}>
             <div className={classes.saleProductWrap}>
               <Link to={`/products/${product.id}`}>
