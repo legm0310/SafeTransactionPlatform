@@ -82,6 +82,16 @@ const SaleList = (props) => {
             <div className={classes.saleProductWrap}>
               <Link to={`/products/${product.id}`}>
                 <div className={classes.saleProductImage}>
+                  {product.status === "RESERVED" && (
+                    <div className={classes.reserved}>
+                      <h2>구매진행중</h2>
+                    </div>
+                  )}
+                  {product.status === "SOLD" && (
+                    <div className={classes.reserved}>
+                      <h2>판매완료</h2>
+                    </div>
+                  )}
                   <img src={product.image} alt="" />
                 </div>
               </Link>
