@@ -5,6 +5,7 @@ import "./interface/ISafeTxn.sol";
 import "./interface/IEscrow.sol";
 import "./lib/Structs.sol";
 import "../node_modules/@thirdweb-dev/contracts/base/ERC20Base.sol";
+import "../node_modules/@thirdweb-dev/contracts/token/TokenERC20.sol";
 // import "./PandaToken.sol";
 // import "./CommonFnWrapper.sol";
 
