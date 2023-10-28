@@ -4,6 +4,7 @@
   width: 430px;
   height: 430px;
   border-radius: 5px;
+  object-fit: cover;
 }
 
 @media screen and (max-width: 1200px) {

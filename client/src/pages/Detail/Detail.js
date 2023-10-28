@@ -210,7 +210,11 @@ const Detail = () => {
             <div className={classes.producContentWrap}>
               <div>
                 <div className={classes.category}>
-                  {productDetail?.category}
+                  <Link
+                    to={`/products/all?category=${productDetail?.category}`}
+                  >
+                    {productDetail?.category}
+                  </Link>
                 </div>
                 <div className={classes.title}>{productDetail?.title}</div>
                 <div className={classes.price}>

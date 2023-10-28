@@ -116,6 +116,11 @@ const AddProduct = (props) => {
       setAlertOpen(true);
       return;
     }
+    if (imgFile.length === 0) {
+      return enqueueSnackbar("1장 이상의 사진을 등록해주세요.", {
+        variant: "error",
+      });
+    }
     if (title.trim() === "") {
       return enqueueSnackbar("상품 이름을 입력해주세요.", {
         variant: "error",
@@ -126,7 +131,6 @@ const AddProduct = (props) => {
         variant: "error",
       });
     }
-    console.log(price);
     if (isNaN(+price.split(",").join(""))) {
       return enqueueSnackbar("가격은 숫자만 입력할 수 있습니다.", {
         variant: "error",
