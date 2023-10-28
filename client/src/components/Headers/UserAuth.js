@@ -21,7 +21,7 @@ const UserAuth = (props, { wish }) => {
               sx={{
                 color: "black",
                 fontWeight: 700,
-                fontFamily: "GongGothicMedium",
+                fontFamily: "NanumSquareNeo-Variable",
                 display: { lg: "block", xs: "none" },
               }}
             >

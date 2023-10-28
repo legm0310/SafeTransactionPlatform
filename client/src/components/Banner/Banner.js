@@ -1,5 +1,5 @@
 import { Fragment, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import classes from "../../styles/banner/Banner.module.css";
 
@@ -128,7 +128,8 @@ const Banner = (props) => {
                         <div className={classes.secondTypingMiddle}>
                           <span>
                             판다 서비스에 <br />
-                            메타마스크 지갑을 연결하세요
+                            메타마스크 지갑을 <br />
+                            연결하세요
                           </span>
                         </div>
                         <div className={classes.secondTypingBottom}>
@@ -277,21 +278,17 @@ const StyledSlider = styled(Slider)`
     width: 100%;
   }
 
-  .slider-container {
-    position: relative;
-    z-index: 1;
-    backgroundcolor: backgroundColor;
-    visibility: hidden;
-  }
+  // .slider-container {
+  //   position: relative;
+  //   z-index: 1;
+  //   backgroundcolor: backgroundColor;
+  //   visibility: hidden;
+  // }
 
   .slick-dots {
     position: absolute;
     top: 0;
-    z-index: 2;
-    display: flex;
-    justify-content: center;
-    flex-direction: row;
-    width: 100%;
+    height: 44px;
 
     li button:before {
       display: none;

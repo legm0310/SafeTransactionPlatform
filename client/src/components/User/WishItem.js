@@ -86,7 +86,6 @@ const WishItem = () => {
         loadWishList.map((item) => {
           return (
             <section key={item.id} className={classes.wishList}>
-              {/* <input type="checkbox" /> */}
               {/* <div className={classes.wishListProductWrap}> */}
               <Link
                 to={`/products/${item.id}`}
@@ -101,9 +100,6 @@ const WishItem = () => {
                     {productDetail?.category}
                   </p>
                   <p className={classes.productName}>{item?.title}</p>
-                </div>
-
-                <div className={classes.productPrice}>
                   <p>
                     {item?.price
                       ? item.price.toLocaleString() + "PDT"
