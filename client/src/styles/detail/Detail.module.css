@@ -28,6 +28,10 @@
 }
 
 .category {
+  margin-bottom: 10px;
+}
+
+.category a {
   color: #8685858e;
   margin-bottom: 10px;
   font-size: 0.9;
@@ -250,6 +254,11 @@
   color: rgb(136, 136, 136);
   font-size: 16px;
 }
+
+.prodInfoWrap {
+  height: 250px;
+}
+
 /* 판매자 정보 */
 .productSellor {
   width: 300px;
