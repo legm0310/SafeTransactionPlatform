@@ -17,6 +17,7 @@ import manualImg12 from "../../assets/manual/manualImage12.png";
 import manualImg13 from "../../assets/manual/manualImage13.png";
 import manualImg14 from "../../assets/manual/manualImage14.png";
 import manualImg15 from "../../assets/manual/manualImage15.png";
+import manualImg16 from "../../assets/manual/manualImage16.png";
 
 const Manual = (props) => {
   return (
@@ -196,6 +197,14 @@ const Manual = (props) => {
                     className={classes.manualImg13}
                   />
                 </p>
+                <p>
+                  &nbsp;13) 개인의 메타마스크 지갑 확장 프로그램에서 판다 토큰
+                  확인을 원하시면 하단의 이미지처럼 토큰 가져오기 클릭 후 토큰
+                  계약 주소에 주소값을 입력해주세요.
+                </p>
+
+                <p>계약 주소: {process.env.REACT_APP_CONTRACT_ADDRESS}</p>
+                <img src={manualImg16} alt="" className={classes.manualImg13} />
               </div>
             </div>
           </div>
