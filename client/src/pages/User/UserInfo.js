@@ -16,11 +16,11 @@ const UserInfo = () => {
   const { id } = useParams();
   const location = useLocation();
   const { loadWishList, userId } = useSelector((state) => state.user);
-
+  
   useEffect(() => {
     if (location.state && location.state.activeMenu)
       setActiveMenu(location.state.activeMenu);
-  }, [location.state]);
+  }, [location.state, id]);
 
   const onMenuHandler = (menu) => {
     setActiveMenu(menu);
@@ -97,7 +97,7 @@ const UserInfo = () => {
           )}
 
           <div className={classes.userInfoExplanation}>
-            {activeMenu === "SaleList" && <SaleList />}
+            {activeMenu === "SaleList" && <SaleList id={+id} />}
             {activeMenu === "ReservedList" && <ReservedList />}
             {activeMenu === "PurchasedList" && <PurchasedList />}
             {activeMenu === "WishList" && <WishList />}
