@@ -117,7 +117,9 @@ const MobileNavMenu = (props) => {
             <Link to={`/user/${userId}`}>
               <ListItem>
                 {isLoggedIn ? (
-                  <ListItemButton sx={{ height: 100, borderRadius: "5px" }}>
+                  <ListItemButton
+                    sx={{ height: 100, borderRadius: "5px", color: "black" }}
+                  >
                     {authCheck?.userData?.user_name.length > 3
                       ? `${authCheck.userData?.user_name.slice(0, 2)}..`
                       : authCheck?.userData?.user_name}{" "}
