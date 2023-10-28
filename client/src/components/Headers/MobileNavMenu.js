@@ -127,7 +127,9 @@ const MobileNavMenu = (props) => {
                   </ListItemButton>
                 ) : (
                   <Link to="/login" className={classes.loginRegister}>
-                    <ListItemButton sx={{ height: 100, borderRadius: "5px" }}>
+                    <ListItemButton
+                      sx={{ height: 100, borderRadius: "5px", color: "black" }}
+                    >
                       로그인/회원가입
                     </ListItemButton>
                   </Link>
