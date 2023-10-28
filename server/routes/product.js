@@ -25,5 +25,5 @@ module.exports = (app) => {
   router.put("/:id", productController.updateProduct);
   router.put("/deposit/:id", productController.deposit);
   router.put("/release/:id", productController.release);
-  router.delete("/:id", productController.deleteProduct);
+  router.delete("/:id", isAuth, productController.deleteProduct);
 };

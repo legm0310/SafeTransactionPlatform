@@ -17,7 +17,7 @@ const genCondition = (params) => {
     ...(lastId && { id: { [Op.lt]: lastId } }),
     ...(search && { title: { [Op.like]: `%${search}%` } }),
     ...(status && { status }),
-    ...(sellerId && { sellerId }),
+    ...(sellerId && { seller_id: sellerId }),
     ...(category && { category: { [Op.like]: `${category}` } }),
   };
   return { where, offset, limit };

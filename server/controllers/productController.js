@@ -77,10 +77,14 @@ module.exports = {
 
   deleteProduct: catchAsync(async (req, res) => {
     const prodServiceInstance = await Container.get("productService");
-    const productId = req.params;
-    await prodServiceInstance.deleteProduct(productId);
+    const productData = {
+      productId: +req.params.id,
+      userId: res.locals.userId,
+    };
+    const result = await prodServiceInstance.deleteProduct(productData);
     res.status(200).json({
-      deleteProductSuccess: true,
+      deleteProductSuccess: !!result,
+      deleteProductId: productData.productId,
     });
   }),
 
