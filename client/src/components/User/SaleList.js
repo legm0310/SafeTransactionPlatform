@@ -1,5 +1,6 @@
 import { Fragment, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 
 import classes from "../../styles/user/SaleList.module.css";
 import deleteBtn from "../../assets/icon-delete.svg";
@@ -18,24 +19,54 @@ const SaleList = (props) => {
   const [sellingProducts, setSellingProducts] = useState([]);
 
   useEffect(() => {
-    console.log("실행");
+    getProducts();
+  }, [dispatch, props.id]);
+
+  const getProducts = () => {
     const filter = {
       sellerId: props.id,
     };
     dispatch(getSearchRecentProducts(filter)).then((response) => {
       setSellingProducts(response.payload?.products);
     });
-  }, [dispatch]);
+  };
+
+  const onDeleteClick = (productId) => {
+    enqueueSnackbar("정말로 삭제하시겠습니까?", {
+      variant: "info",
+      persist: true, // 자동으로 스낵바를 닫지 않음
+      action: (key) => (
+        <div>
+          <button
+            onClick={() => {
+              onDeleteProductHandler(productId);
+              closeSnackbar(key);
+            }}
+            className={classes.purchaseButton}
+          >
+            삭제하기
+          </button>
+          <button
+            onClick={() => {
+              closeSnackbar(key);
+            }}
+            className={classes.backButton}
+          >
+            뒤로가기
+          </button>
+        </div>
+      ),
+    });
+  };
 
   const onDeleteProductHandler = (productId) => {
     dispatch(deleteProduct(productId)).then((response) => {
       enqueueSnackbar("판매 상품이 삭제되었습니다.", {
         variant: "success",
       });
+      getProducts();
     });
   };
-
-  // 삭제 시 리렌더링 기능 및 링크 연결, 12개 제한 풀기
 
   return (
     <Fragment>
@@ -48,21 +79,24 @@ const SaleList = (props) => {
         sellingProducts.map((product) => (
           <div className={classes.saleList}>
             <div className={classes.saleProductWrap}>
-              <div className={classes.saleProductImage}>
-                <img src={product.image} alt="" />
-              </div>
-
-              <div className={classes.saleProductInfo}>
-                <p className={classes.productCategory}>{product.category}</p>
-                <p className={classes.productName}>{product.title}</p>
-                {<p>{product.price.toLocaleString()} PDT</p>}
-              </div>
+              <Link to={`/products/${product.id}`}>
+                <div className={classes.saleProductImage}>
+                  <img src={product.image} alt="" />
+                </div>
+              </Link>
+              <Link to={`/products/${product.id}`}>
+                <div className={classes.saleProductInfo}>
+                  <p className={classes.productCategory}>{product.category}</p>
+                  <p className={classes.productName}>{product.title}</p>
+                  {<p>{product.price.toLocaleString()} PDT</p>}
+                </div>
+              </Link>
 
               {props.id == userId ? (
                 <div className={classes.saleProductRemove}>
                   <img
                     src={deleteBtn}
-                    onClick={() => onDeleteProductHandler(product.id)}
+                    onClick={() => onDeleteClick(product.id)}
                   />
                 </div>
               ) : null}
