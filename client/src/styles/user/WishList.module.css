@@ -1,13 +1,8 @@
 .notWishList {
-  /* position: absolute;
-  top: 70%;
-  left: 50%;
-  transform: translate(-50%, -50%); */
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 100px;
-  margin-bottom: 100px;
+  margin: 100px auto 100px auto;
 }
 
 .notWishList p {
@@ -35,6 +30,7 @@
 
 .wishListProduct {
   display: flex;
+  align-items: center;
   color: black;
 }
 
@@ -96,6 +92,12 @@
 .backButton {
   border-radius: 4px;
   background: #fe4e62;
+}
+
+.productCategory {
+  margin: 0;
+  font-size: 12px;
+  color: #767676;
 }
 
 .wishListProductRemove {

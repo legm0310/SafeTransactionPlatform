@@ -2,8 +2,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 100px;
-  margin-bottom: 100px;
+  margin: 100px auto 100px auto;
 }
 
 .notSaleList p {
@@ -34,6 +33,7 @@
 }
 
 .saleProductImage {
+  position: relative;
   width: 140px;
   height: 140px;
   margin-left: 5px;
@@ -68,6 +68,16 @@
   cursor: pointer;
 }
 
+.deleteButton {
+  border-radius: 4px;
+  margin-right: 10px;
+}
+
+.backButton {
+  border-radius: 4px;
+  background: #fe4e62;
+}
+
 /*  */
 
 .productName {
@@ -75,10 +85,30 @@
   padding-bottom: 10px;
   border-bottom: 1px solid rgb(200, 200, 200);
   font-size: 1rem;
+  color: black;
 }
 
 .productPrice {
   margin-top: 20px;
+  color: black;
+}
+
+.reserved {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 4px;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.reserved h2 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  margin-top: 44%;
 }
 
 @media screen and (max-width: 1200px) {

@@ -3,7 +3,7 @@ import { createTheme, outlinedInputClasses } from "@mui/material/";
 const customTheme = (outerTheme) =>
   createTheme({
     typography: {
-      fontFamily: "GongGothicMedium",
+      fontFamily: "NanumSquareNeo-Variable",
     },
     palette: {
       mode: outerTheme.palette.mode,
