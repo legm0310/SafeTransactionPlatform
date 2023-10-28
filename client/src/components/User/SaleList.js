@@ -13,7 +13,7 @@ import { useSnackbar, closeSnackbar, enqueueSnackbar } from "notistack";
 
 const SaleList = (props) => {
   const dispatch = useDispatch();
-
+  const { isContractLoading } = useSelector((state) => state.ui);
   const { userId } = useSelector((state) => state.user);
 
   const [sellingProducts, setSellingProducts] = useState([]);

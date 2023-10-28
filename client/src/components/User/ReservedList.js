@@ -20,6 +20,8 @@ const contractAddress = process.env.REACT_APP_CONTRACT_ADDRESS;
 
 const ReservedList = () => {
   const dispatch = useDispatch();
+
+  const { isContractLoading } = useSelector((state) => state.ui);
   const prodDetail =
     useSelector((state) => state.product.depositedProducts?.products) || [];
   // const prodDetail = useSelector((state) => {

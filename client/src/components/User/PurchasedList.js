@@ -1,11 +1,13 @@
 import { Fragment, useState } from "react";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 import ReleaseReciept from "../Receipt/ReleaseReceipt";
 
 import classes from "../../styles/user/PurchasedList.module.css";
 import deleteBtn from "../../assets/icon-delete.svg";
 
 const PurchasedList = () => {
+  const { isContractLoading } = useSelector((state) => state.ui);
   const [openReleaseReciept, setOpenReleaseReciept] = useState(false);
 
   const handleOpenReleaseReceipt = () => {
