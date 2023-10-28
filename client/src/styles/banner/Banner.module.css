@@ -5,6 +5,7 @@
   width: 100%;
   aspect-ratio: 1 / 0.4;
   background-size: cover;
+  background-position: center;
 }
 
 .mainImgWrap {
@@ -17,6 +18,7 @@
   margin: 0 auto;
   align-items: center;
   text-align: center;
+  min-height: 600px;
 }
 
 .mainImg {
@@ -214,6 +216,7 @@
     height: auto;
     margin: 20px 0 0 0;
     width: 100%;
+    min-height: auto;
   }
 
   .typingTop {
