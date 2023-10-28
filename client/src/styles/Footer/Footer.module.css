@@ -84,15 +84,15 @@ h3 {
   color: black;
 }
 
-a {
+.listContent {
   text-decoration: none;
   color: rgb(136, 136, 136);
 }
 
-a:hover,
-a:active,
-a:visited,
-a:focus {
+.listContent:hover,
+.listContent:active,
+.listContent:visited,
+.listContent:focus {
   text-decoration: none;
 }
 
