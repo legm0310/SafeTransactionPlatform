@@ -1,6 +1,6 @@
 * {
-    font-family: "GongGothicMedium";
-  }
+  font-family: "NanumSquareNeo-Variable";
+}
 
 .NoticeWrap {
   height: 90vh;
@@ -10,11 +10,11 @@
 }
 
 .container {
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-    border-radius: 10px;
-    width: 65%;
-    height: 80%;
-    display: flex;
-    overflow: hidden;
-    padding: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  border-radius: 10px;
+  width: 65%;
+  height: 80%;
+  display: flex;
+  overflow: hidden;
+  padding: 10px;
 }

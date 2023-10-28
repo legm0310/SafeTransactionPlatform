@@ -52,7 +52,7 @@ const DesktopNavMenu = () => {
               my: 2,
               color: "black",
               fontWeight: 700,
-              fontFamily: "GongGothicMedium",
+              fontFamily: "NanumSquareNeo-Variable",
               whiteSpace: "nowrap",
               display: { xs: "none", lg: "flex" },
             }}
@@ -68,7 +68,7 @@ const DesktopNavMenu = () => {
               my: 2,
               color: "black",
               fontWeight: 700,
-              fontFamily: "GongGothicMedium",
+              fontFamily: "NanumSquareNeo-Variable",
               whiteSpace: "nowrap",
               display: { xs: "none", lg: "flex" },
             }}

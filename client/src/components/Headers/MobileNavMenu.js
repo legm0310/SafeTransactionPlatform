@@ -103,7 +103,7 @@ const MobileNavMenu = (props) => {
             display: {
               xs: "block",
               lg: "none",
-              fontFamily: "GongGothicMedium",
+              fontFamily: "NanumSquareNeo-Variable",
             },
           }}
         >
