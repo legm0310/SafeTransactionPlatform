@@ -226,7 +226,7 @@ const Register = (props) => {
                   mt: 3,
                   mb: 2,
                   backgroundColor: "#1ecfba",
-                  fontFamily: "GongGothicMedium",
+                  fontFamily: "NanumSquareNeo-Variable",
                   fontWeight: 500,
                   fontSize: 18,
                   "&:hover": { backgroundColor: "#1ecfba" },
