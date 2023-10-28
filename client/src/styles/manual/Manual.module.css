@@ -120,3 +120,38 @@
   font-size: 25px;
   line-height: 3rem;
 }
+
+@media screen and (max-width: 600px) {
+  .main {
+    padding: 70px 0;
+  }
+
+  .main p {
+    font-size: 1.8rem;
+    width: 95%;
+    margin: 0 auto;
+  }
+
+  .container {
+    width: 95%;
+    margin: 0 auto;
+  }
+
+  .mainBottom h2 {
+    margin: 20px 0;
+    font-size: 2rem;
+  }
+
+  .mainBottom p {
+    padding: 25px 0;
+    border-top: 1px solid rgb(200, 200, 200);
+    margin: 0;
+  }
+
+  .typingButton button {
+    margin: 10px 0;
+    width: 180px;
+    font-size: 1rem;
+    line-height: 1.5rem;
+  }
+}
