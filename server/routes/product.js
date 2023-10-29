@@ -24,6 +24,7 @@ module.exports = (app) => {
   router.get("/:id", productController.getProduct);
   router.put("/:id", productController.updateProduct);
   router.put("/deposit/:id", productController.deposit);
+  router.put("/approve/:id", productController.approve);
   router.put("/release/:id", productController.release);
   router.delete("/:id", isAuth, productController.deleteProduct);
 };
