@@ -30,7 +30,7 @@ coinbaseConfig.meta.name = "코인베이스 지갑";
 
 const supportedWallets = [
   smartWallet(localWallet(), smartWalletConfig),
-  smartWallet(smartWalletConfigThroughMetamask, smartWalletConfig),
+  // smartWallet(smartWalletConfigThroughMetamask, smartWalletConfig),
   smartWallet(coinbaseConfig, smartWalletConfig),
   smartWallet(embeddedWallet(), smartWalletConfig),
   smartWallet(
@@ -42,7 +42,7 @@ const supportedWallets = [
     })
   ),
 
-  // metamaskConfig,
+  metamaskConfig,
   // coinbaseConfig,
 ];
 
