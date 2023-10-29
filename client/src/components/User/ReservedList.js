@@ -1,40 +1,44 @@
 import { Fragment, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { getDepositedProducts, release } from "../../_actions/productAction";
+import {
+  getDepositedProducts,
+  purchaseConfirm,
+} from "../../_actions/productAction";
 import { setLoadings } from "../../_actions/uiAction";
-import { getEventsFromWeb3js } from "../../contract/getEvents";
+import {
+  getEventsFromWeb3js,
+  getEscrowCreateEvents,
+} from "../../contract/getEvents";
 import DepositReceipt from "../Receipt/DepositReceipt";
 
-import {
-  // useContractEvents,
-  useSDK,
-  useContract,
-  useAddress,
-} from "@thirdweb-dev/react";
+import { useSDK, useContract, useAddress } from "@thirdweb-dev/react";
 
 import deleteBtn from "../../assets/icon-delete.svg";
 import classes from "../../styles/user/ReservedList.module.css";
+import { PropagateLoader } from "react-spinners";
+import { Oval } from "react-loader-spinner";
+import { closeSnackbar, useSnackbar } from "notistack";
 
 const contractAddress = process.env.REACT_APP_CONTRACT_ADDRESS;
 
 const ReservedList = () => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
-
   const { isContractLoading } = useSelector((state) => state.ui);
+  const { userId } = useSelector((state) => state.user);
   const prodDetail =
     useSelector((state) => state.product.depositedProducts?.products) || [];
-  // const prodDetail = useSelector((state) => {
-  //   const products = state.product.depositedProducts?.products;
-  //   return Array.isArray(products) ? products : [];
-  // });
 
-  const [productIds, setProductIds] = useState();
+  const [isLoading, setIsLoading] = useState(false);
+  const [lastProdId, setLastProdId] = useState(null);
+  const [productsList, setProductsList] = useState([]);
+  const [displayMore, setDisplayMore] = useState(true);
   const [openDepositReceipt, setOpenDepositReceipt] = useState(false);
+  const { enqueueSnackbar } = useSnackbar();
   const sdk = useSDK();
   const { contract } = useContract(contractAddress);
   const address = useAddress();
-  // const { data, isLoading, error } = useContractEvents(contract, "");
 
   const handleOpenDepositReceipt = () => {
     setOpenDepositReceipt(true);
@@ -44,111 +48,178 @@ const ReservedList = () => {
     setOpenDepositReceipt(false);
   };
 
+  const handleClick = (func, comment) => {
+    if (userId == undefined) {
+      navigate("/login");
+    } else {
+      enqueueSnackbar(comment, {
+        variant: "info",
+        persist: true, // 자동으로 스낵바를 닫지 않음
+        action: (key) => (
+          <div>
+            <button
+              onClick={() => func(key)}
+              className={classes.purchaseButton}
+            >
+              구매확정
+            </button>
+            <button
+              onClick={() => {
+                closeSnackbar(key);
+              }}
+              className={classes.backButton}
+            >
+              뒤로가기
+            </button>
+          </div>
+        ),
+      });
+    }
+  };
+
   const handleGetEventsLog = async () => {
-    const log = await getEventsFromWeb3js("EscrowCreate", address);
+    const log = await getEscrowCreateEvents(sdk, "EscrowDeposit", address);
     console.log(log);
-    // const prodIdLog = log.map((event) =>
-    //   parseInt(event.returnValues.productId)
-    // );
-    // console.log(prodIdLog);
-    // setProductIds([...prodIdLog]);
-    // return prodIdLog;
+    const prodIdLog = log?.map((event) => parseInt(event.data?.productId));
+    return prodIdLog;
   }; // map 에러로 인한 임시 주석처리
 
-  const onReleaseHandler = (id) => {
-    dispatch(setLoadings({ isLoading: true }));
+  const onPurchaseConfirm = (id) => {
+    handleClick((e) => purchaseConfirmHandler(id), "구매 확정하시겠습니까?");
+  };
+
+  const purchaseConfirmHandler = (id, key) => {
+    console.log(id);
+    closeSnackbar(key);
     const data = {
       productId: id,
       sdk: sdk,
     };
-    dispatch(release(data)).then((response) => {
+    enqueueSnackbar("구매 확정이 진행됩니다. 잠시만 기다려주세요.", {
+      variant: "success",
+    });
+    dispatch(purchaseConfirm(data)).then((response) => {
       console.log(response);
-      if (response.payload.updated) {
-        alert("계약의 예치된 토큰이 판매자에게 전송됩니다.");
+      if (response.payload === true) {
+        return enqueueSnackbar("구매 확정되었습니다.", {
+          variant: "success",
+        });
       } else {
-        alert("구매 확정에 실패했습니다.");
+        return enqueueSnackbar("구매 확정에 실패했습니다.", {
+          variant: "error",
+        });
       }
     });
   };
 
+  const onClickMoreProduct = () => {
+    setLastProdId(productsList[productsList.length - 1]?.id);
+  };
+
   useEffect(() => {
+    setIsLoading(true);
     handleGetEventsLog().then((value) =>
-      dispatch(getDepositedProducts({ productIds: value }))
-        .then(console.log(prodDetail))
+      dispatch(getDepositedProducts({ productIds: value, lastId: lastProdId }))
+        .then((res) => {
+          const prodListFromDb = res.payload.products ?? [];
+          setProductsList([...prodListFromDb]);
+          console.log(prodListFromDb);
+          //TODO 페이지네이션
+          // setProductsList((productsList) => [
+          //   ...productsList,
+          //   ...prodListFromDb,
+          // ]);
+
+          // if (prodListFromDb.length < 12 || prodListFromDb[0]?.id <= 12) {
+          //   setDisplayMore(false);
+          // }
+          setIsLoading(false);
+        })
         .catch((err) => console.log(err))
     );
-  }, []);
+  }, [dispatch, address, lastProdId]);
 
+  // 지갑연결X ? 지갑연결해주세요 :
+  // 제품X ? 제품을 구매해보세요:
+  // 로딩중O ? 로딩중 : 제품
   return (
     <Fragment>
-      {/* <div className={classes.notReservedList}>
-        <h2>구매진행중인 상품이 없습니다.</h2>
-        <p>원하는 상품을 구매해보세요!</p>
-      </div> */}
-      <div className={classes.reservedList}>
-        {/* {prodDetail &&
-          prodDetail.map((product) => (
-            <div className={classes.wishListProductWrap}>
-              <div className={classes.wishListProductImage}>
-                <img src={product?.image} alt="" />
-              </div>
+      {!address ? (
+        <div className={classes.notReservedList}>
+          <h2>연결된 지갑이 없습니다.</h2>
+          <p>지갑을 연결해주세요!</p>
+        </div>
+      ) : isLoading ? (
+        <PropagateLoader color="#1ECFBA" />
+      ) : productsList.length === 0 ? (
+        <div className={classes.notReservedList}>
+          <h2>구매진행중인 상품이 없습니다.</h2>
+          <p>원하는 상품을 구매해보세요!</p>
+        </div>
+      ) : (
+        <div className={classes.reservedList}>
+          {productsList.map((product) => {
+            console.log(product);
+            return (
+              <div key={product.id} className={classes.reservedProductWrap}>
+                <div className={classes.reservedProductImage}>
+                  <img src={product.image} alt="" />
+                </div>
 
-              <div className={classes.wishListProductInfo}>
-                <p className={classes.productCategory}>{product?.category}</p>
-                <p className={classes.productName}>{product?.title}</p>
-              </div>
+                <div className={classes.reservedProductInfo}>
+                  <p className={classes.productCategory}>category</p>
+                  <p className={classes.productName}>{product.title}</p>
+                  <p
+                    className={classes.productPrice}
+                  >{`${product.price} PDT`}</p>
+                </div>
 
-              <div className={classes.productPrice}>
-                <p>{product?.price}PDT</p>
-              </div>
+                {isContractLoading ? (
+                  <Oval
+                    height={60}
+                    width={60}
+                    color="#1ecfba"
+                    wrapperStyle={{}}
+                    wrapperClass=""
+                    visible={true}
+                    ariaLabel="oval-loading"
+                    secondaryColor="#1ecfba"
+                    strokeWidth={4}
+                    strokeWidthSecondary={4}
+                  />
+                ) : (
+                  <div className={classes.reservedProductPurchase}>
+                    <button
+                      onClick={(e) => onPurchaseConfirm(product.id)}
+                      className={classes.btnSubmit}
+                    >
+                      구매확정
+                    </button>
+                    <button
+                      onClick={handleOpenDepositReceipt}
+                      className={classes.receiptbtn}
+                    >
+                      구매진행정보
+                    </button>
+                  </div>
+                )}
 
-              <div className={classes.wishListProductPurchase}>
-                <p className={classes.totalPrice}></p>
-                <button className={classes.btnSubmit}>구매확정</button>
-              </div>
-
-              <div className={classes.wishListProductRemove}>
-                <img
-                  src={deleteBtn}
-                  // onClick={() => onDeleteWishListHandler(product.id)}
+                <div className={classes.reservedProductRemove}>
+                  <img
+                    src={deleteBtn}
+                    // onClick={() => onDeleteWishListHandler(product.id)}
+                  />
+                </div>
+                <DepositReceipt
+                  open={openDepositReceipt}
+                  onClose={handleCloseDepositReceipt}
+                  txHash={product.deposit_tx}
                 />
               </div>
-            </div>
-          ))} */}
-        <div className={classes.reservedProductWrap}>
-          <div className={classes.reservedProductImage}>
-            <img src="" alt="" />
-          </div>
-
-          <div className={classes.reservedProductInfo}>
-            <p className={classes.productCategory}>category</p>
-            <p className={classes.productName}>상품이름</p>
-            <p className={classes.productPrice}>1000PDT</p>
-          </div>
-
-          <div className={classes.reservedProductPurchase}>
-            <button className={classes.btnSubmit}>구매확정</button>
-            <button
-              onClick={handleOpenDepositReceipt}
-              className={classes.receiptbtn}
-            >
-              구매진행정보
-            </button>
-          </div>
-
-          <div className={classes.reservedProductRemove}>
-            <img
-              src={deleteBtn}
-              // onClick={() => onDeleteWishListHandler(product.id)}
-            />
-          </div>
+            );
+          })}
         </div>
-      </div>
-
-      <DepositReceipt
-        open={openDepositReceipt}
-        onClose={handleCloseDepositReceipt}
-      />
+      )}
     </Fragment>
   );
 };
