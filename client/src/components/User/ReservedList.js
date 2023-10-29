@@ -57,10 +57,7 @@ const ReservedList = () => {
         persist: true, // 자동으로 스낵바를 닫지 않음
         action: (key) => (
           <div>
-            <button
-              onClick={() => func(key)}
-              className={classes.purchaseButton}
-            >
+            <button onClick={() => func(key)} className={classes.confirmButton}>
               구매확정
             </button>
             <button
@@ -148,7 +145,7 @@ const ReservedList = () => {
   return (
     <Fragment>
       {!address ? (
-        <div className={classes.notReservedList}>
+        <div className={classes.notConnectWallet}>
           <h2>연결된 지갑이 없습니다.</h2>
           <p>지갑을 연결해주세요!</p>
         </div>
@@ -162,9 +159,9 @@ const ReservedList = () => {
           <p>원하는 상품을 구매해보세요!</p>
         </div>
       ) : (
-        <div className={classes.reservedWrap}>
-          {productsList.map((product) => {
-            console.log(product);
+        productsList.map((product) => {
+          console.log(product);
+          if (!product.release_tx) {
             return (
               <div className={classes.reservedList}>
                 <div key={product.id} className={classes.reservedProductWrap}>
@@ -240,8 +237,8 @@ const ReservedList = () => {
                 </div>
               </div>
             );
-          })}
-        </div>
+          }
+        })
       )}
     </Fragment>
   );

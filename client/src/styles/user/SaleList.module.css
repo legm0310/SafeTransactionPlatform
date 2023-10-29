@@ -1,11 +1,13 @@
-.notSaleList {
+.notSaleList,
+.notConnectWallet {
   display: flex;
   flex-direction: column;
   align-items: center;
   margin: 100px auto 100px auto;
 }
 
-.notSaleList p {
+.notSaleList p,
+.notConnectWallet p {
   line-height: 18px;
   color: rgb(136, 136, 136);
   margin: 0;
@@ -50,7 +52,7 @@
   display: flex;
   flex-direction: column;
   height: 100%;
-  width: 380px;
+  width: 240px;
   margin-left: 20px;
 }
 
@@ -69,7 +71,40 @@
   cursor: pointer;
 }
 
-.deleteButton {
+.onSaleButton {
+  position: absolute;
+  right: 40px;
+  width: 120px;
+  height: 35px;
+  border-radius: 5px;
+  border: none;
+  letter-spacing: 1px;
+  pointer-events: none;
+}
+
+.IssuanceButton {
+  position: absolute;
+  right: 40px;
+  width: 120px;
+  height: 35px;
+  border-radius: 5px;
+  border: none;
+  letter-spacing: 1px;
+}
+
+.issuanceCompleted {
+  position: absolute;
+  right: 40px;
+  width: 120px;
+  height: 35px;
+  border-radius: 5px;
+  border: none;
+  letter-spacing: 1px;
+  background: #333333;
+  pointer-events: none;
+}
+
+.receiveButton {
   border-radius: 4px;
   margin-right: 10px;
 }
@@ -115,17 +150,41 @@
 @media screen and (max-width: 1200px) {
   .saleList {
     width: 440px;
+    height: 200px;
+    align-items: flex-start;
+  }
+
+  .saleProductWrap {
+    margin-top: 5px;
   }
 
   .saleProductInfo {
     width: 220px;
+  }
+
+  .onSaleButton {
+    top: 155px;
+    right: 7.5px;
+    width: 97%;
+  }
+
+  .IssuanceButton {
+    top: 155px;
+    right: 7.5px;
+    width: 97%;
+  }
+
+  .issuanceCompleted {
+    top: 155px;
+    right: 7.5px;
+    width: 97%;
   }
 }
 
 @media screen and (max-width: 900px) {
   .saleList {
     width: 350px;
-    height: 135px;
+    height: 175px;
   }
 
   .saleProductInfo {
@@ -139,6 +198,21 @@
 
   .productName {
     margin-top: 10px;
+  }
+
+  .onSaleButton {
+    top: 135px;
+    width: 96%;
+  }
+
+  .IssuanceButton {
+    top: 135px;
+    width: 96%;
+  }
+
+  .issuanceCompleted {
+    top: 135px;
+    width: 96%;
   }
 }
 
@@ -160,5 +234,13 @@
 
   .productName {
     border: none;
+  }
+
+  .IssuanceButton {
+    width: 97%;
+  }
+
+  .issuanceCompleted {
+    width: 97%;
   }
 }

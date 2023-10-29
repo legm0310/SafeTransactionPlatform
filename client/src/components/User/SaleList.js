@@ -62,7 +62,7 @@ const SaleList = (props) => {
               onReleaseHandler(productId, key);
               closeSnackbar(key);
             }}
-            className={classes.deleteButton}
+            className={classes.receiveButton}
           >
             토큰받기
           </button>
@@ -141,7 +141,12 @@ const SaleList = (props) => {
 
   return (
     <Fragment>
-      {(sellingProducts || []).length == 0 ? (
+      {!address ? (
+        <div className={classes.notConnectWallet}>
+          <h2>연결된 지갑이 없습니다.</h2>
+          <p>지갑을 연결해주세요!</p>
+        </div>
+      ) : (sellingProducts || []).length == 0 ? (
         <div className={classes.notSaleList}>
           <h2>판매중인 상품이 없습니다.</h2>
           <p>의미있는 상품을 판매해보세요!</p>
@@ -188,13 +193,16 @@ const SaleList = (props) => {
 
               {props.id != userId ? null : !product.approve_tx &&
                 !product.release_tx ? (
-                <div>판매중</div>
+                <button className={classes.onSaleButton}>판매중</button>
               ) : product.approve_tx && !product.release_tx ? (
-                <button onClick={() => onReleaseClick(product.id)}>
+                <button
+                  onClick={() => onReleaseClick(product.id)}
+                  className={classes.IssuanceButton}
+                >
                   토큰 발급
                 </button>
               ) : product.approve_tx && product.release_tx ? (
-                <div>발급 완료</div>
+                <button className={classes.issuanceCompleted}>발급 완료</button>
               ) : null}
             </div>
           </div>
