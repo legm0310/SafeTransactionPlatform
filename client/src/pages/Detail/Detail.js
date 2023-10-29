@@ -92,10 +92,10 @@ const Detail = () => {
   };
 
   const onPurchaseHandler = () => {
-    handleClick(purchaseComfirm, "해당 상품 구매하시겠습니까?");
+    handleClick(purchase, "해당 상품 구매하시겠습니까?");
   };
 
-  const purchaseComfirm = (key) => {
+  const purchase = (key) => {
     closeSnackbar(key);
     if (!curAddress) {
       return enqueueSnackbar("지갑을 연결해주세요", {

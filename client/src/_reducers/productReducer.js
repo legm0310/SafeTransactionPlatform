@@ -17,6 +17,9 @@ import {
   DEPOSIT,
   DEPOSIT_SUCCESS,
   DEPOSIT_FAILURE,
+  APPROVE_RELEASE,
+  APPROVE_RELEASE_SUCCESS,
+  APPROVE_RELEASE_FAILURE,
   RELEASE,
   RELEASE_SUCCESS,
   RELEASE_FAILURE,
@@ -28,6 +31,10 @@ const initialState = {
   depositLoading: false,
   depositDone: null,
   depositError: null,
+
+  approveLoading: false,
+  approveDone: null,
+  approveError: null,
 
   releaseLoading: false,
   releaseDone: null,
@@ -64,11 +71,23 @@ export default function (state = initialState, action) {
         productDetail: action.payload?.product,
       };
       break;
-    case DEPOSIT:
+    case DEPOSIT_SUCCESS:
       return { ...state, deposit: action.payload };
       break;
-    case RELEASE:
+    case DEPOSIT_FAILURE:
+      return { ...state, depositError: action.payload };
+      break;
+    case APPROVE_RELEASE_SUCCESS:
+      return { ...state, approve: action.payload };
+      break;
+    case APPROVE_RELEASE_FAILURE:
+      return { ...state, approveError: action.payload };
+      break;
+    case RELEASE_SUCCESS:
       return { ...state, release: action.payload };
+      break;
+    case RELEASE_FAILURE:
+      return { ...state, releaseError: action.payload };
       break;
     default: // state가 들어오지 않았을 경우 전의 state를 넣어줌
       return state;

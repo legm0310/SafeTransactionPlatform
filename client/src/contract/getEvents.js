@@ -1,13 +1,14 @@
 import { contractGetterSDK, contractGetterWeb3 } from "./contract";
 
-export const getEscrowCreateEvents = async (sdk) => {
+export const getEscrowCreateEvents = async (sdk, eventName, buyerAdress) => {
   const contract = await contractGetterSDK(sdk);
   const options = {
-    fromBlock: 3727000,
-    toBlock: 100,
     order: "asc",
+    filters: {
+      buyer: buyerAdress,
+    },
   };
-  const events = await contract?.events.getEvents("EscrowCreate", options);
+  const events = await contract?.events.getEvents(eventName, options);
 
   return events;
 };
