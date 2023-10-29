@@ -1,11 +1,13 @@
-.notReservedList {
+.notReservedList,
+.notConnectWallet {
   display: flex;
   flex-direction: column;
   align-items: center;
   margin: 100px auto 100px auto;
 }
 
-.notReservedList p {
+.notReservedList p,
+.notConnectWallet p {
   line-height: 18px;
   color: rgb(136, 136, 136);
   margin: 0;
@@ -13,11 +15,11 @@
 
 /*  */
 
-.reservedWrap {
+/* .reservedWrap {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-}
+} */
 
 .reservedList {
   position: relative;
@@ -123,7 +125,9 @@
 }
 
 .oval {
-  margin: 0 auto;
+  display: flex;
+  position: absolute;
+  right: 60px;
 }
 
 .confirmButton {
@@ -167,6 +171,11 @@
   .completeApprove {
     width: 205px;
   }
+
+  .oval {
+    bottom: 30px;
+    right: 30px;
+  }
 }
 
 @media screen and (max-width: 900px) {
@@ -201,7 +210,6 @@
     width: 165px;
   }
 }
-
 @media screen and (max-width: 600px) {
   .reservedList,
   .reservedList:nth-child(1),
