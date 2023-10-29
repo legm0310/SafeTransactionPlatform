@@ -8,7 +8,6 @@ const genCondition = (params) => {
           [Op.in]: params[key],
         },
       };
-      console.log(where);
       return { where };
     }
   }
@@ -44,6 +43,8 @@ const generateGetProductsQuery = (params) => {
       "category",
       "images",
       "created_at",
+      "seller_id",
+      "seller_wallet",
       "deposit_tx",
       "approve_tx",
       "release_tx",
