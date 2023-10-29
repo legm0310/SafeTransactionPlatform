@@ -233,6 +233,8 @@ const ReservedList = () => {
                     open={openDepositReceipt}
                     onClose={handleCloseDepositReceipt}
                     txHash={product.deposit_tx}
+                    productId={product.id}
+                    address={address}
                   />
                 </div>
               </div>
