@@ -58,7 +58,7 @@ const StyledSlider = styled(Slider)`
   .slick-dots {
     display: flex;
     justify-content: center;
-    bottom: 30px;
+    bottom: 10px;
     color: white;
 
     li button {
