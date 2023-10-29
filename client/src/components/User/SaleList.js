@@ -78,12 +78,10 @@ const SaleList = (props) => {
     dispatch(onRelease(data)).then((res) => {
       console.log(res);
       if (res.payload.updated) {
-        return enqueueSnackbar(
-          "토큰 전송에 성공했습니다. 지갑을 확인해주세요.",
-          {
-            variant: "success",
-          }
-        );
+        enqueueSnackbar("토큰 전송에 성공했습니다. 지갑을 확인해주세요.", {
+          variant: "success",
+        });
+        return getProducts();
       } else {
         return enqueueSnackbar("토큰 전송에 실패했습니다.", {
           variant: "error",
@@ -177,11 +175,14 @@ const SaleList = (props) => {
               ) : null}
               {props.id == userId &&
               address == product.seller_wallet &&
-              product.approve_tx ? (
+              product.approve_tx &&
+              !product.release_tx ? (
                 <button onClick={() => onReleaseClick(product.id)}>
                   토큰 발급
                 </button>
-              ) : null}
+              ) : (
+                <div>발급 완료</div>
+              )}
             </div>
           </div>
         ))
