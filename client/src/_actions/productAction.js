@@ -242,7 +242,10 @@ export function onRelease(dataToSubmit) {
       }
       await dispatch(setLoadings({ isContractLoading: false }));
 
-      const res = await authRequest().put(`/api/products/release/${productId}`);
+      const res = await authRequest().put(
+        `/api/products/release/${productId}`,
+        { txHash }
+      );
       console.log("res", res);
 
       return dispatch({

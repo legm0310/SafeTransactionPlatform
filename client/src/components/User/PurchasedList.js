@@ -4,7 +4,6 @@ import { useSelector } from "react-redux";
 import ReleaseReciept from "../Receipt/ReleaseReceipt";
 
 import classes from "../../styles/user/PurchasedList.module.css";
-import deleteBtn from "../../assets/icon-delete.svg";
 
 const PurchasedList = () => {
   const { isContractLoading } = useSelector((state) => state.ui);
@@ -46,13 +45,6 @@ const PurchasedList = () => {
                 <p className={classes.totalPrice}></p>
                 <button className={classes.btnSubmit}>구매확정</button>
               </div>
-
-              <div className={classes.wishListProductRemove}>
-                <img
-                  src={deleteBtn}
-                  // onClick={() => onDeleteWishListHandler(product.id)}
-                />
-              </div>
             </div>
           ))} */}
         <div className={classes.purchasedProductWrap}>
@@ -72,12 +64,6 @@ const PurchasedList = () => {
             >
               거래내역
             </button>
-          </div>
-          <div className={classes.purchasedProductRemove}>
-            <img
-              src={deleteBtn}
-              // onClick={() => onDeleteWishListHandler(product.id)}
-            />
           </div>
         </div>
       </div>
@@ -102,13 +88,6 @@ const PurchasedList = () => {
                 <p className={classes.totalPrice}></p>
                 <button className={classes.btnSubmit}>구매확정</button>
               </div>
-
-              <div className={classes.wishListProductRemove}>
-                <img
-                  src={deleteBtn}
-                  // onClick={() => onDeleteWishListHandler(product.id)}
-                />
-              </div>
             </div>
           ))} */}
         <div className={classes.purchasedProductWrap}>
@@ -129,13 +108,6 @@ const PurchasedList = () => {
             >
               거래내역
             </button>
-          </div>
-
-          <div className={classes.purchasedProductRemove}>
-            <img
-              src={deleteBtn}
-              // onClick={() => onDeleteWishListHandler(product.id)}
-            />
           </div>
         </div>
       </div>
