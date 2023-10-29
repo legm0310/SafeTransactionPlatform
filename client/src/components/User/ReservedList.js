@@ -101,9 +101,10 @@ const ReservedList = () => {
     dispatch(purchaseConfirm(data)).then((response) => {
       console.log(response);
       if (response.type === "approveReleaseSuccess") {
-        return enqueueSnackbar("구매 확정되었습니다.", {
+        enqueueSnackbar("구매 확정되었습니다.", {
           variant: "success",
         });
+        return fetchDepositedProducts();
       } else {
         return enqueueSnackbar("구매 확정에 실패했습니다.", {
           variant: "error",
@@ -116,34 +117,29 @@ const ReservedList = () => {
     setLastProdId(productsList[productsList.length - 1]?.id);
   };
 
+  const fetchDepositedProducts = async () => {
+    try {
+      await setIsLoading(true);
+      const prodIdLog = await handleGetEventsLog();
+      const res = await dispatch(
+        getDepositedProducts({ productIds: prodIdLog, lastId: lastProdId })
+      );
+      const prodListFromDb = res.payload.products ?? [];
+      setProductsList([...prodListFromDb]);
+      console.log(prodListFromDb);
+      setIsLoading(false);
+    } catch (err) {
+      return err.response?.data.code == 401
+        ? navigate("/login")
+        : console.log(err);
+    }
+  };
+
   useEffect(() => {
     if (!userId || !authCheck?.authCheckSuccess) {
       navigate("/login");
     }
-    setIsLoading(true);
-    handleGetEventsLog().then((value) =>
-      dispatch(getDepositedProducts({ productIds: value, lastId: lastProdId }))
-        .then((res) => {
-          const prodListFromDb = res.payload.products ?? [];
-          setProductsList([...prodListFromDb]);
-          console.log(prodListFromDb);
-          //TODO 페이지네이션
-          // setProductsList((productsList) => [
-          //   ...productsList,
-          //   ...prodListFromDb,
-          // ]);
-
-          // if (prodListFromDb.length < 12 || prodListFromDb[0]?.id <= 12) {
-          //   setDisplayMore(false);
-          // }
-          setIsLoading(false);
-        })
-        .catch((err) => {
-          return err.response?.data.code == 401
-            ? navigate("/login")
-            : console.log(err);
-        })
-    );
+    fetchDepositedProducts();
   }, [dispatch, address, lastProdId]);
 
   // 지갑연결X ? 지갑연결해주세요 :
