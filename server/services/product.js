@@ -106,7 +106,7 @@ class ProductService {
         status: status,
         ...(status == "RESERVED" && { deposit_tx: txHash }),
         ...(status == "SOLD" && { release_tx: txHash }),
-        ...(!status && { approve_tx: null }),
+        ...(!status && { approve_tx: txHash }),
       },
       { where: { id: productId } }
     );
