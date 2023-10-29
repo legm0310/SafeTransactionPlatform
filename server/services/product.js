@@ -104,9 +104,9 @@ class ProductService {
     const updated = await this.Product.update(
       {
         status: status,
-        deposit_tx: status == "RESERVED" ? txHash : null,
-        approve_tx: !status ? txHash : null,
-        release_tx: status == "SOLD" ? txHash : null,
+        ...(status == "RESERVED" && { deposit_tx: txHash }),
+        ...(status == "SOLD" && { release_tx: txHash }),
+        ...(!status && { approve_tx: null }),
       },
       { where: { id: productId } }
     );
