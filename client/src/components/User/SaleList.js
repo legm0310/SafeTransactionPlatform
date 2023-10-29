@@ -141,12 +141,7 @@ const SaleList = (props) => {
 
   return (
     <Fragment>
-      {!address ? (
-        <div className={classes.notConnectWallet}>
-          <h2>연결된 지갑이 없습니다.</h2>
-          <p>지갑을 연결해주세요!</p>
-        </div>
-      ) : (sellingProducts || []).length == 0 ? (
+      {(sellingProducts || []).length == 0 ? (
         <div className={classes.notSaleList}>
           <h2>판매중인 상품이 없습니다.</h2>
           <p>의미있는 상품을 판매해보세요!</p>
