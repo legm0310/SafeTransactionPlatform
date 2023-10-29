@@ -14,7 +14,7 @@ module.exports = (app) => {
 
   //제품등록, 구매 진행중인 제품 가져오기
   router.post("/", isAuth, uploader, productController.addProduct);
-  router.post("/deposited", productController.getDepositedProducts);
+  router.post("/deposited", isAuth, productController.getDepositedProducts);
 
   // 제품 리스트(검색 등), 최근상품 가져오기
   router.get("/", productController.getProducts);
@@ -23,8 +23,8 @@ module.exports = (app) => {
   // 상세, 업데이트, 제품 구매(금액예치, 확정), 제품 삭제
   router.get("/:id", productController.getProduct);
   router.put("/:id", productController.updateProduct);
-  router.put("/deposit/:id", productController.deposit);
-  router.put("/approve/:id", productController.approve);
-  router.put("/release/:id", productController.release);
+  router.put("/deposit/:id", isAuth, productController.deposit);
+  router.put("/approve/:id", isAuth, productController.approve);
+  router.put("/release/:id", isAuth, productController.release);
   router.delete("/:id", isAuth, productController.deleteProduct);
 };
