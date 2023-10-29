@@ -93,7 +93,7 @@ export default function (state = initialState, action) {
       return {
         ...state,
         getWishListSuccess: action.payload.getWishListSuccess,
-        loadWishList: [...action.payload.wishList],
+        loadWishList: [...(action.payload.wishList || [])],
       };
       break;
     case DELETE_WISHLIST:

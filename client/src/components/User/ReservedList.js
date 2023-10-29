@@ -26,7 +26,7 @@ const ReservedList = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { isContractLoading } = useSelector((state) => state.ui);
-  const { userId } = useSelector((state) => state.user);
+  const { userId, authCheck } = useSelector((state) => state.user);
   const prodDetail =
     useSelector((state) => state.product.depositedProducts?.products) || [];
 
@@ -100,7 +100,7 @@ const ReservedList = () => {
     });
     dispatch(purchaseConfirm(data)).then((response) => {
       console.log(response);
-      if (response.payload === true) {
+      if (response.type === "approveReleaseSuccess") {
         return enqueueSnackbar("구매 확정되었습니다.", {
           variant: "success",
         });
@@ -117,6 +117,9 @@ const ReservedList = () => {
   };
 
   useEffect(() => {
+    if (!userId || !authCheck?.authCheckSuccess) {
+      navigate("/login");
+    }
     setIsLoading(true);
     handleGetEventsLog().then((value) =>
       dispatch(getDepositedProducts({ productIds: value, lastId: lastProdId }))
@@ -135,7 +138,11 @@ const ReservedList = () => {
           // }
           setIsLoading(false);
         })
-        .catch((err) => console.log(err))
+        .catch((err) => {
+          return err.response?.data.code == 401
+            ? navigate("/login")
+            : console.log(err);
+        })
     );
   }, [dispatch, address, lastProdId]);
 
