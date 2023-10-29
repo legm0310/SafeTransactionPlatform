@@ -41,11 +41,15 @@ class Product extends Sequelize.Model {
           type: Sequelize.STRING,
           allowNull: true,
         },
-        deposit_txid: {
+        deposit_tx: {
           type: Sequelize.STRING,
           allowNull: true,
         },
-        release_txid: {
+        approve_tx: {
+          type: Sequelize.STRING,
+          allowNull: true,
+        },
+        release_tx: {
           type: Sequelize.STRING,
           allowNull: true,
         },
