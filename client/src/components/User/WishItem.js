@@ -1,25 +1,18 @@
 import { Fragment } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteWishList } from "../../_actions/userAction";
-import { setLoadings } from "../../_actions/uiAction";
-import { purchaseDeposit } from "../../_actions/productAction";
-
-import { useSDK } from "@thirdweb-dev/react";
 
 import deleteBtn from "../../assets/icon-delete.svg";
 
 import classes from "../../styles/user/WishList.module.css";
-import { useSnackbar, closeSnackbar } from "notistack";
+import { useSnackbar } from "notistack";
 
 const WishItem = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const { enqueueSnackbar } = useSnackbar();
-  const sdk = useSDK();
 
-  const { userId, loadWishList } = useSelector((state) => state.user);
-  const { productDetail } = useSelector((state) => state.product);
+  const { loadWishList } = useSelector((state) => state.user);
 
   const onDeleteWishListHandler = (wishItemId) => {
     dispatch(deleteWishList(wishItemId)).then((response) => {
@@ -29,52 +22,6 @@ const WishItem = () => {
     });
   };
 
-  const handleClick = (func, comment) => {
-    enqueueSnackbar(comment, {
-      variant: "info",
-      persist: true, // 자동으로 스낵바를 닫지 않음
-      action: () => (
-        <div>
-          <button onClick={() => func()} className={classes.purchaseButton}>
-            구매하기
-          </button>
-          <button
-            onClick={() => {
-              closeSnackbar();
-            }}
-            className={classes.backButton}
-          >
-            뒤로가기
-          </button>
-        </div>
-      ),
-    });
-  };
-
-  const onClickPurchase = (productId) => {
-    closeSnackbar();
-    dispatch(setLoadings({ isLoading: true }));
-    const data = {
-      productId,
-      userId,
-      sdk,
-    };
-
-    dispatch(purchaseDeposit(data)).then((response) => {
-      console.log(response);
-      if (response.payload.updated) {
-        enqueueSnackbar("에스크로 결제가 진행됩니다", {
-          variant: "success",
-        });
-        dispatch(deleteWishList(productId));
-        navigate(`/user/${userId}`);
-      } else {
-        return enqueueSnackbar("구매 요청에 실패했습니다.", {
-          variant: "error",
-        });
-      }
-    });
-  };
   return (
     <Fragment>
       {loadWishList?.length === 0 ? (
@@ -86,12 +33,21 @@ const WishItem = () => {
         loadWishList.map((item) => {
           return (
             <section key={item.id} className={classes.wishList}>
-              {/* <div className={classes.wishListProductWrap}> */}
               <Link
                 to={`/products/${item.id}`}
                 className={classes.wishListProduct}
               >
                 <div className={classes.wishListProductImage}>
+                  {item.status === "RESERVED" && (
+                    <div className={classes.productStatus}>
+                      <h2>구매진행중</h2>
+                    </div>
+                  )}
+                  {item.status === "SOLD" && (
+                    <div className={classes.productStatus}>
+                      <h2>판매완료</h2>
+                    </div>
+                  )}
                   <img src={item?.image} alt="" />
                 </div>
 
@@ -111,7 +67,6 @@ const WishItem = () => {
                   onClick={() => onDeleteWishListHandler(item.id)}
                 />
               </div>
-              {/* </div> */}
             </section>
           );
         })
