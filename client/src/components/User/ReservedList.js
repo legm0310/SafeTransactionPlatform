@@ -166,79 +166,82 @@ const ReservedList = () => {
           <p>원하는 상품을 구매해보세요!</p>
         </div>
       ) : (
-        <div className={classes.reservedList}>
+        <div className={classes.reservedWrap}>
           {productsList.map((product) => {
             console.log(product);
             return (
-              // <div className={classes.test}>
-              <div key={product.id} className={classes.reservedProductWrap}>
-                <div className={classes.reservedProductImage}>
-                  <img src={product.image} alt="" />
-                </div>
+              <div className={classes.reservedList}>
+                <div key={product.id} className={classes.reservedProductWrap}>
+                  <div className={classes.reservedProductImage}>
+                    <img src={product.image} alt="" />
+                  </div>
 
-                <div className={classes.reservedProductInfo}>
-                  <p className={classes.productCategory}>category</p>
-                  <p className={classes.productName}>{product.title}</p>
-                  <p
-                    className={classes.productPrice}
-                  >{`${product.price} PDT`}</p>
-                </div>
-                {/* </div> */}
+                  <div className={classes.reservedProductInfo}>
+                    <p className={classes.productCategory}>
+                      {product.category}
+                    </p>
+                    <p className={classes.productName}>{product.title}</p>
+                    <p
+                      className={classes.productPrice}
+                    >{`${product.price} PDT`}</p>
+                  </div>
 
-                {isContractLoading ? (
-                  <div className={classes.oval}>
-                    <Oval
-                      height={60}
-                      width={60}
-                      color="#1ecfba"
-                      wrapperStyle={{}}
-                      wrapperClass=""
-                      visible={true}
-                      ariaLabel="oval-loading"
-                      secondaryColor="#1ecfba"
-                      strokeWidth={4}
-                      strokeWidthSecondary={4}
-                      // className={classes["oval"]}
+                  {isContractLoading ? (
+                    <div className={classes.oval}>
+                      <Oval
+                        height={60}
+                        width={60}
+                        color="#1ecfba"
+                        wrapperStyle={{}}
+                        wrapperClass=""
+                        visible={true}
+                        ariaLabel="oval-loading"
+                        secondaryColor="#1ecfba"
+                        strokeWidth={4}
+                        strokeWidthSecondary={4}
+                        // className={classes["oval"]}
+                      />
+                    </div>
+                  ) : (
+                    <div className={classes.reservedProductPurchase}>
+                      {!product.approve_tx ? (
+                        <button
+                          onClick={(e) => onPurchaseConfirm(product.id)}
+                          className={classes.btnSubmit}
+                        >
+                          구매확정
+                        </button>
+                      ) : (
+                        <button
+                          onClick={(e) => onPurchaseConfirm(product.id)}
+                          className={classes.completeApprove}
+                        >
+                          구매확정완료
+                        </button>
+                      )}
+
+                      <button
+                        onClick={handleOpenDepositReceipt}
+                        className={classes.receiptbtn}
+                      >
+                        구매진행정보
+                      </button>
+                    </div>
+                  )}
+
+                  <div className={classes.reservedProductRemove}>
+                    <img
+                      src={deleteBtn}
+                      // onClick={() => onDeleteWishListHandler(product.id)}
                     />
                   </div>
-                ) : (
-                  <div className={classes.reservedProductPurchase}>
-                    {!product.approve_tx ? (
-                      <button
-                        onClick={(e) => onPurchaseConfirm(product.id)}
-                        className={classes.btnSubmit}
-                      >
-                        구매확정
-                      </button>
-                    ) : (
-                      <button
-                        onClick={(e) => onPurchaseConfirm(product.id)}
-                        className={classes.completeApprove}
-                      >
-                        구매확정완료
-                      </button>
-                    )}
 
-                    <button
-                      onClick={handleOpenDepositReceipt}
-                      className={classes.receiptbtn}
-                    >
-                      구매진행정보
-                    </button>
-                  </div>
-                )}
-
-                <div className={classes.reservedProductRemove}>
-                  <img
-                    src={deleteBtn}
-                    // onClick={() => onDeleteWishListHandler(product.id)}
+                  <DepositReceipt
+                    open={openDepositReceipt}
+                    onClose={handleCloseDepositReceipt}
+                    txHash={product.deposit_tx}
                   />
                 </div>
-                <DepositReceipt
-                  open={openDepositReceipt}
-                  onClose={handleCloseDepositReceipt}
-                  txHash={product.deposit_tx}
-                />
               </div>
             );
           })}
