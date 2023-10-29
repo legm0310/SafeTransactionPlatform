@@ -96,9 +96,7 @@ const WishItem = () => {
                 </div>
 
                 <div className={classes.wishListProductInfo}>
-                  <p className={classes.productCategory}>
-                    {productDetail?.category}
-                  </p>
+                  <p className={classes.productCategory}>{item?.category}</p>
                   <p className={classes.productName}>{item?.title}</p>
                   <p>
                     {item?.price
