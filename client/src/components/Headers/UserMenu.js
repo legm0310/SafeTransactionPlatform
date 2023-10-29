@@ -129,7 +129,7 @@ const UserSection = (props) => {
       <MenuItem
         className={classes.logout}
         onClick={onLogoutHandler}
-        sx={{ borderTop: "2px solid gray", paddingBottom: 0 }}
+        sx={{ borderTop: "1px solid gray", paddingBottom: 0 }}
       >
         <Typography sx={{ mx: "auto", fontFamily: "NanumSquareNeo-Variable" }}>
           로그아웃

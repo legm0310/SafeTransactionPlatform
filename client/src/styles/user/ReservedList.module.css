@@ -15,12 +15,10 @@
 
 .reservedList {
   position: relative;
-  height: 150px;
-  border-radius: 5px;
-  border: 1px solid #c4c4c4;
   margin-top: 20px;
   display: flex;
   align-items: center;
+  margin-right: 10px;
   width: 590px;
 }
 
@@ -31,8 +29,8 @@
 
 .reservedProductWrap {
   display: flex;
-  align-items: center;
-  width: 100%;
+  border-radius: 5px;
+  border: 1px solid #c4c4c4;
 }
 
 .reservedProductImage {
@@ -50,6 +48,7 @@
 .reservedProductInfo {
   display: flex;
   flex-direction: column;
+  justify-content: center;
   height: 100%;
   width: 220px;
   margin-left: 20px;
@@ -62,12 +61,15 @@
 }
 
 .reservedProductRemove {
+  cursor: pointer;
+}
+
+.reservedProductRemove button {
   position: absolute;
-  top: 15px;
-  right: 15px;
+  bottom: 50px;
+  right: 30px;
   width: 20px;
   height: 15px;
-  cursor: pointer;
 }
 
 /*  */
@@ -88,7 +90,6 @@
   flex-direction: column;
   justify-content: space-evenly;
   height: 100%;
-  position: absolute;
   right: 40px;
 }
 
@@ -99,6 +100,27 @@
   border-radius: 5px;
   border: none;
   letter-spacing: 1px;
+}
+
+.completeApprove {
+  pointer-events: none;
+  width: 120px;
+  height: 35px;
+  border-radius: 5px;
+  border: none;
+  letter-spacing: 1px;
+  background: #333333;
+}
+
+.propagateLoader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 100px auto 100px auto;
+}
+
+.oval {
+  margin: 0 auto;
 }
 
 @media screen and (max-width: 1200px) {
@@ -117,12 +139,9 @@
   }
 
   .reservedProductPurchase {
-    flex-direction: row;
     justify-content: space-around;
     width: 100%;
-    height: auto;
     right: 0;
-    top: 155px;
   }
 
   .btnSubmit,
@@ -170,6 +189,7 @@
 
   .reservedList {
     width: 100%;
+    flex-direction: column;
   }
 
   .reservedProductInfo {

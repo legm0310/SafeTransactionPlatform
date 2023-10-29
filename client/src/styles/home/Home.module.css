@@ -83,16 +83,20 @@
   color: rgb(123, 123, 123);
 }
 
-.IntroButton {
+.introButton {
   margin-top: 50px;
 }
 
-.IntroButton button {
+.introButton button {
   width: 200px;
   height: 60px;
   border-radius: 4px;
   font-size: 1.1rem;
   font-weight: 700;
+}
+
+.introButton button:hover {
+  background-color: #16b7ac;
 }
 
 .mainImgWrap {
@@ -107,9 +111,8 @@
 }
 
 /* 두번째 섹션 */
-.ImgslideWrap {
+.imgslideWrap {
   width: 1200px;
-
   border-radius: 12px;
   margin-top: 50px;
 }
@@ -147,7 +150,7 @@
   }
 
   /* 두 번째 섹션 */
-  .ImgslideWrap {
+  .imgslideWrap {
     width: 900px;
     aspect-ratio: 3 / 1;
     margin-top: 50px;
@@ -162,7 +165,7 @@
 /* 반응형 900 */
 @media (max-width: 900px) {
   /* 두 번째 섹션 */
-  .ImgslideWrap {
+  .imgslideWrap {
     width: 720px;
   }
 
@@ -207,18 +210,18 @@
     line-height: 2.2rem;
   }
 
-  .IntroButton {
+  .introButton {
     margin-top: 10px;
   }
 
-  .IntroButton button {
+  .introButton button {
     padding: 3px;
     width: 160px;
     height: 32px;
     font-size: 1rem;
   }
 
-  .ImgslideWrap {
+  .imgslideWrap {
     width: 100%;
     aspect-ratio: 3 / 1;
     margin: 10px 0;

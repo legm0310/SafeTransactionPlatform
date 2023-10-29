@@ -22,7 +22,7 @@
   cursor: pointer;
   display: flex;
   justify-content: space-between;
-  padding: 0.75rem 1.5rem;
+  padding: 0.75rem 1rem;
   width: 100%;
 }
 .side-navigation-panel
@@ -72,7 +72,7 @@
   .side-navigation-panel-select-option
   svg {
   display: block;
-  vertical-align: middle;
+  /* vertical-align: middle; */
 }
 .side-navigation-panel
   .side-navigation-panel-select

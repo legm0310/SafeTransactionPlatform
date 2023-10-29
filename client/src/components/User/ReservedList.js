@@ -150,7 +150,9 @@ const ReservedList = () => {
           <p>지갑을 연결해주세요!</p>
         </div>
       ) : isLoading ? (
-        <PropagateLoader color="#1ECFBA" />
+        <div className={classes.propagateLoader}>
+          <PropagateLoader color="#1ECFBA" />
+        </div>
       ) : productsList.length === 0 ? (
         <div className={classes.notReservedList}>
           <h2>구매진행중인 상품이 없습니다.</h2>
@@ -161,6 +163,7 @@ const ReservedList = () => {
           {productsList.map((product) => {
             console.log(product);
             return (
+              // <div className={classes.test}>
               <div key={product.id} className={classes.reservedProductWrap}>
                 <div className={classes.reservedProductImage}>
                   <img src={product.image} alt="" />
@@ -173,28 +176,42 @@ const ReservedList = () => {
                     className={classes.productPrice}
                   >{`${product.price} PDT`}</p>
                 </div>
+                {/* </div> */}
 
                 {isContractLoading ? (
-                  <Oval
-                    height={60}
-                    width={60}
-                    color="#1ecfba"
-                    wrapperStyle={{}}
-                    wrapperClass=""
-                    visible={true}
-                    ariaLabel="oval-loading"
-                    secondaryColor="#1ecfba"
-                    strokeWidth={4}
-                    strokeWidthSecondary={4}
-                  />
+                  <div className={classes.oval}>
+                    <Oval
+                      height={60}
+                      width={60}
+                      color="#1ecfba"
+                      wrapperStyle={{}}
+                      wrapperClass=""
+                      visible={true}
+                      ariaLabel="oval-loading"
+                      secondaryColor="#1ecfba"
+                      strokeWidth={4}
+                      strokeWidthSecondary={4}
+                      // className={classes["oval"]}
+                    />
+                  </div>
                 ) : (
                   <div className={classes.reservedProductPurchase}>
-                    <button
-                      onClick={(e) => onPurchaseConfirm(product.id)}
-                      className={classes.btnSubmit}
-                    >
-                      구매확정
-                    </button>
+                    {!product.approve_tx ? (
+                      <button
+                        onClick={(e) => onPurchaseConfirm(product.id)}
+                        className={classes.btnSubmit}
+                      >
+                        구매확정
+                      </button>
+                    ) : (
+                      <button
+                        onClick={(e) => onPurchaseConfirm(product.id)}
+                        className={classes.completeApprove}
+                      >
+                        구매확정완료
+                      </button>
+                    )}
+
                     <button
                       onClick={handleOpenDepositReceipt}
                       className={classes.receiptbtn}
