@@ -53,7 +53,9 @@ export const callPurchaseConfirm = async (sdk, escrowId) => {
 export const callOnRelease = async (sdk, escrowId) => {
   try {
     const contract = await contractGetterSDK(sdk);
-    const data = await contract.call("onRelease", [escrowId], {});
+    const data = await contract.call("onRelease", [escrowId], {
+      gasLimit: 1000000,
+    });
     console.log(data);
     return data;
   } catch (error) {
