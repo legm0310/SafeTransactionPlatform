@@ -17,6 +17,7 @@ module.exports = (app) => {
   router.post("/deposited", isAuth, productController.getDepositedProducts);
 
   // 제품 리스트(검색 등), 최근상품 가져오기
+  router.get("/batch", productController.getBatchProducts);
   router.get("/", productController.getProducts);
   router.get("/recent", productController.getRecentProducts);
 

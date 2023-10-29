@@ -55,6 +55,17 @@ module.exports = {
     });
   }),
 
+  getBatchProducts: catchAsync(async (req, res) => {
+    const prodServiceInstance = await Container.get("productService");
+    const params = JSON.parse(req.query.productIds);
+    const batchProducts = await prodServiceInstance.getBatchProducts(params);
+    res.status(200).json({
+      getBatchProductsSuccess: true,
+      products: batchProducts,
+      count: batchProducts.count,
+    });
+  }),
+
   getProduct: catchAsync(async (req, res) => {
     const prodServiceInstance = await Container.get("productService");
     const productId = req.params.id;
@@ -96,7 +107,7 @@ module.exports = {
       updateData
     );
     res.status(200).json({
-      updated: updatedProd,
+      updated: { updatedProdId: req.params.id, depositTx: req.body.txHash },
     });
   }),
 
@@ -110,7 +121,7 @@ module.exports = {
       updateData
     );
     res.status(200).json({
-      updated: updatedProd,
+      updated: { updatedProdId: req.params.id, approveTx: req.body.txHash },
     });
   }),
 
@@ -125,7 +136,10 @@ module.exports = {
       updateData
     );
     res.status(200).json({
-      updated: updatedProd,
+      updated: {
+        updatedProdId: req.params.id,
+        releaseTx: req.body.txHash,
+      },
     });
   }),
 };

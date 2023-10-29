@@ -1,6 +1,8 @@
 const { Op } = require("sequelize");
 
 const genCondition = (params) => {
+  console.log(2, params);
+  // if (Object.prototype.toString.call(params) === "[object Object]") {
   for (const key in params) {
     if (params.hasOwnProperty(key) && Array.isArray(params[key])) {
       const where = {
@@ -10,6 +12,16 @@ const genCondition = (params) => {
       };
       return { where };
     }
+  }
+  // }
+  if (Array.isArray(params)) {
+    console.log(1, params);
+    const where = {
+      id: {
+        [Op.in]: params,
+      },
+    };
+    return { where };
   }
   const { lastId, search, status, page, sellerId, category } = params;
   const limit = 12;

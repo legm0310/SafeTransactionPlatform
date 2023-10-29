@@ -76,7 +76,19 @@ class ProductService {
         category: { [Op.like]: `${params.category}` },
       },
     });
+
     return extractedList;
+  }
+
+  async getBatchProducts(params) {
+    const prodIds = params;
+    const products = await this.Product.findAll({
+      where: {
+        id: { [Op.in]: prodIds },
+      },
+    });
+    if (!products) throw new InternalServerError("Internal Server Error");
+    return products;
   }
 
   async getProductById(id) {
