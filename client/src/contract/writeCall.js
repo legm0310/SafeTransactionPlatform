@@ -18,12 +18,12 @@ export const callAddProduct = async (sdk, prodData) => {
   }
 };
 
-export const callPurchaseDeposit = async (sdk, productId, buyerId) => {
+export const callPurchaseDeposit = async (sdk, prodTuple, buyerId) => {
   try {
     const contract = await contractGetterSDK(sdk);
     const data = await contract.call(
       "purchaseAmountDeposit",
-      [productId, buyerId],
+      [prodTuple, buyerId],
       {
         gasLimit: 1000000,
       }
@@ -36,12 +36,24 @@ export const callPurchaseDeposit = async (sdk, productId, buyerId) => {
   }
 };
 
-export const callRelease = async (sdk, productId) => {
+export const callPurchaseConfirm = async (sdk, escrowId) => {
   try {
     const contract = await contractGetterSDK(sdk);
-    const data = await contract.call("purchaseConfirmation", [productId], {
+    const data = await contract.call("purchaseConfirmation", [escrowId], {
       gasLimit: 1000000,
     });
+    console.log(data);
+    return data;
+  } catch (error) {
+    console.log(error);
+    return error;
+  }
+};
+
+export const callOnRelease = async (sdk, escrowId) => {
+  try {
+    const contract = await contractGetterSDK(sdk);
+    const data = await contract.call("onRelease", [escrowId], {});
     console.log(data);
     return data;
   } catch (error) {
