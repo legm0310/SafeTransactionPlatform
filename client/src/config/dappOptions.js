@@ -42,7 +42,7 @@ const supportedWallets = [
     })
   ),
 
-  metamaskConfig,
+  // metamaskConfig,
   // coinbaseConfig,
 ];
 
