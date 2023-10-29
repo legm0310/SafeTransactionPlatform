@@ -8,6 +8,7 @@ import img2 from "../../assets/onboard/pandaImg6.png";
 import img3 from "../../assets/onboard/pandaImgChat.png";
 import img4 from "../../assets/onboard/pandaImg3.png";
 import img5 from "../../assets/onboard/pandaImg4.png";
+import img6 from "../../assets/onboard/pandaImg7.png";
 
 import Slider from "react-slick";
 import styled from "styled-components";
@@ -184,11 +185,7 @@ const Banner = (props) => {
                   <div className={classes.thirdSlide}>
                     <div className={classes.secondContent}>
                       <div className={classes.secondImage}>
-                        <img
-                          src={mainImg}
-                          alt=""
-                          className={classes.slideImg1}
-                        />
+                        <img src={img6} alt="" className={classes.slideImg1} />
                       </div>
 
                       <div className={classes.secondTitle}>
