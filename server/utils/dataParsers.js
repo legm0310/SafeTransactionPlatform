@@ -1,13 +1,16 @@
 const { Op } = require("sequelize");
 
 const genCondition = (params) => {
-  if (Array.isArray(params)) {
-    const where = {
-      id: {
-        [Op.in]: params,
-      },
-    };
-    return { where };
+  for (const key in params) {
+    if (params.hasOwnProperty(key) && Array.isArray(params[key])) {
+      const where = {
+        id: {
+          [Op.in]: params[key],
+        },
+      };
+      console.log(where);
+      return { where };
+    }
   }
   const { lastId, search, status, page, sellerId, category } = params;
   const limit = 12;
@@ -41,6 +44,9 @@ const generateGetProductsQuery = (params) => {
       "category",
       "images",
       "created_at",
+      "deposit_tx",
+      "approve_tx",
+      "release_tx",
     ],
   };
   return query;
