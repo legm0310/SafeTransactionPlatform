@@ -78,12 +78,10 @@ const SaleList = (props) => {
     dispatch(onRelease(data)).then((res) => {
       console.log(res);
       if (res.payload.updated) {
-        return enqueueSnackbar(
-          "토큰 전송에 성공했습니다. 지갑을 확인해주세요.",
-          {
-            variant: "success",
-          }
-        );
+        enqueueSnackbar("토큰 전송에 성공했습니다. 지갑을 확인해주세요.", {
+          variant: "success",
+        });
+        return getProducts();
       } else {
         return enqueueSnackbar("토큰 전송에 실패했습니다.", {
           variant: "error",
@@ -131,7 +129,12 @@ const SaleList = (props) => {
 
   return (
     <Fragment>
-      {(sellingProducts || []).length == 0 ? (
+      {!address ? (
+        <div className={classes.notReservedList}>
+          <h2>연결된 지갑이 없습니다.</h2>
+          <p>지갑을 연결해주세요!</p>
+        </div>
+      ) : (sellingProducts || []).length == 0 ? (
         <div className={classes.notSaleList}>
           <h2>판매중인 상품이 없습니다.</h2>
           <p>의미있는 상품을 판매해보세요!</p>
@@ -177,11 +180,14 @@ const SaleList = (props) => {
               ) : null}
               {props.id == userId &&
               address == product.seller_wallet &&
-              product.approve_tx ? (
+              product.approve_tx &&
+              !product.release_tx ? (
                 <button onClick={() => onReleaseClick(product.id)}>
                   토큰 발급
                 </button>
-              ) : null}
+              ) : (
+                <div>발급 완료</div>
+              )}
             </div>
           </div>
         ))
