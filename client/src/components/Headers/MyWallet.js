@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { ErrorBoundary } from "react-error-boundary";
 import PropTypes from "prop-types";
 import Exchange from "./Exchange";
 import classes from "../../styles/headers/MyWallet.module.css";
@@ -12,6 +13,7 @@ import {
   useNetworkMismatch,
   useSDK,
   useTokenBalance,
+  useSwitchAccount,
 } from "@thirdweb-dev/react";
 import { Sepolia } from "@thirdweb-dev/chains";
 
@@ -27,6 +29,7 @@ import {
   Modal,
 } from "@mui/material";
 import { Close as CloseIcon } from "@mui/icons-material";
+import pandaImg from "../../assets/platformImage.png";
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   "& .MuiDialogContent-root": {
@@ -80,6 +83,24 @@ export default function MyWallet(props) {
   const address = useAddress();
   const isMismatched = useNetworkMismatch();
   const switchNetwork = useSwitchChain();
+  const logError = (error, info) => {
+    console.log(error, info);
+  };
+  const supportedTokens = {
+    [Sepolia.chainId]: [
+      {
+        address: process.env.REACT_APP_CONTRACT_ADDRESS,
+        name: "Panda",
+        symbol: "PDT",
+        icon: pandaImg,
+      },
+    ],
+  };
+
+  const displayToken = {
+    [Sepolia.chainId]: process.env.REACT_APP_CONTRACT_ADDRESS,
+  };
+
   const {
     data: tokenData,
     isLoading: balanceLoading,
@@ -135,12 +156,8 @@ export default function MyWallet(props) {
           </div>
         </DialogActions>
         <DialogContent>
-          <Typography gutterBottom>
-            {/* Praesent commodo cursus magna, vel scelerisque nisl consectetur et. */}
-          </Typography>
-          <Typography gutterBottom>
-            {/* Aenean lacinia bibendum nulla sed consectetur. Praesent commodo */}
-          </Typography>
+          <Typography gutterBottom></Typography>
+          <Typography gutterBottom></Typography>
 
           {address && isMismatched ? (
             <div>
@@ -163,16 +180,26 @@ export default function MyWallet(props) {
               >
                 <p>토큰 발급받기</p>
               </Button>
-              <ConnectWallet
-                type="submit"
-                theme="black"
-                btnTitle="지갑 연결"
-                dropdownPosition={{
-                  align: "center",
-                  side: "bottom",
-                }}
-                className={classes["connectWallet"]}
-              />
+              <ErrorBoundary onError={(error) => console.log(error)}>
+                <ConnectWallet
+                  type="submit"
+                  theme="light"
+                  btnTitle="지갑 연결"
+                  dropdownPosition={{
+                    align: "center",
+                    side: "bottom",
+                  }}
+                  className={classes["connectWallet"]}
+                  modalTitleIconUrl={""}
+                  welcomeScreen={{
+                    title: "연결할 지갑 선택하기",
+                    subtitle: "지갑 연결 이후 서비스를 이용하실 수 있습니다.",
+                  }}
+                  hideTestnetFaucet={false}
+                  supportedTokens={supportedTokens}
+                  displayBalanceToken={displayToken}
+                />
+              </ErrorBoundary>
               <Exchange
                 open={showExchange}
                 handleCloseExchange={handleCloseExchange}
