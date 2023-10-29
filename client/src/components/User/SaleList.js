@@ -40,6 +40,18 @@ const SaleList = (props) => {
   };
 
   const onReleaseClick = (productId) => {
+    if (!address) {
+      return enqueueSnackbar("지갑을 연결해주세요.", {
+        variant: "error",
+      });
+    }
+    const seller = sellingProducts.find((v) => v.id == productId);
+    if (address != seller.seller_wallet) {
+      return enqueueSnackbar("지갑을 확인해주세요.", {
+        variant: "error",
+      });
+    }
+
     enqueueSnackbar("토큰을 수령하시겠습니까?", {
       variant: "info",
       persist: true, // 자동으로 스낵바를 닫지 않음
@@ -47,7 +59,7 @@ const SaleList = (props) => {
         <div>
           <button
             onClick={() => {
-              onReleaseHandler(productId);
+              onReleaseHandler(productId, key);
               closeSnackbar(key);
             }}
             className={classes.deleteButton}
@@ -67,7 +79,7 @@ const SaleList = (props) => {
     });
   };
 
-  const onReleaseHandler = (productId) => {
+  const onReleaseHandler = (productId, key) => {
     const data = {
       sdk: sdk,
       productId: productId,
@@ -129,12 +141,7 @@ const SaleList = (props) => {
 
   return (
     <Fragment>
-      {!address ? (
-        <div className={classes.notReservedList}>
-          <h2>연결된 지갑이 없습니다.</h2>
-          <p>지갑을 연결해주세요!</p>
-        </div>
-      ) : (sellingProducts || []).length == 0 ? (
+      {(sellingProducts || []).length == 0 ? (
         <div className={classes.notSaleList}>
           <h2>판매중인 상품이 없습니다.</h2>
           <p>의미있는 상품을 판매해보세요!</p>
@@ -178,16 +185,17 @@ const SaleList = (props) => {
                   />
                 </div>
               ) : null}
-              {props.id == userId &&
-              address == product.seller_wallet &&
-              product.approve_tx &&
-              !product.release_tx ? (
+
+              {props.id != userId ? null : !product.approve_tx &&
+                !product.release_tx ? (
+                <div>판매중</div>
+              ) : product.approve_tx && !product.release_tx ? (
                 <button onClick={() => onReleaseClick(product.id)}>
                   토큰 발급
                 </button>
-              ) : (
+              ) : product.approve_tx && product.release_tx ? (
                 <div>발급 완료</div>
-              )}
+              ) : null}
             </div>
           </div>
         ))
