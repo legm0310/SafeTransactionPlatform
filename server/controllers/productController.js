@@ -10,13 +10,7 @@ module.exports = {
         ...req.body,
         seller_wallet: req.body.address,
       },
-      hashDataArr: [
-        req.body.title,
-        req.body.price,
-        req.body.category,
-        req.body.seller_id,
-        req.body.address,
-      ],
+      hashDataArr: [+req.body.price, +req.body.seller_id, req.body.address],
     };
     const product = await prodServiceInstance.addProduct(data);
     res.status(201).json({
@@ -38,9 +32,11 @@ module.exports = {
 
   getDepositedProducts: catchAsync(async (req, res) => {
     const prodServiceInstance = await Container.get("productService");
-    const productIds = req.body.productIds;
-    console.log(productIds);
-    const products = await prodServiceInstance.getProducts(productIds);
+    const data = {
+      lastId: req.query?.lastId,
+      productIds: req.body,
+    };
+    const products = await prodServiceInstance.getProducts(data);
     res.status(200).json({
       getPurchasedProductsSuccess: true,
       products: products,
@@ -49,6 +45,7 @@ module.exports = {
 
   getRecentProducts: catchAsync(async (req, res) => {
     const prodServiceInstance = await Container.get("productService");
+    console.log(req.query);
     const params = req.query;
     const recentProducts = await prodServiceInstance.getProducts(params);
     res.status(200).json({
@@ -90,10 +87,27 @@ module.exports = {
 
   deposit: catchAsync(async (req, res) => {
     const prodServiceInstance = await Container.get("productService");
-    const productId = req.params.id;
+    const updateData = {
+      status: "RESERVED",
+      productId: req.params.id,
+      txHash: req.body.txHash,
+    };
     const updatedProd = await prodServiceInstance.updateProductStatus(
-      "RESERVED",
-      productId
+      updateData
+    );
+    res.status(200).json({
+      updated: updatedProd,
+    });
+  }),
+
+  approve: catchAsync(async (req, res) => {
+    const prodServiceInstance = await Container.get("productService");
+    const updateData = {
+      productId: req.params.id,
+      txHash: req.body.txHash,
+    };
+    const updatedProd = await prodServiceInstance.updateProductStatus(
+      updateData
     );
     res.status(200).json({
       updated: updatedProd,
@@ -102,10 +116,13 @@ module.exports = {
 
   release: catchAsync(async (req, res) => {
     const prodServiceInstance = await Container.get("productService");
-    const productId = req.params.id;
+    const updateData = {
+      status: "SOLD",
+      productId: req.params.id,
+      txHash: req.body.txHash,
+    };
     const updatedProd = await prodServiceInstance.updateProductStatus(
-      "SOLD",
-      productId
+      updateData
     );
     res.status(200).json({
       updated: updatedProd,

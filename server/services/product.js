@@ -1,5 +1,6 @@
 const { Container } = require("typedi");
 const crypto = require("crypto");
+const { ethers } = require("ethers");
 const { Op } = require("sequelize");
 const { sequelize } = require("../models");
 const {
@@ -16,8 +17,9 @@ class ProductService {
   }
 
   //해시로 제품 데이터 무결성 검사
-  genProductHash(plainText) {
-    const hash = crypto.createHash("sha256").update(plainText).digest("hex");
+  genProductHash(input) {
+    const type = ["uint64", "uint256", "uint32", "address"];
+    const hash = ethers.solidityPackedKeccak256(type, input);
     if (!hash) throw new BadRequestError("Failed to generate hash");
     return hash;
   }
@@ -30,7 +32,7 @@ class ProductService {
         transaction: txn,
       });
 
-      const plain = [newProd.id, ...hashDataArr].join(":");
+      const plain = [newProd.id, ...hashDataArr];
       const hash = this.genProductHash(plain);
 
       await this.Product.update(
@@ -97,10 +99,16 @@ class ProductService {
     return productData;
   }
 
-  async updateProductStatus(state, id) {
+  async updateProductStatus(data) {
+    const { status, productId, txHash } = data;
     const updated = await this.Product.update(
-      { status: state },
-      { where: { id: id } }
+      {
+        status: status,
+        deposit_tx: status == "RESERVED" ? txHash : null,
+        approve_tx: !status ? txHash : null,
+        release_tx: status == "SOLD" ? txHash : null,
+      },
+      { where: { id: productId } }
     );
     if (!updated) {
       throw new InternalServerError(updated);
