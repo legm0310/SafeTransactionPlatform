@@ -57,10 +57,7 @@ const ReservedList = () => {
         persist: true, // 자동으로 스낵바를 닫지 않음
         action: (key) => (
           <div>
-            <button
-              onClick={() => func(key)}
-              className={classes.purchaseButton}
-            >
+            <button onClick={() => func(key)} className={classes.confirmButton}>
               구매확정
             </button>
             <button
