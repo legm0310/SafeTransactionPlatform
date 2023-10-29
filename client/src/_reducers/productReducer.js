@@ -11,6 +11,7 @@ import {
   ADD_PRODUCT,
   DELETE_PRODUCT,
   DEPOSITED_PRODUCTS,
+  GET_BATCH_PRODUCTS,
   RECENT_PRODUCTS,
   GET_PRODUCTS,
   GET_PRODUCT,
@@ -60,6 +61,9 @@ export default function (state = initialState, action) {
       break;
     case RECENT_PRODUCTS:
       return { ...state, recentProductsSuccess: action.payload };
+      break;
+    case GET_BATCH_PRODUCTS:
+      return { ...state, batchProductSuccess: action.payload };
       break;
     case GET_PRODUCTS:
       return { ...state, searchProducts: action.payload };

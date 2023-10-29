@@ -29,6 +29,7 @@ export const ADD_PRODUCT = "addProduct";
 export const DELETE_PRODUCT = "deleteProduct";
 export const DEPOSITED_PRODUCTS = "depositedProducts";
 export const GET_PRODUCTS = "getProducts";
+export const GET_BATCH_PRODUCTS = "getBatchProducts";
 export const RECENT_PRODUCTS = "recentProducts";
 export const GET_PRODUCT = "getProduct";
 export const DEPOSIT = "deposit";

@@ -3,6 +3,7 @@ import {
   ADD_PRODUCT,
   DELETE_PRODUCT,
   RECENT_PRODUCTS,
+  GET_BATCH_PRODUCTS,
   GET_PRODUCTS,
   GET_PRODUCT,
   DEPOSIT,
@@ -119,20 +120,68 @@ export function getSearchRecentProducts(dataToSubmit) {
   };
 }
 
+// export function getProducts(dataToSubmit) {
+//   const params = { ...dataToSubmit };
+//   console.log(params);
+//   const request = baseRequest({ params })
+//     .get(`/api/products`)
+//     .then((response) => response.data)
+//     .catch((err) => {
+//       console.log(err);
+//       return err.response.data;
+//     });
+
+//   return {
+//     type: GET_PRODUCTS,
+//     payload: request,
+//   };
+// }
 export function getProducts(dataToSubmit) {
   const params = { ...dataToSubmit };
-  console.log(params);
-  const request = baseRequest({ params })
-    .get(`/api/products`)
-    .then((response) => response.data)
-    .catch((err) => {
-      console.log(err);
-      return err.response.data;
-    });
+  return async (dispatch) => {
+    console.log(params);
+    await dispatch(setLoadings({ isLoading: true }));
+    try {
+      const request = await baseRequest({ params }).get(`/api/products`);
 
-  return {
-    type: GET_PRODUCTS,
-    payload: request,
+      return dispatch({
+        type: GET_PRODUCTS,
+        payload: request,
+      });
+    } catch (err) {
+      console.log(err);
+      return dispatch({
+        type: GET_PRODUCTS,
+        payload: err.response?.data || err,
+      });
+    } finally {
+      dispatch(setLoadings({ isLoading: false }));
+    }
+  };
+}
+
+export function getBatchProducts(dataToSubmit) {
+  const { productIds } = dataToSubmit;
+  const params = {
+    productIds: JSON.stringify(productIds),
+  };
+  return async (dispatch) => {
+    await dispatch(setLoadings({ isLoading: true }));
+    try {
+      const res = await baseRequest({ params }).get(`/api/products/batch`);
+      return dispatch({
+        type: GET_BATCH_PRODUCTS,
+        payload: res.data,
+      });
+    } catch (err) {
+      console.log(err);
+      return dispatch({
+        type: GET_BATCH_PRODUCTS,
+        payload: err.response.data,
+      });
+    } finally {
+      dispatch(setLoadings({ isLoading: false }));
+    }
   };
 }
 

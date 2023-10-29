@@ -1,14 +1,25 @@
-import { Fragment, useState } from "react";
+import { Fragment, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import ReleaseReciept from "../Receipt/ReleaseReceipt";
+import { useSDK, useContract, useAddress } from "@thirdweb-dev/react";
+import { getCompleteEvents } from "../../contract/getEvents";
+import { getBatchProducts } from "../../_actions/productAction";
 
 import classes from "../../styles/user/PurchasedList.module.css";
+import { PropagateLoader } from "react-spinners";
+
+const contractAddress = process.env.REACT_APP_CONTRACT_ADDRESS;
 
 const PurchasedList = () => {
+  const sdk = useSDK();
+  const { contract } = useContract(contractAddress);
+  const address = useAddress();
+  const dispatch = useDispatch();
   const { isContractLoading } = useSelector((state) => state.ui);
+  const [isLoading, setIsLoading] = useState(false);
+  const [productList, setProductList] = useState([]);
   const [openReleaseReciept, setOpenReleaseReciept] = useState(false);
-
   const handleOpenReleaseReceipt = () => {
     setOpenReleaseReciept(true);
   };
@@ -17,6 +28,21 @@ const PurchasedList = () => {
     setOpenReleaseReciept(false);
   };
 
+  const handleGetEventsLog = async () => {
+    const logs = await getCompleteEvents(sdk, "CompleteTransaction", address);
+    const prodIdLog = logs?.map((event) => parseInt(event.data?.escrowId));
+    return prodIdLog;
+  };
+
+  const fetchCompleteProducts = async () => {
+    const productIds = await handleGetEventsLog();
+    const products = await dispatch(getBatchProducts({ productIds }));
+    setProductList([...products?.payload?.products] || []);
+    console.log(products);
+  };
+  useEffect(() => {
+    fetchCompleteProducts();
+  }, [dispatch, address]);
   return (
     <Fragment>
       {/* <div className={classes.notPurchasedList}>
@@ -47,25 +73,27 @@ const PurchasedList = () => {
               </div>
             </div>
           ))} */}
-        <div className={classes.purchasedProductWrap}>
-          <div className={classes.purchasedProductImage}>
-            <img src="" alt="" />
-          </div>
-          <div className={classes.purchasedProductInfo}>
-            <p className={classes.productCategory}>category</p>
-            <p className={classes.productName}>상품이름</p>
-            <p className={classes.productPrice}>1000PDT</p>
-          </div>
+        {productList.map((product) => (
+          <div className={classes.purchasedProductWrap}>
+            <div className={classes.purchasedProductImage}>
+              <img src="" alt="" />
+            </div>
+            <div className={classes.purchasedProductInfo}>
+              <p className={classes.productCategory}>category</p>
+              <p className={classes.productName}>{product.title}</p>
+              <p className={classes.productPrice}>{product.price}PDT</p>
+            </div>
 
-          <div className={classes.purchasedProductReceipt}>
-            <button
-              onClick={handleOpenReleaseReceipt}
-              className={classes.btnSubmit}
-            >
-              거래내역
-            </button>
+            <div className={classes.purchasedProductReceipt}>
+              <button
+                onClick={handleOpenReleaseReceipt}
+                className={classes.btnSubmit}
+              >
+                거래내역
+              </button>
+            </div>
           </div>
-        </div>
+        ))}
       </div>
       <div className={classes.purchasedList}>
         {/* {prodDetail &&
