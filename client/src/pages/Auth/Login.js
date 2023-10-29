@@ -24,6 +24,10 @@ const Login = (props) => {
   const [passwordError, setPasswordError] = useState("");
   // const [showAlert, setShowAlert] = useState(false);
 
+  const handleLoginClick = () => {
+    enqueueSnackbar("현재 지원하지 않는 기능입니다.");
+  };
+
   const onEmailHandler = (event) => {
     // 이메일 유효성 체크
     const emailPattern = /^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/;
@@ -170,12 +174,21 @@ const Login = (props) => {
               <span className={classes.after}></span>
             </div>
             <div className={classes.snsIconWrap}>
-              <a href="1" className={classes.snsIcon}>
+              <Link
+                to=""
+                className={classes.snsIcon}
+                onClick={handleLoginClick}
+              >
                 <img src={googleIcon} alt="" />
-              </a>
-              <a href="1" className={classes.snsIcon}>
+              </Link>
+
+              <Link
+                to=""
+                className={classes.snsIcon}
+                onClick={handleLoginClick}
+              >
                 <img src={kakaoIcon} alt="" />
-              </a>
+              </Link>
             </div>
           </div>
         </div>
