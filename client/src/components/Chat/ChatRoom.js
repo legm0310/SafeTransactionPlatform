@@ -24,7 +24,11 @@ import { dateOrTimeFormatForChat, dateFormat } from "../../utils/dataParse";
 
 import classes from "../../styles/chat/Chat.module.css";
 import { useSnackbar } from "notistack";
-import { IoChatbubbleEllipsesSharp, IoImage } from "react-icons/io5";
+import {
+  IoChatbubbleEllipsesSharp,
+  IoImage,
+  IoChevronBackOutline,
+} from "react-icons/io5";
 import { IoMdAttach } from "react-icons/io";
 import { TbLogout } from "react-icons/tb";
 
@@ -286,8 +290,11 @@ const ChatRoom = () => {
     <Fragment>
       <div className={classes.chatRoomWrap}>
         <div className={classes.chatInfo}>
+          <Link to="/chat/" className={classes.goBackChatList}>
+            <IoChevronBackOutline />
+          </Link>
           {/* db의 roomId와 현재 url의 roomId가 같고 db에서 온 파트너값이 있으면 그 파트너의 user_name값을 채팅방 이름 값에 넣음 */}
-          <Link to={`/user/${sellerId}`}>
+          <Link to={`/user/${sellerId}`} className={classes.sellerNameBtn}>
             <span>{sellerName}</span>
           </Link>
           <div className={classes.chatIcons}>
