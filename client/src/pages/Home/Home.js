@@ -6,6 +6,7 @@ import RecentProductsList from "../../components/Product/RecentProducts";
 
 import classes from "../../styles/home/Home.module.css";
 import mainImg from "../../assets/mainImg.png";
+import bannerImg from "../../assets/homeBannerImg.png";
 
 const Home = (props) => {
   const [text] = useTypewriter({
@@ -47,6 +48,7 @@ const Home = (props) => {
 
         <section className={classes.imgslideWrap}>
           <Slide />
+          <img src={bannerImg} alt="" className={classes.bannerImg} />
         </section>
 
         <section className={classes.latesProductWrap}>
