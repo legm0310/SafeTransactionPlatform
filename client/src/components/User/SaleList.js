@@ -1,26 +1,33 @@
 import { Fragment, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
+import { useSDK, useContract, useAddress } from "@thirdweb-dev/react";
 
 import classes from "../../styles/user/SaleList.module.css";
 import deleteBtn from "../../assets/icon-delete.svg";
 import {
   getSearchRecentProducts,
   deleteProduct,
+  onRelease,
 } from "../../_actions/productAction";
 
 import { useSnackbar, closeSnackbar, enqueueSnackbar } from "notistack";
+
+const contractAddress = process.env.REACT_APP_CONTRACT_ADDRESS;
 
 const SaleList = (props) => {
   const dispatch = useDispatch();
   const { isContractLoading } = useSelector((state) => state.ui);
   const { userId } = useSelector((state) => state.user);
-
+  const location = useLocation();
   const [sellingProducts, setSellingProducts] = useState([]);
+  const sdk = useSDK();
+  const { contract } = useContract(contractAddress);
+  const address = useAddress();
 
   useEffect(() => {
     getProducts();
-  }, [dispatch, props.id]);
+  }, [dispatch, props.id, location.pathname]);
 
   const getProducts = () => {
     const filter = {
@@ -28,7 +35,60 @@ const SaleList = (props) => {
     };
     dispatch(getSearchRecentProducts(filter)).then((response) => {
       setSellingProducts(response.payload?.products);
-      const newProductCount = response.payload?.products.length;
+      console.log(response.payload?.products);
+    });
+  };
+
+  const onReleaseClick = (productId) => {
+    enqueueSnackbar("토큰을 수령하시겠습니까?", {
+      variant: "info",
+      persist: true, // 자동으로 스낵바를 닫지 않음
+      action: (key) => (
+        <div>
+          <button
+            onClick={() => {
+              onReleaseHandler(productId);
+              closeSnackbar(key);
+            }}
+            className={classes.deleteButton}
+          >
+            토큰받기
+          </button>
+          <button
+            onClick={() => {
+              closeSnackbar(key);
+            }}
+            className={classes.backButton}
+          >
+            뒤로가기
+          </button>
+        </div>
+      ),
+    });
+  };
+
+  const onReleaseHandler = (productId) => {
+    const data = {
+      sdk: sdk,
+      productId: productId,
+    };
+    enqueueSnackbar("토큰 전송을 진행합니다. 잠시만 기다려주세요.", {
+      variant: "success",
+    });
+    dispatch(onRelease(data)).then((res) => {
+      console.log(res);
+      if (res.payload.updated) {
+        return enqueueSnackbar(
+          "토큰 전송에 성공했습니다. 지갑을 확인해주세요.",
+          {
+            variant: "success",
+          }
+        );
+      } else {
+        return enqueueSnackbar("토큰 전송에 실패했습니다.", {
+          variant: "error",
+        });
+      }
     });
   };
 
@@ -114,6 +174,13 @@ const SaleList = (props) => {
                     onClick={() => onDeleteClick(product.id)}
                   />
                 </div>
+              ) : null}
+              {props.id == userId &&
+              address == product.seller_wallet &&
+              product.approve_tx ? (
+                <button onClick={() => onReleaseClick(product.id)}>
+                  토큰 발급
+                </button>
               ) : null}
             </div>
           </div>
