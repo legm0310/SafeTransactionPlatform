@@ -2,7 +2,12 @@ import { Fragment, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { useSDK, useAddress } from "@thirdweb-dev/react";
+import {
+  useSDK,
+  useAddress,
+  useTokenBalance,
+  useContract,
+} from "@thirdweb-dev/react";
 import {
   addWishList,
   deleteWishList,
@@ -25,17 +30,26 @@ import Loading from "../../components/common/Loading";
 import classes from "../../styles/detail/Detail.module.css";
 import { closeSnackbar, useSnackbar } from "notistack";
 
+const contractAddress = process.env.REACT_APP_CONTRACT_ADDRESS;
+
 const Detail = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { enqueueSnackbar } = useSnackbar();
   const sdk = useSDK();
   const curAddress = useAddress();
+  const { contract } = useContract(contractAddress);
 
   const { userId, loadWishList } = useSelector((state) => state.user);
   const { productDetail } = useSelector((state) => state.product);
   const isLoading = useSelector((state) => state.ui.isLoading);
   const { productId } = useParams();
+
+  const {
+    data: tokenData,
+    isLoading: balanceLoading,
+    error: balanceError,
+  } = useTokenBalance(contract, curAddress);
 
   const {
     status,
@@ -92,11 +106,6 @@ const Detail = () => {
   };
 
   const onPurchaseHandler = () => {
-    handleClick(purchase, "해당 상품 구매하시겠습니까?");
-  };
-
-  const purchase = (key) => {
-    closeSnackbar(key);
     if (!curAddress) {
       return enqueueSnackbar("지갑을 연결해주세요", {
         variant: "error",
@@ -107,6 +116,17 @@ const Detail = () => {
         variant: "error",
       });
     }
+    if (+tokenData.displayValue < +price) {
+      return enqueueSnackbar("토큰 잔액이 부족합니다", {
+        variant: "error",
+      });
+    }
+    console.log(tokenData);
+    handleClick(purchase, "해당 상품 구매하시겠습니까?");
+  };
+
+  const purchase = (key) => {
+    closeSnackbar(key);
 
     const data = {
       prodTuple: [+productId, +price, +sellerId, sellerWallet, hash],
