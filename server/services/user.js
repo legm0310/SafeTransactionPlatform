@@ -84,7 +84,7 @@ class UserService {
     // 스페셜 메소드를 사용하기 위해 user 정보를 갖고 옴
     const user = await this.User.findByPk(+userId); // 특정 user의 WishList product 정보를 get 해옴
     const wishList = await user.getWishList({
-      attributes: ["id", "title", "price", "images"],
+      attributes: ["id", "title", "price", "images", "category"],
       joinTableAttributes: [],
     });
     const wishProductData = extractProductsList(wishList);
