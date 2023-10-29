@@ -34,13 +34,18 @@ export const GET_PRODUCT = "getProduct";
 export const DEPOSIT = "deposit";
 export const DEPOSIT_SUCCESS = "depositSuccess";
 export const DEPOSIT_FAILURE = "depositFailure";
+export const APPROVE_RELEASE = "approveRelease";
+export const APPROVE_RELEASE_SUCCESS = "approveReleaseSuccess";
+export const APPROVE_RELEASE_FAILURE = "approveReleaseFailure";
 export const RELEASE = "release";
 export const RELEASE_SUCCESS = "releaseSuccess";
 export const RELEASE_FAILURE = "releaseFailure";
 export const SEARCH_RECENT_PRODUCTS = "getSearchRecentProducts";
+
 //ui
 export const SET_LOADINGS = "setLoadings";
 export const SET_CONTRACT_LOADING = "setContractLoading";
+
 //chat
 export const SOCKET_INIT = "socketInit";
 export const ADD_ROOM = "addRoom";
