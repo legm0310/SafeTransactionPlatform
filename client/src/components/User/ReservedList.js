@@ -145,7 +145,7 @@ const ReservedList = () => {
   return (
     <Fragment>
       {!address ? (
-        <div className={classes.notReservedList}>
+        <div className={classes.notConnectWallet}>
           <h2>연결된 지갑이 없습니다.</h2>
           <p>지갑을 연결해주세요!</p>
         </div>
@@ -159,9 +159,9 @@ const ReservedList = () => {
           <p>원하는 상품을 구매해보세요!</p>
         </div>
       ) : (
-        <div className={classes.reservedWrap}>
-          {productsList.map((product) => {
-            console.log(product);
+        productsList.map((product) => {
+          console.log(product);
+          if (!product.release_tx) {
             return (
               <div className={classes.reservedList}>
                 <div key={product.id} className={classes.reservedProductWrap}>
@@ -237,8 +237,8 @@ const ReservedList = () => {
                 </div>
               </div>
             );
-          })}
-        </div>
+          }
+        })
       )}
     </Fragment>
   );
