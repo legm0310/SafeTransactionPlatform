@@ -1,6 +1,7 @@
 import { Fragment, useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import PropTypes from "prop-types";
+import Button from "../../components/common/Button";
 import TransacDetailReceipt from "./TransacDetailReceipt";
 import {
   useSDK,
@@ -10,17 +11,7 @@ import {
 } from "@thirdweb-dev/react";
 import { getReceipt } from "../../contract/getEvents";
 import { ethers } from "ethers";
-import {
-  styled,
-  Button,
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  DialogActions,
-  IconButton,
-  Typography,
-  Modal,
-} from "@mui/material";
+import { styled, Dialog, DialogTitle, IconButton } from "@mui/material";
 
 import classes from "../../styles/receipt/ReleaseReceipt.module.css";
 import { Close as CloseIcon, ThreeSixty } from "@mui/icons-material";
@@ -148,25 +139,15 @@ const DepositReciept = (props) => {
                 <span>거래내역(영수증)</span>
               </div>
             </Button>
-
-            <Button onClick={() => onMenuHandler("TransactInfo")}>
-              <div
-                className={`${classes.menuButton} ${
-                  activeMenu === "TransactInfo" ? classes.active : ""
-                }`}
-              >
-                <span>트랜잭션 정보</span>
-              </div>
-            </Button>
           </div>
 
-          <div className={classes.userInfoExplanation}>
+          <div
+            className={classes.userInfoExplanation}
+            style={{ overflowY: "auto" }}
+          >
             {activeMenu === "TransacDetailReceipt" && (
               <TransacDetailReceipt txData={txData} />
             )}
-            {/* {activeMenu === "TransactInfo" && (
-              <TransactInfo />
-            )} */}
           </div>
         </BootstrapDialog>
       </div>

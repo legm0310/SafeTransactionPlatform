@@ -9,7 +9,7 @@ import {
   useNetworkMismatch,
 } from "@thirdweb-dev/react";
 import { getCompleteEvents } from "../../contract/getEvents";
-import { getBatchProducts, getProducts } from "../../_actions/productAction";
+import { getBatchProducts } from "../../_actions/productAction";
 
 import classes from "../../styles/user/PurchasedList.module.css";
 import { PropagateLoader } from "react-spinners";
@@ -26,6 +26,7 @@ const PurchasedList = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [productList, setProductList] = useState([]);
   const [openReleaseReciept, setOpenReleaseReciept] = useState(false);
+
   const handleOpenReleaseReceipt = () => {
     setOpenReleaseReciept(true);
   };
@@ -42,8 +43,6 @@ const PurchasedList = () => {
   };
 
   const fetchCompleteProducts = async () => {
-    if (!address) return;
-    setIsLoading(true);
     const productIds = await handleGetEventsLog();
     const products = await dispatch(getBatchProducts({ productIds }));
     const prodListFromDb = products?.payload?.products || [];
@@ -53,6 +52,7 @@ const PurchasedList = () => {
   useEffect(() => {
     fetchCompleteProducts();
   }, [dispatch, address]);
+
   return (
     <Fragment>
       {!address ? (
@@ -85,14 +85,12 @@ const PurchasedList = () => {
                   >{`${product.price} PDT`}</p>
                 </div>
 
-                <div className={classes.purchasedProductReceipt}>
-                  <button
-                    onClick={handleOpenReleaseReceipt}
-                    className={classes.btnSubmit}
-                  >
-                    거래내역
-                  </button>
-                </div>
+                <button
+                  onClick={handleOpenReleaseReceipt}
+                  className={classes.btnSubmit}
+                >
+                  거래내역
+                </button>
 
                 <ReleaseReciept
                   open={openReleaseReciept}
