@@ -67,8 +67,12 @@ module.exports = {
 
   getProduct: catchAsync(async (req, res) => {
     const prodServiceInstance = await Container.get("productService");
-    const productId = req.params.id;
-    const product = await prodServiceInstance.getProductById(productId);
+    console.log(req.params.id, req.params, req.query);
+    const prodInfo = {
+      productId: req.params.id,
+      userId: req.query.userId,
+    };
+    const product = await prodServiceInstance.getProductById(prodInfo);
     res.status(200).json({
       getProductSuccess: true,
       product: product,
