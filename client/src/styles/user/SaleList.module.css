@@ -165,19 +165,19 @@
 
   .onSaleButton {
     top: 155px;
-    right: 7.5px;
+    right: 6px;
     width: 97%;
   }
 
   .IssuanceButton {
     top: 155px;
-    right: 7.5px;
+    right: 6px;
     width: 97%;
   }
 
   .issuanceCompleted {
     top: 155px;
-    right: 7.5px;
+    right: 6px;
     width: 97%;
   }
 }
@@ -207,17 +207,17 @@
 
   .onSaleButton {
     top: 135px;
-    width: 96%;
+    width: 97%;
   }
 
   .IssuanceButton {
     top: 135px;
-    width: 96%;
+    width: 97%;
   }
 
   .issuanceCompleted {
     top: 135px;
-    width: 96%;
+    width: 97%;
   }
 }
 
