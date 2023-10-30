@@ -1,7 +1,12 @@
 import { Fragment, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
-import { useSDK, useContract, useAddress } from "@thirdweb-dev/react";
+import {
+  useSDK,
+  useContract,
+  useAddress,
+  useNetworkMismatch,
+} from "@thirdweb-dev/react";
 import {
   getSearchRecentProducts,
   deleteProduct,
@@ -24,6 +29,7 @@ const SaleList = (props) => {
   const sdk = useSDK();
   const { contract } = useContract(contractAddress);
   const address = useAddress();
+  const isMismatched = useNetworkMismatch();
 
   useEffect(() => {
     getProducts();
@@ -49,6 +55,14 @@ const SaleList = (props) => {
       return enqueueSnackbar("지갑을 확인해주세요.", {
         variant: "error",
       });
+    }
+    if (isMismatched) {
+      return enqueueSnackbar(
+        "네트워크가 일치하지 않습니다. 내 지갑을 확인해주세요.",
+        {
+          variant: "error",
+        }
+      );
     }
 
     enqueueSnackbar("토큰을 수령하시겠습니까?", {

@@ -8,6 +8,11 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  width: 288.75px;
+}
+
+.swiper-slide div {
+  width: 100%;
 }
 
 .swiper-slide img {
@@ -48,5 +53,7 @@
 
   .swiper-slide {
     width: 100%;
+    height: auto;
+    aspect-ratio: 1 / 1.43;
   }
 }
