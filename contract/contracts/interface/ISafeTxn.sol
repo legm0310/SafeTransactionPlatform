@@ -16,7 +16,7 @@ interface ISafeTxn {
 
   event IntegrityCheck(uint64 indexed prodId, uint32 indexed buyerId, bytes32 newHash, bytes32 originalHash, bool isValid);
 
-  event CompleteTransaction(uint64 indexed escrowId, uint256 indexed timestamp);
+  event CompleteTransaction(uint64 indexed escrowId, address indexed buyer, address indexed seller, uint256 amount, uint256 timestamp);
 
   event CancelTransaction(address indexed buyer, address indexed seller, uint64 indexed productId, uint256 timestamp, string reason);
 }
