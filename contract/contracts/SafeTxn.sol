@@ -5,14 +5,13 @@ import "./interface/ISafeTxn.sol";
 import "./interface/IEscrow.sol";
 import "./lib/Structs.sol";
 import "../node_modules/@thirdweb-dev/contracts/base/ERC20Base.sol";
-import "../node_modules/@thirdweb-dev/contracts/token/TokenERC20.sol";
 // import "./PandaToken.sol";
 // import "./CommonFnWrapper.sol";
 
 //test
 contract SafeTxn is ISafeTxn, IEscrow, ERC20Base {
   address payable private _payMaster;
-  uint64 private _totalCompleteTx = 0;
+  // uint64 private _totalCompleteTx = 0;
   uint64[] private _tokenDepositedProductIds;
 
   struct EscrowData {
@@ -26,10 +25,10 @@ contract SafeTxn is ISafeTxn, IEscrow, ERC20Base {
   }
   mapping(uint64 => EscrowData) escrows;
 
-  modifier onlyPayMaster() {
-    require(_payMaster == msg.sender, "Not buyer");
-    _;
-  }
+  // modifier onlyPayMaster() {
+  //   require(_payMaster == msg.sender, "Not payMaster");
+  //   _;
+  // }
   modifier onlyBuyer(address _buyer) {
     require(_buyer == msg.sender, "Not buyer");
     _;
@@ -73,12 +72,12 @@ contract SafeTxn is ISafeTxn, IEscrow, ERC20Base {
     }
     return true;
   }
-  function getTotalCompleteTx() public view virtual override returns (uint64) {
-    return _totalCompleteTx;
-  }
-  function increaseTotalCompleteTx() public virtual returns(uint64) {
-    return _totalCompleteTx += 1;
-  }
+  // function getTotalCompleteTx() public view virtual override returns (uint64) {
+  //   return _totalCompleteTx;
+  // }
+  // function increaseTotalCompleteTx() public virtual returns(uint64) {
+  //   return _totalCompleteTx += 1;
+  // }
 
   // 임시 발급 함수
   function tempExchangeToken(address _user, uint256 _amount) public payable virtual returns(bool) {
@@ -87,14 +86,14 @@ contract SafeTxn is ISafeTxn, IEscrow, ERC20Base {
     return true;
   }
 
-  // 토큰 발급, 결제 모듈.
-  function exchangeToToken() external payable onlyOwner() returns(bool) {
-    return true;
-  }
-  // 토큰 반환(현금 or 네이티브코인 교환)
-  function exchangeFromToken() external payable returns (bool) {
-    return true;
-  }
+  // // 토큰 발급, 결제 모듈.
+  // function exchangeToToken() external payable onlyOwner() returns(bool) {
+  //   return true;
+  // }
+  // // 토큰 반환(현금 or 네이티브코인 교환)
+  // function exchangeFromToken() external payable returns (bool) {
+  //   return true;
+  // }
 
   function createEscrowAndDeposit(Structs.Product memory _prod, uint32 _buyerId) internal returns(bool) {
     require(escrows[_prod.id].prodId==0, "Already escrow has exists");
@@ -117,11 +116,21 @@ contract SafeTxn is ISafeTxn, IEscrow, ERC20Base {
   function genProductHash(Structs.Product memory _prod) public pure returns(bytes32) {
     return keccak256(abi.encodePacked(_prod.id, _prod.price, _prod.sellerId, _prod.seller));
   }
-
-  function getEscrow(uint64 _escrowId) public view returns(EscrowData memory) {
-    return escrows[_escrowId];
+  
+  function getEscrows(uint64[] calldata _escrowIds) public view returns(EscrowData[] memory) {
+    EscrowData[] memory results = new EscrowData[](_escrowIds.length);
+    for (uint256 i = 0; i < _escrowIds.length; i++) {
+      results[i] = escrows[_escrowIds[i]];
+    }
+    return results;
   }
 
+  function removeEscrows(uint64[] calldata _escrowIds)external returns (bool) {
+    for (uint256 i = 0; i < _escrowIds.length; i++) {
+      delete escrows[_escrowIds[i]]; 
+    }
+    return true;
+  }
 
   //구매(토큰 예치), 에스크로 기능 실행, msg.sender == 구매자
   function purchaseAmountDeposit(Structs.Product calldata _prod, uint32 _buyerId) public virtual override returns (bool) {
@@ -167,7 +176,7 @@ contract SafeTxn is ISafeTxn, IEscrow, ERC20Base {
     emit CompleteTransaction(escrows[_escrowId].prodId, block.timestamp);
     delete escrows[_escrowId]; 
     removeDepositedProductIds(_escrowId);
-    increaseTotalCompleteTx();
+    // increaseTotalCompleteTx();
     return true;
   }
 
