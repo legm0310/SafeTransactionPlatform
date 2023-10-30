@@ -199,6 +199,10 @@
 
   .productName {
     margin-top: 10px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    width: 150px;
   }
 
   .onSaleButton {
@@ -229,9 +233,18 @@
     width: 100%;
   }
 
+  .saleProductWrap {
+    width: 100%;
+  }
+
   .saleProductInfo {
     margin-left: 10px;
-    width: 255px;
+    width: 170px;
+  }
+
+  .productName {
+    width: auto;
+    font-size: 0.9rem;
   }
 
   .IssuanceButton {
