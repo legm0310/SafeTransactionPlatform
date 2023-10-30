@@ -173,7 +173,7 @@ contract SafeTxn is ISafeTxn, IEscrow, ERC20Base {
       escrows[_escrowId].seller, 
       escrows[_escrowId].amount
     );
-    emit CompleteTransaction(escrows[_escrowId].prodId, block.timestamp);
+    emit CompleteTransaction(escrows[_escrowId].prodId, escrows[_escrowId].buyer, escrows[_escrowId].seller, escrows[_escrowId].amount, block.timestamp);
     delete escrows[_escrowId]; 
     removeDepositedProductIds(_escrowId);
     // increaseTotalCompleteTx();
