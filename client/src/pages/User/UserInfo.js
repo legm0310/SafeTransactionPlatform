@@ -1,5 +1,5 @@
 import React, { Fragment, useState, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import { useLocation, useParams } from "react-router-dom";
 import Button from "../../components/common/Button";
 import SaleList from "../../components/User/SaleList";
@@ -16,11 +16,11 @@ const UserInfo = () => {
   const { id } = useParams();
   const location = useLocation();
   const { loadWishList, userId } = useSelector((state) => state.user);
-
+  
   useEffect(() => {
     if (location.state && location.state.activeMenu)
       setActiveMenu(location.state.activeMenu);
-  }, [location.state]);
+  }, [location.state, id]);
 
   const onMenuHandler = (menu) => {
     setActiveMenu(menu);
@@ -97,7 +97,7 @@ const UserInfo = () => {
           )}
 
           <div className={classes.userInfoExplanation}>
-            {activeMenu === "SaleList" && <SaleList />}
+            {activeMenu === "SaleList" && <SaleList id={+id} />}
             {activeMenu === "ReservedList" && <ReservedList />}
             {activeMenu === "PurchasedList" && <PurchasedList />}
             {activeMenu === "WishList" && <WishList />}

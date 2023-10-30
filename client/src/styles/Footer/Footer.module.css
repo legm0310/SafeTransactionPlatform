@@ -19,8 +19,10 @@ h3 {
   margin: 0;
 }
 
-.companyInfo h2 {
-  font-size: 35px;
+.companyInfo h1 {
+  margin: 0;
+  font-size: 2.125rem;
+  letter-spacing: 0.2rem;
 }
 
 .companyInfo p {
@@ -82,15 +84,15 @@ h3 {
   color: black;
 }
 
-a {
+.listContent {
   text-decoration: none;
   color: rgb(136, 136, 136);
 }
 
-a:hover,
-a:active,
-a:visited,
-a:focus {
+.listContent:hover,
+.listContent:active,
+.listContent:visited,
+.listContent:focus {
   text-decoration: none;
 }
 

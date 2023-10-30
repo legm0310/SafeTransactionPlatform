@@ -67,10 +67,8 @@ const Exchange = (props) => {
   const { contract } = useContract(contractAddress);
   const address = useAddress();
 
-  // const { mutateAsync: mintToken, isLoading: mintLoading } =
-  //   useMintToken(contract);
-  const { mutateAsync: exchangeToken, isLoading: mintLoading } =
-    useContractWrite(contract, "exchangeToken");
+  const { mutateAsync: tempExchangeToken, isLoading: mintLoading } =
+    useContractWrite(contract, "tempExchangeToken");
 
   const handleClose = () => {
     props.handleCloseExchange();
@@ -78,7 +76,7 @@ const Exchange = (props) => {
 
   const exchangeCall = async () => {
     try {
-      const data = await exchangeToken({ args: [address, mintAmount] });
+      const data = await tempExchangeToken({ args: [address, mintAmount] });
       console.info("contract call successs", data);
     } catch (err) {
       console.error("contract call failure", err);

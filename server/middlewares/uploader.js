@@ -9,7 +9,6 @@ const uploader = (req, res, next) => {
     req.body.seller_id = res.locals.userId;
     let imgArr = req.files.map((obj) => obj.location);
     req.body.images = imgArr.join(",");
-    console.log(req.body);
     return next();
   });
 };

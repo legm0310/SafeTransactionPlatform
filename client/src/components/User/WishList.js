@@ -11,7 +11,6 @@ const WishList = () => {
   const userId = useSelector((state) => state.user.userId);
 
   useEffect(() => {
-    console.log("render");
     dispatch(getWishList(userId));
   }, [dispatch]);
 

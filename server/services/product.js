@@ -1,6 +1,10 @@
 const { Container } = require("typedi");
+const crypto = require("crypto");
+const { ethers } = require("ethers");
 const { Op } = require("sequelize");
+const { sequelize } = require("../models");
 const {
+  BadRequestError,
   InternalServerError,
   generateGetProductsQuery,
   extractProductsList,
@@ -12,9 +16,40 @@ class ProductService {
     this.User = Container.get("userModel");
   }
 
+  //해시로 제품 데이터 무결성 검사
+  genProductHash(input) {
+    const type = ["uint64", "uint256", "uint32", "address"];
+    const hash = ethers.solidityPackedKeccak256(type, input);
+    if (!hash) throw new BadRequestError("Failed to generate hash");
+    return hash;
+  }
+
   async addProduct(productData) {
-    const product = await this.Product.create(productData);
-    return product;
+    const txn = await sequelize.transaction();
+    const { prodData, hashDataArr } = productData;
+    try {
+      const newProd = await this.Product.create(prodData, {
+        transaction: txn,
+      });
+
+      const plain = [newProd.id, ...hashDataArr];
+      const hash = this.genProductHash(plain);
+
+      await this.Product.update(
+        { hash: hash },
+        {
+          where: { id: newProd.id },
+          transaction: txn,
+        }
+      );
+
+      await txn.commit();
+      return newProd;
+    } catch (err) {
+      console.log(err);
+      await txn.rollback();
+      throw err;
+    }
   }
 
   //query에 따른 분기
@@ -41,7 +76,19 @@ class ProductService {
         category: { [Op.like]: `${params.category}` },
       },
     });
+
     return extractedList;
+  }
+
+  async getBatchProducts(params) {
+    const prodIds = params;
+    const products = await this.Product.findAll({
+      where: {
+        id: { [Op.in]: prodIds },
+      },
+    });
+    if (!products) throw new InternalServerError("Internal Server Error");
+    return products;
   }
 
   async getProductById(id) {
@@ -55,16 +102,25 @@ class ProductService {
       },
       raw: true,
     });
+    const wishList = await product.getWishList({ raw: true });
+    const hasWishList =
+      (wishList.find((user) => user.id == 6) && true) ?? false;
     productData.seller_name = user.user_name;
-    const wishList = await product.getWishList();
     productData.wishCount = wishList.length;
+    productData.hasWishList = hasWishList;
     return productData;
   }
 
-  async updateProductStatus(state, id) {
+  async updateProductStatus(data) {
+    const { status, productId, txHash } = data;
     const updated = await this.Product.update(
-      { status: state },
-      { where: { id: id } }
+      {
+        status: status,
+        ...(status == "RESERVED" && { deposit_tx: txHash }),
+        ...(status == "SOLD" && { release_tx: txHash }),
+        ...(!status && { approve_tx: txHash }),
+      },
+      { where: { id: productId } }
     );
     if (!updated) {
       throw new InternalServerError(updated);
@@ -80,14 +136,14 @@ class ProductService {
     return updated;
   }
 
-  async deleteProduct(id) {
-    const deletedRows = await this.Product.destroy({
-      where: {},
+  async deleteProduct(productData) {
+    const result = await this.Product.destroy({
+      where: {
+        id: +productData.productId,
+        seller_id: +productData.userId,
+      },
     });
-    if (!deletedRows) {
-      throw new Error("User not found");
-    }
-    return deletedRows;
+    return result;
   }
 }
 

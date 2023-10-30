@@ -1,3 +1,7 @@
+* {
+  font-family: "NanumSquareNeo-Variable" !important;
+}
+
 .wallet {
   display: flex;
   flex-direction: column;
@@ -31,20 +35,8 @@
   border: none !important;
 }
 
-.connectWallet span {
-  color: white;
-}
-
-.connectWallet:hover {
-  background: #1ecfba;
-}
-
 .networkSwitchButton {
-  background: #1ecfba;
-  color: white;
+  background: #1ecfba !important;
+  color: white !important;
   width: 100%;
-}
-
-.networkSwitchButton:hover {
-  background: #1ecfba;
 }

@@ -103,7 +103,7 @@ const MobileNavMenu = (props) => {
             display: {
               xs: "block",
               lg: "none",
-              fontFamily: "GongGothicMedium",
+              fontFamily: "NanumSquareNeo-Variable",
             },
           }}
         >
@@ -117,7 +117,9 @@ const MobileNavMenu = (props) => {
             <Link to={`/user/${userId}`}>
               <ListItem>
                 {isLoggedIn ? (
-                  <ListItemButton sx={{ height: 100, borderRadius: "5px" }}>
+                  <ListItemButton
+                    sx={{ height: 100, borderRadius: "5px", color: "black" }}
+                  >
                     {authCheck?.userData?.user_name.length > 3
                       ? `${authCheck.userData?.user_name.slice(0, 2)}..`
                       : authCheck?.userData?.user_name}{" "}
@@ -125,7 +127,9 @@ const MobileNavMenu = (props) => {
                   </ListItemButton>
                 ) : (
                   <Link to="/login" className={classes.loginRegister}>
-                    <ListItemButton sx={{ height: 100, borderRadius: "5px" }}>
+                    <ListItemButton
+                      sx={{ height: 100, borderRadius: "5px", color: "black" }}
+                    >
                       로그인/회원가입
                     </ListItemButton>
                   </Link>

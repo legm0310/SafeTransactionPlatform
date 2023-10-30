@@ -28,7 +28,7 @@ const UserProfile = () => {
 
   useEffect(() => {
     dispatch(getUser(id));
-  }, [dispatch]);
+  }, [dispatch, id]);
 
   const onShowNameUpdateHandler = (event) => {
     event.preventDefault();

@@ -1,7 +1,7 @@
 const catchAsync = require("./catchAsync");
 const generalError = require("./generalError");
 const dataParsers = require("./dataParsers");
-
+const { MemoryStore, RedisStore } = require("./cache");
 const s3Upload = require("./s3Upload");
 
 module.exports = {
@@ -12,6 +12,9 @@ module.exports = {
   ForbiddenError: generalError.ForbiddenError,
   NotFoundError: generalError.NotFoundError,
   InternalServerError: generalError.InternalServerError,
+
+  MemoryStore,
+  RedisStore,
 
   uploadProdImg: s3Upload.uploadProductImg,
   deleteProdImg: s3Upload.deleteProductImg,

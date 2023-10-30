@@ -1,7 +1,21 @@
 const { Op } = require("sequelize");
 
 const genCondition = (params) => {
+  console.log(2, params);
+  // if (Object.prototype.toString.call(params) === "[object Object]") {
+  for (const key in params) {
+    if (params.hasOwnProperty(key) && Array.isArray(params[key])) {
+      const where = {
+        id: {
+          [Op.in]: params[key],
+        },
+      };
+      return { where };
+    }
+  }
+  // }
   if (Array.isArray(params)) {
+    console.log(1, params);
     const where = {
       id: {
         [Op.in]: params,
@@ -17,7 +31,7 @@ const genCondition = (params) => {
     ...(lastId && { id: { [Op.lt]: lastId } }),
     ...(search && { title: { [Op.like]: `%${search}%` } }),
     ...(status && { status }),
-    ...(sellerId && { sellerId }),
+    ...(sellerId && { seller_id: sellerId }),
     ...(category && { category: { [Op.like]: `${category}` } }),
   };
   return { where, offset, limit };
@@ -41,6 +55,11 @@ const generateGetProductsQuery = (params) => {
       "category",
       "images",
       "created_at",
+      "seller_id",
+      "seller_wallet",
+      "deposit_tx",
+      "approve_tx",
+      "release_tx",
     ],
   };
   return query;

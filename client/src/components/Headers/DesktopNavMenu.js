@@ -5,6 +5,7 @@ import { getProducts } from "../../_actions/productAction";
 import { setItem } from "../../utils";
 
 import classes from "../../styles/headers/Header.module.css";
+import deleteBtn from "../../assets/icon-delete.svg";
 import { Box, Button, Paper, InputBase, IconButton } from "@mui/material";
 import { Search as SearchIcon } from "@mui/icons-material";
 
@@ -29,6 +30,11 @@ const DesktopNavMenu = () => {
     filter.search = searchTerm;
     navigate(`/products/all?category=%&search=${searchTerm}`);
   };
+
+  const onSearchValueClear = () => {
+    setSearchTerm("");
+  };
+
   return (
     <Fragment>
       <Box
@@ -46,7 +52,7 @@ const DesktopNavMenu = () => {
               my: 2,
               color: "black",
               fontWeight: 700,
-              fontFamily: "GongGothicMedium",
+              fontFamily: "NanumSquareNeo-Variable",
               whiteSpace: "nowrap",
               display: { xs: "none", lg: "flex" },
             }}
@@ -62,7 +68,7 @@ const DesktopNavMenu = () => {
               my: 2,
               color: "black",
               fontWeight: 700,
-              fontFamily: "GongGothicMedium",
+              fontFamily: "NanumSquareNeo-Variable",
               whiteSpace: "nowrap",
               display: { xs: "none", lg: "flex" },
             }}
@@ -105,6 +111,14 @@ const DesktopNavMenu = () => {
               },
             }}
           />
+          {searchTerm.length > 0 ? (
+            <img
+              src={deleteBtn}
+              onClick={onSearchValueClear}
+              className={classes.clearSearchValueImg}
+            />
+          ) : null}
+
           <IconButton
             type="submit"
             onClick={onSearchProducts}

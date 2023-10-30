@@ -20,7 +20,7 @@ const Footer = () => {
         <footer className={classes.footerWrap}>
           <div className={classes.footerContent}>
             <div className={classes.companyInfo}>
-              <h2>PANDA</h2>
+              <h1>PANDA.</h1>
               <p>
                 Joongbu University 정보보호학과
                 <br />

@@ -23,6 +23,7 @@ const AddProduct = (props) => {
   const [price, setPrice] = useState("");
   const [detail, setDetail] = useState("");
   const [titleLength, setTitleLength] = useState(0);
+  const [detailLength, setDetailLength] = useState(0);
   const [category, setCategory] = useState("");
   const [alertOpen, setAlertOpen] = useState(false);
 
@@ -66,6 +67,9 @@ const AddProduct = (props) => {
     const value = event.target.value;
     setTitle(value);
     setTitleLength(value.length);
+    if (value.length >= 40) {
+      setTitle(value.slice(0, -1));
+    }
   };
 
   // 가격
@@ -78,6 +82,8 @@ const AddProduct = (props) => {
 
     if (value === "") {
       setPrice(""); // 입력된 값이 빈 문자열인 경우
+    } else if (value.length > 11) {
+      setPrice(value.slice(0, -1));
     } else if (!isNaN(inputNumber)) {
       // 입력된 값이 숫자인지 확인
       const formattedValue = new Intl.NumberFormat("en-US").format(inputNumber);
@@ -88,27 +94,13 @@ const AddProduct = (props) => {
   // 설명
   const onDetailHandler = (event) => {
     const value = event.target.value;
-
     setDetail(value);
+    setDetailLength(value.length);
+
+    if (value.length > 2000) {
+      setDetail(value.slice(0, -1));
+    }
   };
-
-  //카테고리
-  // const onCategoryChange = (event) => {
-  //   const selectedCategory = event.target.value; // 선택한 체크박스의 값
-  //   console.log(event.target);
-  //   // 선택 여부
-  //   const isSelected = category.includes(selectedCategory);
-
-  //   if (isSelected) {
-  //     // 이미 선택된 카테고리를 클릭한 경우, 선택 해제
-  //     setCategory((prevCategories) =>
-  //       prevCategories.filter((category) => category !== selectedCategory)
-  //     );
-  //   } else {
-  //     // 선택되지 않은 카테고리를 클릭한 경우, 선택 추가
-  //     setCategory((prevCategories) => [...prevCategories, selectedCategory]);
-  //   }
-  // };
 
   const onCategoryChange = (event) => {
     const selectedCategoryValue = event.target.value;
@@ -124,32 +116,44 @@ const AddProduct = (props) => {
       setAlertOpen(true);
       return;
     }
-    if (title.trim() === "") {
-      enqueueSnackbar("상품 이름을 입력해주세요.", {
+    if (imgFile.length === 0) {
+      return enqueueSnackbar("1장 이상의 사진을 등록해주세요.", {
         variant: "error",
       });
-      return;
+    }
+    if (title.trim() === "") {
+      return enqueueSnackbar("상품 이름을 입력해주세요.", {
+        variant: "error",
+      });
     }
     if (price.trim() === "") {
-      enqueueSnackbar("상품 가격을 입력해주세요.", {
+      return enqueueSnackbar("상품 가격을 입력해주세요.", {
         variant: "error",
       });
-      return;
+    }
+    if (isNaN(+price.split(",").join(""))) {
+      return enqueueSnackbar("가격은 숫자만 입력할 수 있습니다.", {
+        variant: "error",
+      });
+    } else if (price > 1000000000) {
+      return enqueueSnackbar("유효하지 않은 가격입니다.", {
+        variant: "error",
+      });
     }
     if (detail.trim() === "") {
-      enqueueSnackbar("상품 설명을 입력해주세요.", {
+      return enqueueSnackbar("상품 설명을 입력해주세요.", {
         variant: "error",
       });
-      return;
+    } else if (detail.trim().length > 2000) {
+      return enqueueSnackbar("상품 설명을 2000자 이하로 작성해주세요.", {
+        variant: "error",
+      });
     }
     if (category.length === 0) {
-      enqueueSnackbar("상품 카테고리를 입력해주세요.", {
+      return enqueueSnackbar("상품 카테고리를 입력해주세요.", {
         variant: "error",
       });
-      return;
     }
-
-    dispatch(setLoadings({ isLoading: true }));
 
     setTitle("");
     setPrice("");
@@ -163,6 +167,7 @@ const AddProduct = (props) => {
       price: price.split(",").join(""),
       category: category,
       detail: detail,
+      address: address,
       images: null,
     };
 
@@ -207,11 +212,11 @@ const AddProduct = (props) => {
       >
         <Alert
           onClose={handleAlertClose}
-          severity='error'
+          severity="error"
           elevation={3}
           sx={{ width: "100%" }}
         >
-          연결된 지갑이 없습니다.
+          토큰을 송금받을 지갑을 연결해주세요.
         </Alert>
       </Snackbar>
       <form className={classes.form} onSubmit={onSubmitHandler}>
@@ -226,8 +231,8 @@ const AddProduct = (props) => {
                 이미지등록
                 <input
                   className={classes.imgUpload}
-                  type='file'
-                  accept='image/*'
+                  type="file"
+                  accept="image/*"
                   onChange={onImgFileHandler}
                   multiple
                 />
@@ -243,12 +248,13 @@ const AddProduct = (props) => {
                           onClick={(event) => deleteImgHandler(event, id)}
                           className={classes.ImgDelete}
                         />
-
-                        <img
-                          src={image}
-                          alt={`${image}-${id}`}
-                          className={classes.img}
-                        />
+                        <a href={image} target="_blank">
+                          <img
+                            src={image}
+                            alt={`${image}-${id}`}
+                            className={classes.img}
+                          />
+                        </a>
                       </div>
                     </li>
                   )
@@ -257,25 +263,12 @@ const AddProduct = (props) => {
             </ul>
 
             <ul className={classes.imgExplain}>
-              * 상품 이미지는 640x640에 최적화 되어 있습니다.
-              <li>
-                {" "}
-                - 상품 이미지는 PC에서는 1:1, 모바일에서는 1:1.23 비율로
-                보여집니다.
-              </li>
+              * 상품 이미지는 430x430에 최적화 되어 있습니다.
+              <li> - 상품 이미지는 PC에서는 1:1 비율로 보여집니다.</li>
               <li> - 이미지는 상품 등록 시 정사각형으로 잘려서 등록됩니다.</li>
               <li> - 이미지를 클릭할 경우 원본 이미지를 확인할 수 있습니다.</li>
               <li>
-                {" "}
-                - 이미지를 클릭 후 이동하여 등록순서를 변경할 수 있습니다.
-              </li>
-              <li>
-                {" "}
                 - 큰 이미지일 경우 이미지가 깨지는 경우가 발생할 수 있습니다.
-              </li>
-              <li>
-                최대 지원 사이즈인 640 X 640으로 리사이즈 해서 올려주세요.(개당
-                이미지 최대 10M)
               </li>
             </ul>
           </div>
@@ -285,7 +278,7 @@ const AddProduct = (props) => {
           <div className={classes.labelTitle}>제목</div>
           <TextField
             sx={{
-              width: "70%",
+              width: { xs: "80%", md: "70%" },
               m: 1,
               "& .MuiOutlinedInput-root.Mui-focused": {
                 "& > fieldset": {
@@ -293,25 +286,25 @@ const AddProduct = (props) => {
                 },
               },
             }}
-            id='outlined-search'
+            id="outlined-search"
             onChange={onTitleHandler}
             value={title}
             onInput={(e) => setTitleLength(e.target.value.length)}
             maxLength={40}
-            type='search'
-            size='small'
+            type="search"
+            size="small"
             className={classes.input}
           />
           <div>{titleLength}/40</div>
         </div>
 
         <div className={classes.label2}>
-          <label htmlFor='price' className={classes.labelTitle}>
+          <label htmlFor="price" className={classes.labelTitle}>
             가격
           </label>
           <TextField
             sx={{
-              width: "20%",
+              width: { xs: "40%", md: "20%" },
               m: 1,
               "& .MuiOutlinedInput-root.Mui-focused": {
                 "& > fieldset": {
@@ -319,15 +312,15 @@ const AddProduct = (props) => {
                 },
               },
             }}
-            id='outlined-number'
+            id="outlined-number"
             onChange={onPriceHandler}
             value={price}
-            type='text'
+            type="text"
             InputLabelProps={{
               shrink: true,
             }}
-            size='small'
-            className={classes.input}
+            size="small"
+            className={classes.priceInput}
           />
           <div>PDT</div>
         </div>
@@ -350,9 +343,9 @@ const AddProduct = (props) => {
                 }
                 onChange={onCategoryChange}
                 // checked={category.includes("men")}
-                checked={category === "men"}
-                value='men'
-                label='남성의류'
+                checked={category === "남성의류"}
+                value="남성의류"
+                label="남성의류"
               />
 
               <FormControlLabel
@@ -368,9 +361,9 @@ const AddProduct = (props) => {
                 }
                 onChange={onCategoryChange}
                 // checked={category.includes("women")}
-                checked={category === "women"}
-                value='women'
-                label='여성의류'
+                checked={category === "여성의류"}
+                value="여성의류"
+                label="여성의류"
               />
 
               <FormControlLabel
@@ -386,9 +379,9 @@ const AddProduct = (props) => {
                 }
                 onChange={onCategoryChange}
                 // checked={category.includes("acc")}
-                checked={category === "acc"}
-                value='acc'
-                label='패션잡화'
+                checked={category === "패션잡화"}
+                value="패션잡화"
+                label="패션잡화"
               />
 
               <FormControlLabel
@@ -404,9 +397,9 @@ const AddProduct = (props) => {
                 }
                 onChange={onCategoryChange}
                 // checked={category.includes("sports")}
-                checked={category === "sports"}
-                value='sports'
-                label='스포츠 용품'
+                checked={category === "스포츠 용품"}
+                value="스포츠 용품"
+                label="스포츠 용품"
               />
 
               <FormControlLabel
@@ -422,9 +415,9 @@ const AddProduct = (props) => {
                 }
                 onChange={onCategoryChange}
                 // checked={category.includes("shoes")}
-                checked={category === "shoes"}
-                value='shoes'
-                label='신발'
+                checked={category === "신발"}
+                value="신발"
+                label="신발"
               />
             </div>
 
@@ -442,9 +435,9 @@ const AddProduct = (props) => {
                 }
                 onChange={onCategoryChange}
                 // checked={category.includes("homeappliances")}
-                checked={category === "homeappliances"}
-                value='homeappliances'
-                label='가전제품'
+                checked={category === "가전제품"}
+                value="가전제품"
+                label="가전제품"
               />
 
               <FormControlLabel
@@ -460,9 +453,9 @@ const AddProduct = (props) => {
                 }
                 onChange={onCategoryChange}
                 // checked={category.includes("computerPeripherals")}
-                checked={category === "computerPeripherals"}
-                value='computerPeripherals'
-                label='컴퓨터/주변기기'
+                checked={category === "컴퓨터/주변기기"}
+                value="컴퓨터/주변기기"
+                label="컴퓨터/주변기기"
               />
 
               <FormControlLabel
@@ -478,9 +471,9 @@ const AddProduct = (props) => {
                 }
                 onChange={onCategoryChange}
                 // checked={category.includes("electronic")}
-                checked={category === "electronic"}
-                value='electronic'
-                label='전자제품'
+                checked={category === "전자기기"}
+                value="전자기기"
+                label="전자기기"
               />
 
               <FormControlLabel
@@ -496,9 +489,9 @@ const AddProduct = (props) => {
                 }
                 onChange={onCategoryChange}
                 // checked={category.includes("furniture")}
-                checked={category === "furniture"}
-                value='furniture'
-                label='가구'
+                checked={category === "가구"}
+                value="가구"
+                label="가구"
               />
 
               <FormControlLabel
@@ -514,9 +507,9 @@ const AddProduct = (props) => {
                 }
                 onChange={onCategoryChange}
                 // checked={category.includes("etc")}
-                checked={category === "etc"}
-                value='etc'
-                label='기타'
+                checked={category === "기타"}
+                value="기타"
+                label="기타"
               />
             </div>
           </div>
@@ -527,7 +520,7 @@ const AddProduct = (props) => {
 
           <TextField
             sx={{
-              width: "80%",
+              width: { xs: "95%", md: "70%" },
               m: 1,
               "& .MuiOutlinedInput-root.Mui-focused": {
                 "& > fieldset": {
@@ -537,14 +530,15 @@ const AddProduct = (props) => {
             }}
             onChange={onDetailHandler}
             value={detail}
-            id='outlined-multiline-static'
+            id="outlined-multiline-static"
             multiline
             rows={6}
           />
+          <div>{detailLength}/2000</div>
         </div>
 
         <div className={classes.buttonWrap}>
-          <Button type='submit' variant='contained' className={classes.button}>
+          <Button type="submit" variant="contained" className={classes.button}>
             등록하기
           </Button>
         </div>

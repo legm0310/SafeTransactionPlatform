@@ -81,9 +81,8 @@ export default function (state = initialState, action) {
     case UPDATE_USER:
       return { ...state, updateUserSuccess: action.payload.updateUserSuccess };
     case ADD_WISHLIST: {
-      console.log(action.payload.wishList);
       state.loadWishList = action.payload.addWishListSuccess
-        ? [action.payload.wishList[0], ...state.loadWishList]
+        ? [action.payload.wishList, ...state.loadWishList]
         : state.loadWishList;
       return {
         ...state,
@@ -94,7 +93,7 @@ export default function (state = initialState, action) {
       return {
         ...state,
         getWishListSuccess: action.payload.getWishListSuccess,
-        loadWishList: [...action.payload.wishList],
+        loadWishList: [...(action.payload.wishList || [])],
       };
       break;
     case DELETE_WISHLIST:
