@@ -8,7 +8,7 @@ import "../lib/Structs.sol";
  */
 
 interface ISafeTxn {
-  function getTotalCompleteTx() external view returns (uint64);
+  // function getTotalCompleteTx() external view returns (uint64);
 
   function purchaseAmountDeposit(Structs.Product calldata _prod, uint32 _buyerId) external returns (bool);
 
