@@ -230,10 +230,7 @@
 
   .saleProductInfo {
     margin-left: 10px;
-  }
-
-  .productName {
-    border: none;
+    width: 255px;
   }
 
   .IssuanceButton {

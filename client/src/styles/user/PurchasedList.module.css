@@ -35,6 +35,7 @@
 }
 
 .purchasedProductImage {
+  position: relative;
   width: 140px;
   height: 140px;
   margin-left: 5px;
@@ -70,8 +71,6 @@
   cursor: pointer;
 }
 
-/*  */
-
 .productName {
   margin: 15px 0 0 0;
   padding-bottom: 10px;
@@ -82,6 +81,7 @@
 
 .productPrice {
   margin-top: 20px;
+  color: black;
 }
 
 .purchasedProductReceipt {
@@ -91,42 +91,41 @@
 }
 
 .btnSubmit {
+  position: absolute;
+  right: 40px;
   width: 120px;
   height: 35px;
   border-radius: 5px;
   border: none;
-  line-height: 20px;
   letter-spacing: 1px;
-  position: absolute;
-  right: 40px;
 }
 
 @media screen and (max-width: 1200px) {
   .purchasedList {
     width: 440px;
+    height: 200px;
+    align-items: flex-start;
+  }
+
+  .purchasedProductWrap {
+    margin-top: 5px;
   }
 
   .purchasedProductInfo {
     width: 220px;
   }
 
-  .productPrice {
-    margin-top: 10px;
-  }
-
   .btnSubmit {
-    right: 5px;
-    bottom: 5px;
-    height: 30px;
-    padding: 3px;
-    width: 100px;
+    top: 155px;
+    right: 7.5px;
+    width: 97%;
   }
 }
 
 @media screen and (max-width: 900px) {
   .purchasedList {
     width: 350px;
-    height: 135px;
+    height: 175px;
   }
 
   .purchasedProductInfo {
@@ -140,6 +139,11 @@
 
   .productName {
     margin-top: 10px;
+  }
+
+  .btnSubmit {
+    top: 135px;
+    width: 96%;
   }
 }
 
@@ -157,9 +161,6 @@
 
   .purchasedProductInfo {
     margin-left: 10px;
-  }
-
-  .productName {
-    border: none;
+    width: 255px;
   }
 }
