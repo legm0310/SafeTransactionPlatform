@@ -79,7 +79,7 @@ const ReservedList = () => {
     console.log(log);
     const prodIdLog = log?.map((event) => parseInt(event.data?.productId));
     return prodIdLog;
-  }; // map 에러로 인한 임시 주석처리
+  };
 
   const onPurchaseConfirm = (id) => {
     handleClick((e) => purchaseConfirmHandler(id), "구매 확정하시겠습니까?");
@@ -122,7 +122,10 @@ const ReservedList = () => {
         getDepositedProducts({ productIds: prodIdLog, lastId: lastProdId })
       );
       const prodListFromDb = res.payload.products ?? [];
-      setProductsList([...prodListFromDb]);
+
+      setProductsList([
+        ...prodListFromDb.filter((product) => !product.release_tx),
+      ]);
       console.log(prodListFromDb);
       setIsLoading(false);
     } catch (err) {
@@ -136,6 +139,7 @@ const ReservedList = () => {
     if (!userId || !authCheck?.authCheckSuccess) {
       navigate("/login");
     }
+    if (!address) return;
     fetchDepositedProducts();
   }, [dispatch, address, lastProdId]);
 

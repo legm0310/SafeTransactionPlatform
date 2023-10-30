@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import ReleaseReciept from "../Receipt/ReleaseReceipt";
 import { useSDK, useContract, useAddress } from "@thirdweb-dev/react";
 import { getCompleteEvents } from "../../contract/getEvents";
-import { getBatchProducts } from "../../_actions/productAction";
+import { getBatchProducts, getProducts } from "../../_actions/productAction";
 
 import classes from "../../styles/user/PurchasedList.module.css";
 import { PropagateLoader } from "react-spinners";
@@ -29,121 +29,78 @@ const PurchasedList = () => {
   };
 
   const handleGetEventsLog = async () => {
+    console.log(address);
     const logs = await getCompleteEvents(sdk, "CompleteTransaction", address);
     const prodIdLog = logs?.map((event) => parseInt(event.data?.escrowId));
     return prodIdLog;
   };
 
   const fetchCompleteProducts = async () => {
+    if (!address) return;
+    setIsLoading(true);
     const productIds = await handleGetEventsLog();
     const products = await dispatch(getBatchProducts({ productIds }));
-    setProductList([...products?.payload?.products] || []);
-    console.log(products);
+    const prodListFromDb = products?.payload?.products || [];
+    setProductList([...prodListFromDb]);
+    setIsLoading(false);
+    console.log(prodListFromDb);
   };
   useEffect(() => {
     fetchCompleteProducts();
   }, [dispatch, address]);
   return (
     <Fragment>
-      {/* <div className={classes.notPurchasedList}>
-        <h2>구매한 상품이 없습니다.</h2>
-        <p>원하는 상품을 구매해보세요!</p>
-      </div> */}
-
-      <div className={classes.purchasedList}>
-        {/* {prodDetail &&
-          prodDetail.map((product) => (
-            <div className={classes.wishListProductWrap}>
-              <div className={classes.wishListProductImage}>
-                <img src={product?.image} alt="" />
-              </div>
-
-              <div className={classes.wishListProductInfo}>
-                <p className={classes.productCategory}>{product?.category}</p>
-                <p className={classes.productName}>{product?.title}</p>
-              </div>
-
-              <div className={classes.productPrice}>
-                <p>{product?.price}PDT</p>
-              </div>
-
-              <div className={classes.wishListProductPurchase}>
-                <p className={classes.totalPrice}></p>
-                <button className={classes.btnSubmit}>구매확정</button>
-              </div>
-            </div>
-          ))} */}
-        {productList.map((product) => (
-          <div className={classes.purchasedProductWrap}>
-            <div className={classes.purchasedProductImage}>
-              <img src="" alt="" />
-            </div>
-            <div className={classes.purchasedProductInfo}>
-              <p className={classes.productCategory}>category</p>
-              <p className={classes.productName}>{product.title}</p>
-              <p className={classes.productPrice}>{product.price}PDT</p>
-            </div>
-
-            <div className={classes.purchasedProductReceipt}>
-              <button
-                onClick={handleOpenReleaseReceipt}
-                className={classes.btnSubmit}
-              >
-                거래내역
-              </button>
-            </div>
-          </div>
-        ))}
-      </div>
-      <div className={classes.purchasedList}>
-        {/* {prodDetail &&
-          prodDetail.map((product) => (
-            <div className={classes.wishListProductWrap}>
-              <div className={classes.wishListProductImage}>
-                <img src={product?.image} alt="" />
-              </div>
-
-              <div className={classes.wishListProductInfo}>
-                <p className={classes.productCategory}>{product?.category}</p>
-                <p className={classes.productName}>{product?.title}</p>
-              </div>
-
-              <div className={classes.productPrice}>
-                <p>{product?.price}PDT</p>
-              </div>
-
-              <div className={classes.wishListProductPurchase}>
-                <p className={classes.totalPrice}></p>
-                <button className={classes.btnSubmit}>구매확정</button>
-              </div>
-            </div>
-          ))} */}
-        <div className={classes.purchasedProductWrap}>
-          <div className={classes.purchasedProductImage}>
-            <img src="" alt="" />
-          </div>
-
-          <div className={classes.purchasedProductInfo}>
-            <p className={classes.productCategory}>category</p>
-            <p className={classes.productName}>상품이름</p>
-            <p className={classes.productPrice}>1000PDT</p>
-          </div>
-
-          <div className={classes.purchasedProductReceipt}>
-            <button
-              onClick={handleOpenReleaseReceipt}
-              className={classes.btnSubmit}
-            >
-              거래내역
-            </button>
-          </div>
+      {!address ? (
+        <div className={classes.notConnectWallet}>
+          <h2>연결된 지갑이 없습니다.</h2>
+          <p>지갑을 연결해주세요!</p>
         </div>
-      </div>
+      ) : isLoading ? (
+        <div className={classes.propagateLoader}>
+          <PropagateLoader color="#1ECFBA" />
+        </div>
+      ) : productList.length === 0 ? (
+        <div className={classes.notReservedList}>
+          <h2>구매진행중인 상품이 없습니다.</h2>
+          <p>원하는 상품을 구매해보세요!</p>
+        </div>
+      ) : (
+        productList.map((product) => (
+          <div key={product.id} className={classes.purchasedList}>
+            {product.status !== "SOLD" ? (
+              <div className={classes.notPurchasedList}>
+                <h2>구매한 상품이 없습니다.</h2>
+                <p>원하는 상품을 구매해보세요!</p>
+              </div>
+            ) : (
+              <div className={classes.purchasedProductWrap} key={product.id}>
+                <div className={classes.purchasedProductImage}>
+                  <img src={product.image} alt="" />
+                </div>
+                <div className={classes.purchasedProductInfo}>
+                  <p className={classes.productCategory}>{product.category}</p>
+                  <p className={classes.productName}>{product.title}</p>
+                  <p className={classes.productPrice}>{product.price}PDT</p>
+                </div>
 
-      <ReleaseReciept
-        open={openReleaseReciept}
-        onClose={handleCloseReleaseReceipt}
-      />
+                <div className={classes.purchasedProductReceipt}>
+                  <button
+                    onClick={handleOpenReleaseReceipt}
+                    className={classes.btnSubmit}
+                  >
+                    거래내역
+                  </button>
+                </div>
+
+                <ReleaseReciept
+                  open={openReleaseReciept}
+                  onClose={handleCloseReleaseReceipt}
+                />
+              </div>
+            )}
+          </div>
+        ))
+      )}
     </Fragment>
   );
 };

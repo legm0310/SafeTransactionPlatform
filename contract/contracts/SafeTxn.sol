@@ -3,36 +3,40 @@ pragma solidity >=0.8.0 <0.9.0;
 
 import "./interface/ISafeTxn.sol";
 import "./interface/IEscrow.sol";
+import "./lib/Structs.sol";
 import "../node_modules/@thirdweb-dev/contracts/base/ERC20Base.sol";
 // import "./PandaToken.sol";
 // import "./CommonFnWrapper.sol";
 
 //test
 contract SafeTxn is ISafeTxn, IEscrow, ERC20Base {
-  uint32 private _totalProduct = 0; 
-  uint256[] public registeredProducts;  
-  uint256[] public tokenDepositedProducts; 
-  enum State {NULL, SALE, RESERVED, SOLD}
-
-  struct Product {
-    uint32 productId;
-    uint256 price;
-    uint32 sellerId;
-    address sellerAddress;
-    State status;
-  } 
-  mapping(uint256 => Product) products;
+  address payable private _payMaster;
+  // uint64 private _totalCompleteTx = 0;
+  uint64[] private _tokenDepositedProductIds;
 
   struct EscrowData {
-    uint32 productId;
-    uint32 buyerId;
-    address buyerAddress;
-    uint32 sellerId;
-    address sellerAddress;
+    uint64 prodId;
     uint256 amount;
+    uint32 buyerId;
+    address buyer;
+    uint32 sellerId;
+    address seller;
     bool isApprove;
   }
-  mapping (uint256 => EscrowData) escrows;
+  mapping(uint64 => EscrowData) escrows;
+
+  // modifier onlyPayMaster() {
+  //   require(_payMaster == msg.sender, "Not payMaster");
+  //   _;
+  // }
+  modifier onlyBuyer(address _buyer) {
+    require(_buyer == msg.sender, "Not buyer");
+    _;
+  }
+  modifier onlySeller(address _seller) {
+    require(_seller == msg.sender, "Not seller");
+    _;
+  }
 
   constructor(
     string memory _name,
@@ -40,108 +44,166 @@ contract SafeTxn is ISafeTxn, IEscrow, ERC20Base {
   ) 
     ERC20Base(_name, _symbol) 
   { 
-    mintTo(msg.sender, 1000000000*uint(10)**decimals());
+    mintTo(msg.sender, 10000000000*uint(10)**decimals());
   }
 
-  function getTotalProduct() public view virtual override returns (uint32) {
-    return _totalProduct;
+  // function getPayMaster() public view onlyOwner() returns (address) {
+  //   return _payMaster;
+  // }
+  // function setPayMaster(address payable _newPayMaster) public onlyOwner() returns (bool) {
+  //   require(_newPayMaster != address(0), "Invalid payMaster address");
+  //   _payMaster = _newPayMaster;
+  //   return true;
+  // }
+
+  function getDepositedProductIds() public view virtual returns(uint64[] memory) {
+    return _tokenDepositedProductIds;
   }
-  function increaseTotalProduct() public virtual returns(uint32) {
-    return _totalProduct += 1;
+  function addDepositedProductIds(uint64 _prodId) public virtual returns(bool) {
+    _tokenDepositedProductIds.push(_prodId);
+    return true;
   }
-  function decreaseTotalProduct() public virtual returns(uint32) {
-    return _totalProduct -= 1;
+  function removeDepositedProductIds(uint64 _prodId) public virtual returns(bool) {
+    for (uint64 i = 0; i < _tokenDepositedProductIds.length; i++) {
+      if( _prodId == _tokenDepositedProductIds[i]) {
+        _tokenDepositedProductIds[i] = _tokenDepositedProductIds[_tokenDepositedProductIds.length - 1];
+        _tokenDepositedProductIds.pop();
+      }
+    }
+    return true;
   }
+  // function getTotalCompleteTx() public view virtual override returns (uint64) {
+  //   return _totalCompleteTx;
+  // }
+  // function increaseTotalCompleteTx() public virtual returns(uint64) {
+  //   return _totalCompleteTx += 1;
+  // }
 
-
-  //제품 등록
-  function addProduct(uint32 _sellerId, uint32 _productId, uint256 _price) public virtual override returns (bool) {
-    require(_price>=0, "price of the product is less than zero");
-    increaseTotalProduct();
-
-    products[_productId] = Product(_productId, _price * 10**decimals(), _sellerId, msg.sender, State.SALE);
-
-    require(products[_productId].sellerAddress != address(0), "Faild to register product");
-    emit ProductRegister(msg.sender, _productId, _price * 10**decimals(), block.timestamp);
+  // 임시 발급 함수
+  function tempExchangeToken(address _user, uint256 _amount) public payable virtual returns(bool) {
+    _approve(_user, owner(), _amount);
+    _transfer(owner(), _user, _amount*(10**18));
     return true;
   }
 
-  function getProduct(uint32 _productId) public view returns(Product memory) {
-    return products[_productId];
-  }
+  // // 토큰 발급, 결제 모듈.
+  // function exchangeToToken() external payable onlyOwner() returns(bool) {
+  //   return true;
+  // }
+  // // 토큰 반환(현금 or 네이티브코인 교환)
+  // function exchangeFromToken() external payable returns (bool) {
+  //   return true;
+  // }
 
-  function getEscrow(uint32 _escrowId) public view returns(EscrowData memory) {
-    return escrows[_escrowId];
-  }
+  function createEscrowAndDeposit(Structs.Product memory _prod, uint32 _buyerId) internal returns(bool) {
+    require(escrows[_prod.id].prodId==0, "Already escrow has exists");
+    escrows[_prod.id] = EscrowData(
+      _prod.id, 
+      _prod.price,
+      _buyerId, 
+      msg.sender, 
+      _prod.sellerId,
+      _prod.seller, 
+      false
+      );
 
-  function setProductStatus(Product storage _product, State _status) internal returns(bool) {
-    _product.status = _status;
+    transfer(address(this), _prod.price*(10**18));
+    emit EscrowDeposit(msg.sender, _prod.seller, _prod.id, _prod.price, block.timestamp);
+    addDepositedProductIds(_prod.id);
     return true;
+  }
+
+  function genProductHash(Structs.Product memory _prod) public pure returns(bytes32) {
+    return keccak256(abi.encodePacked(_prod.id, _prod.price, _prod.sellerId, _prod.seller));
   }
   
-  //TODO 제품 삭제
-  //제품 수정
+  function getEscrows(uint64[] calldata _escrowIds) public view returns(EscrowData[] memory) {
+    EscrowData[] memory results = new EscrowData[](_escrowIds.length);
+    for (uint256 i = 0; i < _escrowIds.length; i++) {
+      results[i] = escrows[_escrowIds[i]];
+    }
+    return results;
+  }
 
-
-  //구매(토큰 예치), 에스크로 기능 실행, msg.sender = 구매자
-  function purchaseAmountDeposit(uint32 _productId, uint32 _buyerId) public virtual override returns (bool) {
-
-    require(products[_productId].sellerAddress != address(0), "Not found product");
-    Product storage product = products[_productId];
-
-    require(balanceOf(msg.sender) >= product.price, "Not enough balance");
-    createEscrow(product, _buyerId);
-
-    setProductStatus(product, State.RESERVED);
-
+  function removeEscrows(uint64[] calldata _escrowIds)external returns (bool) {
+    for (uint256 i = 0; i < _escrowIds.length; i++) {
+      delete escrows[_escrowIds[i]]; 
+    }
     return true;
   }
 
-  function createEscrow(Product storage _product, uint32 _buyerId) internal returns(bool) {
-    escrows[_product.productId] = EscrowData(_product.productId, _buyerId, msg.sender, _product.sellerId, _product.sellerAddress, _product.price, false);
-    EscrowData memory escrow = escrows[_product.productId];
-    require(escrow.buyerAddress != address(0), "Faild to create escrow");
-    emit EscrowCreate(msg.sender, _product.sellerAddress, _product.productId, _product.price, block.timestamp);
+  //구매(토큰 예치), 에스크로 기능 실행, msg.sender == 구매자
+  function purchaseAmountDeposit(Structs.Product calldata _prod, uint32 _buyerId) public virtual override returns (bool) {
+    require(_prod.seller != address(0), "Not found seller address");
+    require(_prod.seller != msg.sender, "Invalid buyer address");
+    require(_prod.price >= 0, "price of the product is less than zero");
+    require(_prod.price <= balanceOf(msg.sender), "Not enough balance");
 
-    transfer(address(this), _product.price);
-    emit EscrowDeposit(escrow.productId , _product.price, block.timestamp);
+    bytes32 prodHash = genProductHash(_prod);
+    require(_prod.prodHash == prodHash, "Failed to integrity check");
+
+    bool isValid = _prod.prodHash == prodHash;
+    emit IntegrityCheck(_prod.id, _buyerId, prodHash, _prod.prodHash, isValid);
+  
+    createEscrowAndDeposit(_prod, _buyerId);
     return true;
   }
 
-  //구매완료, 제품 확인
-  //msg.sender = 구매자 
-  function purchaseConfirmation(uint32 _productId) external virtual override returns (bool) {
-    require(escrows[_productId].buyerAddress != address(0), "Not found escrow");
-    EscrowData storage escrow = escrows[_productId];
-
-    require(balanceOf(address(this)) >= escrow.amount, "Not enough balance of contract");
-    confirmProductAndReleaseApprove(escrow);
-    releaseToSeller(escrow.isApprove, escrow.sellerAddress ,escrow.amount);
-    emit CompleteTransaction(escrow.productId, block.timestamp);
-    delete escrows[_productId]; 
-    delete products[_productId];
-    decreaseTotalProduct();
+  //제품 확인, 구매 확정, msg.sender == 구매자 (아직 토큰 송금 전 상태)
+  function purchaseConfirmation(uint64 _escrowId) external virtual override onlyBuyer(escrows[_escrowId].buyer) returns (bool) {
+    require(escrows[_escrowId].buyer != address(0), "Not found escrow");
+    
+    confirmAndReleaseApprove(escrows[_escrowId]);
     return true;
   }
 
-  function confirmProductAndReleaseApprove(EscrowData storage escrow) internal returns(bool){
-    require(msg.sender == escrow.buyerAddress, "" );
+  function confirmAndReleaseApprove(EscrowData storage escrow) internal returns(bool){
     escrow.isApprove = true;
-    emit ReleaseApproval(escrow.productId, block.timestamp);
+    emit ReleaseApproval(escrow.prodId, block.timestamp);
+    return true;
+  }
+
+  //토큰 수령, msg.sender == 판매자
+  function onRelease(uint64 _escrowId) external onlySeller(escrows[_escrowId].seller) returns(bool) {
+    require(escrows[_escrowId].prodId != 0, "Escrow not found");
+    require(escrows[_escrowId].amount <= balanceOf(address(this)), "Not enough balance of contract");
+    require(escrows[_escrowId].isApprove == true, "Not approved to Release");
+
+    releaseToSeller(
+      escrows[_escrowId].seller, 
+      escrows[_escrowId].amount
+    );
+    emit CompleteTransaction(escrows[_escrowId].prodId, block.timestamp);
+    delete escrows[_escrowId]; 
+    removeDepositedProductIds(_escrowId);
+    // increaseTotalCompleteTx();
+    return true;
+  }
+
+  //구매 취소, 분쟁 발생, 토큰 반환됨
+  function purchaseCancel(uint64 _escrowId, string calldata reason) external onlyOwner() returns (bool) {
+    require(escrows[_escrowId].prodId != 0, "Escrow not found");
+    require(escrows[_escrowId].amount <= balanceOf(address(this)), "Not enough balance of contract");
+
+    refundsToBuyer(
+      escrows[_escrowId].buyer,
+      escrows[_escrowId].amount
+    );
+    emit CancelTransaction(escrows[_escrowId].buyer, escrows[_escrowId].seller, escrows[_escrowId].prodId, block.timestamp, reason);
+    delete escrows[_escrowId]; 
+    removeDepositedProductIds(_escrowId);
     return true;
   }
 
   //예치 금액 릴리즈
-  function releaseToSeller(bool _isApprove, address _sellerAddress, uint256 _amount) public virtual override returns(bool) {
-    require(_isApprove == true, "Not approved to Release");
-    _transfer(address(this), _sellerAddress, _amount);
+  function releaseToSeller(address _seller, uint256 _amount) public virtual override returns(bool) {
+    _transfer(address(this), _seller, _amount*(10**18));
     return true;
   }
 
   //예치 금액 반환
-  function refundsToBuyer(address _buyerAddress, uint256 _amount) public virtual override returns (bool) {
-    _transfer(address(this), _buyerAddress, _amount);
+  function refundsToBuyer(address _buyer, uint256 _amount) public virtual override returns (bool) {
+    _transfer(address(this), _buyer, _amount*(10**18));
     return true;
   }
-
 }

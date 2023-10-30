@@ -24,7 +24,6 @@ smartWalletConfigThroughMetamask.meta.name = "스마트 지갑(메타마스크)"
 
 const metamaskConfig = metamaskWallet({ recommended: true });
 metamaskConfig.meta.name = "메타마스크 지갑";
-console.log(metamaskConfig.connectUI);
 const coinbaseConfig = coinbaseWallet();
 coinbaseConfig.meta.name = "코인베이스 지갑";
 
