@@ -1,13 +1,22 @@
-import { Fragment, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import Button from "../../components/common/Button";
 import PropTypes from "prop-types";
 import TransacDetailReceipt from "./TransacDetailReceipt";
 // import TransactInfo from "./TransactInfo";
+import {
+  useSDK,
+  useContract,
+  useAddress,
+  useContractEvents,
+} from "@thirdweb-dev/react";
+import { getReceipt } from "../../contract/getEvents";
 
 import { styled, Dialog, DialogTitle, IconButton } from "@mui/material";
 import { Close as CloseIcon } from "@mui/icons-material";
 import classes from "../../styles/receipt/ReleaseReceipt.module.css";
+
+const contractAddress = process.env.REACT_APP_CONTRACT_ADDRESS;
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   "& .MuiDialog-paper": {
@@ -52,71 +61,100 @@ BootstrapDialogTitle.propTypes = {
 };
 
 const ReleaseReciept = (props) => {
-  const [activeMenu, setActiveMenu] = useState("TransacDetailReceipt");
+  const sdk = useSDK();
+  const { contract } = useContract(contractAddress);
+  const address = useAddress();
 
+  const [activeMenu, setActiveMenu] = useState("TransacDetailReceipt");
+  const [txData, setTxData] = useState();
   const location = useLocation();
 
   const handleClose = () => {
     props.onClose();
   };
 
+  // useEffect(() => {
+  //   if (location.state && location.state.activeMenu)
+  //     setActiveMenu(location.state.activeMenu);
+  // }, [location.state]);
+  const getTxReciept = async (event) => {
+    const filter = {
+      buyer: address,
+    };
+    const logs = await getReceipt(sdk, event, filter);
+    console.log(logs, props.product.id);
+    const filteredLogs =
+      event === "EscrowDeposit"
+        ? await logs.filter((log) => {
+            return parseInt(log?.data.productId._hex) == +props.product.id;
+          })
+        : await logs.filter((log) => {
+            console.log(
+              log?.data.escrowId._hex,
+              "0x" + props.product.id.toString(16)
+            );
+            return parseInt(log?.data.escrowId._hex) == +props.product.id;
+          });
+    return filteredLogs;
+  };
+
   useEffect(() => {
-    if (location.state && location.state.activeMenu)
-      setActiveMenu(location.state.activeMenu);
-  }, [location.state]);
+    if (!props.open) return;
+    console.log(props.event);
+    getTxReciept(props.event).then((data) => {
+      console.log(data);
+      setTxData(data[0] || []);
+    });
+  }, [props.open]);
 
   const onMenuHandler = (menu) => {
     setActiveMenu(menu);
   };
 
+  // useEffect(() => {
+  //   if (location.state && location.state.activeMenu) {
+  //     setActiveMenu(location.state.activeMenu);
+  //   }
+  // }, [location.state]);
+
   return (
-    <Fragment>
-      <div>
-        <BootstrapDialog
-          aria-labelledby="customized-dialog-title"
-          open={props.open || false}
+    <div>
+      <BootstrapDialog
+        aria-labelledby="customized-dialog-title"
+        open={props.open || false}
+        onClose={handleClose}
+        sx={{ overflow: "hidden" }}
+      >
+        <BootstrapDialogTitle
+          id="customized-dialog-title"
           onClose={handleClose}
-          // disableEnforceFocus
+          style={{ padding: "15px 30px 15px 30px" }}
         >
-          <BootstrapDialogTitle
-            id="customized-dialog-title"
-            onClose={handleClose}
-            style={{ padding: "15px 30px 15px 30px" }}
-          >
-            거래내역(영수증)
-          </BootstrapDialogTitle>
+          거래내역(영수증)
+        </BootstrapDialogTitle>
 
-          <div className={classes.userInfoMenu}>
-            <Button onClick={() => onMenuHandler("TransacDetailReceipt")}>
-              <div
-                className={`${classes.menuButton1} ${
-                  activeMenu === "TransacDetailReceipt" ? classes.active : ""
-                }`}
-              >
-                <span>거래내역(영수증)</span>
-              </div>
-            </Button>
+        <div className={classes.userInfoMenu}>
+          <Button onClick={() => onMenuHandler("TransacDetailReceipt")}>
+            <div
+              className={`${classes.menuButton1} ${
+                activeMenu === "TransacDetailReceipt" ? classes.active : ""
+              }`}
+            >
+              <span>거래내역(영수증)</span>
+            </div>
+          </Button>
+        </div>
 
-            <Button onClick={() => onMenuHandler("TransactInfo")}>
-              <div
-                className={`${classes.menuButton} ${
-                  activeMenu === "TransactInfo" ? classes.active : ""
-                }`}
-              >
-                <span>트랜잭션 정보</span>
-              </div>
-            </Button>
-          </div>
-
-          <div className={classes.userInfoExplanation}>
-            {activeMenu === "TransacDetailReceipt" && <TransacDetailReceipt />}
-            {/* {activeMenu === "TransactInfo" && (
-              <TransactInfo />
-            )} */}
-          </div>
-        </BootstrapDialog>
-      </div>
-    </Fragment>
+        <div
+          className={classes.userInfoExplanation}
+          style={{ overflowY: "auto" }}
+        >
+          {activeMenu === "TransacDetailReceipt" && (
+            <TransacDetailReceipt txData={txData} event={props.event} />
+          )}
+        </div>
+      </BootstrapDialog>
+    </div>
   );
 };
 

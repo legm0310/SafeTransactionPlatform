@@ -165,19 +165,19 @@
 
   .onSaleButton {
     top: 155px;
-    right: 7.5px;
+    right: 6px;
     width: 97%;
   }
 
   .IssuanceButton {
     top: 155px;
-    right: 7.5px;
+    right: 6px;
     width: 97%;
   }
 
   .issuanceCompleted {
     top: 155px;
-    right: 7.5px;
+    right: 6px;
     width: 97%;
   }
 }
@@ -199,21 +199,25 @@
 
   .productName {
     margin-top: 10px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    width: 150px;
   }
 
   .onSaleButton {
     top: 135px;
-    width: 96%;
+    width: 97%;
   }
 
   .IssuanceButton {
     top: 135px;
-    width: 96%;
+    width: 97%;
   }
 
   .issuanceCompleted {
     top: 135px;
-    width: 96%;
+    width: 97%;
   }
 }
 
@@ -229,9 +233,18 @@
     width: 100%;
   }
 
+  .saleProductWrap {
+    width: 100%;
+  }
+
   .saleProductInfo {
     margin-left: 10px;
-    width: 255px;
+    width: 170px;
+  }
+
+  .productName {
+    width: auto;
+    font-size: 0.9rem;
   }
 
   .IssuanceButton {

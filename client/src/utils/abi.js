@@ -57,9 +57,9 @@ export const abi = [
       },
       {
         indexed: true,
-        internalType: "uint32",
+        internalType: "uint64",
         name: "productId",
-        type: "uint32",
+        type: "uint64",
       },
       {
         indexed: false,
@@ -69,9 +69,9 @@ export const abi = [
       },
       {
         indexed: false,
-        internalType: "uint256",
-        name: "value",
-        type: "uint256",
+        internalType: "string",
+        name: "reason",
+        type: "string",
       },
     ],
     name: "CancelTransaction",
@@ -82,12 +82,30 @@ export const abi = [
     inputs: [
       {
         indexed: true,
-        internalType: "uint32",
-        name: "_escrowId",
-        type: "uint32",
+        internalType: "uint64",
+        name: "escrowId",
+        type: "uint64",
       },
       {
         indexed: true,
+        internalType: "address",
+        name: "buyer",
+        type: "address",
+      },
+      {
+        indexed: true,
+        internalType: "address",
+        name: "seller",
+        type: "address",
+      },
+      {
+        indexed: false,
+        internalType: "uint256",
+        name: "amount",
+        type: "uint256",
+      },
+      {
+        indexed: false,
         internalType: "uint256",
         name: "timestamp",
         type: "uint256",
@@ -132,34 +150,9 @@ export const abi = [
       },
       {
         indexed: false,
-        internalType: "uint32",
+        internalType: "uint64",
         name: "productId",
-        type: "uint32",
-      },
-      {
-        indexed: false,
-        internalType: "uint256",
-        name: "amount",
-        type: "uint256",
-      },
-      {
-        indexed: false,
-        internalType: "uint256",
-        name: "timestamp",
-        type: "uint256",
-      },
-    ],
-    name: "EscrowCreate",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "uint32",
-        name: "escrowId",
-        type: "uint32",
+        type: "uint64",
       },
       {
         indexed: false,
@@ -175,6 +168,43 @@ export const abi = [
       },
     ],
     name: "EscrowDeposit",
+    type: "event",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        internalType: "uint64",
+        name: "prodId",
+        type: "uint64",
+      },
+      {
+        indexed: true,
+        internalType: "uint32",
+        name: "buyerId",
+        type: "uint32",
+      },
+      {
+        indexed: false,
+        internalType: "bytes32",
+        name: "newHash",
+        type: "bytes32",
+      },
+      {
+        indexed: false,
+        internalType: "bytes32",
+        name: "originalHash",
+        type: "bytes32",
+      },
+      {
+        indexed: false,
+        internalType: "bool",
+        name: "isValid",
+        type: "bool",
+      },
+    ],
+    name: "IntegrityCheck",
     type: "event",
   },
   {
@@ -201,40 +231,9 @@ export const abi = [
     inputs: [
       {
         indexed: true,
-        internalType: "address",
-        name: "seller",
-        type: "address",
-      },
-      {
-        indexed: true,
-        internalType: "uint32",
-        name: "productId",
-        type: "uint32",
-      },
-      {
-        indexed: false,
-        internalType: "uint256",
-        name: "value",
-        type: "uint256",
-      },
-      {
-        indexed: false,
-        internalType: "uint256",
-        name: "timestamp",
-        type: "uint256",
-      },
-    ],
-    name: "ProductRegister",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "uint32",
+        internalType: "uint64",
         name: "escrowId",
-        type: "uint32",
+        type: "uint64",
       },
       {
         indexed: true,
@@ -287,22 +286,12 @@ export const abi = [
   {
     inputs: [
       {
-        internalType: "uint32",
-        name: "_sellerId",
-        type: "uint32",
-      },
-      {
-        internalType: "uint32",
-        name: "_productId",
-        type: "uint32",
-      },
-      {
-        internalType: "uint256",
-        name: "_price",
-        type: "uint256",
+        internalType: "uint64",
+        name: "_prodId",
+        type: "uint64",
       },
     ],
-    name: "addProduct",
+    name: "addDepositedProductIds",
     outputs: [
       {
         internalType: "bool",
@@ -446,75 +435,11 @@ export const abi = [
   {
     inputs: [
       {
-        internalType: "uint32",
-        name: "_escrowId",
-        type: "uint32",
-      },
-    ],
-    name: "getEscrow",
-    outputs: [
-      {
         components: [
           {
-            internalType: "uint32",
-            name: "productId",
-            type: "uint32",
-          },
-          {
-            internalType: "uint32",
-            name: "buyerId",
-            type: "uint32",
-          },
-          {
-            internalType: "address",
-            name: "buyerAddress",
-            type: "address",
-          },
-          {
-            internalType: "uint32",
-            name: "sellerId",
-            type: "uint32",
-          },
-          {
-            internalType: "address",
-            name: "sellerAddress",
-            type: "address",
-          },
-          {
-            internalType: "uint256",
-            name: "amount",
-            type: "uint256",
-          },
-          {
-            internalType: "bool",
-            name: "isApprove",
-            type: "bool",
-          },
-        ],
-        internalType: "struct SafeTxn.EscrowData",
-        name: "",
-        type: "tuple",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "uint32",
-        name: "_productId",
-        type: "uint32",
-      },
-    ],
-    name: "getProduct",
-    outputs: [
-      {
-        components: [
-          {
-            internalType: "uint32",
-            name: "productId",
-            type: "uint32",
+            internalType: "uint64",
+            name: "id",
+            type: "uint64",
           },
           {
             internalType: "uint256",
@@ -528,31 +453,95 @@ export const abi = [
           },
           {
             internalType: "address",
-            name: "sellerAddress",
+            name: "seller",
             type: "address",
           },
           {
-            internalType: "enum SafeTxn.State",
-            name: "status",
-            type: "uint8",
+            internalType: "bytes32",
+            name: "prodHash",
+            type: "bytes32",
           },
         ],
-        internalType: "struct SafeTxn.Product",
-        name: "",
+        internalType: "struct Structs.Product",
+        name: "_prod",
         type: "tuple",
+      },
+    ],
+    name: "genProductHash",
+    outputs: [
+      {
+        internalType: "bytes32",
+        name: "",
+        type: "bytes32",
+      },
+    ],
+    stateMutability: "pure",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "getDepositedProductIds",
+    outputs: [
+      {
+        internalType: "uint64[]",
+        name: "",
+        type: "uint64[]",
       },
     ],
     stateMutability: "view",
     type: "function",
   },
   {
-    inputs: [],
-    name: "getTotalProduct",
+    inputs: [
+      {
+        internalType: "uint64[]",
+        name: "_escrowIds",
+        type: "uint64[]",
+      },
+    ],
+    name: "getEscrows",
     outputs: [
       {
-        internalType: "uint32",
+        components: [
+          {
+            internalType: "uint64",
+            name: "prodId",
+            type: "uint64",
+          },
+          {
+            internalType: "uint256",
+            name: "amount",
+            type: "uint256",
+          },
+          {
+            internalType: "uint32",
+            name: "buyerId",
+            type: "uint32",
+          },
+          {
+            internalType: "address",
+            name: "buyer",
+            type: "address",
+          },
+          {
+            internalType: "uint32",
+            name: "sellerId",
+            type: "uint32",
+          },
+          {
+            internalType: "address",
+            name: "seller",
+            type: "address",
+          },
+          {
+            internalType: "bool",
+            name: "isApprove",
+            type: "bool",
+          },
+        ],
+        internalType: "struct SafeTxn.EscrowData[]",
         name: "",
-        type: "uint32",
+        type: "tuple[]",
       },
     ],
     stateMutability: "view",
@@ -577,19 +566,6 @@ export const abi = [
         internalType: "bool",
         name: "",
         type: "bool",
-      },
-    ],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "increaseTotalProduct",
-    outputs: [
-      {
-        internalType: "uint32",
-        name: "",
-        type: "uint32",
       },
     ],
     stateMutability: "nonpayable",
@@ -665,6 +641,25 @@ export const abi = [
     type: "function",
   },
   {
+    inputs: [
+      {
+        internalType: "uint64",
+        name: "_escrowId",
+        type: "uint64",
+      },
+    ],
+    name: "onRelease",
+    outputs: [
+      {
+        internalType: "bool",
+        name: "",
+        type: "bool",
+      },
+    ],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
     inputs: [],
     name: "owner",
     outputs: [
@@ -723,9 +718,36 @@ export const abi = [
   {
     inputs: [
       {
-        internalType: "uint32",
-        name: "_productId",
-        type: "uint32",
+        components: [
+          {
+            internalType: "uint64",
+            name: "id",
+            type: "uint64",
+          },
+          {
+            internalType: "uint256",
+            name: "price",
+            type: "uint256",
+          },
+          {
+            internalType: "uint32",
+            name: "sellerId",
+            type: "uint32",
+          },
+          {
+            internalType: "address",
+            name: "seller",
+            type: "address",
+          },
+          {
+            internalType: "bytes32",
+            name: "prodHash",
+            type: "bytes32",
+          },
+        ],
+        internalType: "struct Structs.Product",
+        name: "_prod",
+        type: "tuple",
       },
       {
         internalType: "uint32",
@@ -747,9 +769,33 @@ export const abi = [
   {
     inputs: [
       {
-        internalType: "uint32",
-        name: "_productId",
-        type: "uint32",
+        internalType: "uint64",
+        name: "_escrowId",
+        type: "uint64",
+      },
+      {
+        internalType: "string",
+        name: "reason",
+        type: "string",
+      },
+    ],
+    name: "purchaseCancel",
+    outputs: [
+      {
+        internalType: "bool",
+        name: "",
+        type: "bool",
+      },
+    ],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "uint64",
+        name: "_escrowId",
+        type: "uint64",
       },
     ],
     name: "purchaseConfirmation",
@@ -767,7 +813,7 @@ export const abi = [
     inputs: [
       {
         internalType: "address",
-        name: "_buyerAddress",
+        name: "_buyer",
         type: "address",
       },
       {
@@ -790,32 +836,8 @@ export const abi = [
   {
     inputs: [
       {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
-    name: "registeredProducts",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "bool",
-        name: "_isApprove",
-        type: "bool",
-      },
-      {
         internalType: "address",
-        name: "_sellerAddress",
+        name: "_seller",
         type: "address",
       },
       {
@@ -825,6 +847,44 @@ export const abi = [
       },
     ],
     name: "releaseToSeller",
+    outputs: [
+      {
+        internalType: "bool",
+        name: "",
+        type: "bool",
+      },
+    ],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "uint64",
+        name: "_prodId",
+        type: "uint64",
+      },
+    ],
+    name: "removeDepositedProductIds",
+    outputs: [
+      {
+        internalType: "bool",
+        name: "",
+        type: "bool",
+      },
+    ],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "uint64[]",
+        name: "_escrowIds",
+        type: "uint64[]",
+      },
+    ],
+    name: "removeEscrows",
     outputs: [
       {
         internalType: "bool",
@@ -877,20 +937,25 @@ export const abi = [
   {
     inputs: [
       {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
+        internalType: "address",
+        name: "_user",
+        type: "address",
       },
-    ],
-    name: "tokenDepositedProducts",
-    outputs: [
       {
         internalType: "uint256",
-        name: "",
+        name: "_amount",
         type: "uint256",
       },
     ],
-    stateMutability: "view",
+    name: "tempExchangeToken",
+    outputs: [
+      {
+        internalType: "bool",
+        name: "",
+        type: "bool",
+      },
+    ],
+    stateMutability: "payable",
     type: "function",
   },
   {

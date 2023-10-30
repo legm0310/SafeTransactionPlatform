@@ -1,7 +1,6 @@
 import React, { Fragment, useState } from "react";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import { getProducts } from "../../_actions/productAction";
 import { setItem } from "../../utils";
 
 import classes from "../../styles/headers/Header.module.css";

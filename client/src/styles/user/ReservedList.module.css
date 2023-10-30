@@ -195,6 +195,9 @@
 
   .productName {
     margin-top: 10px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
   }
 
   .reservedProductPurchase {
@@ -228,7 +231,7 @@
   }
 
   .reservedProductInfo {
-    width: 255px;
+    width: 170x;
   }
 
   .btnSubmit,

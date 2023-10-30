@@ -175,11 +175,16 @@ export function getBatchProducts(dataToSubmit) {
 }
 
 export function getProduct(dataToSubmit) {
-  const params = dataToSubmit;
+  const productId = dataToSubmit.productId;
+  const params = {
+    userId: dataToSubmit.userId,
+  };
   return async (dispatch) => {
     await dispatch(setLoadings({ isLoading: true }));
     try {
-      const res = await baseRequest().get(`/api/products/${params}`);
+      const res = await baseRequest({ params }).get(
+        `/api/products/${productId}`
+      );
       return dispatch({
         type: GET_PRODUCT,
         payload: res.data,
