@@ -143,17 +143,18 @@ export function addWishList(dataToSubmit) {
     try {
       const res = await authRequest().post("/api/user/wishlist", dataToSubmit);
       console.log("res", res);
-      // dispatch(setLoadings({ isLoading: false }));
-      return dispatch({
+      await dispatch({
         type: ADD_WISHLIST,
         payload: res.data,
       });
+      return res.data;
     } catch (err) {
       console.log(err);
-      return dispatch({
+      await dispatch({
         type: ADD_WISHLIST,
-        payload: err.response.data,
+        payload: err.response?.data || err,
       });
+      return err.response?.data || err;
     }
   };
 }

@@ -6,6 +6,7 @@ import {
   useAddress,
   useMintToken,
   useContractWrite,
+  useNetworkMismatch,
 } from "@thirdweb-dev/react";
 import { setLoadings } from "../../_actions/uiAction";
 
@@ -21,6 +22,7 @@ import {
   Input,
 } from "@mui/material";
 import { Close as CloseIcon } from "@mui/icons-material";
+import { useSnackbar, closeSnackbar, enqueueSnackbar } from "notistack";
 
 const contractAddress = process.env.REACT_APP_CONTRACT_ADDRESS;
 
@@ -66,6 +68,7 @@ const Exchange = (props) => {
   const [mintAmount, setMintAmount] = useState("");
   const { contract } = useContract(contractAddress);
   const address = useAddress();
+  const isMismatched = useNetworkMismatch();
 
   const { mutateAsync: tempExchangeToken, isLoading: mintLoading } =
     useContractWrite(contract, "tempExchangeToken");
@@ -88,11 +91,23 @@ const Exchange = (props) => {
       alert("토큰 갯수를 확인해주세요.");
       return;
     }
+    if (isMismatched) {
+      return enqueueSnackbar(
+        "네트워크가 일치하지 않습니다. 내 지갑을 확인해주세요.",
+        {
+          variant: "error",
+        }
+      );
+    }
 
     dispatch(setLoadings({ isContractLoading: true }));
     exchangeCall()
       .then(() => dispatch(setLoadings({ isContractLoading: false })))
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        console.log(err);
+        return dispatch(setLoadings({ isContractLoading: false }));
+      });
+
     props.handleCloseExchange();
   };
 

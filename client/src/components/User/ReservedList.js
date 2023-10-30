@@ -12,7 +12,12 @@ import {
 } from "../../contract/getEvents";
 import DepositReceipt from "../Receipt/DepositReceipt";
 
-import { useSDK, useContract, useAddress } from "@thirdweb-dev/react";
+import {
+  useSDK,
+  useContract,
+  useAddress,
+  useNetworkMismatch,
+} from "@thirdweb-dev/react";
 
 import deleteBtn from "../../assets/icon-delete.svg";
 import classes from "../../styles/user/ReservedList.module.css";
@@ -39,6 +44,7 @@ const ReservedList = () => {
   const sdk = useSDK();
   const { contract } = useContract(contractAddress);
   const address = useAddress();
+  const isMismatched = useNetworkMismatch();
 
   const handleOpenDepositReceipt = () => {
     setOpenDepositReceipt(true);
@@ -82,6 +88,14 @@ const ReservedList = () => {
   }; // map 에러로 인한 임시 주석처리
 
   const onPurchaseConfirm = (id) => {
+    if (isMismatched) {
+      return enqueueSnackbar(
+        "네트워크가 일치하지 않습니다. 내 지갑을 확인해주세요.",
+        {
+          variant: "error",
+        }
+      );
+    }
     handleClick((e) => purchaseConfirmHandler(id), "구매 확정하시겠습니까?");
   };
 
@@ -218,7 +232,7 @@ const ReservedList = () => {
                         onClick={handleOpenDepositReceipt}
                         className={classes.receiptbtn}
                       >
-                        구매진행정보
+                        구매진행내역
                       </button>
                     </div>
                   )}
