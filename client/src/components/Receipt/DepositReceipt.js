@@ -139,25 +139,15 @@ const DepositReciept = (props) => {
                 <span>거래내역(영수증)</span>
               </div>
             </Button>
-
-            <Button onClick={() => onMenuHandler("TransactInfo")}>
-              <div
-                className={`${classes.menuButton} ${
-                  activeMenu === "TransactInfo" ? classes.active : ""
-                }`}
-              >
-                <span>트랜잭션 정보</span>
-              </div>
-            </Button>
           </div>
 
-          <div className={classes.userInfoExplanation}>
+          <div
+            className={classes.userInfoExplanation}
+            style={{ overflowY: "auto" }}
+          >
             {activeMenu === "TransacDetailReceipt" && (
               <TransacDetailReceipt txData={txData} />
             )}
-            {/* {activeMenu === "TransactInfo" && (
-              <TransactInfo />
-            )} */}
           </div>
         </BootstrapDialog>
       </div>

@@ -74,6 +74,7 @@ const ReleaseReciept = (props) => {
         aria-labelledby="customized-dialog-title"
         open={props.open || false}
         onClose={handleClose}
+        sx={{ overflow: "hidden" }}
       >
         <BootstrapDialogTitle
           id="customized-dialog-title"
@@ -95,7 +96,10 @@ const ReleaseReciept = (props) => {
           </Button>
         </div>
 
-        <div className={classes.userInfoExplanation}>
+        <div
+          className={classes.userInfoExplanation}
+          style={{ overflowY: "auto" }}
+        >
           {activeMenu === "TransacDetailReceipt" && <TransacDetailReceipt />}
         </div>
       </BootstrapDialog>
