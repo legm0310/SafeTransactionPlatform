@@ -1,11 +1,13 @@
-.notPurchasedList {
+.notPurchasedList,
+.notConnectWallet {
   display: flex;
   flex-direction: column;
   align-items: center;
   margin: 100px auto 100px auto;
 }
 
-.notPurchasedList p {
+.notPurchasedList p,
+.notConnectWallet p {
   line-height: 18px;
   color: rgb(136, 136, 136);
   margin: 0;
