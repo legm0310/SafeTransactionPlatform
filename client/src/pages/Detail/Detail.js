@@ -67,7 +67,9 @@ const Detail = () => {
   const [wishCount, setWishCount] = useState(0);
 
   useEffect(() => {
-    dispatch(getProduct(productId)).then(() => console.log(productDetail));
+    dispatch(getProduct({ userId, productId })).then(() =>
+      console.log(productDetail)
+    );
   }, [dispatch, productId]);
 
   useEffect(() => {
@@ -216,6 +218,8 @@ const Detail = () => {
       activeWish
         ? dispatch(deleteWishList(productId))
             .then((response) => {
+              console.log(response);
+              if (response.payload?.code === 401) return navigate("/login");
               enqueueSnackbar("찜이 해제 되었습니다. ", {
                 variant: "error",
               });
@@ -225,17 +229,20 @@ const Detail = () => {
             })
             .then((value) => {
               console.log(value);
-              setWishCount(wishCount - 1);
-
+              if (wishCount > 0) {
+                setWishCount(wishCount - 1);
+              }
               return setActiveWish(false);
             })
         : dispatch(addWishList(data)).then((response) => {
-            if (response.payload?.addWishListSuccess) {
+            if (response.addWishListSuccess) {
               enqueueSnackbar("상품을 찜 했습니다.", {
                 variant: "success",
               });
               setActiveWish(true);
               setWishCount(wishCount + 1);
+            } else if (response?.code === 401) {
+              return navigate("/login");
             } else {
               setActiveWish(
                 loadWishList.indexOf(+productId) == -1 ? true : false
@@ -245,9 +252,6 @@ const Detail = () => {
               });
             }
           });
-      // .catch((err) =>
-      //   err.data?.status === 401 ? navigate("/login") : console.log(err)
-      // );
     } catch (err) {
       console.log("catch", err);
     }
