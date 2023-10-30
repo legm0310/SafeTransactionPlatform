@@ -97,23 +97,29 @@ class ProductService {
     return extractedList;
   }
 
-  async getProductById(id) {
-    const product = await this.Product.findByPk(id);
+  async getProductById(data) {
+    const { productId, userId } = data;
+
+    const product = await this.Product.findByPk(+productId, {
+      include: {
+        model: this.User,
+        attributes: ["user_name"],
+      },
+    });
     const productData = product.toJSON();
     productData.images = productData.images.split(",");
-    const user = await this.User.findOne({
-      attributes: ["user_name"],
-      where: {
-        id: productData.seller_id,
-      },
+
+    const wishList = await product.getWishList({
+      where: { id: userId },
+      include: [],
       raw: true,
     });
-    const wishList = await product.getWishList({ raw: true });
-    const hasWishList =
-      (wishList.find((user) => user.id == 6) && true) ?? false;
-    productData.seller_name = user.user_name;
+
+    const hasWishList = (wishList || []).length > 0 ? true : false;
+    productData.seller_name = productData.user?.user_name;
     productData.wishCount = wishList.length;
     productData.hasWishList = hasWishList;
+    delete productData.user;
     return productData;
   }
 
