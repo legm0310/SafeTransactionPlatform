@@ -2,6 +2,7 @@
   width: 100%;
   height: 100%;
   margin-bottom: 50px;
+  overflow: visible;
 }
 
 .swiper-slide {
@@ -9,6 +10,12 @@
   justify-content: center;
   align-items: center;
   width: 288.75px;
+}
+
+.swiper-slide:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  transform: translateY(-1px);
+  transition: box-shadow 0.3s, transform 0.5s;
 }
 
 .swiper-slide div {
