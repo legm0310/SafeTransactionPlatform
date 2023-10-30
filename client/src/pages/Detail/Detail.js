@@ -7,6 +7,7 @@ import {
   useAddress,
   useTokenBalance,
   useContract,
+  useNetworkMismatch,
 } from "@thirdweb-dev/react";
 import {
   addWishList,
@@ -39,7 +40,7 @@ const Detail = () => {
   const sdk = useSDK();
   const curAddress = useAddress();
   const { contract } = useContract(contractAddress);
-
+  const isMismatched = useNetworkMismatch();
   const { userId, loadWishList } = useSelector((state) => state.user);
   const { productDetail } = useSelector((state) => state.product);
   const isLoading = useSelector((state) => state.ui.isLoading);
@@ -110,6 +111,14 @@ const Detail = () => {
       return enqueueSnackbar("지갑을 연결해주세요", {
         variant: "error",
       });
+    }
+    if (isMismatched) {
+      return enqueueSnackbar(
+        "네트워크가 일치하지 않습니다. 내 지갑을 확인해주세요.",
+        {
+          variant: "error",
+        }
+      );
     }
     if (sellerId == userId || sellerWallet == curAddress) {
       return enqueueSnackbar("판매자와 구매자가 같습니다.", {
@@ -196,24 +205,32 @@ const Detail = () => {
   };
 
   const addWishListHandler = () => {
-    if (userId == undefined) {
+    if (!userId) {
       navigate("/login");
-    } else {
-      let data = {
-        userId,
-        productId,
-      };
+    }
+    let data = {
+      userId,
+      productId,
+    };
+    try {
       activeWish
-        ? dispatch(deleteWishList(productId)).then((response) => {
-            enqueueSnackbar("찜이 해제 되었습니다. ", {
-              variant: "error",
-            });
-            dispatch(getWishList(userId));
-            setWishCount(wishCount - 1);
-            setActiveWish(false);
-          })
+        ? dispatch(deleteWishList(productId))
+            .then((response) => {
+              enqueueSnackbar("찜이 해제 되었습니다. ", {
+                variant: "error",
+              });
+            })
+            .then(() => {
+              dispatch(getWishList(userId));
+            })
+            .then((value) => {
+              console.log(value);
+              setWishCount(wishCount - 1);
+
+              return setActiveWish(false);
+            })
         : dispatch(addWishList(data)).then((response) => {
-            if (response.payload.addWishListSuccess) {
+            if (response.payload?.addWishListSuccess) {
               enqueueSnackbar("상품을 찜 했습니다.", {
                 variant: "success",
               });
@@ -228,6 +245,11 @@ const Detail = () => {
               });
             }
           });
+      // .catch((err) =>
+      //   err.data?.status === 401 ? navigate("/login") : console.log(err)
+      // );
+    } catch (err) {
+      console.log("catch", err);
     }
   };
 

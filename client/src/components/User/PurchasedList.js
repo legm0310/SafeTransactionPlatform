@@ -2,7 +2,12 @@ import { Fragment, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import ReleaseReciept from "../Receipt/ReleaseReceipt";
-import { useSDK, useContract, useAddress } from "@thirdweb-dev/react";
+import {
+  useSDK,
+  useContract,
+  useAddress,
+  useNetworkMismatch,
+} from "@thirdweb-dev/react";
 import { getCompleteEvents } from "../../contract/getEvents";
 import { getBatchProducts, getProducts } from "../../_actions/productAction";
 
@@ -15,6 +20,7 @@ const PurchasedList = () => {
   const sdk = useSDK();
   const { contract } = useContract(contractAddress);
   const address = useAddress();
+  const isMismatched = useNetworkMismatch();
   const dispatch = useDispatch();
   const { isContractLoading } = useSelector((state) => state.ui);
   const [isLoading, setIsLoading] = useState(false);
@@ -29,8 +35,8 @@ const PurchasedList = () => {
   };
 
   const handleGetEventsLog = async () => {
-    console.log(address);
     const logs = await getCompleteEvents(sdk, "CompleteTransaction", address);
+    console.log(logs);
     const prodIdLog = logs?.map((event) => parseInt(event.data?.escrowId));
     return prodIdLog;
   };
@@ -43,7 +49,6 @@ const PurchasedList = () => {
     const prodListFromDb = products?.payload?.products || [];
     setProductList([...prodListFromDb]);
     setIsLoading(false);
-    console.log(prodListFromDb);
   };
   useEffect(() => {
     fetchCompleteProducts();
@@ -60,19 +65,14 @@ const PurchasedList = () => {
           <PropagateLoader color="#1ECFBA" />
         </div>
       ) : productList.length === 0 ? (
-        <div className={classes.notReservedList}>
-          <h2>구매진행중인 상품이 없습니다.</h2>
+        <div className={classes.notPurchasedList}>
+          <h2>구매한 상품이 없습니다.</h2>
           <p>원하는 상품을 구매해보세요!</p>
         </div>
       ) : (
         productList.map((product) => (
           <div key={product.id} className={classes.purchasedList}>
-            {product.status !== "SOLD" ? (
-              <div className={classes.notPurchasedList}>
-                <h2>구매한 상품이 없습니다.</h2>
-                <p>원하는 상품을 구매해보세요!</p>
-              </div>
-            ) : (
+            {
               <div className={classes.purchasedProductWrap} key={product.id}>
                 <div className={classes.purchasedProductImage}>
                   <img src={product.image} alt="" />
@@ -80,7 +80,9 @@ const PurchasedList = () => {
                 <div className={classes.purchasedProductInfo}>
                   <p className={classes.productCategory}>{product.category}</p>
                   <p className={classes.productName}>{product.title}</p>
-                  <p className={classes.productPrice}>{product.price}PDT</p>
+                  <p
+                    className={classes.productPrice}
+                  >{`${product.price} PDT`}</p>
                 </div>
 
                 <div className={classes.purchasedProductReceipt}>
@@ -97,7 +99,7 @@ const PurchasedList = () => {
                   onClose={handleCloseReleaseReceipt}
                 />
               </div>
-            )}
+            }
           </div>
         ))
       )}
