@@ -141,6 +141,11 @@
   .productName {
     margin-top: 10px;
   }
+
+  .btnSubmit {
+    top: 135px;
+    width: 96%;
+  }
 }
 
 @media screen and (max-width: 600px) {
