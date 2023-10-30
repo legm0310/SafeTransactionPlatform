@@ -57,8 +57,7 @@ class ProductService {
     const query = generateGetProductsQuery(params);
     const { count, rows } = await this.Product.findAndCountAll(query);
     const pages = Math.ceil(count / 12);
-    // console.log("query", query);
-    // console.log(rows);
+
     const extractedList = extractProductsList(rows);
     return { pages, prodList: extractedList };
   }
@@ -70,13 +69,14 @@ class ProductService {
     if (!products) throw new InternalServerError("Internal Server Error");
 
     const extractedList = extractProductsList(products);
-    extractedList.count = await this.Product.count({
-      where: {
-        title: { [Op.like]: `%${params.search}%` },
-        category: { [Op.like]: `${params.category}` },
-      },
-    });
-
+    if (params.search || params.category) {
+      extractedList.count = await this.Product.count({
+        where: {
+          title: { [Op.like]: `%${params.search}%` },
+          category: { [Op.like]: `${params.category}` },
+        },
+      });
+    }
     return extractedList;
   }
 
@@ -86,9 +86,15 @@ class ProductService {
       where: {
         id: { [Op.in]: prodIds },
       },
+      order: [
+        ["created_at", "DESC"],
+        ["id", "DESC"],
+      ],
     });
     if (!products) throw new InternalServerError("Internal Server Error");
-    return products;
+
+    const extractedList = extractProductsList(products);
+    return extractedList;
   }
 
   async getProductById(id) {
