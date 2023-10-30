@@ -147,6 +147,9 @@
 
   .productName {
     margin-top: 10px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
   }
 
   .btnSubmit {
@@ -169,6 +172,6 @@
 
   .purchasedProductInfo {
     margin-left: 10px;
-    width: 255px;
+    width: 170px;
   }
 }
