@@ -3,10 +3,20 @@ import { useLocation } from "react-router-dom";
 import Button from "../../components/common/Button";
 import PropTypes from "prop-types";
 import TransacDetailReceipt from "./TransacDetailReceipt";
-import TransactInfo from "./TransacInfo";
+// import TransactInfo from "./TransactInfo";
+import {
+  useSDK,
+  useContract,
+  useAddress,
+  useContractEvents,
+} from "@thirdweb-dev/react";
+import { getReceipt } from "../../contract/getEvents";
+
 import { styled, Dialog, DialogTitle, IconButton } from "@mui/material";
 import { Close as CloseIcon } from "@mui/icons-material";
 import classes from "../../styles/receipt/ReleaseReceipt.module.css";
+
+const contractAddress = process.env.REACT_APP_CONTRACT_ADDRESS;
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   "& .MuiDialog-paper": {
@@ -51,12 +61,51 @@ BootstrapDialogTitle.propTypes = {
 };
 
 const ReleaseReciept = (props) => {
+  const sdk = useSDK();
+  const { contract } = useContract(contractAddress);
+  const address = useAddress();
+
   const [activeMenu, setActiveMenu] = useState("TransacDetailReceipt");
+  const [txData, setTxData] = useState();
   const location = useLocation();
 
   const handleClose = () => {
     props.onClose();
   };
+
+  // useEffect(() => {
+  //   if (location.state && location.state.activeMenu)
+  //     setActiveMenu(location.state.activeMenu);
+  // }, [location.state]);
+  const getTxReciept = async (event) => {
+    const filter = {
+      buyer: address,
+    };
+    const logs = await getReceipt(sdk, event, filter);
+    console.log(logs, props.product.id);
+    const filteredLogs =
+      event === "EscrowDeposit"
+        ? await logs.filter((log) => {
+            return parseInt(log?.data.productId._hex) == +props.product.id;
+          })
+        : await logs.filter((log) => {
+            console.log(
+              log?.data.escrowId._hex,
+              "0x" + props.product.id.toString(16)
+            );
+            return parseInt(log?.data.escrowId._hex) == +props.product.id;
+          });
+    return filteredLogs;
+  };
+
+  useEffect(() => {
+    if (!props.open) return;
+    console.log(props.event);
+    getTxReciept(props.event).then((data) => {
+      console.log(data);
+      setTxData(data[0] || []);
+    });
+  }, [props.open]);
 
   const onMenuHandler = (menu) => {
     setActiveMenu(menu);
@@ -100,7 +149,9 @@ const ReleaseReciept = (props) => {
           className={classes.userInfoExplanation}
           style={{ overflowY: "auto" }}
         >
-          {activeMenu === "TransacDetailReceipt" && <TransacDetailReceipt />}
+          {activeMenu === "TransacDetailReceipt" && (
+            <TransacDetailReceipt txData={txData} event={props.event} />
+          )}
         </div>
       </BootstrapDialog>
     </div>

@@ -1,10 +1,10 @@
-import { Fragment } from "react";
+import { Fragment, useState } from "react";
 
 import classes from "../../styles/receipt/TransactionDetailReceipt.module.css";
 
 const TransacDetailReceipt = (props) => {
+  console.log(props);
   const tx = props.txData || {};
-  console.log(props.txData);
   const date = new Date(parseInt(tx?.data?.timestamp?._hex));
   let difference =
     Date.now() - Math.floor(parseInt(tx?.data?.timestamp?._hex) * 1000);
@@ -68,12 +68,21 @@ const TransacDetailReceipt = (props) => {
 
           <div className={classes.from}>
             <div className={classes.title}>From: </div>
-            <div className={classes.value}>{tx?.data?.buyer}</div>
+            <div className={classes.value}>
+              {props.event == "EscrowDeposit"
+                ? tx?.data?.buyer
+                : tx?.transaction?.address}
+            </div>
           </div>
 
           <div className={classes.to}>
             <div className={classes.title}>To: </div>
-            <div className={classes.value}>{tx?.transaction?.address}</div>
+            <div className={classes.value}>
+              {props.event == "EscrowDeposit"
+                ? tx?.transaction?.address
+                : tx?.data?.buyer}
+              {tx?.transaction?.address}
+            </div>
           </div>
         </div>
         <div className={classes.receiptThirdContent}>
@@ -95,7 +104,11 @@ const TransacDetailReceipt = (props) => {
         <div className={classes.receiptFurthContent}>
           <div className={classes.productNumber}>
             <div className={classes.title}>제품 번호: </div>
-            <div className={classes.value}>{parseInt(tx?.data?.productId)}</div>
+            <div className={classes.value}>
+              {props.event == "EscrowDeposit"
+                ? parseInt(tx?.data?.productId)
+                : parseInt(tx?.data?.escrowId)}
+            </div>
           </div>
 
           <div className={classes.price}>

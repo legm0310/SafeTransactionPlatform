@@ -95,6 +95,10 @@ const PurchasedList = () => {
                 <ReleaseReciept
                   open={openReleaseReciept}
                   onClose={handleCloseReleaseReceipt}
+                  product={product}
+                  event={
+                    product.release_tx ? "CompleteTransaction" : "EscrowDeposit"
+                  }
                 />
               </div>
             }

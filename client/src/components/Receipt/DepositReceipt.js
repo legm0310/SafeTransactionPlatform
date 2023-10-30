@@ -65,20 +65,7 @@ const DepositReciept = (props) => {
   const sdk = useSDK();
   const { contract } = useContract(contractAddress);
   const address = useAddress();
-  const {
-    data: eventDeposit,
-    isLoading,
-    error,
-  } = useContractEvents(contract, "EscrowDeposit", {
-    queryFilter: {
-      filters: {
-        buyer: props.address,
-        // productId: +props.productId,
-      },
-      fromBlock: 0,
-      order: "desc",
-    },
-  });
+
   const location = useLocation();
   const [activeMenu, setActiveMenu] = useState("TransacDetailReceipt");
   const [txData, setTxData] = useState();
@@ -88,20 +75,33 @@ const DepositReciept = (props) => {
     props.onClose();
   };
 
-  const getTxReciept = async () => {
+  const getTxReciept = async (event) => {
     const filter = {
-      buyer: props.address,
+      buyer: address,
     };
-    const logs = await getReceipt(sdk, "EscrowDeposit", filter);
-    const filteredLogs = await logs.filter((log) => {
-      return log?.data.productId._hex == "0x" + props.productId.toString(16);
-    });
+    const logs = await getReceipt(sdk, event, filter);
+    const filteredLogs =
+      event === "EscrowDeposit"
+        ? await logs.filter((log) => {
+            return (
+              log?.data.productId._hex == "0x" + props.product.id.toString(16)
+            );
+          })
+        : await logs.filter((log) => {
+            return (
+              log?.data.escrowId._hex == "0x" + props.product.id.toString(16)
+            );
+          });
     return filteredLogs;
   };
 
   useEffect(() => {
     if (!props.open) return;
-    getTxReciept().then((data) => setTxData(data[0] || []));
+    console.log(props.event);
+    getTxReciept(props.event).then((data) => {
+      console.log(data);
+      setTxData(data[0] || []);
+    });
   }, [props.open]);
 
   // useEffect(() => {
@@ -146,7 +146,7 @@ const DepositReciept = (props) => {
             style={{ overflowY: "auto" }}
           >
             {activeMenu === "TransacDetailReceipt" && (
-              <TransacDetailReceipt txData={txData} />
+              <TransacDetailReceipt txData={txData} event={props.event} />
             )}
           </div>
         </BootstrapDialog>

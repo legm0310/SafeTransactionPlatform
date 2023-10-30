@@ -247,9 +247,12 @@ const ReservedList = () => {
                   <DepositReceipt
                     open={openDepositReceipt}
                     onClose={handleCloseDepositReceipt}
-                    txHash={product.deposit_tx}
-                    productId={product.id}
-                    address={address}
+                    product={product}
+                    event={
+                      product.release_tx
+                        ? "CompleteTransaction"
+                        : "EscrowDeposit"
+                    }
                   />
                 </div>
               </div>
