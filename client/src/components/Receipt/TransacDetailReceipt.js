@@ -37,7 +37,7 @@ const TransacDetailReceipt = (props) => {
           <div className={classes.status}>
             <div className={classes.title}>Transaction Index: </div>
             <div className={classes.value}>
-              {tx.transaction?.transactionIndex}
+              {tx?.transaction?.transactionIndex}
             </div>
           </div>
           <div className={classes.status}>
