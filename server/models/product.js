@@ -15,11 +15,10 @@ class Product extends Sequelize.Model {
         },
         title: {
           type: Sequelize.STRING(255),
-          unique: true,
           allowNull: false,
         },
         price: {
-          type: Sequelize.INTEGER,
+          type: Sequelize.BIGINT,
           allowNull: false,
         },
         category: {
@@ -33,6 +32,26 @@ class Product extends Sequelize.Model {
         images: {
           type: Sequelize.STRING(3000),
           allowNull: false,
+        },
+        seller_wallet: {
+          type: Sequelize.STRING,
+          allowNull: false,
+        },
+        hash: {
+          type: Sequelize.STRING,
+          allowNull: true,
+        },
+        deposit_tx: {
+          type: Sequelize.STRING,
+          allowNull: true,
+        },
+        approve_tx: {
+          type: Sequelize.STRING,
+          allowNull: true,
+        },
+        release_tx: {
+          type: Sequelize.STRING,
+          allowNull: true,
         },
       },
       {

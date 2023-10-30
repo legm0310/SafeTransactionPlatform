@@ -1,6 +1,7 @@
 const { Server } = require("socket.io");
-const { createAdapter } = require("@socket.io/cluster-adapter");
+const { createAdapter } = require("@socket.io/redis-adapter");
 const { setupWorker } = require("@socket.io/sticky");
+const { redisClient } = require("../config/redis");
 const { InternalServerError } = require("../utils");
 const config = require("../config");
 
@@ -14,7 +15,7 @@ class SocketService {
     if (this.isClusterMode) {
       this.io = new Server(server, config.socketOption);
 
-      this.io.adapter(createAdapter());
+      this.io.adapter(createAdapter(redisClient, redisClient.duplicate()));
       setupWorker(this.io);
     } else {
       this.io = new Server(server, config.socketOption);

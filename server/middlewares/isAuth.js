@@ -57,7 +57,7 @@ const handleRefreshToken = async (req, res, next) => {
       }
 
       const { refreshToken } = await req.cookies;
-      console.log("cook", refreshToken);
+      console.log("refreshToken", refreshToken);
       if (refreshToken !== user.tokenData.refresh_token) {
         return console.log("🔥", Unauthorized), next(Unauthorized);
       }

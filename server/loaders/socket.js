@@ -2,19 +2,36 @@ const jwt = require("jsonwebtoken");
 const db = require("../models");
 const { Op } = require("sequelize");
 const { Container } = require("typedi");
+const config = require("../config");
+const { redisClient } = require("../config/redis");
 const { isSocketAuth } = require("../middlewares");
+const { MemoryStore, RedisStore } = require("../utils");
+
+function initStore() {
+  const isClusterMode = config.mode === "clusterMode";
+  let store;
+  if (isClusterMode) {
+    store = new RedisStore(redisClient);
+  } else {
+    store = new MemoryStore();
+  }
+  return store;
+}
 
 module.exports = (io) => {
-  const users = new Map();
+  const users = initStore();
   const chatServiceIns = Container.get("chatService");
   // io.use(isSocketAuth);
+
   io.on("connection", (socket) => {
     const userId = +socket.handshake?.query?.userId;
     const userJoinData = {
       sid: socket.id,
       activeState: null,
     };
+
     if (typeof userId !== "number") return;
+
     users.set(userId, userJoinData);
     const req = socket.request;
     const ip = req.headers["x-forwarded-for"] || req.connection.remoteAddress;
@@ -25,13 +42,12 @@ module.exports = (io) => {
       io.engine.clientsCount
     );
 
-    socket.on("disconnect", () => {
-      clearSocketAndUserMap();
-      const userId = getKeybySid(socket.id);
-      users.delete(userId);
+    socket.on("disconnect", async () => {
+      await clearSocketAndUserMap();
+      const userId = await getKeybySid(socket.id);
+      await users.delete(userId);
       console.log("disconnected", socket.id, userId);
-      setTimeout(() => {
-        console.log(users);
+      setTimeout(async () => {
         console.log(io.engine.clientsCount);
       }, 1000);
     });
@@ -49,18 +65,18 @@ module.exports = (io) => {
       console.log(socket.rooms);
     });
 
-    socket.on("getActiveRoom", (userId, callback) => {
-      const user = users.get(+userId);
+    socket.on("getActiveRoom", async (userId, callback) => {
+      const user = await users.get(+userId);
       callback(user.active);
     });
 
-    socket.on("activeRoom", (userId, roomId) => {
-      const userMap = users.get(+userId);
+    socket.on("activeRoom", async (userId, roomId) => {
+      const userMap = await users.get(+userId);
       userMap.activeState = +roomId;
       users.set(+userId, userMap);
     });
-    socket.on("DeactiveRoom", (userId) => {
-      const userMap = users.get(+userId);
+    socket.on("DeactiveRoom", async (userId) => {
+      const userMap = await users.get(+userId);
       userMap.activeState = null;
       users.set(+userId, userMap);
     });
@@ -80,12 +96,10 @@ module.exports = (io) => {
             sender_id: buyer.id,
             room_id: room.id,
           });
-
-          if (users.get(+seller.id)) {
-            await io
-              .to(users.get(+seller.id).sid)
-              .emit("onClientJoinRoom", room.id);
-            await io.to(users.get(+seller.id).sid).emit("updateSellerRoom", {
+          const receiverMap = await users.get(+seller.id);
+          if (receiverMap) {
+            await io.to(receiverMap.sid).emit("onClientJoinRoom", room.id);
+            await io.to(receiverMap.sid).emit("updateSellerRoom", {
               buyer: { id: buyer.id, name: buyer.name },
               chat: chat,
               roomId: room.id,
@@ -102,18 +116,18 @@ module.exports = (io) => {
 
     socket.on("onSend", async ({ user, receiver, roomId, chat }) => {
       // console.log(user, roomId, chat);
-      const receiverMap = users.get(+receiver.id);
+      const receiverMap = await users.get(+receiver.id);
       const allOnline = receiverMap && receiverMap.activeState === +roomId;
       console.log(allOnline, receiverMap);
 
       const joinUserCount = await chatServiceIns.findAllJoinState(1, +roomId);
+
       if (joinUserCount.length < 2) {
         await chatServiceIns.updateJoinState(null, 1, +receiver.id, +roomId);
-        if (users.get(+receiver.id)) {
-          await io
-            .to(users.get(+receiver.id).sid)
-            .emit("onClientJoinRoom", +roomId);
-          await io.to(users.get(+receiver.id).sid).emit("updateSellerRoom", {
+
+        if (receiverMap) {
+          await io.to(receiverMap.sid).emit("onClientJoinRoom", +roomId);
+          await io.to(receiverMap.sid).emit("updateSellerRoom", {
             buyer: { id: user.id, name: user.name },
             chat: chat,
             roomId: roomId,
@@ -155,20 +169,21 @@ module.exports = (io) => {
       callback(result);
     });
 
-    function getKeybySid(sid) {
-      for (let [key, value] of users.entries()) {
+    async function getKeybySid(sid) {
+      for (let [key, value] of await users.entries()) {
         if (value.sid === sid) return key;
       }
     }
 
-    function clearSocketAndUserMap() {
-      for (let [key, value] of users.entries()) {
-        if (typeof key !== "number" || isNaN(key)) {
-          const socket = io.sockets.sockets.get(users.get(+key).sid);
+    async function clearSocketAndUserMap() {
+      for (let [key, value] of await users.entries()) {
+        if (!key || isNaN(key)) {
+          const userMap = await users.get(+key).sid;
+          const socket = io.sockets.sockets.get(userMap);
           if (socket) {
             socket.disconnect();
           }
-          users.delete(key);
+          await users.delete(key);
         }
       }
     }

@@ -64,17 +64,16 @@ class UserService {
    * @param {integer} wishListData.productId - 제품 ID
    */
   async addWishList(wishListData) {
-    console.log(typeof +wishListData.userId);
     const user = await this.User.findByPk(+wishListData.userId);
     const hasWishList = await user.getWishList({
       where: { id: +wishListData.productId },
     });
-    console.log(hasWishList);
     if (hasWishList.length > 0) {
       throw new BadRequestError("Wishlist already exists");
     }
     const wishList = await user.addWishList(+wishListData.productId);
-    return wishList;
+    const wishListId = { id: wishList[0].dataValues.product_id };
+    return wishListId;
   }
 
   /** 위시리스트 GET 메소드
@@ -85,7 +84,7 @@ class UserService {
     // 스페셜 메소드를 사용하기 위해 user 정보를 갖고 옴
     const user = await this.User.findByPk(+userId); // 특정 user의 WishList product 정보를 get 해옴
     const wishList = await user.getWishList({
-      attributes: ["id", "title", "price", "images"],
+      attributes: ["id", "title", "price", "images", "category"],
       joinTableAttributes: [],
     });
     const wishProductData = extractProductsList(wishList);
@@ -104,7 +103,6 @@ class UserService {
     const hasWishList = await user.getWishList({
       where: { id: +wishListData.productId },
     });
-    console.log(hasWishList);
     if (hasWishList.length === 0) {
       throw new NotFoundError("Wishlist not found");
     }
@@ -113,7 +111,6 @@ class UserService {
   }
 
   async updateUser(id, newName, newIntroduce) {
-    // console.log("User : ", id, newName, newIntroduce);
     const updated = await this.User.update(
       { user_name: newName, introduce: newIntroduce },
       { where: { id: id } }
