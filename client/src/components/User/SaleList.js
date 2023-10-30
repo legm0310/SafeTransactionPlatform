@@ -2,22 +2,22 @@ import { Fragment, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
 import { useSDK, useContract, useAddress } from "@thirdweb-dev/react";
-
-import classes from "../../styles/user/SaleList.module.css";
-import deleteBtn from "../../assets/icon-delete.svg";
 import {
   getSearchRecentProducts,
   deleteProduct,
   onRelease,
 } from "../../_actions/productAction";
 
+import classes from "../../styles/user/SaleList.module.css";
+import deleteBtn from "../../assets/icon-delete.svg";
+import { PropagateLoader } from "react-spinners";
 import { useSnackbar, closeSnackbar, enqueueSnackbar } from "notistack";
 
 const contractAddress = process.env.REACT_APP_CONTRACT_ADDRESS;
 
 const SaleList = (props) => {
   const dispatch = useDispatch();
-  const { isContractLoading } = useSelector((state) => state.ui);
+  const { isLoading } = useSelector((state) => state.ui);
   const { userId } = useSelector((state) => state.user);
   const location = useLocation();
   const [sellingProducts, setSellingProducts] = useState([]);
@@ -35,7 +35,6 @@ const SaleList = (props) => {
     };
     dispatch(getSearchRecentProducts(filter)).then((response) => {
       setSellingProducts(response.payload?.products);
-      console.log(response.payload?.products);
     });
   };
 
@@ -141,7 +140,11 @@ const SaleList = (props) => {
 
   return (
     <Fragment>
-      {(sellingProducts || []).length == 0 ? (
+      {isLoading ? (
+        <div className={classes.propagateLoader}>
+          <PropagateLoader color="#1ECFBA" />
+        </div>
+      ) : (sellingProducts || []).length == 0 ? (
         <div className={classes.notSaleList}>
           <h2>판매중인 상품이 없습니다.</h2>
           <p>의미있는 상품을 판매해보세요!</p>
@@ -194,10 +197,10 @@ const SaleList = (props) => {
                   onClick={() => onReleaseClick(product.id)}
                   className={classes.IssuanceButton}
                 >
-                  토큰 발급
+                  토큰 수령
                 </button>
               ) : product.approve_tx && product.release_tx ? (
-                <button className={classes.issuanceCompleted}>발급 완료</button>
+                <button className={classes.issuanceCompleted}>수령 완료</button>
               ) : null}
             </div>
           </div>
