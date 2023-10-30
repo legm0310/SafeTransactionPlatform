@@ -107,39 +107,28 @@ export function getRecentProducts(dataToSubmit) {
 
 export function getSearchRecentProducts(dataToSubmit) {
   const params = { ...dataToSubmit };
-  const request = baseRequest({ params })
-    .get(`/api/products/recent`)
-    .then((response) => response.data)
-    .catch((err) => {
-      console.log(err);
-      return err.response.data;
-    });
-  return {
-    type: SEARCH_RECENT_PRODUCTS,
-    payload: request,
+  return async (dispatch) => {
+    try {
+      const res = await baseRequest({ params }).get(`/api/products/recent`);
+      console.log(res);
+      return dispatch({
+        type: SEARCH_RECENT_PRODUCTS,
+        payload: res.data || res,
+      });
+    } catch (err) {
+      return dispatch({
+        type: SEARCH_RECENT_PRODUCTS,
+        payload: err.response?.data || err,
+      });
+    } finally {
+      dispatch(setLoadings({ isLoading: false }));
+    }
   };
 }
 
-// export function getProducts(dataToSubmit) {
-//   const params = { ...dataToSubmit };
-//   console.log(params);
-//   const request = baseRequest({ params })
-//     .get(`/api/products`)
-//     .then((response) => response.data)
-//     .catch((err) => {
-//       console.log(err);
-//       return err.response.data;
-//     });
-
-//   return {
-//     type: GET_PRODUCTS,
-//     payload: request,
-//   };
-// }
 export function getProducts(dataToSubmit) {
   const params = { ...dataToSubmit };
   return async (dispatch) => {
-    console.log(params);
     await dispatch(setLoadings({ isLoading: true }));
     try {
       const request = await baseRequest({ params }).get(`/api/products`);
@@ -240,7 +229,7 @@ export function purchaseDeposit(dataToSubmit) {
         payload: err.response?.data || err,
       });
     } finally {
-      dispatch(setLoadings({ isLoading: false }));
+      dispatch(setLoadings({ isLoading: false, isContractLoading: false }));
     }
   };
 }
@@ -273,7 +262,7 @@ export function purchaseConfirm(dataToSubmit) {
         payload: err.response?.data || err,
       });
     } finally {
-      dispatch(setLoadings({ isLoading: false }));
+      dispatch(setLoadings({ isLoading: false, isContractLoading: false }));
     }
   };
 }
@@ -308,7 +297,7 @@ export function onRelease(dataToSubmit) {
         payload: err.response.data,
       });
     } finally {
-      dispatch(setLoadings({ isLoading: false }));
+      dispatch(setLoadings({ isLoading: false, isContractLoading: false }));
     }
   };
 }
