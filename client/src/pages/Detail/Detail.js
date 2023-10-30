@@ -2,14 +2,19 @@ import { Fragment, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { useSDK, useAddress } from "@thirdweb-dev/react";
+import {
+  useSDK,
+  useAddress,
+  useTokenBalance,
+  useContract,
+} from "@thirdweb-dev/react";
 import {
   addWishList,
   deleteWishList,
   getWishList,
 } from "../../_actions/userAction";
 import { setLoadings } from "../../_actions/uiAction";
-import { getProduct, purchase } from "../../_actions/productAction";
+import { getProduct, purchaseDeposit } from "../../_actions/productAction";
 import { addRoom, getRooms } from "../../_actions/chatAction";
 
 import DetailSlide from "../../components/Detail/DetailSlide";
@@ -25,35 +30,51 @@ import Loading from "../../components/common/Loading";
 import classes from "../../styles/detail/Detail.module.css";
 import { closeSnackbar, useSnackbar } from "notistack";
 
+const contractAddress = process.env.REACT_APP_CONTRACT_ADDRESS;
+
 const Detail = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { enqueueSnackbar } = useSnackbar();
   const sdk = useSDK();
+  const curAddress = useAddress();
+  const { contract } = useContract(contractAddress);
 
   const { userId, loadWishList } = useSelector((state) => state.user);
   const { productDetail } = useSelector((state) => state.product);
   const isLoading = useSelector((state) => state.ui.isLoading);
   const { productId } = useParams();
 
+  const {
+    data: tokenData,
+    isLoading: balanceLoading,
+    error: balanceError,
+  } = useTokenBalance(contract, curAddress);
+
+  const {
+    status,
+    title,
+    category,
+    price,
+    hash,
+    seller_id: sellerId,
+    seller_wallet: sellerWallet,
+    createdAt,
+  } = productDetail || {};
+
   const [activeWish, setActiveWish] = useState(false);
   const [wishCount, setWishCount] = useState(0);
 
-  const wishListId = loadWishList.map((item) => item.id);
-
-  const sellerId = productDetail?.seller_id;
-  const status = productDetail?.status;
-
   useEffect(() => {
-    dispatch(getProduct(productId));
+    dispatch(getProduct(productId)).then(() => console.log(productDetail));
   }, [dispatch, productId]);
 
   useEffect(() => {
-    if (productDetail?.wishCount) {
+    if (!isNaN(productDetail?.wishCount)) {
       setWishCount(+productDetail?.wishCount);
-      setActiveWish(wishListId.indexOf(+productId) == -1 ? false : true);
+      setActiveWish(productDetail?.wishCount ? true : false);
     }
-  }, [productDetail?.wishCount]);
+  }, [productDetail]);
 
   const handleClick = (func, comment) => {
     if (userId == undefined) {
@@ -83,31 +104,45 @@ const Detail = () => {
       });
     }
   };
+
   const onPurchaseHandler = () => {
+    if (!curAddress) {
+      return enqueueSnackbar("지갑을 연결해주세요", {
+        variant: "error",
+      });
+    }
+    if (sellerId == userId || sellerWallet == curAddress) {
+      return enqueueSnackbar("판매자와 구매자가 같습니다.", {
+        variant: "error",
+      });
+    }
+    if (+tokenData.displayValue < +price) {
+      return enqueueSnackbar("토큰 잔액이 부족합니다", {
+        variant: "error",
+      });
+    }
+    console.log(tokenData);
     handleClick(purchase, "해당 상품 구매하시겠습니까?");
   };
 
   const purchase = (key) => {
     closeSnackbar(key);
-    if (sellerId == userId) {
-      return enqueueSnackbar("판매자와 구매자가 같습니다.", {
-        variant: "error",
-      });
-    }
-    dispatch(setLoadings({ isLoading: true }));
+
     const data = {
-      productId,
-      userId,
+      prodTuple: [+productId, +price, +sellerId, sellerWallet, hash],
+      buyerId: userId,
       sdk,
     };
-
-    dispatch(purchase(data)).then((response) => {
+    enqueueSnackbar("에스크로 결제가 진행됩니다. 잠시만 기다려주세요.", {
+      variant: "success",
+    });
+    dispatch(purchaseDeposit(data)).then((response) => {
       console.log(response);
       if (response.payload.updated) {
-        enqueueSnackbar("에스크로 결제가 진행됩니다", {
+        enqueueSnackbar("구매 요청에 성공했습니다. 토큰이 예치 되었습니다.", {
           variant: "success",
         });
-        navigate("/user");
+        navigate(`/user/${userId}`);
       } else {
         return enqueueSnackbar("구매 요청에 실패했습니다.", {
           variant: "error",
@@ -185,9 +220,8 @@ const Detail = () => {
               setActiveWish(true);
               setWishCount(wishCount + 1);
             } else {
-              console.log(wishListId.indexOf(+productId));
               setActiveWish(
-                wishListId.indexOf(+productId) == -1 ? true : false
+                loadWishList.indexOf(+productId) == -1 ? true : false
               );
               enqueueSnackbar("이미 찜한 상품입니다. ", {
                 variant: "error",
@@ -213,14 +247,13 @@ const Detail = () => {
             <div className={classes.producContentWrap}>
               <div>
                 <div className={classes.category}>
-                  {productDetail?.category}
+                  <Link to={`/products/all?category=${category}`}>
+                    {category}
+                  </Link>
                 </div>
-                <div className={classes.title}>{productDetail?.title}</div>
-                <div className={classes.price}>
-                  {" "}
-                  {productDetail?.price?.toLocaleString()}
-                </div>
-                <div className={classes.time}>{productDetail?.createdAt}</div>
+                <div className={classes.title}>{title}</div>
+                <div className={classes.price}> {price?.toLocaleString()}</div>
+                <div className={classes.time}>{createdAt}</div>
               </div>
 
               <div className={classes.buttonWrap}>
@@ -259,14 +292,7 @@ const Detail = () => {
                   </Button>
                 </div>
                 {status === "SALE" ? (
-                  <Button
-                    onClick={(e) =>
-                      handleClick(
-                        onPurchaseHandler,
-                        "해당 상품 구매하시겠습니까?"
-                      )
-                    }
-                  >
+                  <Button onClick={(e) => onPurchaseHandler()}>
                     <div className={classes.productPurchaseWrap}>
                       <div className={classes.productPurchase}>
                         <IoCart />

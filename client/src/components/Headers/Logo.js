@@ -18,7 +18,7 @@ const Logo = () => {
           letterSpacing: ".2rem",
           color: "black",
           textDecoration: "none",
-          fontFamily: "GongGothicMedium",
+          fontFamily: "NanumSquareNeo-Variable",
           mr: 3,
         }}
       >
@@ -36,7 +36,7 @@ const Logo = () => {
           letterSpacing: ".2rem",
           color: "black",
           textDecoration: "none",
-          fontFamily: "GongGothicMedium",
+          fontFamily: "NanumSquareNeo-Variable",
           ml: 1,
         }}
       >

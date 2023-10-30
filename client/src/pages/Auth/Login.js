@@ -24,6 +24,10 @@ const Login = (props) => {
   const [passwordError, setPasswordError] = useState("");
   // const [showAlert, setShowAlert] = useState(false);
 
+  const handleLoginClick = () => {
+    enqueueSnackbar("현재 지원하지 않는 기능입니다.");
+  };
+
   const onEmailHandler = (event) => {
     // 이메일 유효성 체크
     const emailPattern = /^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/;
@@ -99,7 +103,7 @@ const Login = (props) => {
             noValidate
             sx={{
               px: 3,
-              marginBottom: { sx: 0, xs: "20%" },
+              marginBottom: { sx: 0, xs: "5%" },
             }}
             onSubmit={onSubmitHandler}
           >
@@ -144,7 +148,7 @@ const Login = (props) => {
                   mt: 3,
                   mb: 2,
                   backgroundColor: "#1ecfba",
-                  fontFamily: "GongGothicMedium",
+                  fontFamily: "NanumSquareNeo-Variable",
                   fontWeight: 500,
                   fontSize: 18,
                   "&:hover": { backgroundColor: "#1ecfba" },
@@ -170,12 +174,21 @@ const Login = (props) => {
               <span className={classes.after}></span>
             </div>
             <div className={classes.snsIconWrap}>
-              <a href="1" className={classes.snsIcon}>
+              <Link
+                to=""
+                className={classes.snsIcon}
+                onClick={handleLoginClick}
+              >
                 <img src={googleIcon} alt="" />
-              </a>
-              <a href="1" className={classes.snsIcon}>
+              </Link>
+
+              <Link
+                to=""
+                className={classes.snsIcon}
+                onClick={handleLoginClick}
+              >
                 <img src={kakaoIcon} alt="" />
-              </a>
+              </Link>
             </div>
           </div>
         </div>

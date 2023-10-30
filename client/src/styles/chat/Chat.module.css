@@ -1,5 +1,5 @@
 * {
-  font-family: "GongGothicMedium";
+  font-family: "NanumSquareNeo-Variable";
 }
 
 /* Chat.js */
@@ -40,6 +40,7 @@
 }
 
 .searchForm {
+  position: relative;
   padding: 10px;
 }
 
@@ -48,6 +49,15 @@
   border: none;
   outline: none;
   height: 25px;
+}
+
+.clearSearchRoomName {
+  position: absolute;
+  top: 13px;
+  right: 10px;
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
 }
 
 /* Chats.js */
@@ -151,6 +161,7 @@
 
 .chatInfo span {
   font-size: 17px;
+  color: black;
 }
 
 .chatIcons {
@@ -162,6 +173,14 @@
   height: 24px;
   width: 100%;
   cursor: pointer;
+}
+
+.goBackChatList {
+  display: none;
+}
+
+.sellerNameBtn {
+  color: black;
 }
 
 /* Messages.js */
@@ -285,4 +304,44 @@ button {
 .backButton {
   border-radius: 4px;
   background: #fe4e62;
+}
+
+@media screen and (max-width: 900px) {
+  /* chat.js */
+
+  .container {
+    width: 90%;
+    height: 90%;
+    flex-direction: column;
+  }
+
+  .chatRoomWrap {
+    min-height: 100%;
+  }
+
+  .chatInfo {
+    padding: 5px 10px;
+  }
+
+  .goBackChatList {
+    display: block;
+    font-size: 1.4rem;
+    color: black;
+    position: relative;
+    top: 2px;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  /* chat.js */
+  .ChatWrap {
+    width: 100%;
+  }
+
+  .container {
+    width: 100%;
+    height: 100%;
+    box-shadow: none;
+    flex-direction: column;
+  }
 }

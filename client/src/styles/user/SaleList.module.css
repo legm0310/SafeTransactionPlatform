@@ -1,12 +1,13 @@
-.notSaleList {
+.notSaleList,
+.notConnectWallet {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 100px;
-  margin-bottom: 100px;
+  margin: 100px auto 100px auto;
 }
 
-.notSaleList p {
+.notSaleList p,
+.notConnectWallet p {
   line-height: 18px;
   color: rgb(136, 136, 136);
   margin: 0;
@@ -14,14 +15,18 @@
 
 .saleList {
   position: relative;
-  height: 200px;
-  border-radius: 10px;
+  height: 150px;
+  border-radius: 5px;
   border: 1px solid #c4c4c4;
-  margin: 0 auto;
-  margin-top: 35px;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  place-items: center;
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+  width: 590px;
+}
+
+.saleList:nth-child(1),
+.saleList:nth-child(2) {
+  margin-top: 30px;
 }
 
 .saleProductWrap {
@@ -30,47 +35,31 @@
 }
 
 .saleProductImage {
-  width: 160px;
-  height: 160px;
-  border-radius: 10px;
-  margin-left: 100px;
+  position: relative;
+  width: 140px;
+  height: 140px;
+  margin-left: 5px;
 }
 
 .saleProductImage img {
   width: 100%;
   height: 100%;
-  border-radius: 10px;
+  border-radius: 5px;
+  object-fit: cover;
 }
 
 .saleProductInfo {
-  width: 150px;
-  margin-left: 36px;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 240px;
+  margin-left: 20px;
 }
 
 .productCategory {
+  margin: 0;
   font-size: 12px;
-  line-height: 18px;
   color: #767676;
-}
-
-.productPrice {
-  margin-left: 100px;
-  width: 108px;
-}
-
-.saleProductDetail {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.btnSubmit {
-  width: 130px;
-  height: 40px;
-  border-radius: 5px;
-  border: none;
-  line-height: 20px;
-  margin-left: 200px;
 }
 
 .saleProductRemove {
@@ -80,4 +69,178 @@
   width: 20px;
   height: 15px;
   cursor: pointer;
+}
+
+.onSaleButton {
+  position: absolute;
+  right: 40px;
+  width: 120px;
+  height: 35px;
+  border-radius: 5px;
+  border: none;
+  letter-spacing: 1px;
+  pointer-events: none;
+}
+
+.IssuanceButton {
+  position: absolute;
+  right: 40px;
+  width: 120px;
+  height: 35px;
+  border-radius: 5px;
+  border: none;
+  letter-spacing: 1px;
+}
+
+.issuanceCompleted {
+  position: absolute;
+  right: 40px;
+  width: 120px;
+  height: 35px;
+  border-radius: 5px;
+  border: none;
+  letter-spacing: 1px;
+  background: #333333;
+  pointer-events: none;
+}
+
+.receiveButton {
+  border-radius: 4px;
+  margin-right: 10px;
+}
+
+.backButton {
+  border-radius: 4px;
+  background: #fe4e62;
+}
+
+/*  */
+
+.productName {
+  margin: 15px 0 0 0;
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgb(200, 200, 200);
+  font-size: 1rem;
+  color: black;
+}
+
+.productPrice {
+  margin-top: 20px;
+  color: black;
+}
+
+.reserved {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 4px;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.reserved h2 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  margin-top: 44%;
+}
+
+@media screen and (max-width: 1200px) {
+  .saleList {
+    width: 440px;
+    height: 200px;
+    align-items: flex-start;
+  }
+
+  .saleProductWrap {
+    margin-top: 5px;
+  }
+
+  .saleProductInfo {
+    width: 220px;
+  }
+
+  .onSaleButton {
+    top: 155px;
+    right: 7.5px;
+    width: 97%;
+  }
+
+  .IssuanceButton {
+    top: 155px;
+    right: 7.5px;
+    width: 97%;
+  }
+
+  .issuanceCompleted {
+    top: 155px;
+    right: 7.5px;
+    width: 97%;
+  }
+}
+
+@media screen and (max-width: 900px) {
+  .saleList {
+    width: 350px;
+    height: 175px;
+  }
+
+  .saleProductInfo {
+    width: 150px;
+  }
+
+  .saleProductImage {
+    width: 125px;
+    height: 125px;
+  }
+
+  .productName {
+    margin-top: 10px;
+  }
+
+  .onSaleButton {
+    top: 135px;
+    width: 96%;
+  }
+
+  .IssuanceButton {
+    top: 135px;
+    width: 96%;
+  }
+
+  .issuanceCompleted {
+    top: 135px;
+    width: 96%;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .saleList,
+  .saleList:nth-child(1),
+  .saleList:nth-child(2) {
+    margin-top: 15px;
+    width: 100%;
+  }
+
+  .saleList {
+    width: 100%;
+  }
+
+  .saleProductInfo {
+    margin-left: 10px;
+  }
+
+  .productName {
+    border: none;
+  }
+
+  .IssuanceButton {
+    width: 97%;
+  }
+
+  .issuanceCompleted {
+    width: 97%;
+  }
 }

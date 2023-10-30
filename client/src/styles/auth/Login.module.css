@@ -2,9 +2,12 @@
   display: flex;
   justify-content: center;
   margin: 100px auto;
+  margin-bottom: 0px;
+  margin-top: -100px;
 }
 
 .container {
+  margin-top: 200px;
   width: 640px;
   padding: 20px 10px;
   box-shadow: rgba(0, 0, 0, 0.1) 0px 6px 50px 0px;
@@ -203,6 +206,7 @@ input[type="password"]:focus {
   }
 
   .container {
+    margin: 0;
     width: 100%;
     padding: 0;
     height: 100%;

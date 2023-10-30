@@ -6,6 +6,7 @@ import RecentProductsList from "../../components/Product/RecentProducts";
 
 import classes from "../../styles/home/Home.module.css";
 import mainImg from "../../assets/mainImg.png";
+import bannerImg from "../../assets/homeBannerImg.png";
 
 const Home = (props) => {
   const [text] = useTypewriter({
@@ -32,7 +33,7 @@ const Home = (props) => {
               <div className={classes.typingBottom}>
                 <span>블록체인을 활용해 보다 안전하게!</span>
               </div>
-              <div className={classes.IntroButton}>
+              <div className={classes.introButton}>
                 <Link to="/banner">
                   <button>서비스 더 알아보기</button>
                 </Link>
@@ -45,8 +46,9 @@ const Home = (props) => {
           </div>
         </section>
 
-        <section className={classes.ImgslideWrap}>
+        <section className={classes.imgslideWrap}>
           <Slide />
+          <img src={bannerImg} alt="" className={classes.bannerImg} />
         </section>
 
         <section className={classes.latesProductWrap}>

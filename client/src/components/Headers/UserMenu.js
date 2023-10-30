@@ -115,22 +115,25 @@ const UserSection = (props) => {
     >
       <Link to={`/user/${userId}`}>
         <MenuItem onClick={onMenuClose} sx={{ color: "black" }}>
-          <AccountCircle sx={{ fontSize: 20, mr: "4px", color: "#1ecfba" }} />
+          <AccountCircle
+            sx={{
+              fontSize: 20,
+              mr: "4px",
+              color: "#1ecfba",
+              fontFamily: "NanumSquareNeo-Variable",
+            }}
+          />
           내정보
         </MenuItem>
       </Link>
-
-      <MenuItem sx={{ color: "black" }} onClick={onWishListOpen}>
-        <FavoriteIcon sx={{ fontSize: 20, mr: "4px", color: "#1ecfba" }} />
-        <Typography>찜목록</Typography>
-      </MenuItem>
-
       <MenuItem
         className={classes.logout}
         onClick={onLogoutHandler}
-        sx={{ borderTop: "2px solid gray", paddingBottom: 0 }}
+        sx={{ borderTop: "1px solid gray", paddingBottom: 0 }}
       >
-        <Typography sx={{ mx: "auto" }}>로그아웃</Typography>
+        <Typography sx={{ mx: "auto", fontFamily: "NanumSquareNeo-Variable" }}>
+          로그아웃
+        </Typography>
       </MenuItem>
     </Menu>
   );
@@ -178,7 +181,9 @@ const UserSection = (props) => {
             <Badge badgeContent={unreadTotalCount} color="error">
               <ChatBubbleOutlineOutlinedIcon sx={{ fontSize: 30 }} />
             </Badge>
-            <Typography>판다톡</Typography>
+            <Typography sx={{ fontFamily: "NanumSquareNeo-Variable" }}>
+              판다톡
+            </Typography>
           </IconButton>
         </Tooltip>
 
@@ -220,7 +225,9 @@ const UserSection = (props) => {
             <Badge badgeContent={loadWishList?.length} color="error">
               <FavoriteBorderOutlinedIcon sx={{ fontSize: 30 }} />
             </Badge>
-            <Typography>찜목록</Typography>
+            <Typography sx={{ fontFamily: "NanumSquareNeo-Variable" }}>
+              찜목록
+            </Typography>
           </IconButton>
         </Tooltip>
 
@@ -247,7 +254,9 @@ const UserSection = (props) => {
           onClick={handleOpenWallet}
         >
           <WalletOutlinedIcon sx={{ fontSize: 30 }} />
-          <Typography>내지갑</Typography>
+          <Typography sx={{ fontFamily: "NanumSquareNeo-Variable" }}>
+            내지갑
+          </Typography>
         </IconButton>
         <MyWallet open={openWallet} onClose={handleCloseWallet} />
 
@@ -264,7 +273,7 @@ const UserSection = (props) => {
           }}
         >
           <AccountCircle sx={{ fontSize: 30 }} />
-          <Typography>
+          <Typography sx={{ fontFamily: "NanumSquareNeo-Variable" }}>
             {authCheck?.userData?.user_name.length > 3
               ? `${authCheck.userData?.user_name.slice(0, 2)}..`
               : authCheck?.userData?.user_name}{" "}
