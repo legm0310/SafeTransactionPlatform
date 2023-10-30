@@ -194,10 +194,10 @@ const SaleList = (props) => {
                   onClick={() => onReleaseClick(product.id)}
                   className={classes.IssuanceButton}
                 >
-                  토큰 발급
+                  토큰 수령
                 </button>
               ) : product.approve_tx && product.release_tx ? (
-                <button className={classes.issuanceCompleted}>발급 완료</button>
+                <button className={classes.issuanceCompleted}>수령 완료</button>
               ) : null}
             </div>
           </div>
