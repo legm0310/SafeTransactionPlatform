@@ -36,6 +36,7 @@ const PurchasedList = () => {
   };
 
   const fetchCompleteProducts = async () => {
+    if (!address) return;
     setIsLoading(true);
     const productIds = await handleGetEventsLog();
     const products = await dispatch(getBatchProducts({ productIds }));
