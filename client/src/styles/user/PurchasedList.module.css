@@ -104,6 +104,8 @@
 @media screen and (max-width: 1200px) {
   .purchasedList {
     width: 440px;
+    height: 200px;
+    align-items: flex-start;
   }
 
   .purchasedProductInfo {
@@ -115,18 +117,16 @@
   }
 
   .btnSubmit {
-    right: 5px;
-    bottom: 5px;
-    height: 30px;
-    padding: 3px;
-    width: 100px;
+    top: 155px;
+    right: 6px;
+    width: 97%;
   }
 }
 
 @media screen and (max-width: 900px) {
   .purchasedList {
     width: 350px;
-    height: 135px;
+    height: 175px;
   }
 
   .purchasedProductInfo {
@@ -140,11 +140,15 @@
 
   .productName {
     margin-top: 10px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    width: 150px;
   }
 
   .btnSubmit {
     top: 135px;
-    width: 96%;
+    width: 97%;
   }
 }
 
