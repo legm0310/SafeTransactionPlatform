@@ -3,11 +3,11 @@ import { Fragment } from "react";
 import classes from "../../styles/receipt/TransactionDetailReceipt.module.css";
 
 const TransacDetailReceipt = (props) => {
-  const tx = props.txData || undefined;
-  console.log(tx);
-  const date = new Date(parseInt(tx?.data.timestamp._hex));
+  const tx = props.txData || {};
+  console.log(props.txData);
+  const date = new Date(parseInt(tx?.data?.timestamp?._hex));
   let difference =
-    Date.now() - Math.floor(parseInt(tx?.data.timestamp._hex) * 1000);
+    Date.now() - Math.floor(parseInt(tx?.data?.timestamp?._hex) * 1000);
   let seconds = Math.floor(difference / 1000);
   let minutes = Math.floor(seconds / 60);
   let hours = Math.floor(minutes / 60);
@@ -27,9 +27,9 @@ const TransacDetailReceipt = (props) => {
             <div className={classes.title}>Transaction Hash: </div>
             <div className={classes.value}>
               <a
-                href={`https://sepolia.etherscan.io/tx/${tx?.transaction.transactionHash}`}
+                href={`https://sepolia.etherscan.io/tx/${tx?.transaction?.transactionHash}`}
               >
-                {tx?.transaction.transactionHash}
+                {tx?.transaction?.transactionHash}
               </a>
             </div>
           </div>
@@ -68,7 +68,7 @@ const TransacDetailReceipt = (props) => {
 
           <div className={classes.from}>
             <div className={classes.title}>From: </div>
-            <div className={classes.value}>{tx?.data.buyer}</div>
+            <div className={classes.value}>{tx?.data?.buyer}</div>
           </div>
 
           <div className={classes.to}>
@@ -95,21 +95,23 @@ const TransacDetailReceipt = (props) => {
         <div className={classes.receiptFurthContent}>
           <div className={classes.productNumber}>
             <div className={classes.title}>제품 번호: </div>
-            <div className={classes.value}>{parseInt(tx?.data.productId)}</div>
+            <div className={classes.value}>{parseInt(tx?.data?.productId)}</div>
           </div>
 
           <div className={classes.price}>
             <div className={classes.title}>가격: </div>
-            <div className={classes.value}>{parseInt(tx?.data.amount)} PDT</div>
+            <div className={classes.value}>
+              {parseInt(tx?.data?.amount)} PDT
+            </div>
           </div>
 
           <div className={classes.sellerNumber}>
             <div className={classes.title}>구매자 지갑 주소: </div>
-            <div className={classes.value}>{tx?.data.buyer}</div>
+            <div className={classes.value}>{tx?.data?.buyer}</div>
           </div>
           <div className={classes.sellerNumber}>
             <div className={classes.title}>판매자 지갑 주소: </div>
-            <div className={classes.value}>{tx?.data.seller}</div>
+            <div className={classes.value}>{tx?.data?.seller}</div>
           </div>
         </div>
       </div>
