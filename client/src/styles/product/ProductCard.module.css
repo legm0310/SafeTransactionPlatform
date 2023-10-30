@@ -65,6 +65,7 @@
   margin-bottom: 10px;
   text-overflow: ellipsis;
   white-space: nowrap;
+  overflow: hidden;
   color: rgb(136, 136, 136);
   font-size: 18px;
 }
@@ -168,12 +169,14 @@
     margin: 0;
   }
   .prodCard {
-    width: 47%;
+    width: 47.5%;
     margin: 0;
   }
 
   .imgBox {
     width: 100%;
+    height: auto;
+    aspect-ratio: 1 / 1;
   }
 
   .prodImg {
@@ -183,6 +186,10 @@
   .reserved {
     width: 100%;
     height: 98.1%;
+  }
+
+  .prodInfo {
+    padding: 3px 2px 10px;
   }
 
   .prodName {
