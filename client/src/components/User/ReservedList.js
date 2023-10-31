@@ -40,17 +40,20 @@ const ReservedList = () => {
   const [productsList, setProductsList] = useState([]);
   const [displayMore, setDisplayMore] = useState(true);
   const [openDepositReceipt, setOpenDepositReceipt] = useState(false);
+  const [receipt, setReceipt] = useState(null);
   const { enqueueSnackbar } = useSnackbar();
   const sdk = useSDK();
   const { contract } = useContract(contractAddress);
   const address = useAddress();
   const isMismatched = useNetworkMismatch();
 
-  const handleOpenDepositReceipt = () => {
+  const handleOpenDepositReceipt = (product) => {
+    setReceipt(product);
     setOpenDepositReceipt(true);
   };
 
   const handleCloseDepositReceipt = () => {
+    setReceipt(null);
     setOpenDepositReceipt(false);
   };
 
@@ -138,7 +141,7 @@ const ReservedList = () => {
         getDepositedProducts({ productIds: prodIdLog, lastId: lastProdId })
       );
       const prodListFromDb = res.payload.products ?? [];
-      setProductsList([...prodListFromDb]);
+      setProductsList([...prodListFromDb].filter((prod) => !prod.release_tx));
       console.log(prodListFromDb);
       setIsLoading(false);
     } catch (err) {
@@ -231,7 +234,7 @@ const ReservedList = () => {
                       )}
 
                       <button
-                        onClick={handleOpenDepositReceipt}
+                        onClick={() => handleOpenDepositReceipt()}
                         className={classes.receiptbtn}
                       >
                         구매진행내역
@@ -246,16 +249,18 @@ const ReservedList = () => {
                     />
                   </div>
 
-                  {/* <DepositReceipt
-                    open={openDepositReceipt}
-                    onClose={handleCloseDepositReceipt}
-                    product={product}
-                    event={
-                      product.release_tx
-                        ? "CompleteTransaction"
-                        : "EscrowDeposit"
-                    }
-                  /> */}
+                  {openDepositReceipt && (
+                    <DepositReceipt
+                      open={openDepositReceipt}
+                      onClose={handleCloseDepositReceipt}
+                      product={product}
+                      event={
+                        product.release_tx
+                          ? "CompleteTransaction"
+                          : "EscrowDeposit"
+                      }
+                    />
+                  )}
                 </div>
               </div>
             );
