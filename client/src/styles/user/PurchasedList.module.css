@@ -102,6 +102,13 @@
   right: 40px;
 }
 
+.propagateLoader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 100px auto 100px auto;
+}
+
 @media screen and (max-width: 1200px) {
   .purchasedList {
     width: 440px;

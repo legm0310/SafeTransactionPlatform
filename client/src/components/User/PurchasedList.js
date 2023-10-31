@@ -46,6 +46,7 @@ const PurchasedList = () => {
   };
 
   const fetchCompleteProducts = async () => {
+    setIsLoading(true);
     const productIds = await handleGetEventsLog();
     const products = await dispatch(getBatchProducts({ productIds }));
     const prodListFromDb = products?.payload?.products || [];
