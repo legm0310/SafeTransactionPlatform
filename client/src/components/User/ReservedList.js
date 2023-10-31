@@ -83,7 +83,9 @@ const ReservedList = () => {
   const handleGetEventsLog = async () => {
     const log = await getEscrowCreateEvents(sdk, "EscrowDeposit", address);
     console.log(log);
-    const prodIdLog = log?.map((event) => parseInt(event.data?.productId));
+    const prodIdLog = (log || []).map((event) =>
+      parseInt(event.data?.productId)
+    );
     return prodIdLog;
   }; // map 에러로 인한 임시 주석처리
 
@@ -178,8 +180,8 @@ const ReservedList = () => {
           console.log(product);
           if (!product.release_tx) {
             return (
-              <div className={classes.reservedList}>
-                <div key={product.id} className={classes.reservedProductWrap}>
+              <div key={product.id} className={classes.reservedList}>
+                <div className={classes.reservedProductWrap}>
                   <div className={classes.reservedProductImage}>
                     <img src={product.image} alt="" />
                   </div>
@@ -244,7 +246,7 @@ const ReservedList = () => {
                     />
                   </div>
 
-                  <DepositReceipt
+                  {/* <DepositReceipt
                     open={openDepositReceipt}
                     onClose={handleCloseDepositReceipt}
                     product={product}
@@ -253,7 +255,7 @@ const ReservedList = () => {
                         ? "CompleteTransaction"
                         : "EscrowDeposit"
                     }
-                  />
+                  /> */}
                 </div>
               </div>
             );
