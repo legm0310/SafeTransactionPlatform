@@ -109,13 +109,10 @@ class ProductService {
     const productData = product.toJSON();
     productData.images = productData.images.split(",");
 
-    const wishList = await product.getWishList({
-      where: { id: userId },
-      include: [],
-      raw: true,
-    });
+    const wishList = await product.getWishList({ raw: true });
 
-    const hasWishList = (wishList || []).length > 0 ? true : false;
+    const hasWishList =
+      ((wishList || []).find((user) => user.id == userId) && true) ?? false;
     productData.seller_name = productData.user?.user_name;
     productData.wishCount = wishList.length;
     productData.hasWishList = hasWishList;
