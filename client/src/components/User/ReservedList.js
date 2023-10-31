@@ -138,7 +138,7 @@ const ReservedList = () => {
         getDepositedProducts({ productIds: prodIdLog, lastId: lastProdId })
       );
       const prodListFromDb = res.payload.products ?? [];
-      setProductsList([...prodListFromDb]);
+      setProductsList([...prodListFromDb].filter((prod) => !prod.release_tx));
       console.log(prodListFromDb);
       setIsLoading(false);
     } catch (err) {
