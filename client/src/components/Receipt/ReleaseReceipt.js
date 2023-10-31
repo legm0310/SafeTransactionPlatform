@@ -66,56 +66,41 @@ const ReleaseReciept = (props) => {
   const address = useAddress();
 
   const [activeMenu, setActiveMenu] = useState("TransacDetailReceipt");
-  const [txData, setTxData] = useState();
+  const [txData, setTxData] = useState(null);
   const location = useLocation();
 
   const handleClose = () => {
     props.onClose();
   };
 
-  // useEffect(() => {
-  //   if (location.state && location.state.activeMenu)
-  //     setActiveMenu(location.state.activeMenu);
-  // }, [location.state]);
   const getTxReciept = async (event) => {
     const filter = {
       buyer: address,
     };
     const logs = await getReceipt(sdk, event, filter);
-    console.log(logs, props.product.id);
     const filteredLogs =
       event === "EscrowDeposit"
         ? await logs.filter((log) => {
+            console.log(log);
             return parseInt(log?.data.productId._hex) == +props.product.id;
           })
-        : await logs.filter((log) => {
-            console.log(
-              log?.data.escrowId._hex,
-              "0x" + props.product.id.toString(16)
-            );
-            return parseInt(log?.data.escrowId._hex) == +props.product.id;
-          });
+        : await logs.filter(
+            (log) => parseInt(log?.data.escrowId._hex) == +props.product.id
+          );
+
     return filteredLogs;
   };
 
   useEffect(() => {
-    if (!props.open) return;
-    console.log(props.event);
+    console.log(props.product);
     getTxReciept(props.event).then((data) => {
-      console.log(data);
       setTxData(data[0] || []);
     });
-  }, [props.open]);
+  }, []);
 
   const onMenuHandler = (menu) => {
     setActiveMenu(menu);
   };
-
-  // useEffect(() => {
-  //   if (location.state && location.state.activeMenu) {
-  //     setActiveMenu(location.state.activeMenu);
-  //   }
-  // }, [location.state]);
 
   return (
     <div>

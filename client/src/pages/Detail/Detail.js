@@ -75,7 +75,7 @@ const Detail = () => {
   useEffect(() => {
     if (!isNaN(productDetail?.wishCount)) {
       setWishCount(+productDetail?.wishCount);
-      setActiveWish(productDetail?.wishCount ? true : false);
+      setActiveWish(productDetail?.hasWishList ? true : false);
     }
   }, [productDetail]);
 

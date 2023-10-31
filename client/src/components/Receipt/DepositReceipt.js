@@ -83,31 +83,20 @@ const DepositReciept = (props) => {
     const filteredLogs =
       event === "EscrowDeposit"
         ? await logs.filter((log) => {
-            return (
-              log?.data.productId._hex == "0x" + props.product.id.toString(16)
-            );
+            return parseInt(log?.data.productId._hex) == +props.product.id;
           })
-        : await logs.filter((log) => {
-            return (
-              log?.data.escrowId._hex == "0x" + props.product.id.toString(16)
-            );
-          });
+        : await logs.filter(
+            (log) => parseInt(log?.data.escrowId._hex) == +props.product.id
+          );
     return filteredLogs;
   };
 
   useEffect(() => {
-    if (!props.open) return;
-    console.log(props.event);
+    console.log(props.product);
     getTxReciept(props.event).then((data) => {
-      console.log(data);
       setTxData(data[0] || []);
     });
-  }, [props.open]);
-
-  // useEffect(() => {
-  //   if (location.state && location.state.activeMenu)
-  //     setActiveMenu(location.state.activeMenu);
-  // }, [location.state]);
+  }, []);
 
   const onMenuHandler = (menu) => {
     setActiveMenu(menu);

@@ -26,12 +26,15 @@ const PurchasedList = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [productList, setProductList] = useState([]);
   const [openReleaseReciept, setOpenReleaseReciept] = useState(false);
+  const [receipt, setReceipt] = useState(null);
 
-  const handleOpenReleaseReceipt = () => {
+  const handleOpenReleaseReceipt = (product) => {
+    setReceipt(product);
     setOpenReleaseReciept(true);
   };
 
   const handleCloseReleaseReceipt = () => {
+    setReceipt(null);
     setOpenReleaseReciept(false);
   };
 
@@ -43,6 +46,7 @@ const PurchasedList = () => {
   };
 
   const fetchCompleteProducts = async () => {
+    setIsLoading(true);
     const productIds = await handleGetEventsLog();
     const products = await dispatch(getBatchProducts({ productIds }));
     const prodListFromDb = products?.payload?.products || [];
@@ -84,22 +88,24 @@ const PurchasedList = () => {
                     className={classes.productPrice}
                   >{`${product.price} PDT`}</p>
                 </div>
-
                 <button
-                  onClick={handleOpenReleaseReceipt}
+                  onClick={() => handleOpenReleaseReceipt(product)}
                   className={classes.btnSubmit}
                 >
                   거래내역
                 </button>
-
-                <ReleaseReciept
-                  open={openReleaseReciept}
-                  onClose={handleCloseReleaseReceipt}
-                  product={product}
-                  event={
-                    product.release_tx ? "CompleteTransaction" : "EscrowDeposit"
-                  }
-                />
+                {openReleaseReciept && (
+                  <ReleaseReciept
+                    open={openReleaseReciept}
+                    onClose={handleCloseReleaseReceipt}
+                    product={receipt}
+                    event={
+                      product.release_tx
+                        ? "CompleteTransaction"
+                        : "EscrowDeposit"
+                    }
+                  />
+                )}
               </div>
             }
           </div>
