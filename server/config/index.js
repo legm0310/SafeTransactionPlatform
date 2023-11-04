@@ -70,6 +70,10 @@ module.exports = {
     },
   },
 
+  contractAddress: process.env.CONTRACT_ADDRESS,
+  infuraApiKey: process.env.INFURA_API_KEY,
+  api: require("./api"),
+
   //cors (production 환경에서만 사용)
   cors: {
     origin: process.env.CORS_ORIGIN.split(","),
