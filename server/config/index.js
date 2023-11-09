@@ -72,7 +72,7 @@ module.exports = {
 
   contractAddress: process.env.CONTRACT_ADDRESS,
   infuraApiKey: process.env.INFURA_API_KEY,
-  api: require("./api"),
+  abi: require("./abi"),
 
   //cors (production 환경에서만 사용)
   cors: {
