@@ -6,7 +6,7 @@ import {
   localWallet,
   magicLink,
 } from "@thirdweb-dev/react";
-import { Sepolia } from "@thirdweb-dev/chains";
+import { Sepolia, Mumbai } from "@thirdweb-dev/chains";
 
 const sdkOptions = {
   gasSettings: {
@@ -45,4 +45,4 @@ const supportedWallets = [
   // coinbaseConfig,
 ];
 
-export { Sepolia, supportedWallets, sdkOptions };
+export { Mumbai, Sepolia, supportedWallets, sdkOptions };
