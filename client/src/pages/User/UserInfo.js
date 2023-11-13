@@ -1,5 +1,5 @@
 import React, { Fragment, useState, useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useParams } from "react-router-dom";
 import Button from "../../components/common/Button";
 import SaleList from "../../components/User/SaleList";
@@ -7,6 +7,7 @@ import ReservedList from "../../components/User/ReservedList";
 import PurchasedList from "../../components/User/PurchasedList";
 import WishList from "../../components/User/WishList";
 import UserProfile from "../../components/User/UserProfile";
+import { getUser } from "../../_actions/userAction";
 
 import classes from "../../styles/user/UserInfo.module.css";
 
@@ -15,12 +16,14 @@ const UserInfo = () => {
 
   const { id } = useParams();
   const location = useLocation();
+  const dispatch = useDispatch();
   const { loadWishList, userId } = useSelector((state) => state.user);
-  
+
   useEffect(() => {
     if (location.state && location.state.activeMenu)
       setActiveMenu(location.state.activeMenu);
-  }, [location.state, id]);
+    dispatch(getUser(id));
+  }, [dispatch, location.state, id]);
 
   const onMenuHandler = (menu) => {
     setActiveMenu(menu);

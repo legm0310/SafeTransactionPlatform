@@ -1,5 +1,5 @@
 import { Fragment, useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import ReleaseReciept from "../Receipt/ReleaseReceipt";
 import {
@@ -10,17 +10,18 @@ import {
 } from "@thirdweb-dev/react";
 import { getCompleteEvents } from "../../contract/getEvents";
 import { getBatchProducts } from "../../_actions/productAction";
+import { logout } from "../../_actions/userAction";
 
 import classes from "../../styles/user/PurchasedList.module.css";
 import { PropagateLoader } from "react-spinners";
 
 const contractAddress = process.env.REACT_APP_CONTRACT_ADDRESS;
-
 const PurchasedList = () => {
   const sdk = useSDK();
   const { contract } = useContract(contractAddress);
   const address = useAddress();
   const isMismatched = useNetworkMismatch();
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const { isContractLoading } = useSelector((state) => state.ui);
   const [isLoading, setIsLoading] = useState(false);
@@ -49,6 +50,10 @@ const PurchasedList = () => {
     setIsLoading(true);
     const productIds = await handleGetEventsLog();
     const products = await dispatch(getBatchProducts({ productIds }));
+    if (products.payload && products.payload.code === 401) {
+      dispatch(logout());
+      return navigate("/login");
+    }
     const prodListFromDb = products?.payload?.products || [];
     setProductList([...prodListFromDb]);
     setIsLoading(false);

@@ -5,6 +5,7 @@ import {
   getDepositedProducts,
   purchaseConfirm,
 } from "../../_actions/productAction";
+import { logout } from "../../_actions/userAction";
 import { setLoadings } from "../../_actions/uiAction";
 import {
   getEventsFromWeb3js,
@@ -140,14 +141,17 @@ const ReservedList = () => {
       const res = await dispatch(
         getDepositedProducts({ productIds: prodIdLog, lastId: lastProdId })
       );
-      const prodListFromDb = res.payload.products ?? [];
+      if (res.payload && res.payload.code === 401) {
+        dispatch(logout());
+        return navigate("/login");
+      }
+      const prodListFromDb = res.payload?.products ?? [];
       setProductsList([...prodListFromDb].filter((prod) => !prod.release_tx));
       console.log(prodListFromDb);
       setIsLoading(false);
     } catch (err) {
-      return err.response?.data.code == 401
-        ? navigate("/login")
-        : console.log(err);
+      console.log(err);
+      return navigate("/login");
     }
   };
 

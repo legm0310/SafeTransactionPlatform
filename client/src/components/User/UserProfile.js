@@ -26,9 +26,9 @@ const UserProfile = () => {
   const { id } = useParams();
   const { enqueueSnackbar } = useSnackbar();
 
-  useEffect(() => {
-    dispatch(getUser(id));
-  }, [dispatch, id]);
+  // useEffect(() => {
+  //   dispatch(getUser(id));
+  // }, [dispatch, id]);
 
   const onShowNameUpdateHandler = (event) => {
     event.preventDefault();
