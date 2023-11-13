@@ -234,7 +234,7 @@ const ReservedList = () => {
                       )}
 
                       <button
-                        onClick={() => handleOpenDepositReceipt()}
+                        onClick={() => handleOpenDepositReceipt(product)}
                         className={classes.receiptbtn}
                       >
                         구매진행내역
