@@ -27,7 +27,6 @@ import {
   callOnRelease,
 } from "../contract/writeCall";
 import { setLoadings } from "./uiAction";
-import axios from "axios";
 
 export function resetStoreProduct() {
   return {
@@ -89,6 +88,30 @@ export function getDepositedProducts(dataToSubmit) {
     payload: request,
   };
 }
+
+// export function getDepositedProducts(dataToSubmit) {
+//   const { lastId, productIds } = dataToSubmit;
+//   const params = { lastId: lastId };
+//   return async (dispatch) => {
+//     try {
+//       const res = await authRequest({ params }).post(
+//         `/api/products/deposited`,
+//         productIds
+//       );
+//       return await dispatch({
+//         type: DEPOSITED_PRODUCTS,
+//         payload: res.data,
+//       });
+//     } catch (err) {
+//       console.log(err);
+//       await dispatch({
+//         type: DEPOSITED_PRODUCTS,
+//         payload: err.response?.data || err,
+//       });
+//       return err;
+//     }
+//   };
+// }
 
 export function getRecentProducts(dataToSubmit) {
   const params = { lastId: dataToSubmit };
@@ -157,7 +180,7 @@ export function getBatchProducts(dataToSubmit) {
   return async (dispatch) => {
     await dispatch(setLoadings({ isLoading: true }));
     try {
-      const res = await baseRequest({ params }).get(`/api/products/batch`);
+      const res = await authRequest({ params }).get(`/api/products/batch`);
       return dispatch({
         type: GET_BATCH_PRODUCTS,
         payload: res.data,

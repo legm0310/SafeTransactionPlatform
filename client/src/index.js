@@ -10,7 +10,12 @@ import "./index.css";
 import { ThirdwebProvider } from "@thirdweb-dev/react";
 import { SnackbarProvider } from "notistack";
 import { ThemeProvider, createTheme } from "@mui/material";
-import { Sepolia, supportedWallets, sdkOptions } from "./config/dappOptions";
+import {
+  Mumbai,
+  Sepolia,
+  supportedWallets,
+  sdkOptions,
+} from "./config/dappOptions";
 import customTheme from "./config/customTheme";
 
 const ThemedApp = () => {
